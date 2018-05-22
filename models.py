@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.urls import reverse
 
 GENDER = (('M', 'Male'),('F', 'Female'),)
 CIVIL_STATUS = (('S', 'Single'), ('M', 'Married'), ('W', 'Widowed'),)

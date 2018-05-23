@@ -1,0 +1,17 @@
+{% extends "cm_portal/base.html" %}
+
+{% block content %}
+<h1>CM Portal Home</h1>
+
+  <p>Welcome to <em>Camillus MedHaven Portal</em>, where you can store resident profiles and other related information.</p>
+
+<h2>Dynamic content</h2>
+
+  <p>The library has the following record counts:</p>
+  <ul>
+    <li><strong>Residents:</strong> {{ num_residents }}</li>
+    <li><strong>Physicians:</strong> {{ num_physicians }}</li>
+    <li><strong>Relatives:</strong> {{ num_relatives }}</li>    
+  </ul>
+
+{% endblock %}

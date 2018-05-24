@@ -1,0 +1,73 @@
+{% extends "cm_portal/base.html" %}
+
+{% block title %}<title>CM Portal | Resident Profile</title>{% endblock %}
+
+{% block content %}
+  <h1>CM Portal | Resident Profile</h1>
+  <h2>Name: {{ resident.first_name }} {{ resident.middle_name|first }} {{ resident.last_name }}</h2>
+
+  <table class="table table-sm table-hover">
+    <tr>
+      <td><strong>Reminder(s): </strong>{{ resident.summary }}</td>          
+    </tr>
+    <tr>
+      <td><strong>Diagnosis: </strong>{{ resident.admitting_diagnosis }}</td>
+      <td><strong>Diet: </strong>{{ resident.diet }}</td>
+    </tr>  
+    <tr>
+      <td><strong>Weight: </strong>{{ resident.weight }}</td>
+      <td><strong>Height: </strong>{{ resident.height }}</td>
+    </tr>      
+    <tr>
+      <td><strong>Surname: </strong>{{ resident.last_name }}</td>
+      <td><strong>First Name: </strong>{{ resident.first_name }}</td>
+      <td><strong>Middle Name: </strong>{{ resident.middle_name }}</td>    
+    </tr>
+    <tr>
+      <td><strong>Age: </strong>{{ resident.birth_date|timesince }}</td>
+      <td><strong>Sex: </strong>{% if resident.gender  == 'M' %} Male{% else %} Female{% endif%}</td>
+      <td><strong>OSCA ID #: </strong>{{ resident.osca_id }}</td>    
+    </tr>
+    <tr>
+      <td><strong>Address: </strong>{{ resident.address }}</td>    
+    </tr>
+    <tr>
+      <td><strong>Birth Date: </strong>{{ resident.birth_date }}</td>
+      <td><strong>Birth Place: </strong>{{ resident.birth_place }}</td>
+      <td><strong>Nationality: </strong>{{ resident.nationality }}</td>    
+    </tr>
+    <tr>
+      <td><strong>Civil Status: </strong>{% if resident.gender  == 'S' %}Single
+                                   {% elif resident.gender == 'M' %}Married
+                                   {% else %}Widowed
+                                   {% endif%}</td>
+      <td><strong>Most Recent Occupation: </strong>{{ resident.most_recent_occupation }}</td>    
+    </tr>
+    <tr>
+      <td><strong>Date and Time of Admission: </strong>{{ resident.date_and_time_of_arrival }}</td>
+      <td><strong>Religion: </strong>{{ resident.religion }}</td>    
+    </tr>
+  </table>  
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Contact Person(s)</h4>
+    <table class="table table-hover">
+    {% for relative in resident.relatives.all %}
+      <tr>
+        <td><strong>Name: </strong>
+        <a href="{% url 'relative-detail' relative.pk %}" >{{relative.first_name}} {{relative.middle_name }} {{ relative.last_name }}</a></td>
+        <td><strong>Relation: </strong>{{ relative.relation }}</td>
+        <td><strong>Telephone #: </strong>{{ relative.telephone }}</td>      
+      </tr>
+    {% endfor %}    
+    {% for physician in resident.physicians.all %}
+      <tr>
+        <td><strong>Physician: </strong><a href="{% url 'physician-detail' physician.pk %}" > 
+        Dr. {{ physician.first_name }} {{ physician.middle_name }} {{ physician.last_name}}</a></td>
+        <td><strong>Contact #: </strong>{{ physician.telephone }}</td>    
+        <td><strong>HOC: </strong>{{ physician.hospital_of_choice }}</td>  
+      </tr>
+    {% endfor%}
+    </table>
+  </div> 
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "cm_portal/base.html" %}
+
+{% block title %}<title>CM Portal | Resident List</title>{% endblock %}
+    
+{% block content %}
+    <h1>CM Portal | Resident List</h1>
+    
+    {% if resident_list %}
+    <ul>
+
+      {% for resident in resident_list %}
+      <li>
+        <a href="{{ resident.get_absolute_url }}">
+        {{ resident.last_name }}, {{ resident.first_name }} {{ resident.middle_name|first }}</a> 
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>There are no residents in the portal.</p>
+    {% endif %}       
+{% endblock %}

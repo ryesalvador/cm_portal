@@ -24,8 +24,9 @@
       <ul class="sidebar-nav">      
           <img src="{% static 'images/21.jpg' %}" alt="Camillus MedHaven Logo" width = "100" height = "150">          
           <li><a href="{% url 'index' %}">Home</a></li>
-          <li><a href="">All residents</a></li>
-          <li><a href="">All physicians</a></li>
+          <li><a href="{% url 'residents' %}">All residents</a></li>
+          <li><a href="{% url 'relatives' %}">All relatives</a></li>
+          <li><a href="{% url 'physicians' %}">All physicians</a></li>
       </ul>
      {% endblock %}
       </div>

@@ -1,0 +1,29 @@
+{% extends "cm_portal/base.html" %}
+
+{% block title %}<title>CM Portal | Relative List</title>{% endblock %}
+
+{% block content %}
+    <h1>CM Portal | Relative List</h1>
+
+    {% if relative_list %}
+    <ul>
+
+      {% for relative in relative_list %}
+      <li>
+        <a href="{{ relative.get_absolute_url }}">
+        {{ relative.last_name }}, {{ relative.first_name }} {{ relative.middle_name|first }}</a>
+        {% if relative.resident_set.all %}
+            {% for resident in relative.resident_set.all %}
+                ({{ relative.relation|capfirst }} of 
+                <a href="{% url 'resident-detail' resident.pk %}" >{{ resident.first_name }} {{ resident.last_name }}</a>)            
+            {% endfor %}
+        {% endif%}
+         
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>There are no relatives in the portal.</p>
+    {% endif %}       
+{% endblock %}

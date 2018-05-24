@@ -1,0 +1,21 @@
+{% extends "cm_portal/base.html" %}
+
+{% block title %}<title>CM Portal | Physician List</title>{% endblock %}
+
+{% block content %}
+    <h1>CM Portal | Physician List</h1>
+
+    {% if physician_list %}
+    <ul>
+
+      {% for physician in physician_list %}
+      <li>
+        <a href="{{ physician.get_absolute_url }}">
+        {{ physician.last_name }}, {{ physician.first_name }}, MD</a> 
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+      <p>There are no physicians in the portal.</p>
+    {% endif %}       
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "cm_portal/base.html" %}
+
+{% block title %}<title>CM Portal | Relative Profile</title>{% endblock %}
+
+{% block content %}
+  <h1>CM Portal | Relative Profile</h1> 
+  <h2>Name: {{ relative.first_name }} {{ relative.last_name }} {{ relative.name_suffix }}</h2>
+  <table class="table table-hover">    
+    <tr><td><strong>Surname: </strong>{{ relative.last_name }}</td></tr>
+    <tr><td><strong>First Name: </strong>{{ relative.first_name }}</td></tr>
+    <tr><td><strong>Middle Name: </strong>{{ relative.middle_name }}</td></tr>
+  </table>  
+  <div style="margin-left:20px;margin-top:20px">
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th><strong>Contact #</strong></th>
+            <th><strong>Address</strong></th>          
+          </tr>          
+        </thead>    
+        <tbody>          
+          <tr>
+            <td>{{ relative.telephone }}</td>
+            <td>{{ relative.address }}</td>      
+          </tr>
+        </tbody>    
+    </table>
+  </div>
+{% endblock %}

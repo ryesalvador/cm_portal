@@ -4,7 +4,10 @@
 
 {% block content %}
   <h1>CM Portal | Resident Profile</h1>
-  <h2>Name: {{ resident.first_name }} {{ resident.middle_name|first }} {{ resident.last_name }}</h2>
+  <h2>Name: {{ resident.first_name }} 
+    {% if resident.middle_name %}
+      {{ resident.middle_name|first }}.            
+    {% endif %} {{ resident.last_name }}</h2>
 
   <table class="table table-sm table-hover">
     <tr>

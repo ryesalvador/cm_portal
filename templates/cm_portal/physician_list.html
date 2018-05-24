@@ -1,9 +1,9 @@
 {% extends "cm_portal/base.html" %}
 
-{% block title %}<title>CM Portal | Physician List</title>{% endblock %}
+{% block title %}<title>CM Portal | List of Physicians</title>{% endblock %}
 
 {% block content %}
-    <h1>CM Portal | Physician List</h1>
+    <h1>CM Portal | List of Physicians</h1>
 
     {% if physician_list %}
     <ul>
@@ -11,7 +11,11 @@
       {% for physician in physician_list %}
       <li>
         <a href="{{ physician.get_absolute_url }}">
-        {{ physician.last_name }}, {{ physician.first_name }}, MD</a> 
+        {{ physician.last_name }}, {{ physician.first_name }}         
+        {% if physician.middle_name %}
+          {{ physician.middle_name|first }}.            
+        {% endif %}
+        </a> 
       </li>
       {% endfor %}
     </ul>

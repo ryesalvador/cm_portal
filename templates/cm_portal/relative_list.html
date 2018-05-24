@@ -1,9 +1,9 @@
 {% extends "cm_portal/base.html" %}
 
-{% block title %}<title>CM Portal | Relative List</title>{% endblock %}
+{% block title %}<title>CM Portal | List of Relatives</title>{% endblock %}
 
 {% block content %}
-    <h1>CM Portal | Relative List</h1>
+    <h1>CM Portal | List of Relatives</h1>
 
     {% if relative_list %}
     <ul>
@@ -11,7 +11,11 @@
       {% for relative in relative_list %}
       <li>
         <a href="{{ relative.get_absolute_url }}">
-        {{ relative.last_name }}, {{ relative.first_name }} {{ relative.middle_name|first }}</a>
+        {{ relative.last_name }}, {{ relative.first_name }}
+        {% if relative.middle_name %}
+          {{ relative.middle_name|first }}.            
+        {% endif %}        
+        </a>
         {% if relative.resident_set.all %}
             {% for resident in relative.resident_set.all %}
                 ({{ relative.relation|capfirst }} of 

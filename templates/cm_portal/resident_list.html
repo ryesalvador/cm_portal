@@ -1,9 +1,9 @@
 {% extends "cm_portal/base.html" %}
 
-{% block title %}<title>CM Portal | Resident List</title>{% endblock %}
+{% block title %}<title>CM Portal | List of Residents</title>{% endblock %}
     
 {% block content %}
-    <h1>CM Portal | Resident List</h1>
+    <h1>CM Portal | List of Residents</h1>
     
     {% if resident_list %}
     <ul>
@@ -11,7 +11,11 @@
       {% for resident in resident_list %}
       <li>
         <a href="{{ resident.get_absolute_url }}">
-        {{ resident.last_name }}, {{ resident.first_name }} {{ resident.middle_name|first }}</a> 
+        {{ resident.last_name }}, {{ resident.first_name }} 
+        {% if resident.middle_name %}
+          {{ resident.middle_name|first }}.            
+        {% endif %}        
+        </a> 
       </li>
       {% endfor %}
 

@@ -4,7 +4,11 @@
 
 {% block content %}
   <h1>CM Portal | Relative Profile</h1> 
-  <h2>Name: {{ relative.first_name }} {{ relative.last_name }} {{ relative.name_suffix }}</h2>
+  <h2>Name: {{ relative.first_name }}
+    {% if relative.middle_name %}
+      {{ relative.middle_name|first }}.            
+    {% endif %}
+    {{ relative.last_name }}</h2>
   <table class="table table-hover">    
     <tr><td><strong>Surname: </strong>{{ relative.last_name }}</td></tr>
     <tr><td><strong>First Name: </strong>{{ relative.first_name }}</td></tr>

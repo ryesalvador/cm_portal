@@ -4,7 +4,11 @@
 
 {% block content %}
   <h1>CM Portal | Physician Profile</h1> 
-  <h2>Name: Dr. {{ physician.first_name }} {{ physician.last_name }} {{ physician.name_suffix }}</h2>
+  <h2>Name: {{ physician.first_name }}
+    {% if physician.middle_name %}
+      {{ physician.middle_name|first }}.            
+    {% endif %}  
+    {{ physician.last_name }}, MD</h2>
   <table class="table table-hover">    
     <tr><td><strong>Surname: </strong>{{ physician.last_name }}</td></tr>
     <tr><td><strong>First Name: </strong>{{ physician.first_name }}</td></tr>

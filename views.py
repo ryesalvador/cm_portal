@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from .models import Resident, Physician, Relative
 from django.views import generic
+from django.contrib.auth.mixins import LoginRequiredMixin
+#from django.contrib.auth.mixins import PermissionRequiredMixin
 
 def index(request):
     num_residents = Resident.objects.all().count()
@@ -15,20 +17,20 @@ def index(request):
                 'num_relatives': num_relatives
                 })
 
-class ResidentListView(generic.ListView):
+class ResidentListView(LoginRequiredMixin, generic.ListView):
     model = Resident
 
-class ResidentDetailView(generic.DetailView):
+class ResidentDetailView(LoginRequiredMixin, generic.DetailView):
     model = Resident
 
-class PhysicianListView(generic.ListView):
+class PhysicianListView(LoginRequiredMixin, generic.ListView):
     model = Physician
 
-class PhysicianDetailView(generic.DetailView):
+class PhysicianDetailView(LoginRequiredMixin, generic.DetailView):
     model = Physician
 
-class RelativeListView(generic.ListView):
+class RelativeListView(LoginRequiredMixin, generic.ListView):
     model = Relative    
 
-class RelativeDetailView(generic.DetailView):
+class RelativeDetailView(LoginRequiredMixin, generic.DetailView):
     model = Relative

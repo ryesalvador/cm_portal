@@ -2,8 +2,22 @@ from django.db import models
 from django.conf import settings
 from django.urls import reverse
 
-GENDER = (('M', 'Male'),('F', 'Female'),)
-CIVIL_STATUS = (('S', 'Single'), ('M', 'Married'), ('W', 'Widowed'),)
+GENDER = (
+    ('M', 'Male'),
+    ('F', 'Female'),
+    )
+
+CIVIL_STATUS = (
+    ('S', 'Single'),
+    ('M', 'Married'),
+    ('W', 'Widowed'),
+    )
+
+VITAL_STATUS = (
+    ('LI', 'Living'),
+    ('DE', 'Deceased'),
+    ('DC', 'Discharged'),      
+    )
 
 class Relative(models.Model):
     first_name = models.CharField(max_length=35)
@@ -26,7 +40,7 @@ class Physician(models.Model):
     first_name = models.CharField(max_length=35)
     middle_name = models.CharField(max_length=35, blank=True)
     last_name = models.CharField(max_length=35)
-    name_suffix = models.CharField(max_length=35, blank=True)
+    specialty = models.CharField(max_length=35, blank=True)
     telephone = models.CharField(max_length=75)
     hospital_of_choice = models.TextField()
 
@@ -52,7 +66,7 @@ class Resident(models.Model):
     nationality = models.CharField(max_length=70)
     civil_status = models.CharField(max_length=1, choices=CIVIL_STATUS, blank=True)
     most_recent_occupation = models.CharField(max_length=70, blank=True)
-    date_and_time_of_arrival = models.DateTimeField(auto_now=False, null=True, blank=True)
+    date_and_time_of_admission = models.DateTimeField(auto_now=False, null=True, blank=True)
     religion = models.CharField(max_length=70)
     reminders = models.TextField(blank=True)
     advanced_directives = models.CharField(max_length=70, blank=True)
@@ -63,7 +77,13 @@ class Resident(models.Model):
     height = models.FloatField(null=True, blank=True)
     relatives = models.ManyToManyField(Relative)
     physicians = models.ManyToManyField(Physician, blank=True)
-    #user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    vital_status = models.CharField(
+        max_length=2,
+        choices=VITAL_STATUS,
+        default='LI'
+        )
+    died_on = models.DateField(auto_now=False, null=True, blank=True)
+    discharged_on = models.DateField(auto_now=False, null=True, blank=True)    
 
     class Meta:
         ordering = ["last_name","first_name"]

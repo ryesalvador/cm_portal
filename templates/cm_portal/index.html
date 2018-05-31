@@ -1,17 +1,25 @@
 {% extends "cm_portal/base.html" %}
 
+{% block title %}| Home{% endblock %}
+
+{% load static %}
+
+{% block sidebar %}    
+    <li>Services:</li>
+    <li><a href="{% url 'nursing-home-index' %}">Nursing Home</a></li>
+    <li><a href="{% url 'hris-index' %}">HRIS</a></li>    
+    <hr>
+    {% if user.is_authenticated %}
+      <li>User: {{ user.get_username }}</li>
+      <li><a href="{% url 'logout'%}">Logout</a></li>   
+    {% else %}
+      <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
+    {% endif %} 
+{% endblock %}
+     
+{% block page_title %}| Home{% endblock %}
 {% block content %}
-<h1>CM Portal | Home</h1>
-
-  <p>Welcome to <em>Camillus MedHaven Portal</em>, where you can store resident profiles and other related information.</p>
-
-<h2>Dynamic content</h2>
-
-  <p>The library has the following record counts:</p>
-  <ul>
-    <li><strong>Residents:</strong> {{ num_residents }}</li>
-    <li><strong>Physicians:</strong> {{ num_physicians }}</li>
-    <li><strong>Relatives:</strong> {{ num_relatives }}</li>    
-  </ul>
-
+  <h2>Welcome to <em>Camillus MedHaven Portal</em></h2>
+  <p>Please select one of our services from the navigation bar on the left
+  or please <a href="{% url 'login'%}?next={{request.path}}">login</a>.</p>
 {% endblock %}

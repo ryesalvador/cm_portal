@@ -1,9 +1,9 @@
-{% extends "cm_portal/base.html" %}
+{% extends "cm_portal/nursing_home_index.html" %}
 
-{% block title %}<title>CM Portal | Physician Profile</title>{% endblock %}
+{% block title %}| Physician Profile{% endblock %}
 
-{% block content %}
-  <h1>CM Portal | Physician Profile</h1> 
+{% block page_title %}| Physician Profile{% endblock %}
+{% block content %}  
   <h2>Name: {{ physician.first_name }}
     {% if physician.middle_name %}
       {{ physician.middle_name|first }}.            

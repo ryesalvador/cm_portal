@@ -1,9 +1,10 @@
-{% extends "cm_portal/base.html" %}
+{% extends "cm_portal/nursing_home_index.html" %}
 
-{% block title %}<title>CM Portal | Relative Profile</title>{% endblock %}
+{% block title %}| Relative Profile{% endblock %}
 
-{% block content %}
-  <h1>CM Portal | Relative Profile</h1> 
+{% block page_title %}| Relative Profile{% endblock %}
+
+{% block content %}  
   <h2>Name: {{ relative.first_name }}
     {% if relative.middle_name %}
       {{ relative.middle_name|first }}.            

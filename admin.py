@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Relative, Physician, Resident
+from .models import Relative, Physician, Resident, \
+     PerformanceAppraisal, EmploymentStatus, Employee, Position, Department
 
 @admin.register(Relative)
 class RelativeAdmin(admin.ModelAdmin):
@@ -47,3 +48,23 @@ class ResidentAdmin(admin.ModelAdmin):
                 'fields': ('relatives', 'physicians')
                 })
             )
+
+@admin.register(PerformanceAppraisal)
+class PerformanceAppraisalAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(EmploymentStatus)
+class EmploymentStatusAdmin(admin.ModelAdmin):
+    list_display = ('employee', 'employment_status', 'date_started', 'date_due')
+
+@admin.register(Employee)
+class EmployeeAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Position)
+class PositionAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Department)
+class DepartmentAdmin(admin.ModelAdmin):
+    pass

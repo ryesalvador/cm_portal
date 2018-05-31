@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from .models import Resident, Physician, Relative
+from .models import Resident, Physician, Relative, \
+     PerformanceAppraisal, EmploymentStatus, Employee, Position, Department
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 #from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -21,7 +22,12 @@ def nursing_home_index(request):
                       })
 
 def hris_index(request):
-    return render(request, 'cm_portal/hris_index.html')
+    num_employees = Employee.objects.all().count()
+    return render(request,
+                  'cm_portal/hris_index.html',
+                  context={
+                      'num_employees': num_employees
+                      })
 
 class ResidentListView(LoginRequiredMixin, generic.ListView):
     model = Resident

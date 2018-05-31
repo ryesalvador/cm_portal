@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.urls import reverse
+from django.utils import timezone
 
 GENDER = (
     ('M', 'Male'),
@@ -19,6 +20,31 @@ VITAL_STATUS = (
     ('DC', 'Discharged'),      
     )
 
+EMPLOYMENT_STATUS = (
+        ('C', 'Contractual'),
+        ('P', 'Probationary'),
+        ('R', 'Regular'),
+        ('W', 'Resigned'),
+        ('T', 'Terminated'),
+        )
+
+EDUCATIONAL_ATTAINMENT = (
+        ('G', 'Elementary Education'),
+        ('H', 'High School'),
+        ('U', 'Undergraduate'),
+        ('C', 'College'),
+        ('P', 'Post Graduate'),
+        )
+
+GRADE = (
+        ('P', 'Poor'),
+        ('F', 'Fair'),
+        ('G', 'Good'),
+        ('V', 'Very Good'),
+        ('E', 'Excellent'),
+        )
+
+#Nursing Home Database Models
 class Relative(models.Model):
     first_name = models.CharField(max_length=35)
     middle_name = models.CharField(max_length=35, blank=True)
@@ -93,3 +119,79 @@ class Resident(models.Model):
 
     def get_absolute_url(self):        
         return reverse('resident-detail', args=[str(self.id)])
+
+
+#Human Resource Information System Models
+class PerformanceAppraisal(models.Model):
+    employee = models.ForeignKey('Employee', on_delete=models.PROTECT, null=True)
+    evaluator = models.CharField(max_length=70)
+    evaluation_type = models.CharField(max_length=70, blank=True)
+    date = models.DateField(auto_now=False, default=timezone.now)
+    result = models.CharField(max_length=1, choices=GRADE, blank=True)
+    remarks = models.TextField(blank=True)
+
+    def __str__(self):
+        return str(self.date)
+
+    class Meta:
+        ordering = ["employee"]
+
+class EmploymentStatus(models.Model):
+    employee = models.ForeignKey('Employee', on_delete=models.PROTECT)
+    employment_status = models.CharField(max_length=1, choices=EMPLOYMENT_STATUS, default='C')
+    date_started = models.DateField(auto_now=False)
+    date_due = models.DateField(auto_now=False, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.date_started)
+
+    class Meta:
+        verbose_name_plural = "Employment statuses"
+    
+class Employee(models.Model):
+    #Name
+    first_name = models.CharField(max_length=35)
+    middle_name = models.CharField(max_length=35)
+    last_name = models.CharField(max_length=35)
+
+    #Basic info
+    gender = models.CharField(max_length=1, choices=GENDER, blank=True)
+    civil_status = models.CharField(max_length=1, choices=CIVIL_STATUS, blank=True)
+    birth_date = models.DateField(auto_now=False)
+    permanent_address = models.TextField(max_length=175)
+    educational_attainment = models.CharField(max_length=1, choices=EDUCATIONAL_ATTAINMENT, blank=True)
+
+    #Contact
+    contact_number = models.CharField(max_length=75)
+    email = models.EmailField(null=True, blank=True)
+
+    #Others
+    social_security = models.CharField(max_length=24, blank=True)
+    philhealth = models.CharField(max_length=24, blank=True)
+    pagibig = models.CharField(max_length=24, blank=True)
+    tin = models.CharField(max_length=24, blank=True)
+    
+    #Employment info
+    position = models.ForeignKey('Position', on_delete=models.PROTECT, null=True)
+    department = models.ForeignKey('Department', on_delete=models.PROTECT, null=True)    
+    #date_hired = models.DateField(auto_now=False)
+    basic_salary = models.PositiveIntegerField(null=True, blank=True)
+    monthly_salary = models.PositiveIntegerField(null=True, blank=True)
+    remarks = models.TextField(blank=True)
+
+    def __str__(self):
+        return u'{1}, {0}'.format(self.first_name, self.last_name)
+
+class Position(models.Model):
+    name = models.CharField(max_length=70)
+    job_description = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.name
+
+class Department(models.Model):
+    name = models.CharField(max_length=70)
+    description = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.name

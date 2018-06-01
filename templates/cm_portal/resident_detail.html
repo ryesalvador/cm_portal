@@ -41,8 +41,8 @@
       <td><strong>Nationality: </strong>{{ resident.nationality }}</td>    
     </tr>
     <tr>
-      <td><strong>Civil Status: </strong>{% if resident.gender  == 'S' %}Single
-                                   {% elif resident.gender == 'M' %}Married
+      <td><strong>Civil Status: </strong>{% if resident.civil_status  == 'S' %}Single
+                                   {% elif resident.civil_status == 'M' %}Married
                                    {% else %}Widowed
                                    {% endif%}</td>
       <td><strong>Most Recent Occupation: </strong>{{ resident.most_recent_occupation }}</td>    

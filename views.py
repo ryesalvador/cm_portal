@@ -46,3 +46,9 @@ class RelativeListView(LoginRequiredMixin, generic.ListView):
 
 class RelativeDetailView(LoginRequiredMixin, generic.DetailView):
     model = Relative
+
+class EmployeeListView(LoginRequiredMixin, generic.ListView):
+    model = Employee
+
+class EmployeeDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Employee

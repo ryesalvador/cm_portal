@@ -1,0 +1,54 @@
+{% extends "cm_portal/hris_index.html" %}
+
+{% block title %}| Employee Profile{% endblock %}
+
+{% block page_title %}| Employee Profile{% endblock %}
+
+{% block content %}
+  <h2>Name: {{ employee.first_name }} 
+    {% if employee.middle_name %}
+      {{ employee.middle_name|first }}.            
+    {% endif %} {{ employee.last_name }}</h2>
+    
+  <table class="table table-hover">
+    <tr>
+      <td><strong>Remarks: </strong>{{ employee.remarks }}</td>
+      <td><strong>Basic Salary: </strong>{{ employee.basic_salary }}</td>    
+    </tr>
+    <tr>
+      <td><strong>Position: </strong>{{ employee.position }}</td>
+      <td><strong>Monthly Salary: </strong>{{ employee.monthly_salary }}</td>
+    </tr>
+    
+    <tr>
+      <td><strong>Surname: </strong>{{ employee.last_name }}</td>
+      <td><strong>First Name: </strong>{{ employee.first_name }}</td>
+      <td><strong>Middle Name: </strong>{{ employee.middle_name }}</td>    
+    </tr>
+    
+    <tr>
+      <td><strong>Gender: </strong>{% if employee.gender  == 'M' %} Male{% else %} Female{% endif%}</td>
+      <td><strong>Civil Status: </strong>{% if employee.civil_status  == 'S' %}Single
+                                   {% elif employee.civil_status == 'M' %}Married
+                                   {% else %}Widowed
+                                   {% endif%}</td>
+      <td><strong>Birth Date: </strong>{{ employee.birth_date }}</td>
+    </tr>
+    <tr>
+      <td><strong>Address: </strong>{{ employee.permanent_address }}</td>
+    </tr>
+    <tr>
+      <td><strong>Contact #: </strong>{{ employee.contact_number }}</td>
+      <td><strong>Email: </strong>{{ employee.email }}</td>    
+    </tr>
+    <tr>
+      <td><strong>SSS: </strong>{{ employee.social_security }}</td>
+      <td><strong>Philhealth: </strong>{{ employee.philhealth }}</td>
+      <td><strong>Pagibig: </strong>{{ employee.pagibig }}</td>          
+    </tr>    
+    <tr>
+      <td><strong>TIN: </strong>{{ employee.tin }}</td>            
+    </tr>    
+  </table>
+  <a href="" >Edit</a>
+{% endblock %}

@@ -172,8 +172,8 @@ class Employee(models.Model):
     tin = models.CharField(max_length=24, blank=True)
     
     #Employment info
-    position = models.ForeignKey('Position', on_delete=models.PROTECT, null=True)
-    department = models.ForeignKey('Department', on_delete=models.PROTECT, null=True)    
+    position = models.ForeignKey('Position', on_delete=models.PROTECT, null=True)    
+    #department = models.ForeignKey('Department', on_delete=models.PROTECT, null=True)    
     #date_hired = models.DateField(auto_now=False)
     basic_salary = models.PositiveIntegerField(null=True, blank=True)
     monthly_salary = models.PositiveIntegerField(null=True, blank=True)
@@ -182,8 +182,12 @@ class Employee(models.Model):
     def __str__(self):
         return u'{1}, {0}'.format(self.first_name, self.last_name)
 
+    def get_absolute_url(self):        
+        return reverse('employee-detail', args=[str(self.id)])
+
 class Position(models.Model):
     name = models.CharField(max_length=70)
+    department = models.ForeignKey('Department', on_delete=models.PROTECT, null=True)    
     job_description = models.TextField(blank=True)
 
     def __str__(self):

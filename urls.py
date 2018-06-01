@@ -17,6 +17,8 @@ urlpatterns += [
 
 urlpatterns += [
     path('hris/', views.hris_index, name='hris-index'),
+    path('hris/employees/', views.EmployeeListView.as_view(), name='employees'),
+    path('hris/employee/<int:pk>', views.EmployeeDetailView.as_view(), name='employee-detail'),
 ]
 
 urlpatterns += [

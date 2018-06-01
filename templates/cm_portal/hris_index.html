@@ -6,7 +6,9 @@
 
 {% block sidebar %}
   <li><a href="{% url 'hris-index' %}">Home</a></li>
-  <li><a href="">All employees</a></li>  
+  <li><a href="{% url 'employees' %}">All employees</a></li>
+  <li><a href="#">All positions</a></li>
+  <li><a href="#">All departments</a></li>  
   <hr>
   {% if user.is_authenticated %}
     <li>User: {{ user.get_username }}</li>

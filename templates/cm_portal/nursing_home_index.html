@@ -27,9 +27,9 @@
   
     <p>The library has the following record counts:</p>
     <ul>
-      <li><strong>Residents: </strong>{{ num_residents }}</li>
-      <li><strong>Physicians: </strong>{{ num_physicians }}</li>
-      <li><strong>Relatives: </strong>{{ num_relatives }}</li>    
+      <li><strong>Residents: </strong>{{ num_residents }} <a href="{% url 'resident-create' %}">Add resident</a></li>
+      <li><strong>Physicians: </strong>{{ num_physicians }} <a href="{% url 'physician-create' %}">Add physician</a></li>
+      <li><strong>Relatives: </strong>{{ num_relatives }} <a href="{% url 'relative-create' %}">Add relative</a></li>    
     </ul>
   {% else %}
     <p>Please <a href="{% url 'login'%}?next={{request.path}}">login</a></p>

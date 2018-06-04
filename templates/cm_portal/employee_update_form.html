@@ -1,0 +1,17 @@
+{% extends "cm_portal/hris_index.html" %}
+
+{% block title %}| Update Employee{% endblock %}
+
+{% block page_title %}| Update Employee{% endblock %}
+
+{% block content %}
+
+<form action="" method="post">
+    {% csrf_token %}
+    <table>
+    {{ form.as_table }}
+    </table>
+    <input type="submit" value="Update" />
+    
+</form>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "cm_portal/nursing_home_index.html" %}
+
+{% block title %}| Update Physician{% endblock %}
+
+{% block page_title %}| Update Physician{% endblock %}
+
+{% block content %}
+
+<form action="" method="post">
+    {% csrf_token %}
+    <table>
+    {{ form.as_table }}
+    </table>
+    <input type="submit" value="Update" />
+    
+</form>
+{% endblock %}

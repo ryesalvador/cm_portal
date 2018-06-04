@@ -1,0 +1,15 @@
+{% extends "cm_portal/nursing_home_index.html" %}
+
+{% block title %}| Delete Physician{% endblock %}
+
+{% block page_title %}| Delete Physician{% endblock %}
+
+{% block content %}
+
+<p>Are you sure you want to delete {{ physician }}?</p>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <input type="submit" action="" value="Yes, delete." />
+</form>
+{% endblock %}

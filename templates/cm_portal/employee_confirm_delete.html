@@ -1,0 +1,15 @@
+{% extends "cm_portal/hris_index.html" %}
+
+{% block title %}| Delete Employee{% endblock %}
+
+{% block page_title %}| Delete Employee{% endblock %}
+
+{% block content %}
+
+<p>Are you sure you want to delete {{ employee.first_name }} {{ employee.last_name }}?</p>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <input type="submit" action="" value="Yes, delete." />
+</form>
+{% endblock %}

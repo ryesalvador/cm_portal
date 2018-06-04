@@ -49,6 +49,7 @@
     <tr>
       <td><strong>TIN: </strong>{{ employee.tin }}</td>            
     </tr>    
-  </table>
-  <a href="" >Edit</a>
+  </table>  
+  <a href="{% url 'employee-update' employee.id %}" >Edit</a> |
+  <a href="{% url 'employee-delete' employee.id %}" >Delete</a>
 {% endblock %}

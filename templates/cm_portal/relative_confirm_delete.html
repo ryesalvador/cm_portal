@@ -1,0 +1,15 @@
+{% extends "cm_portal/nursing_home_index.html" %}
+
+{% block title %}| Delete Relative{% endblock %}
+
+{% block page_title %}| Delete Relative{% endblock %}
+
+{% block content %}
+
+<p>Are you sure you want to delete {{ relative.first_name }} {{ relative.last_name }}?</p>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <input type="submit" action="" value="Yes, delete." />
+</form>
+{% endblock %}

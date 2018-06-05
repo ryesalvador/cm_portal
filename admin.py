@@ -1,10 +1,14 @@
 from django.contrib import admin
-from .models import Relative, Physician, Resident, \
+from .models import Relative, Physician, Resident, Relationship, \
      PerformanceAppraisal, EmploymentStatus, Employee, Position, Department
+
+@admin.register(Relationship)
+class RelationshipAdmin(admin.ModelAdmin):
+    pass
 
 @admin.register(Relative)
 class RelativeAdmin(admin.ModelAdmin):
-    list_display = ('last_name', 'first_name', 'relation', 'telephone')
+    list_display = ('last_name', 'first_name', 'relationship', 'telephone')
     search_fields = ('first_name', 'last_name')
     
 @admin.register(Physician)

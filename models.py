@@ -44,13 +44,22 @@ GRADE = (
         ('E', 'Excellent'),
         )
 
+class Relationship(models.Model):
+    related_to = models.ForeignKey('Resident', on_delete=models.PROTECT, null=True)
+    relation = models.CharField(max_length=35, blank=True)
+
+    def __str__(self):
+        return u'{} of {} {}'.format(self.relation.capitalize(),
+                                     self.related_to.first_name.capitalize(),
+                                     self.related_to.last_name.capitalize())
+    
 #Nursing Home Database Models
 class Relative(models.Model):
     first_name = models.CharField(max_length=35)
     middle_name = models.CharField(max_length=35, blank=True)
     last_name = models.CharField(max_length=35)
     address = models.TextField(max_length=175, blank=True)
-    relation = models.CharField(max_length=35, blank=True)
+    relationship = models.ForeignKey('Relationship', on_delete=models.PROTECT, null=True)
     telephone = models.CharField(max_length=75, blank=True)
 
     class Meta:

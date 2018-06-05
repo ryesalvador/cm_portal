@@ -18,7 +18,7 @@
         </a>
         {% if relative.resident_set.all %}
             {% for resident in relative.resident_set.all %}
-                ({{ relative.relation|capfirst }} of 
+                ({{ relative.relationship.relation|capfirst }} of 
                 <a href="{% url 'resident-detail' resident.pk %}" >{{ resident.first_name }} {{ resident.last_name }}</a>)            
             {% endfor %}
         {% endif%}

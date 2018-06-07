@@ -5,29 +5,28 @@
 {% block page_title %}| List of Relatives{% endblock %}
 
 {% block content %}
-    {% if relative_list %}
-    <ul>
-
+  <div class="jumbotron">
+  {% if relative_list %}    
+    <ul class="list-group">
       {% for relative in relative_list %}
-      <li>
-        <a href="{{ relative.get_absolute_url }}">
-        {{ relative.last_name }}, {{ relative.first_name }}
-        {% if relative.middle_name %}
-          {{ relative.middle_name|first }}.            
-        {% endif %}        
-        </a>
-        {% if relative.resident_set.all %}
+        <li class="list-group-item">
+          <a href="{{ relative.get_absolute_url }}">
+            {{ relative.last_name }}, {{ relative.first_name }}
+            {% if relative.middle_name %}
+              {{ relative.middle_name|first }}.            
+            {% endif %}        
+          </a>
+          {% if relative.resident_set.all %}
             {% for resident in relative.resident_set.all %}
-                ({{ relative.relationship.relation|capfirst }} of 
-                <a href="{% url 'resident-detail' resident.pk %}" >{{ resident.first_name }} {{ resident.last_name }}</a>)            
+              ({{ relative.relationship.relation|capfirst }} of 
+              <a href="{% url 'resident-detail' resident.pk %}" >{{ resident.first_name }} {{ resident.last_name }}</a>)            
             {% endfor %}
-        {% endif%}
-         
-      </li>
+          {% endif%}               
+        </li>
       {% endfor %}
-
     </ul>
     {% else %}
       <p>There are no relatives in the portal.</p>
-    {% endif %}       
+  </div>
+  {% endif %}  
 {% endblock %}

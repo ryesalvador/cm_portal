@@ -1,5 +1,7 @@
 from django.urls import path, include
 from . import views
+from django.contrib.auth.views import login, logout
+from .forms import LoginForm
 
 urlpatterns = [
     path('', views.index, name='index'),    
@@ -34,5 +36,7 @@ urlpatterns += [
 ]
 
 urlpatterns += [
-    path('accounts/', include('django.contrib.auth.urls')),
+    #path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/login/', login, {'template_name': 'registration/login.html', 'authentication_form': LoginForm}, name='login'),
+    path('accounts/logout/', logout),
 ]

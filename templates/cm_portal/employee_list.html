@@ -5,29 +5,22 @@
 {% block page_title %}| List of Employees{% endblock %}
 
 {% block content %}
-    {% if employee_list %}
-    <ul>
-
+  <div class="jumbotron">
+  {% if employee_list %}    
+    <ul class="list-group">
       {% for employee in employee_list %}
-      <li>
-        <a href="{{ employee.get_absolute_url }}">
-        {{ employee.last_name }}, {{ employee.first_name }}
-        {% if employee.middle_name %}
-          {{ employee.middle_name|first }}.            
-        {% endif %}        
-        </a>
-        {% if employee.resident_set.all %}
-            {% for resident in employee.resident_set.all %}
-                ({{ employee.relation|capfirst }} of 
-                <a href="{% url 'resident-detail' resident.pk %}" >{{ resident.first_name }} {{ resident.last_name }}</a>)            
-            {% endfor %}
-        {% endif%}
-         
-      </li>
+        <li class="list-group-item">
+          <a href="{{ employee.get_absolute_url }}">
+            {{ employee.last_name }}, {{ employee.first_name }}
+            {% if employee.middle_name %}
+              {{ employee.middle_name|first }}.            
+            {% endif %}        
+          </a>               
+        </li>
       {% endfor %}
-
     </ul>
     {% else %}
       <p>There are no employees in the portal.</p>
-    {% endif %}       
+  </div>
+  {% endif %}       
 {% endblock %}

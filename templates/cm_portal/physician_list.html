@@ -5,21 +5,23 @@
 {% block page_title %}| List of Physicians{% endblock %}
     
 {% block content %}
-    {% if physician_list %}
-    <ul>
 
+  <div class="jumbotron">
+  {% if physician_list %}    
+    <ul class="list-group">
       {% for physician in physician_list %}
-      <li>
-        <a href="{{ physician.get_absolute_url }}">
-        {{ physician.last_name }}, {{ physician.first_name }}         
-        {% if physician.middle_name %}
-          {{ physician.middle_name|first }}.            
-        {% endif %}
-        </a> 
-      </li>
+        <li class="list-group-item">
+          <a href="{{ physician.get_absolute_url }}">
+            {{ physician.last_name }}, {{ physician.first_name }}         
+            {% if physician.middle_name %}
+              {{ physician.middle_name|first }}.            
+            {% endif %}
+          </a>               
+        </li>
       {% endfor %}
     </ul>
     {% else %}
       <p>There are no physicians in the portal.</p>
-    {% endif %}       
+  </div>
+  {% endif %}
 {% endblock %}

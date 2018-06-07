@@ -4,13 +4,12 @@
 
 {% load static %}
 
-{% block sidebar %}    
-    <li>Services:</li>
+{% block sidebar %}  
     <li><a href="{% url 'nursing-home-index' %}">Nursing Home</a></li>
     <li><a href="{% url 'hris-index' %}">HRIS</a></li>    
     <hr>
     {% if user.is_authenticated %}
-      <li>User: {{ user.get_username }}</li>
+      <li>User: {{ user.get_username|capfirst }}</li>
       <li><a href="{% url 'logout'%}">Logout</a></li>   
     {% else %}
       <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
@@ -19,6 +18,10 @@
      
 {% block page_title %}| Home{% endblock %}
 {% block content %}
-  <h2>Welcome to <em>Camillus MedHaven Portal</em></h2>
-  <p>Please select one of our services from the side bar on the left.</p>
+        
+  <div class="jumbotron">
+  <h1>Welcome {{ user.get_username|capfirst }} to <em>Camillus MedHaven Portal!</em></h1>
+  <p>You are on your Dashboard</p>  
+  </div>
+  
 {% endblock %}

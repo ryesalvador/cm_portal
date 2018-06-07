@@ -5,33 +5,35 @@
 {% load static %}
 
 {% block sidebar %}
-  <li><a href="{% url 'hris-index' %}">Home</a></li>
+  {% if user.is_authenticated %}
+    <li><strong>User: </strong>{{ user.get_username|capfirst }}</li>
+  {% endif %}  
   <li><a href="{% url 'employees' %}">All employees</a></li>
   <li><a href="#">All positions</a></li>
   <li><a href="#">All departments</a></li>  
   <hr>
-  {% if user.is_authenticated %}
-    <li>User: {{ user.get_username }}</li>
-    <li><a href="{% url 'logout'%}">Logout</a></li>   
-  {% else %}
-    <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
-  {% endif %}
+  <li><a href="{% url 'nursing-home-index' %}">Nursing Home</a></li>
+  <li><a href="{% url 'hris-index' %}">HRIS</a></li>
 {% endblock %}
 
 {% block page_title %}| <a href="{% url 'hris-index' %}">HRIS</a>{% endblock %}
 
 {% block content %}
-  <p>Welcome to <em>Camillus MedHaven Human Resource Information System</em>, where you can store employees profiles and other related information.</p>
-
-
-
   {% if user.is_authenticated %}
-    <h2>Dynamic content</h2>
-    
-    <p>The library has the following record counts:</p>
-    <ul>
-      <li><strong>Employees:</strong> {{ num_employees }} <a href="{% url 'employee-create' %}">Add employee</a></li>            
+    <div class="jumbotron">
+      <h2>Welcome to the 
+        <em>Human Resource Information System</em>,
+        where you can store employees profiles and other related information.
+      </h2>
+      <h3>Dynamic content</h3>
+      <p>The library has the following record counts:</p>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <strong>Employees:</strong> {{ num_employees }} 
+        <a href="{% url 'employee-create' %}">Add employee</a>
+      </li>            
     </ul>
+    </div>
   {% else %}  
     <p>Please <a href="{% url 'login'%}?next={{request.path}}">login</a></p>
   {% endif %}

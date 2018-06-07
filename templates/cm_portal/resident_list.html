@@ -4,22 +4,22 @@
 
 {% block page_title %}| List of Residents{% endblock %}
 {% block content %}
-    {% if resident_list %}
-    <ul>
-
+  <div class="jumbotron">
+  {% if resident_list %}    
+    <ul class="list-group">
       {% for resident in resident_list %}
-      <li>
-        <a href="{{ resident.get_absolute_url }}">
-        {{ resident.last_name }}, {{ resident.first_name }} 
-        {% if resident.middle_name %}
-          {{ resident.middle_name|first }}.            
-        {% endif %}        
-        </a> 
-      </li>
+        <li class="list-group-item">
+          <a href="{{ resident.get_absolute_url }}">
+            {{ resident.last_name }}, {{ resident.first_name }} 
+            {% if resident.middle_name %}
+              {{ resident.middle_name|first }}.            
+            {% endif %}        
+          </a>               
+        </li>
       {% endfor %}
-
     </ul>
     {% else %}
       <p>There are no residents in the portal.</p>
-    {% endif %}       
+  </div>
+  {% endif %}      
 {% endblock %}

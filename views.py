@@ -3,13 +3,14 @@ from .models import Resident, Physician, Relative, \
      PerformanceAppraisal, EmploymentStatus, Employee, Position, Department
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
-
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def index(request):    
     return render(request, 'cm_portal/index.html')
 
+@login_required
 def nursing_home_index(request):
     num_residents = Resident.objects.all().count()
     num_physicians = Physician.objects.all().count()
@@ -23,6 +24,7 @@ def nursing_home_index(request):
                       'num_relatives': num_relatives
                       })
 
+@login_required
 def hris_index(request):
     num_employees = Employee.objects.all().count()
     return render(request,

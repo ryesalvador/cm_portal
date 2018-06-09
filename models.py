@@ -146,7 +146,7 @@ class PerformanceAppraisal(models.Model):
         ordering = ["employee"]
 
 class EmploymentStatus(models.Model):
-    employee = models.ForeignKey('Employee', on_delete=models.PROTECT)
+    employee = models.ForeignKey('Employee', on_delete=models.CASCADE)
     employment_status = models.CharField(max_length=1, choices=EMPLOYMENT_STATUS, default='C')
     date_started = models.DateField(auto_now=False)
     date_due = models.DateField(auto_now=False, null=True, blank=True)
@@ -156,7 +156,8 @@ class EmploymentStatus(models.Model):
 
     class Meta:
         verbose_name_plural = "Employment statuses"
-    
+        ordering = ["date_started"]
+        
 class Employee(models.Model):
     #Name
     first_name = models.CharField(max_length=35)

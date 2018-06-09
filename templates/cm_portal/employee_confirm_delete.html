@@ -6,10 +6,10 @@
 
 {% block content %}
 
-<p>Are you sure you want to delete {{ employee.first_name }} {{ employee.last_name }}?</p>
+<p class="text-danger">Are you sure you want to delete {{ employee.first_name }} {{ employee.last_name }}?</p>
 
 <form action="" method="POST">
   {% csrf_token %}
-  <input type="submit" action="" value="Yes, delete." />
+  <input class="btn btn-danger" type="submit" action="" value="Yes, delete." />
 </form>
 {% endblock %}

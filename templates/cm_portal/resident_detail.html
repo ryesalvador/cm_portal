@@ -73,6 +73,6 @@
     {% endfor%}
     </table>
   </div> 
-  <a href="{% url 'resident-update' resident.id %}" >Edit</a> |
-  <a href="{% url 'resident-delete' resident.id %}" >Delete</a>
+  <a class="btn btn-primary" href="{% url 'resident-update' resident.id %}" role="button">Edit</a>  
+  <a class="btn btn-primary" href="{% url 'resident-delete' resident.id %}" role="button">Delete</a>
 {% endblock %}

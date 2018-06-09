@@ -30,6 +30,6 @@
         </tbody>    
     </table>
   </div>
-  <a href="{% url 'physician-update' physician.id %}" >Edit</a> |
-  <a href="{% url 'physician-delete' physician.id %}" >Delete</a>
+  <a class="btn btn-primary" href="{% url 'physician-update' physician.id %}" role="button">Edit</a>  
+  <a class="btn btn-primary" href="{% url 'physician-delete' physician.id %}" role="button">Delete</a>  
 {% endblock %}

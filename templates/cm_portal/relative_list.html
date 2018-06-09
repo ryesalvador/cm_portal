@@ -24,9 +24,10 @@
           {% endif%}               
         </li>
       {% endfor %}
-    </ul>
+    </ul>    
     {% else %}
-      <p>There are no relatives in the portal.</p>
-  </div>
+      <p>There are no relatives in the portal.</p>  
   {% endif %}  
+  <a class="btn btn-primary" href="{% url 'relative-create' %}" role="button">Add a relative</a>
+  </div>  
 {% endblock %}

@@ -59,7 +59,7 @@ class Relative(models.Model):
     middle_name = models.CharField(max_length=35, blank=True)
     last_name = models.CharField(max_length=35)
     address = models.TextField(max_length=175, blank=True)
-    relationship = models.ForeignKey('Relationship', on_delete=models.PROTECT, null=True)
+    relationship = models.ForeignKey('Relationship', on_delete=models.PROTECT, null=True, blank=True)
     telephone = models.CharField(max_length=75, blank=True)
 
     class Meta:
@@ -117,7 +117,7 @@ class Resident(models.Model):
         choices=VITAL_STATUS,
         default='LI'
         )
-    died_on = models.DateField(auto_now=False, null=True, blank=True)
+    died_on = models.DateTimeField(auto_now=False, null=True, blank=True)
     discharged_on = models.DateField(auto_now=False, null=True, blank=True)    
 
     class Meta:

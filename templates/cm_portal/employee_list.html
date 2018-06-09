@@ -20,7 +20,8 @@
       {% endfor %}
     </ul>
     {% else %}
-      <p>There are no employees in the portal.</p>
+      <p>There are no employees in the portal.</p>  
+  {% endif %}    
+  <a class="btn btn-primary" href="{% url 'employee-create' %}" role="button">Add an employee</a>
   </div>
-  {% endif %}       
 {% endblock %}

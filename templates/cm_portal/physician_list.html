@@ -22,6 +22,7 @@
     </ul>
     {% else %}
       <p>There are no physicians in the portal.</p>
+  {% endif %}  
+  <a class="btn btn-primary" href="{% url 'physician-create' %}" role="button">Add a physician</a>
   </div>
-  {% endif %}
 {% endblock %}

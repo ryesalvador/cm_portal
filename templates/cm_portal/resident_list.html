@@ -19,7 +19,8 @@
       {% endfor %}
     </ul>
     {% else %}
-      <p>There are no residents in the portal.</p>
+      <p>There are no residents in the portal.</p>  
+  {% endif %}  
+  <a class="btn btn-primary" href="{% url 'resident-create' %}" role="button">Add a resident</a>      
   </div>
-  {% endif %}      
 {% endblock %}

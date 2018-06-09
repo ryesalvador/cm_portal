@@ -31,6 +31,6 @@
         </tbody>    
     </table>
   </div>
-  <a href="{% url 'relative-update' relative.id %}" >Edit</a> |
-  <a href="{% url 'relative-delete' relative.id %}" >Delete</a>
+  <a class="btn btn-primary" href="{% url 'relative-update' relative.id %}" role="button">Edit</a>  
+  <a class="btn btn-primary" href="{% url 'relative-delete' relative.id %}" role="button">Delete</a>  
 {% endblock %}

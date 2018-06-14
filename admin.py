@@ -26,6 +26,7 @@ class ResidentAdmin(admin.ModelAdmin):
                 }),
             ('Patient Profile', {
                 'fields': (
+                    'photo',
                     'first_name',
                     'middle_name',
                     'last_name',

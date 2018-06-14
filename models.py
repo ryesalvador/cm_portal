@@ -2,6 +2,10 @@ from django.db import models
 from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
+from gdstorage.storage import GoogleDriveStorage
+
+# Define Google Drive Storage
+gd_storage = GoogleDriveStorage()
 
 GENDER = (
     ('M', 'Male'),
@@ -77,7 +81,7 @@ class Physician(models.Model):
     last_name = models.CharField(max_length=35)
     specialty = models.CharField(max_length=35, blank=True)
     telephone = models.CharField(max_length=75)
-    hospital_of_choice = models.TextField()
+    hospital_of_choice = models.TextField()    
 
     class Meta:
         ordering = ["last_name","first_name"]
@@ -118,7 +122,9 @@ class Resident(models.Model):
         default='LI'
         )
     died_on = models.DateTimeField(auto_now=False, null=True, blank=True)
-    discharged_on = models.DateField(auto_now=False, null=True, blank=True)    
+    discharged_on = models.DateField(auto_now=False, null=True, blank=True)
+    photo = models.ImageField(null=True, blank=True,
+        upload_to="photos/%Y/%m/%D", storage=gd_storage)
 
     class Meta:
         ordering = ["last_name","first_name"]
@@ -186,6 +192,7 @@ class Employee(models.Model):
     #department = models.ForeignKey('Department', on_delete=models.PROTECT, null=True)    
     #date_hired = models.DateField(auto_now=False)
     basic_salary = models.PositiveIntegerField(null=True, blank=True)
+    allowance = models.PositiveIntegerField('Allowance/De Minimis', null=True, blank=True)
     monthly_salary = models.PositiveIntegerField(null=True, blank=True)
     remarks = models.TextField(blank=True)
 

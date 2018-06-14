@@ -47,13 +47,19 @@
       <td><strong>Pagibig: </strong>{{ employee.pagibig }}</td>          
     </tr>    
     <tr>
+      {% for contract in employee.employmentstatus_set.all %}
+        {% if forloop.first %}
+        <td><strong>Date Hired: </strong>{{ contract.date_started }}</td>
+        {% endif %}
+      {% endfor %}
       <td><strong>TIN: </strong>{{ employee.tin }}</td>            
     </tr>    
   </table>
+  {% if employee.employmentstatus_set.all %}
   <div style="margin-left:20px;margin-top:20px">
     <h4>Contract(s)</h4>
     <table class="table table-hover">
-    {% if employee.employmentstatus_set.all %}
+    
       {% for contract in employee.employmentstatus_set.all %}
       <tr>
         <td><strong>Employment status: </strong>
@@ -68,9 +74,10 @@
         <td><strong>Date due: </strong>{{ contract.date_due }}</td>         
       </tr>      
       {% endfor %}  
-    {% endif%}
+    
     </table>  
   </div>
+  {% endif%}
   <a class="btn btn-primary" href="{% url 'employee-update' employee.id %}" role="button">Edit</a>  
   <a class="btn btn-warning" href="{% url 'employee-delete' employee.id %}" role="button">Delete</a>  
 {% endblock %}

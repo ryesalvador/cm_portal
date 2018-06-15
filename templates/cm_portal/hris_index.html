@@ -9,8 +9,8 @@
     <li><strong>User: </strong>{{ user.get_username|capfirst }}</li>
   {% endif %}  
   <li><a href="{% url 'employees' %}">All employees</a></li>
-  <li><a href="#">All positions</a></li>
-  <li><a href="#">All departments</a></li>  
+  <li><a href="{% url 'positions' %}">All positions</a></li>
+  <li><a href="{% url 'departments' %}">All departments</a></li>  
   <hr>
   <li><a href="{% url 'nursing-home-index' %}">Nursing Home</a></li>
   <li><a href="{% url 'hris-index' %}">HRIS</a></li>

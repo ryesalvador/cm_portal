@@ -108,3 +108,15 @@ class EmployeeUpdate(LoginRequiredMixin, generic.UpdateView):
 class EmployeeDelete(LoginRequiredMixin, generic.DeleteView):
     model = Employee
     success_url = reverse_lazy('employees')
+
+class PositionListView(LoginRequiredMixin, generic.ListView):
+    model = Position
+
+class PositionDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Position
+
+class DepartmentListView(LoginRequiredMixin, generic.ListView):
+    model = Department
+
+class DepartmentDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Department

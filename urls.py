@@ -33,6 +33,10 @@ urlpatterns += [
     path('hris/employee/create/', views.EmployeeCreate.as_view(), name='employee-create'),
     path('hris/employee/<int:pk>/update/', views.EmployeeUpdate.as_view(), name='employee-update'),
     path('hris/employee/<int:pk>/delete/', views.EmployeeDelete.as_view(), name='employee-delete'),
+    path('hris/positions/', views.PositionListView.as_view(), name='positions'),
+    path('hris/position/<int:pk>/', views.PositionDetailView.as_view(), name='position-detail'),
+    path('hris/departments/', views.DepartmentListView.as_view(), name='departments'),
+    path('hris/department/<int:pk>/', views.DepartmentDetailView.as_view(), name='department-detail'),
 ]
 
 urlpatterns += [

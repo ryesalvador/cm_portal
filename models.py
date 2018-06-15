@@ -210,9 +210,15 @@ class Position(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):        
+        return reverse('position-detail', args=[str(self.id)])
+
 class Department(models.Model):
     name = models.CharField(max_length=70)
     description = models.TextField(blank=True)
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):        
+        return reverse('department-detail', args=[str(self.id)])

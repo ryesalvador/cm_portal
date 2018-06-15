@@ -1,0 +1,21 @@
+{% extends "cm_portal/hris_index.html" %}
+
+{% block title %}| List of Positions{% endblock %}
+
+{% block page_title %}| List of Positions{% endblock %}
+
+{% block content %}
+  <div class="jumbotron">
+  {% if department_list %}    
+    <ul class="list-group">
+      {% for department in department_list %}
+        <li class="list-group-item">
+          <a href="{{ department.get_absolute_url }}">{{ department.name }}</a>               
+        </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+      <p>There are no departments in the portal.</p>  
+  {% endif %}  
+  </div>
+{% endblock %}

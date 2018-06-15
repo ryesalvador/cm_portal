@@ -1,0 +1,18 @@
+{% extends "cm_portal/hris_index.html" %}
+
+{% block title %}| Position{% endblock %}
+
+{% block page_title %}| Position{% endblock %}
+
+{% block content %}
+  <h2>Name: {{ position.name }}</h2>
+    
+  <table class="table table-hover">
+    <tr>
+      <td><strong>Position: </strong>{{ position.name }}</td>          
+    </tr>
+    <tr>
+      <td><strong>Job Description: </strong>{{ position.job_description }}</td>
+    </tr>
+  </table>    
+{% endblock %}

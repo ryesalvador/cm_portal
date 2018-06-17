@@ -2,10 +2,10 @@ from django.db import models
 from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
-from gdstorage.storage import GoogleDriveStorage
+#from gdstorage.storage import GoogleDriveStorage
 
-# Define Google Drive Storage
-gd_storage = GoogleDriveStorage()
+#Define Google Drive Storage
+#gd_storage = GoogleDriveStorage()
 
 GENDER = (
     ('M', 'Male'),
@@ -123,8 +123,7 @@ class Resident(models.Model):
         )
     died_on = models.DateTimeField(auto_now=False, null=True, blank=True)
     discharged_on = models.DateField(auto_now=False, null=True, blank=True)
-    photo = models.ImageField(null=True, blank=True,
-        upload_to="photos/%Y/%m/%D", storage=gd_storage)
+    #photo = models.ImageField(null=True, blank=True, upload_to="photos/%Y/%m/%D", storage=gd_storage)
 
     class Meta:
         ordering = ["last_name","first_name"]
@@ -204,7 +203,7 @@ class Employee(models.Model):
 
 class Position(models.Model):
     name = models.CharField(max_length=70)
-    department = models.ForeignKey('Department', on_delete=models.PROTECT, null=True)    
+    department = models.ForeignKey('Department', on_delete=models.SET_NULL, null=True)    
     job_description = models.TextField(blank=True)
 
     def __str__(self):

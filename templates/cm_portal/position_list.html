@@ -16,6 +16,7 @@
     </ul>
     {% else %}
       <p>There are no positions in the portal.</p>  
-  {% endif %}  
+  {% endif %}
+  <a class="btn btn-primary" href="{% url 'position-create' %}" role="button">Add a position</a>  
   </div>
 {% endblock %}

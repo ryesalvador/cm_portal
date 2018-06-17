@@ -115,8 +115,34 @@ class PositionListView(LoginRequiredMixin, generic.ListView):
 class PositionDetailView(LoginRequiredMixin, generic.DetailView):
     model = Position
 
+class PositionCreate(LoginRequiredMixin, generic.CreateView):
+    model = Position
+    fields = '__all__'
+
+class PositionUpdate(LoginRequiredMixin, generic.UpdateView):
+    model = Position
+    fields = '__all__'
+    template_name_suffix = '_update_form'
+
+class PositionDelete(LoginRequiredMixin, generic.DeleteView):
+    model = Position
+    success_url = reverse_lazy('positions')
+
 class DepartmentListView(LoginRequiredMixin, generic.ListView):
     model = Department
 
 class DepartmentDetailView(LoginRequiredMixin, generic.DetailView):
     model = Department
+
+class DepartmentCreate(LoginRequiredMixin, generic.CreateView):
+    model = Department
+    fields = '__all__'
+
+class DepartmentUpdate(LoginRequiredMixin, generic.UpdateView):
+    model = Department
+    fields = '__all__'
+    template_name_suffix = '_update_form'
+
+class DepartmentDelete(LoginRequiredMixin, generic.DeleteView):
+    model = Department
+    success_url = reverse_lazy('departments')

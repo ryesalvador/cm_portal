@@ -35,6 +35,7 @@ def hris_index(request):
 
 class ResidentListView(LoginRequiredMixin, generic.ListView):
     model = Resident
+    paginate_by = 10
 
 class ResidentDetailView(LoginRequiredMixin, generic.DetailView):
     model = Resident
@@ -54,6 +55,7 @@ class ResidentDelete(LoginRequiredMixin, generic.DeleteView):
     
 class PhysicianListView(LoginRequiredMixin, generic.ListView):
     model = Physician
+    paginate_by = 10
 
 class PhysicianDetailView(LoginRequiredMixin, generic.DetailView):
     model = Physician
@@ -72,7 +74,8 @@ class PhysicianDelete(LoginRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy('physicians')
     
 class RelativeListView(LoginRequiredMixin, generic.ListView):
-    model = Relative    
+    model = Relative
+    paginate_by = 10
 
 class RelativeDetailView(LoginRequiredMixin, generic.DetailView):
     model = Relative
@@ -92,6 +95,7 @@ class RelativeDelete(LoginRequiredMixin, generic.DeleteView):
     
 class EmployeeListView(LoginRequiredMixin, generic.ListView):
     model = Employee
+    paginate_by = 10
 
 class EmployeeDetailView(LoginRequiredMixin, generic.DetailView):
     model = Employee
@@ -111,6 +115,7 @@ class EmployeeDelete(LoginRequiredMixin, generic.DeleteView):
 
 class PositionListView(LoginRequiredMixin, generic.ListView):
     model = Position
+    paginate_by = 10
 
 class PositionDetailView(LoginRequiredMixin, generic.DetailView):
     model = Position
@@ -130,6 +135,7 @@ class PositionDelete(LoginRequiredMixin, generic.DeleteView):
 
 class DepartmentListView(LoginRequiredMixin, generic.ListView):
     model = Department
+    paginate_by = 10
 
 class DepartmentDetailView(LoginRequiredMixin, generic.DetailView):
     model = Department

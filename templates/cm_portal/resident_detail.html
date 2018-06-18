@@ -4,12 +4,24 @@
 
 {% block page_title %}| Resident Profile{% endblock %}
 
+{% load static %}
+
 {% block content %}  
   <h2>Name: {{ resident.first_name }} 
     {% if resident.middle_name %}
       {{ resident.middle_name|first }}.            
     {% endif %} {{ resident.last_name }}</h2>
-
+  
+  <div class="container">
+    <div class="col-md-4" style="padding-left: 0px;  padding-right: 0px;">
+      {% if resident.photo %}
+      <img src="{{ resident.photo.url }}" class="img-thumbnail" alt="Responsive image">
+      {% else %}
+      <img src="{% static 'images/san_camilo_1.jpg' %}" class="img-thumbnail" alt="">
+      {% endif %}
+    </div>
+  </div>
+    
   <table class="table table-sm table-hover">
     <tr>
       <td><strong>Reminder(s): </strong>{{ resident.reminders }}</td>          

@@ -1,7 +1,10 @@
-from django.urls import path, include
+from django.urls import path, include, re_path
 from . import views
 from django.contrib.auth.views import login, logout
 from .forms import LoginForm
+
+from django.conf import settings
+from django.views.static import serve
 
 urlpatterns = [
     path('', views.index, name='index'),    
@@ -50,3 +53,9 @@ urlpatterns += [
     path('accounts/login/', login, {'template_name': 'registration/login.html', 'authentication_form': LoginForm}, name='login'),
     path('accounts/logout/', logout),
 ]
+
+if settings.DEBUG:
+    urlpatterns += [
+        re_path(r'media/(?P<path>.*)$',
+            serve, {'document_root': settings.MEDIA_ROOT, }),
+] 

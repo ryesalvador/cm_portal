@@ -4,12 +4,19 @@
 
 {% block page_title %}| List of Employees{% endblock %}
 
+{% load static %}
+
 {% block content %}
   <div class="jumbotron">
   {% if employee_list %}    
     <ul class="list-group">
       {% for employee in employee_list %}
         <li class="list-group-item">
+          {% if employee.photo %}
+          <img src="{{ employee.photo.url }}" alt="" width="50px" height="50px">
+          {% else %}
+          <img src="{% static 'images/san_camilo_1.jpg' %}" alt="" width="50px" height="50px">
+          {% endif %}
           <a href="{{ employee.get_absolute_url }}">
             {{ employee.last_name }}, {{ employee.first_name }}
             {% if employee.middle_name %}

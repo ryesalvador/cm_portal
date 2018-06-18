@@ -3,9 +3,12 @@ from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
 #from gdstorage.storage import GoogleDriveStorage
+from django_dropbox_storage.storage import DropboxStorage
 
 #Define Google Drive Storage
 #gd_storage = GoogleDriveStorage()
+
+DROPBOX_STORAGE = DropboxStorage()
 
 GENDER = (
     ('M', 'Male'),
@@ -123,7 +126,7 @@ class Resident(models.Model):
         )
     died_on = models.DateTimeField(auto_now=False, null=True, blank=True)
     discharged_on = models.DateField(auto_now=False, null=True, blank=True)
-    #photo = models.ImageField(null=True, blank=True, upload_to="photos/%Y/%m/%D", storage=gd_storage)
+    photo = models.ImageField(null=True, blank=True, upload_to="photos/residents/%Y/%m/%D", storage=DROPBOX_STORAGE)
 
     class Meta:
         ordering = ["last_name","first_name"]
@@ -168,6 +171,7 @@ class Employee(models.Model):
     first_name = models.CharField(max_length=35)
     middle_name = models.CharField(max_length=35)
     last_name = models.CharField(max_length=35)
+    photo = models.ImageField(null=True, blank=True, upload_to="photos/employees/%Y/%m/%D", storage=DROPBOX_STORAGE)
 
     #Basic info
     gender = models.CharField(max_length=1, choices=GENDER, blank=True)

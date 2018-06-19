@@ -5,6 +5,7 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
+from .forms import ResidentCreateForm
 
 @login_required
 def index(request):    
@@ -42,11 +43,11 @@ class ResidentDetailView(LoginRequiredMixin, generic.DetailView):
 
 class ResidentCreate(LoginRequiredMixin, generic.CreateView):
     model = Resident
-    fields = '__all__'
+    form_class = ResidentCreateForm
 
 class ResidentUpdate(LoginRequiredMixin, generic.UpdateView):
     model = Resident
-    fields = '__all__'
+    form_class = ResidentCreateForm
     template_name_suffix = '_update_form'
 
 class ResidentDelete(LoginRequiredMixin, generic.DeleteView):

@@ -13,7 +13,7 @@ class LoginForm(AuthenticationForm):
 class ResidentCreateForm(ModelForm):
     class Meta:
         model = Resident
-        exclude = ['photo',]
+        fields = '__all__'
         widgets = {
                     'birth_date': DateWidget(),
                     'date_and_time_of_admission': DateTimeWidget(),
@@ -24,7 +24,7 @@ class ResidentCreateForm(ModelForm):
 class EmployeeCreateForm(ModelForm):
     class Meta:
         model = Employee
-        exclude = ['photo',]
+        fields = '__all__'
         widgets = {
                     'birth_date': DateWidget(),
                 }

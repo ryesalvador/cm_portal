@@ -3,9 +3,10 @@ from .models import Resident, Physician, Relative, \
      PerformanceAppraisal, EmploymentStatus, Employee, Position, Department
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
-from .forms import ResidentCreateForm
+from .forms import ResidentCreateForm, EmployeeCreateForm
+from django.http import HttpResponseRedirect
 
 @login_required
 def index(request):    
@@ -44,6 +45,13 @@ class ResidentDetailView(LoginRequiredMixin, generic.DetailView):
 class ResidentCreate(LoginRequiredMixin, generic.CreateView):
     model = Resident
     form_class = ResidentCreateForm
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('residents'))
+        return render(request, 'cm_portal/resident_form.html', {'form': form})
 
 class ResidentUpdate(LoginRequiredMixin, generic.UpdateView):
     model = Resident
@@ -103,7 +111,14 @@ class EmployeeDetailView(LoginRequiredMixin, generic.DetailView):
 
 class EmployeeCreate(LoginRequiredMixin, generic.CreateView):
     model = Employee
-    fields = '__all__'
+    form_class = EmployeeCreateForm
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('employees'))
+        return render(request, 'cm_portal/employee_form.html', {'form': form})
 
 class EmployeeUpdate(LoginRequiredMixin, generic.UpdateView):
     model = Employee

@@ -1,0 +1,2 @@
+django_datetime_widget==0.9.3
+django_dropbox_storage==0.4.1

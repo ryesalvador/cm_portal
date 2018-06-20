@@ -51,7 +51,7 @@ urlpatterns += [
 urlpatterns += [
     #path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/login/', login, {'template_name': 'registration/login.html', 'authentication_form': LoginForm}, name='login'),
-    path('accounts/logout/', logout),
+    path('accounts/logout/', logout, name='logout'),
 ]
 
 if settings.DEBUG:

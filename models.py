@@ -98,7 +98,7 @@ class Resident(models.Model):
     photo = models.ImageField(
             null=True, 
             blank=True, 
-            upload_to="photos/residents/%Y/%m/%D" 
+            upload_to="photos/residents/%Y/%m/%D", 
             #storage=DROPBOX_STORAGE
             )
     #age 

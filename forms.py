@@ -9,7 +9,7 @@ dateOptions = {
     }
 
 dateTimeOptions = {
-        'format': 'mm/dd/yyyy HH:ii P'
+        'format': 'mm/dd/yyyy hh:ii' 
     }
 
 class LoginForm(AuthenticationForm):

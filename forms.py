@@ -4,6 +4,14 @@ from django.forms import ModelForm
 from .models import Resident, Employee, EmploymentStatus
 from datetimewidget.widgets import DateWidget, DateTimeWidget
 
+dateOptions = {
+        'format': 'mm/dd/yyyy'
+    }
+
+dateTimeOptions = {
+        'format': 'mm/dd/yyyy HH:ii P'
+    }
+
 class LoginForm(AuthenticationForm):
     username = forms.CharField(label="Username", max_length=30, 
                                widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'username'}))
@@ -15,10 +23,10 @@ class ResidentCreateForm(ModelForm):
         model = Resident
         fields = '__all__'
         widgets = {
-                    'birth_date': DateWidget(),
-                    'date_and_time_of_admission': DateTimeWidget(),
-                    'died_on': DateTimeWidget(),
-                    'discharged_on': DateWidget(),
+                    'birth_date': DateWidget(options=dateOptions),
+                    'date_and_time_of_admission': DateTimeWidget(options=dateTimeOptions),
+                    'died_on': DateTimeWidget(options=dateTimeOptions),
+                    'discharged_on': DateWidget(options=dateOptions),
                 }
 
 class EmployeeCreateForm(ModelForm):
@@ -26,7 +34,7 @@ class EmployeeCreateForm(ModelForm):
         model = Employee
         fields = '__all__'
         widgets = {
-                    'birth_date': DateWidget(),
+                    'birth_date': DateWidget(options=dateOptions),
                 }
 
 class EmploymentStatusCreateForm(ModelForm):
@@ -34,6 +42,6 @@ class EmploymentStatusCreateForm(ModelForm):
         model = EmploymentStatus
         fields = '__all__'
         widgets = {
-                    'date_started': DateWidget(),
-                    'date_due': DateWidget(),
+                    'date_started': DateWidget(options=dateOptions),
+                    'date_due': DateWidget(options=dateOptions),
                 }

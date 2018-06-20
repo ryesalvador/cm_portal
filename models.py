@@ -2,13 +2,9 @@ from django.db import models
 from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
-#from gdstorage.storage import GoogleDriveStorage
-from django_dropbox_storage.storage import DropboxStorage
+#from django_dropbox_storage.storage import DropboxStorage
 
-#Define Google Drive Storage
-#gd_storage = GoogleDriveStorage()
-
-DROPBOX_STORAGE = DropboxStorage()
+#DROPBOX_STORAGE = DropboxStorage()
 
 GENDER = (
     ('M', 'Male'),
@@ -99,6 +95,12 @@ class Resident(models.Model):
     first_name = models.CharField(max_length=35)
     middle_name = models.CharField(max_length=35, blank=True)
     last_name = models.CharField(max_length=35)
+    photo = models.ImageField(
+            null=True, 
+            blank=True, 
+            upload_to="photos/residents/%Y/%m/%D" 
+            #storage=DROPBOX_STORAGE
+            )
     #age 
     gender = models.CharField(max_length=1, choices=GENDER, blank=True)
     osca_id = models.CharField(max_length=24, blank=True)
@@ -126,7 +128,6 @@ class Resident(models.Model):
         )
     died_on = models.DateTimeField(auto_now=False, null=True, blank=True)
     discharged_on = models.DateField(auto_now=False, null=True, blank=True)
-    photo = models.ImageField(null=True, blank=True, upload_to="photos/residents/%Y/%m/%D", storage=DROPBOX_STORAGE)
 
     class Meta:
         ordering = ["last_name","first_name"]
@@ -171,7 +172,12 @@ class Employee(models.Model):
     first_name = models.CharField(max_length=35)
     middle_name = models.CharField(max_length=35)
     last_name = models.CharField(max_length=35)
-    photo = models.ImageField(null=True, blank=True, upload_to="photos/employees/%Y/%m/%D", storage=DROPBOX_STORAGE)
+    photo = models.ImageField(
+            null=True, 
+            blank=True, 
+            upload_to="photos/employees/%Y/%m/%D", 
+            #storage=DROPBOX_STORAGE
+            )
 
     #Basic info
     gender = models.CharField(max_length=1, choices=GENDER, blank=True)
@@ -192,8 +198,7 @@ class Employee(models.Model):
     
     #Employment info
     position = models.ForeignKey('Position', on_delete=models.PROTECT, null=True)    
-    #department = models.ForeignKey('Department', on_delete=models.PROTECT, null=True)    
-    #date_hired = models.DateField(auto_now=False)
+    #date hired 
     basic_salary = models.PositiveIntegerField(null=True, blank=True)
     allowance = models.PositiveIntegerField('Allowance/De Minimis', null=True, blank=True)
     monthly_salary = models.PositiveIntegerField(null=True, blank=True)

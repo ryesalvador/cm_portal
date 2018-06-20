@@ -46,13 +46,6 @@ class ResidentCreate(LoginRequiredMixin, generic.CreateView):
     model = Resident
     form_class = ResidentCreateForm
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('residents'))
-        return render(request, 'cm_portal/resident_form.html', {'form': form})
-
 class ResidentUpdate(LoginRequiredMixin, generic.UpdateView):
     model = Resident
     form_class = ResidentCreateForm
@@ -112,13 +105,6 @@ class EmployeeDetailView(LoginRequiredMixin, generic.DetailView):
 class EmployeeCreate(LoginRequiredMixin, generic.CreateView):
     model = Employee
     form_class = EmployeeCreateForm
-
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('employees'))
-        return render(request, 'cm_portal/employee_form.html', {'form': form})
 
 class EmployeeUpdate(LoginRequiredMixin, generic.UpdateView):
     model = Employee

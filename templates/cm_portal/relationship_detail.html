@@ -1,0 +1,16 @@
+{% extends "cm_portal/nursing_home_index.html" %}
+
+{% block title %}| Relationship Detail{% endblock %}
+
+{% block page_title %}| Relationship Detail{% endblock %}
+
+{% load static %}
+
+{% block content %}
+  <table class="table table-hover">
+    <tr>
+      <td><strong>Related to: </strong>{{ relationship.related_to }}</td>
+      <td><strong>Relation: </strong>{{ relationship.relation }}</td>    
+    </tr>    
+  </table>    
+{% endblock %}

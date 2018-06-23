@@ -1,0 +1,26 @@
+{% extends "cm_portal/nursing_home_index.html" %}
+
+{% block title %}| List of Relationships{% endblock %}
+
+{% block page_title %}| List of Relationships{% endblock %}
+
+{% load static %}
+
+{% block content %}
+  <div class="jumbotron">
+  {% if relationship_list %}    
+    <ul class="list-group">
+      {% for relationship in relationship_list %}
+        <li class="list-group-item">
+          <a href="{{ relationship.get_absolute_url }}">
+            {{ relationship }}       
+          </a>               
+        </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+      <p>There are no relationships in the portal.</p>  
+  {% endif %}    
+  <a class="btn btn-primary" href="{% url 'employee-create' %}" role="button">Add an employee</a>
+  </div>
+{% endblock %}

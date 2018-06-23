@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Resident, Physician, Relative, \
+from .models import Resident, Physician, Relative, Relationship, \
      PerformanceAppraisal, EmploymentStatus, Employee, Position, Department
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -94,7 +94,14 @@ class RelativeUpdate(LoginRequiredMixin, generic.UpdateView):
 class RelativeDelete(LoginRequiredMixin, generic.DeleteView):
     model = Relative
     success_url = reverse_lazy('relatives')
-    
+   
+class RelationshipListView(LoginRequiredMixin, generic.ListView):
+    model = Relationship
+    paginate_by = 10
+
+class RelationshipDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Relationship
+
 class EmployeeListView(LoginRequiredMixin, generic.ListView):
     model = Employee
     paginate_by = 10

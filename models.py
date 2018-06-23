@@ -55,6 +55,9 @@ class Relationship(models.Model):
         return u'{} of {} {}'.format(self.relation.capitalize(),
                                      self.related_to.first_name.capitalize(),
                                      self.related_to.last_name.capitalize())
+
+    def get_absolute_url(self):
+        return reverse('relationship-detail', args=[str(self.id)])
     
 #Nursing Home Database Models
 class Relative(models.Model):

@@ -15,9 +15,9 @@
   <div class="container">
     <div class="col-md-4" style="padding-left: 0px;  padding-right: 0px;">
       {% if employee.photo %}
-      <img src="{{ employee.photo.url }}" class="img-thumbnail" alt="Responsive image">
+      <img src="{{ employee.photo.url }}" class="img-thumbnail" alt="Responsive image" width="300" height="199">
       {% else %}
-      <img src="{% static 'images/san_camilo_1.jpg' %}" class="img-thumbnail" alt="">
+      <img src="{% static 'images/avatar.png' %}" class="img-thumbnail" alt="">
       {% endif %}
     </div>
   </div>

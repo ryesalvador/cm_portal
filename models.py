@@ -48,7 +48,7 @@ GRADE = (
         )
 
 class Relationship(models.Model):
-    related_to = models.ForeignKey('Resident', on_delete=models.PROTECT, null=True)
+    related_to = models.ForeignKey('Resident', on_delete=models.CASCADE, null=True)
     relation = models.CharField(max_length=35, blank=True)
 
     def __str__(self):
@@ -62,7 +62,7 @@ class Relative(models.Model):
     middle_name = models.CharField(max_length=35, blank=True)
     last_name = models.CharField(max_length=35)
     address = models.TextField(max_length=175, blank=True)
-    relationship = models.ForeignKey('Relationship', on_delete=models.PROTECT, null=True, blank=True)
+    relationship = models.ForeignKey('Relationship', on_delete=models.SET_NULL, null=True, blank=True)
     telephone = models.CharField(max_length=75, blank=True)
 
     class Meta:

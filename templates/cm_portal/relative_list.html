@@ -16,11 +16,10 @@
               {{ relative.middle_name|first }}.            
             {% endif %}        
           </a>
-          {% if relative.resident_set.all %}
-            {% for resident in relative.resident_set.all %}
-              ({{ relative.relationship.relation|capfirst }} of 
-              <a href="{% url 'resident-detail' resident.pk %}" >{{ resident.first_name }} {{ resident.last_name }}</a>)            
-            {% endfor %}
+          {% if relative.relationship %}
+            ({{ relative.relationship.relation }} of 
+            <a href="{{ relative.relationship.related_to.get_absolute_url }}" >
+            {{ relative.relationship.related_to }}</a>)
           {% endif%}               
         </li>
       {% endfor %}

@@ -5,7 +5,7 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
-from .forms import ResidentCreateForm, EmployeeCreateForm
+from .forms import ResidentCreateForm, EmployeeCreateForm, SearchForm
 from django.http import HttpResponseRedirect
 
 @login_required
@@ -161,3 +161,20 @@ class DepartmentUpdate(LoginRequiredMixin, generic.UpdateView):
 class DepartmentDelete(LoginRequiredMixin, generic.DeleteView):
     model = Department
     success_url = reverse_lazy('departments')
+
+def search_page(request):
+    form = SearchForm()
+    residents = []
+    show_results = False
+    if 'query' in request.GET:
+        show_results = True
+        query = request.GET['query'].strip()
+        if query:
+            form = SearchForm({'query': query})
+            residents = Resident.objects.filter(last_name__icontains=query)
+    variables = {
+            'form': form,
+            'resident_list': residents,
+            'show_results': show_results,
+            }
+    return render(request, 'cm_portal/search.html', variables)

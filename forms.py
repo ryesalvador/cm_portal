@@ -45,3 +45,9 @@ class EmploymentStatusCreateForm(ModelForm):
                     'date_started': DateWidget(options=dateOptions),
                     'date_due': DateWidget(options=dateOptions),
                 }
+
+class SearchForm(forms.Form):
+    query = forms.CharField(
+            label=u'Enter a Resident to search for',
+            widget=forms.TextInput(attrs={'size': 32}))
+

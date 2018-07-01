@@ -56,6 +56,11 @@
             </ul>
           </li>
         </ul>
+        {% if show_search_form %}
+          <form class="navbar-form navbar-right" id="search-form" action="{% url 'search-page' %}" method="get">
+            {{ form.as_p }}            
+          </form>
+        {% endif %}        
       </div>
     </div>
   </nav>

@@ -8,12 +8,30 @@ from django.contrib.auth.decorators import login_required
 from .forms import ResidentCreateForm, EmployeeCreateForm, SearchForm
 from django.http import HttpResponseRedirect
 
+def search_page(request):
+    form = SearchForm()
+    residents = []
+    show_results = False
+    if 'query' in request.GET:
+        show_results = True
+        query = request.GET['query'].strip()
+        if query:
+            form = SearchForm({'query': query})
+            residents = Resident.objects.filter(last_name__icontains=query)
+    variables = {
+            'form': form,
+            'resident_list': residents,
+            'show_results': show_results,
+            }
+    return render(request, 'cm_portal/search.html', variables)
+
 @login_required
 def index(request):    
     return render(request, 'cm_portal/index.html')
 
 @login_required
 def nursing_home_index(request):
+    form = SearchForm()
     num_residents = Resident.objects.all().count()
     num_physicians = Physician.objects.all().count()
     num_relatives = Relative.objects.all().count()
@@ -23,7 +41,8 @@ def nursing_home_index(request):
                   context={
                       'num_residents': num_residents,
                       'num_physicians': num_physicians,
-                      'num_relatives': num_relatives
+                      'num_relatives': num_relatives,
+                      'form': form,
                       })
 
 @login_required
@@ -37,7 +56,15 @@ def hris_index(request):
 
 class ResidentListView(LoginRequiredMixin, generic.ListView):
     model = Resident
-    paginate_by = 10
+    paginate_by = 10    
+    
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get the context
+        context = super(ResidentListView, self).get_context_data(**kwargs)
+        # Create any data and add it to the context
+        context['show_search_form'] = True
+        context['form'] = SearchForm()
+        return context
 
 class ResidentDetailView(LoginRequiredMixin, generic.DetailView):
     model = Resident
@@ -162,19 +189,3 @@ class DepartmentDelete(LoginRequiredMixin, generic.DeleteView):
     model = Department
     success_url = reverse_lazy('departments')
 
-def search_page(request):
-    form = SearchForm()
-    residents = []
-    show_results = False
-    if 'query' in request.GET:
-        show_results = True
-        query = request.GET['query'].strip()
-        if query:
-            form = SearchForm({'query': query})
-            residents = Resident.objects.filter(last_name__icontains=query)
-    variables = {
-            'form': form,
-            'resident_list': residents,
-            'show_results': show_results,
-            }
-    return render(request, 'cm_portal/search.html', variables)

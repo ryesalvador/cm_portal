@@ -7,11 +7,7 @@
 {% load static %}
 
 {% block content %}
-  <div class="jumbotron">
-  <form id="search-form" action="{% url 'search-page' %}" method="get">
-    {{ form.as_p }}
-    <input type="submit" value="search" />
-  </form>
+  <div class="jumbotron">  
   {% if show_results %}
     <ul class="list-group">
       {% for resident in resident_list %}

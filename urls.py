@@ -11,8 +11,7 @@ urlpatterns = [
 ]
 
 urlpatterns += [
-    path('nursing-home/', views.nursing_home_index, name='nursing-home-index'),
-    path('nursing-home/search', views.search_page, name='search-page'),
+    path('nursing-home/', views.nursing_home_index, name='nursing-home-index'),    
     path('nursing-home/residents/', views.ResidentListView.as_view(), name='residents'),
     path('nursing-home/resident/<int:pk>/', views.ResidentDetailView.as_view(), name='resident-detail'),
     path('nursing-home/resident/create/', views.ResidentCreate.as_view(), name='resident-create'),
@@ -33,6 +32,12 @@ urlpatterns += [
 ]
 
 urlpatterns += [
+    path('nursing-home/search/residents', views.search, {'model': 'Resident', 'template_name': 'search_residents.html'}, name='search-residents'),
+    path('nursing-home/search/relatives', views.search, {'model': 'Relative', 'template_name': 'search_relatives.html'}, name='search-relatives'),
+    path('nursing-home/search/physicians', views.search, {'model': 'Physician', 'template_name': 'search_physicians.html'}, name='search-physicians'),
+]
+
+urlpatterns += [
     path('hris/', views.hris_index, name='hris-index'),
     path('hris/employees/', views.EmployeeListView.as_view(), name='employees'),
     path('hris/employee/<int:pk>/', views.EmployeeDetailView.as_view(), name='employee-detail'),
@@ -49,6 +54,10 @@ urlpatterns += [
     path('hris/department/create/', views.DepartmentCreate.as_view(), name='department-create'),
     path('hris/department/<int:pk>/update/', views.DepartmentUpdate.as_view(), name='department-update'),
     path('hris/department/<int:pk>/delete/', views.DepartmentDelete.as_view(), name='department-delete'),
+]
+
+urlpatterns += [
+    path('hris/search/employees', views.search, {'model': 'Employee', 'template_name': 'search_employees.html'}, name='search-employees'),    
 ]
 
 urlpatterns += [

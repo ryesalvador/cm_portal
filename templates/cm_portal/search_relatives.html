@@ -1,0 +1,36 @@
+{% extends "cm_portal/nursing_home_index.html" %}
+
+{% block title %}| Relative Search{% endblock %}
+
+{% block page_title %}| Relative Search{% endblock %}
+
+{% load static %}
+
+{% block search_form %}
+  <form class="navbar-form navbar-right" id="search-form" action="{% url 'search-relatives' %}" method="get">
+    {{ form.as_p }}            
+  </form>        
+{% endblock %}
+
+{% block content %}
+  <div class="jumbotron">  
+  {% if show_results and obj_list %}
+    <ul class="list-group">
+      {% for relative in obj_list %}
+        <li class="list-group-item">          
+          <a href="{{ relative.get_absolute_url }}">
+            {{ relative.last_name }}, {{ relative.first_name }} 
+            {% if relative.middle_name %}
+              {{ relative.middle_name|first }}.            
+            {% endif %}        
+          </a>               
+        </li>
+      {% endfor %}
+    </ul>  
+  {% elif show_results %}
+    <p>No relatives matched your search criteria.</p>
+  {% else %}
+    <h3>Please submit a search term.</h3>
+  {% endif %}
+  </div>  
+{% endblock %}

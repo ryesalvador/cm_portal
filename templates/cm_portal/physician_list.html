@@ -3,7 +3,13 @@
 {% block title %}| List of Physicians{% endblock %}
 
 {% block page_title %}| List of Physicians{% endblock %}
-    
+
+{% block search_form %}
+  <form class="navbar-form navbar-right" id="search-form" action="{% url 'search-physicians' %}" method="get">
+    {{ form.as_p }}            
+  </form>        
+{% endblock %}
+
 {% block content %}
 
   <div class="jumbotron">

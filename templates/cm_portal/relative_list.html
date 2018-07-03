@@ -4,6 +4,12 @@
 
 {% block page_title %}| List of Relatives{% endblock %}
 
+{% block search_form %}
+  <form class="navbar-form navbar-right" id="search-form" action="{% url 'search-relatives' %}" method="get">
+    {{ form.as_p }}            
+  </form>        
+{% endblock %}
+
 {% block content %}
   <div class="jumbotron">
   {% if relative_list %}    

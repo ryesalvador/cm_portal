@@ -7,31 +7,37 @@ from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
 from .forms import ResidentCreateForm, EmployeeCreateForm, SearchForm
 from django.http import HttpResponseRedirect
+from itertools import chain
+from django.apps import apps
 
-def search_page(request):
-    form = SearchForm()
-    residents = []
+@login_required
+def search(request, model, template_name):
+    form = SearchForm()    
+    obj_list = []
     show_results = False
     if 'query' in request.GET:
         show_results = True
         query = request.GET['query'].strip()
         if query:
-            form = SearchForm({'query': query})
-            residents = Resident.objects.filter(last_name__icontains=query)
+            form = SearchForm({'query': query})            
+            cls = apps.get_model('cm_portal', model)
+            query0 = cls.objects.filter(last_name__icontains=query)
+            query1 = cls.objects.filter(first_name__icontains=query)
+            obj_list = list(chain(query0, query1))            
     variables = {
             'form': form,
-            'resident_list': residents,
+            'obj_list': obj_list,
             'show_results': show_results,
             }
-    return render(request, 'cm_portal/search.html', variables)
+    return render(request, 'cm_portal/{}'.format(template_name), variables)
+    
 
 @login_required
 def index(request):    
     return render(request, 'cm_portal/index.html')
 
 @login_required
-def nursing_home_index(request):
-    form = SearchForm()
+def nursing_home_index(request):    
     num_residents = Resident.objects.all().count()
     num_physicians = Physician.objects.all().count()
     num_relatives = Relative.objects.all().count()
@@ -41,8 +47,7 @@ def nursing_home_index(request):
                   context={
                       'num_residents': num_residents,
                       'num_physicians': num_physicians,
-                      'num_relatives': num_relatives,
-                      'form': form,
+                      'num_relatives': num_relatives,                      
                       })
 
 @login_required
@@ -61,9 +66,10 @@ class ResidentListView(LoginRequiredMixin, generic.ListView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get the context
         context = super(ResidentListView, self).get_context_data(**kwargs)
-        # Create any data and add it to the context
-        context['show_search_form'] = True
-        context['form'] = SearchForm()
+        # Create any data and add it to the context        
+        form = SearchForm()
+        form.fields['query'].initial = 'Search Residents...'
+        context['form'] = form        
         return context
 
 class ResidentDetailView(LoginRequiredMixin, generic.DetailView):
@@ -86,6 +92,15 @@ class PhysicianListView(LoginRequiredMixin, generic.ListView):
     model = Physician
     paginate_by = 10
 
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get the context
+        context = super(PhysicianListView, self).get_context_data(**kwargs)
+        # Create any data and add it to the context        
+        form = SearchForm()
+        form.fields['query'].initial = 'Search Physicians...'
+        context['form'] = form        
+        return context
+
 class PhysicianDetailView(LoginRequiredMixin, generic.DetailView):
     model = Physician
 
@@ -105,6 +120,15 @@ class PhysicianDelete(LoginRequiredMixin, generic.DeleteView):
 class RelativeListView(LoginRequiredMixin, generic.ListView):
     model = Relative
     paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get the context
+        context = super(RelativeListView, self).get_context_data(**kwargs)
+        # Create any data and add it to the context        
+        form = SearchForm()
+        form.fields['query'].initial = 'Search Relatives...'
+        context['form'] = form        
+        return context
 
 class RelativeDetailView(LoginRequiredMixin, generic.DetailView):
     model = Relative
@@ -132,6 +156,15 @@ class RelationshipDetailView(LoginRequiredMixin, generic.DetailView):
 class EmployeeListView(LoginRequiredMixin, generic.ListView):
     model = Employee
     paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get the context
+        context = super(EmployeeListView, self).get_context_data(**kwargs)
+        # Create any data and add it to the context        
+        form = SearchForm()
+        form.fields['query'].initial = 'Search Employees...'
+        context['form'] = form        
+        return context
 
 class EmployeeDetailView(LoginRequiredMixin, generic.DetailView):
     model = Employee

@@ -48,8 +48,7 @@ class EmploymentStatusCreateForm(ModelForm):
 
 class SearchForm(forms.Form):
     query = forms.CharField(            
-            initial='Search...',
-            widget=forms.TextInput(attrs={'size': 32}))
+            widget=forms.TextInput({'size': 32}))
 
 
 

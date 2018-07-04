@@ -9,10 +9,16 @@ from .forms import ResidentCreateForm, EmployeeCreateForm, SearchForm
 from django.http import HttpResponseRedirect
 from itertools import chain
 from django.apps import apps
+from django import forms
 
 @login_required
 def search(request, model, template_name):
-    form = SearchForm()    
+    form = SearchForm()
+    form.fields['query'].widget = forms.TextInput(
+        attrs={
+            'placeholder': 'Search {}s...'.format(model),
+            'size': 32
+            })
     obj_list = []
     show_results = False
     if 'query' in request.GET:
@@ -68,7 +74,11 @@ class ResidentListView(LoginRequiredMixin, generic.ListView):
         context = super(ResidentListView, self).get_context_data(**kwargs)
         # Create any data and add it to the context        
         form = SearchForm()
-        form.fields['query'].initial = 'Search Residents...'
+        form.fields['query'].widget = forms.TextInput(
+        attrs={
+            'placeholder': 'Search Residents...',
+            'size': 32
+            })
         context['form'] = form        
         return context
 
@@ -97,7 +107,11 @@ class PhysicianListView(LoginRequiredMixin, generic.ListView):
         context = super(PhysicianListView, self).get_context_data(**kwargs)
         # Create any data and add it to the context        
         form = SearchForm()
-        form.fields['query'].initial = 'Search Physicians...'
+        form.fields['query'].widget = forms.TextInput(
+        attrs={
+            'placeholder': 'Search Physicians...',
+            'size': 32
+            })
         context['form'] = form        
         return context
 
@@ -126,7 +140,11 @@ class RelativeListView(LoginRequiredMixin, generic.ListView):
         context = super(RelativeListView, self).get_context_data(**kwargs)
         # Create any data and add it to the context        
         form = SearchForm()
-        form.fields['query'].initial = 'Search Relatives...'
+        form.fields['query'].widget = forms.TextInput(
+        attrs={
+            'placeholder': 'Search Relatives...',
+            'size': 32
+            })
         context['form'] = form        
         return context
 
@@ -162,7 +180,11 @@ class EmployeeListView(LoginRequiredMixin, generic.ListView):
         context = super(EmployeeListView, self).get_context_data(**kwargs)
         # Create any data and add it to the context        
         form = SearchForm()
-        form.fields['query'].initial = 'Search Employees...'
+        form.fields['query'].widget = forms.TextInput(
+        attrs={
+            'placeholder': 'Search Employees...',
+            'size': 32
+            })
         context['form'] = form        
         return context
 

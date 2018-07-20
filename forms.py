@@ -2,15 +2,12 @@ from django.contrib.auth.forms import AuthenticationForm
 from django import forms
 from django.forms import ModelForm
 from .models import Resident, Employee, EmploymentStatus
-from datetimewidget.widgets import DateWidget, DateTimeWidget
 
-dateOptions = {
-        'format': 'mm/dd/yyyy'
-    }
-
-dateTimeOptions = {
-        'format': 'mm/dd/yyyy hh:ii' 
-    }
+class DateInput(forms.DateInput):
+    input_type = 'date'
+    
+class DateTimeInput(forms.DateTimeInput):
+    input_type = 'datetime-local'
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(label="Username", max_length=30, 
@@ -23,10 +20,10 @@ class ResidentCreateForm(ModelForm):
         model = Resident
         fields = '__all__'
         widgets = {
-                    'birth_date': DateWidget(options=dateOptions),
-                    'date_and_time_of_admission': DateTimeWidget(options=dateTimeOptions),
-                    'died_on': DateTimeWidget(options=dateTimeOptions),
-                    'discharged_on': DateWidget(options=dateOptions),
+                    'birth_date': DateInput(),
+                    'date_and_time_of_admission': DateTimeInput(),
+                    'died_on': DateInput(),
+                    'discharged_on': DateInput(),
                 }
 
 class EmployeeCreateForm(ModelForm):
@@ -34,7 +31,7 @@ class EmployeeCreateForm(ModelForm):
         model = Employee
         fields = '__all__'
         widgets = {
-                    'birth_date': DateWidget(options=dateOptions),
+                    'birth_date': DateInput(),
                 }
 
 class EmploymentStatusCreateForm(ModelForm):
@@ -42,8 +39,8 @@ class EmploymentStatusCreateForm(ModelForm):
         model = EmploymentStatus
         fields = '__all__'
         widgets = {
-                    'date_started': DateWidget(options=dateOptions),
-                    'date_due': DateWidget(options=dateOptions),
+                    'date_started': DateInput(),
+                    'date_due': DateInput(),
                 }
 
 class SearchForm(forms.Form):

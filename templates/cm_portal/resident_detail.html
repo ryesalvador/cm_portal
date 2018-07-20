@@ -73,8 +73,7 @@
         <td><strong>Name: </strong>
         <a href="{% url 'relative-detail' relative.pk %}" >{{relative.first_name}} {{relative.middle_name }} {{ relative.last_name }}</a></td>
         <td><strong>Relation: </strong>{{ relative.relation }}</td>
-        <td><strong>Telephone #: </strong>{{ relative.telephone }}</td>   
-        <td><a class="btn btn-primary btn-sm" href="{% url 'relative-update' relative.pk %}" role="button">Edit</td>   
+        <td><strong>Telephone #: </strong>{{ relative.telephone }}</td>
       </tr>
     {% endfor %}    
     {% for physician in resident.physicians.all %}

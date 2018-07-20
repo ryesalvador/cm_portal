@@ -6,8 +6,8 @@ from .models import Resident, Employee, EmploymentStatus
 class DateInput(forms.DateInput):
     input_type = 'date'
     
-class DateTimeInput(forms.DateTimeInput):
-    input_type = 'datetime-local'
+class TimeInput(forms.TimeInput):
+    input_type = 'time'
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(label="Username", max_length=30, 
@@ -21,7 +21,8 @@ class ResidentCreateForm(ModelForm):
         fields = '__all__'
         widgets = {
                     'birth_date': DateInput(),
-                    'date_and_time_of_admission': DateTimeInput(),
+                    'admission_date': DateInput(),
+                    'admission_time': TimeInput(),
                     'died_on': DateInput(),
                     'discharged_on': DateInput(),
                 }

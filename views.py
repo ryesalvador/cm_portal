@@ -171,6 +171,19 @@ class RelationshipListView(LoginRequiredMixin, generic.ListView):
 class RelationshipDetailView(LoginRequiredMixin, generic.DetailView):
     model = Relationship
 
+class RelationshipCreate(LoginRequiredMixin, generic.CreateView):
+    model = Relationship
+    fields = '__all__'
+
+class RelationshipUpdate(LoginRequiredMixin, generic.UpdateView):
+    model = Relationship
+    fields = '__all__'
+    template_name_suffix = '_update_form'
+
+class RelationshipDelete(LoginRequiredMixin, generic.DeleteView):
+    model = Relationship
+    success_url = reverse_lazy('relationship')
+
 class EmployeeListView(LoginRequiredMixin, generic.ListView):
     model = Employee
     paginate_by = 10

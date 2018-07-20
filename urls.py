@@ -29,6 +29,9 @@ urlpatterns += [
     path('nursing-home/relative/<int:pk>/delete/', views.RelativeDelete.as_view(), name='relative-delete'),
     path('nursing-home/relationships/', views.RelationshipListView.as_view(), name='relationships'),
     path('nursing-home/relationship/<int:pk>/', views.RelationshipDetailView.as_view(), name='relationship-detail'),
+    path('nursing-home/relationship/create/', views.RelationshipCreate.as_view(), name='relationship-create'),
+    path('nursing-home/relationship/<int:pk>/update/', views.RelationshipUpdate.as_view(), name='relationship-update'),
+    path('nursing-home/relationship/<int:pk>/delete/', views.RelationshipDelete.as_view(), name='relationship-delete'),
 ]
 
 urlpatterns += [

@@ -1,2 +1,6 @@
 django_datetime_widget==0.9.3
 django_dropbox_storage==0.4.1
+django-cleanup==2.1.0
+django-sortedm2m==1.5.0
+Pillow==5.2.0
+whitenoise==3.3.1

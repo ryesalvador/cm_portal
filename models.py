@@ -2,7 +2,6 @@ from django.db import models
 from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
-from sortedm2m.fields import SortedManyToManyField
 #from django_dropbox_storage.storage import DropboxStorage
 
 #DROPBOX_STORAGE = DropboxStorage()
@@ -124,8 +123,8 @@ class Resident(models.Model):
     diet = models.TextField(blank=True)
     weight = models.FloatField(null=True, blank=True)
     height = models.FloatField(null=True, blank=True)
-    relatives = SortedManyToManyField(Relative)
-    physicians = SortedManyToManyField(Physician, blank=True)
+    relatives = models.ManyToManyField(Relative)
+    physicians = models.ManyToManyField(Physician, blank=True)
     vital_status = models.CharField(
         max_length=2,
         choices=VITAL_STATUS,

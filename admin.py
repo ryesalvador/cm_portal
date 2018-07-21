@@ -18,7 +18,8 @@ class PhysicianAdmin(admin.ModelAdmin):
 
 @admin.register(Resident)
 class ResidentAdmin(admin.ModelAdmin):
-    search_fields = ('first_name', 'last_name')    
+    search_fields = ('first_name', 'last_name')
+    filter_horizontal = ('relatives', 'physicians')
     fieldsets = (
             ('Vital Status', {
                 'fields': ('vital_status', 'died_on', 'discharged_on')
@@ -37,7 +38,8 @@ class ResidentAdmin(admin.ModelAdmin):
                     'nationality',
                     'civil_status',
                     'most_recent_occupation',
-                    'date_and_time_of_admission',
+                    'admission_date',
+                    'admission_time',
                     'religion',
                     'reminders',
                     'advanced_directives',

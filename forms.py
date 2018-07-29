@@ -23,6 +23,8 @@ class ResidentCreateForm(ModelForm):
                     'birth_date': DateInput(),
                     'admission_date': DateInput(),
                     'admission_time': TimeInput(),
+                    'relatives': forms.CheckboxSelectMultiple(),
+                    'physicians': forms.CheckboxSelectMultiple(),
                     'died_on': DateInput(),
                     'discharged_on': DateInput(),
                 }

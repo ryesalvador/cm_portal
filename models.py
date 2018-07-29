@@ -2,9 +2,9 @@ from django.db import models
 from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
-#from django_dropbox_storage.storage import DropboxStorage
+from django_dropbox_storage.storage import DropboxStorage
 
-#DROPBOX_STORAGE = DropboxStorage()
+DROPBOX_STORAGE = DropboxStorage()
 
 GENDER = (
     ('M', 'Male'),
@@ -20,7 +20,7 @@ CIVIL_STATUS = (
 VITAL_STATUS = (
     ('LI', 'Living'),
     ('DE', 'Deceased'),
-    ('DC', 'Discharged'),      
+    ('DC', 'Discharged'),
     )
 
 EMPLOYMENT_STATUS = (
@@ -58,7 +58,7 @@ class Relationship(models.Model):
 
     def get_absolute_url(self):
         return reverse('relationship-detail', args=[str(self.id)])
-    
+
 #Nursing Home Database Models
 class Relative(models.Model):
     first_name = models.CharField(max_length=35)
@@ -74,7 +74,7 @@ class Relative(models.Model):
     def __str__(self):
         return u'{1}, {0}'.format(self.first_name, self.last_name)
 
-    def get_absolute_url(self):        
+    def get_absolute_url(self):
         return reverse('relative-detail', args=[str(self.id)])
 
 class Physician(models.Model):
@@ -83,7 +83,7 @@ class Physician(models.Model):
     last_name = models.CharField(max_length=35)
     specialty = models.CharField(max_length=35, blank=True)
     telephone = models.CharField(max_length=75)
-    hospital_of_choice = models.TextField()    
+    hospital_of_choice = models.TextField()
 
     class Meta:
         ordering = ["last_name","first_name"]
@@ -91,7 +91,7 @@ class Physician(models.Model):
     def __str__(self):
         return u'Dr. {} {}'.format(self.first_name, self.last_name)
 
-    def get_absolute_url(self):        
+    def get_absolute_url(self):
         return reverse('physician-detail', args=[str(self.id)])
 
 class Resident(models.Model):
@@ -99,12 +99,12 @@ class Resident(models.Model):
     middle_name = models.CharField(max_length=35, blank=True)
     last_name = models.CharField(max_length=35)
     photo = models.ImageField(
-            null=True, 
-            blank=True, 
-            upload_to="photos/residents/%Y/%m/%D", 
-            #storage=DROPBOX_STORAGE
+            null=True,
+            blank=True,
+            upload_to="photos/residents/%Y/%m/%D",
+            storage=DROPBOX_STORAGE
             )
-    #age 
+    #age
     gender = models.CharField(max_length=1, choices=GENDER, blank=True)
     osca_id = models.CharField(max_length=24, blank=True)
     address = models.TextField(max_length=175)
@@ -135,11 +135,11 @@ class Resident(models.Model):
 
     class Meta:
         ordering = ["last_name","first_name"]
-        
+
     def __str__(self):
         return u'{1}, {0}'.format(self.first_name, self.last_name)
 
-    def get_absolute_url(self):        
+    def get_absolute_url(self):
         return reverse('resident-detail', args=[str(self.id)])
 
 
@@ -170,17 +170,17 @@ class EmploymentStatus(models.Model):
     class Meta:
         verbose_name_plural = "Employment statuses"
         ordering = ["date_started"]
-        
+
 class Employee(models.Model):
     #Name
     first_name = models.CharField(max_length=35)
     middle_name = models.CharField(max_length=35)
     last_name = models.CharField(max_length=35)
     photo = models.ImageField(
-            null=True, 
-            blank=True, 
-            upload_to="photos/employees/%Y/%m/%D", 
-            #storage=DROPBOX_STORAGE
+            null=True,
+            blank=True,
+            upload_to="photos/employees/%Y/%m/%D",
+            storage=DROPBOX_STORAGE
             )
 
     #Basic info
@@ -199,10 +199,10 @@ class Employee(models.Model):
     philhealth = models.CharField(max_length=24, blank=True)
     pagibig = models.CharField(max_length=24, blank=True)
     tin = models.CharField(max_length=24, blank=True)
-    
+
     #Employment info
-    position = models.ForeignKey('Position', on_delete=models.PROTECT, null=True)    
-    #date hired 
+    position = models.ForeignKey('Position', on_delete=models.PROTECT, null=True)
+    #date hired
     basic_salary = models.PositiveIntegerField(null=True, blank=True)
     allowance = models.PositiveIntegerField('Allowance/De Minimis', null=True, blank=True)
     monthly_salary = models.PositiveIntegerField(null=True, blank=True)
@@ -211,18 +211,18 @@ class Employee(models.Model):
     def __str__(self):
         return u'{1}, {0}'.format(self.first_name, self.last_name)
 
-    def get_absolute_url(self):        
+    def get_absolute_url(self):
         return reverse('employee-detail', args=[str(self.id)])
 
 class Position(models.Model):
     name = models.CharField(max_length=70)
-    department = models.ForeignKey('Department', on_delete=models.SET_NULL, null=True)    
+    department = models.ForeignKey('Department', on_delete=models.SET_NULL, null=True)
     job_description = models.TextField(blank=True)
 
     def __str__(self):
         return self.name
 
-    def get_absolute_url(self):        
+    def get_absolute_url(self):
         return reverse('position-detail', args=[str(self.id)])
 
 class Department(models.Model):
@@ -232,5 +232,5 @@ class Department(models.Model):
     def __str__(self):
         return self.name
 
-    def get_absolute_url(self):        
+    def get_absolute_url(self):
         return reverse('department-detail', args=[str(self.id)])

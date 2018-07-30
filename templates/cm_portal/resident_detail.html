@@ -7,6 +7,11 @@
 {% load static %}
 
 {% block content %}  
+  {% if resident.vital_status != 'LI' %}
+  <h2><strong class="{% if resident.vital_status == 'DE' %}text-danger{% elif resident.vital_status == 'DC' %}text-warning{% endif %}">
+  {{ resident.get_vital_status_display|upper }}  
+  </strong></h2>  
+  {% endif %}
   <h2>Name: {{ resident.first_name }} 
     {% if resident.middle_name %}
       {{ resident.middle_name|first }}.            
@@ -23,6 +28,15 @@
   </div>
     
   <table class="table table-sm table-hover">
+    {% if resident.vital_status == 'DE' and resident.died_on %}
+    <tr>
+      <td><strong class="text-danger">Died on: </strong>{{ resident.died_on }}</td>    
+    </tr>
+    {% elif resident.vital_status == 'DC' and resident.discharged_on %}
+    <tr>
+      <td><strong class="text-warning">Discharged on: </strong>{{ resident.discharged_on }}</td>    
+    </tr>
+    {% endif %}
     <tr>
       <td><strong>Reminder(s): </strong>{{ resident.reminders }}</td>          
     </tr>

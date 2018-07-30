@@ -130,7 +130,7 @@ class Resident(models.Model):
         choices=VITAL_STATUS,
         default='LI'
         )
-    died_on = models.DateTimeField(auto_now=False, null=True, blank=True)
+    died_on = models.DateField(auto_now=False, null=True, blank=True)
     discharged_on = models.DateField(auto_now=False, null=True, blank=True)
 
     class Meta:

@@ -8,10 +8,19 @@
 
 <form action="" method="post">
     {% csrf_token %}
-    <table>
-    {{ form.as_table }}
+    <table class="table table-hover">
+    {% for field in form %}      
+      <tr>        
+        <th>{{ field.label }}</th>
+        <td>{{ field }}</td>  
+        {% if field.label == 'Department' %}        
+        <td>
+          <a class="btn btn-primary btn-sm" role="button" target="_blank" rel="noopener noreferrer" href="{% url 'department-create' %}" >Add a department</a>
+        </td> 
+        {% endif %}       
+      </tr> 
+    {% endfor %}
     </table>
-    <input class="btn btn-success" type="submit" value="Update" />
-    
+    <input class="btn btn-success" type="submit" value="Update" />    
 </form>
 {% endblock %}

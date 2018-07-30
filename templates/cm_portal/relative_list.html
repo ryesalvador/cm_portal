@@ -26,7 +26,8 @@
             ({{ relative.relationship.relation }} of 
             <a href="{{ relative.relationship.related_to.get_absolute_url }}" >
             {{ relative.relationship.related_to }}</a>)
-          {% endif%}               
+          {% endif%}
+          {% if relative.telephone %} - {{ relative.telephone }}{% endif %}               
         </li>
       {% endfor %}
     </ul>    

@@ -17,13 +17,19 @@
   {% if show_results and obj_list %}
     <ul class="list-group">
       {% for relative in obj_list %}
-        <li class="list-group-item">          
+        <li class="list-group-item">
           <a href="{{ relative.get_absolute_url }}">
-            {{ relative.last_name }}, {{ relative.first_name }} 
+            {{ relative.last_name }}, {{ relative.first_name }}
             {% if relative.middle_name %}
               {{ relative.middle_name|first }}.            
             {% endif %}        
-          </a>               
+          </a>
+          {% if relative.relationship %}
+            ({{ relative.relationship.relation }} of 
+            <a href="{{ relative.relationship.related_to.get_absolute_url }}" >
+            {{ relative.relationship.related_to }}</a>)
+          {% endif%}
+          {% if relative.telephone %} - {{ relative.telephone }}{% endif %}               
         </li>
       {% endfor %}
     </ul>  

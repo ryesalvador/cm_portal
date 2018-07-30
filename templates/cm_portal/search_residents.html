@@ -28,7 +28,11 @@
             {% if resident.middle_name %}
               {{ resident.middle_name|first }}.            
             {% endif %}        
-          </a>               
+          </a>    
+          {% if resident.vital_status != 'LI' %} - 
+          <span class="{% if resident.vital_status == 'DE'%}text-danger{% elif resident.vital_status == 'DC' %}text-warning{% endif %}">
+          {{ resident.get_vital_status_display }}</span>
+          {% endif %}           
         </li>
       {% endfor %}
     </ul>  

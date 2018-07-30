@@ -19,6 +19,30 @@
 
 {% block page_title %}| <a href="{% url 'nursing-home-index' %}">Nursing Home</a>{% endblock %}
 
+{% block nav_others %}
+<li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">New...
+            <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+              <li>
+                <a href="{% url 'resident-create' %}">New resident</a>
+              </li>
+              <li>
+                <a href="{% url 'relative-create' %}">New relative</a>
+              </li>
+              <li>
+                <a href="{% url 'physician-create' %}">New physician</a>
+              </li>
+              <li class="divider"></li>
+              <li>
+                <a href="{% url 'relationship-create' %}">New relationship</a>
+              </li>              
+            </ul>
+</li>
+{% endblock %}
+
+
 {% block content %}
   {% if user.is_authenticated %}
     <div class="jumbotron">

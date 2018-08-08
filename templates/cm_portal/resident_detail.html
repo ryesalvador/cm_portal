@@ -81,15 +81,15 @@
   </table>  
   <div style="margin-left:20px;margin-top:20px">
     <h4>Contact Person(s)</h4>
-    <table class="table table-hover">
-    {% for relative in resident.relatives.all %}
-      <tr>
-        <td><strong>Name: </strong>
+    <table class="table table-hover"> 
+    {% for relationship in resident.relationship_set.all %}
+      {% for relative in relationship.relative_set.all %}
+        <tr><td><strong>Name: </strong>
         <a href="{% url 'relative-detail' relative.pk %}" >{{relative.first_name}} {{relative.middle_name }} {{ relative.last_name }}</a></td>
-        <td><strong>Relation: </strong>{{ relative.relation }}</td>
-        <td><strong>Telephone #: </strong>{{ relative.telephone }}</td>
-      </tr>
-    {% endfor %}    
+        <td><strong>Relation: </strong>{{ relationship.relation }}</td>
+        <td><strong>Telephone #: </strong>{{ relative.telephone }}</td></tr>
+      {% endfor %}
+    {% endfor %}  
     {% for physician in resident.physicians.all %}
       <tr>
         <td><strong>Physician: </strong><a href="{% url 'physician-detail' physician.pk %}" > 

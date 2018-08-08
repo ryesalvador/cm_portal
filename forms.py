@@ -22,8 +22,7 @@ class ResidentCreateForm(ModelForm):
         widgets = {
                     'birth_date': DateInput(),
                     'admission_date': DateInput(),
-                    'admission_time': TimeInput(),
-                    'relatives': forms.CheckboxSelectMultiple(),
+                    'admission_time': TimeInput(),                    
                     'physicians': forms.CheckboxSelectMultiple(),
                     'died_on': DateInput(),
                     'discharged_on': DateInput(),

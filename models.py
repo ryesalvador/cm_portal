@@ -65,7 +65,7 @@ class Relative(models.Model):
     middle_name = models.CharField(max_length=35, blank=True)
     last_name = models.CharField(max_length=35)
     address = models.TextField(max_length=175, blank=True)
-    relationship = models.ForeignKey('Relationship', on_delete=models.SET_NULL, null=True, blank=True)
+    relationship = models.ForeignKey('Relationship', on_delete=models.SET_NULL, null=True)
     telephone = models.CharField(max_length=75, blank=True)
 
     class Meta:
@@ -122,8 +122,7 @@ class Resident(models.Model):
     room_number = models.CharField(max_length=70, blank=True)
     diet = models.TextField(blank=True)
     weight = models.FloatField(null=True, blank=True)
-    height = models.FloatField(null=True, blank=True)
-    relatives = models.ManyToManyField(Relative)
+    height = models.FloatField(null=True, blank=True)   
     physicians = models.ManyToManyField(Physician, blank=True)
     vital_status = models.CharField(
         max_length=2,

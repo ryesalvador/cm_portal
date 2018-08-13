@@ -10,6 +10,8 @@ from django.http import HttpResponseRedirect
 from itertools import chain
 from django.apps import apps
 from django import forms
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_control
 
 @login_required
 def search(request, model, template_name):
@@ -65,6 +67,7 @@ def hris_index(request):
                       'num_employees': num_employees
                       })
 
+@method_decorator(cache_control(private=True), name='dispatch')
 class ResidentListView(LoginRequiredMixin, generic.ListView):
     model = Resident
     paginate_by = 10    
@@ -82,6 +85,7 @@ class ResidentListView(LoginRequiredMixin, generic.ListView):
         context['form'] = form        
         return context
 
+@method_decorator(cache_control(private=True), name='dispatch')
 class ResidentDetailView(LoginRequiredMixin, generic.DetailView):
     model = Resident
 

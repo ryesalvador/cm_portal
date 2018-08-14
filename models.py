@@ -57,7 +57,7 @@ class MedicalAbstract(models.Model):
         ordering = ["resident"]
 
     def __str__(self):
-        return u'{} medical abstract'.format(self.resident)
+        return u'{} - medical abstract'.format(self.resident)
 
     def get_absolute_url(self):
         return reverse('medical-abstract-detail', args=[str(self.id)])

@@ -1,6 +1,11 @@
 from django.contrib import admin
 from .models import Relative, Physician, Resident, Relationship, \
-     PerformanceAppraisal, EmploymentStatus, Employee, Position, Department
+     PerformanceAppraisal, EmploymentStatus, Employee, Position, Department, \
+     MedicalAbstract
+
+@admin.register(MedicalAbstract)
+class MedicalAbstractAdmin(admin.ModelAdmin):
+    pass
 
 @admin.register(Relationship)
 class RelationshipAdmin(admin.ModelAdmin):

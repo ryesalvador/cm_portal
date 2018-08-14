@@ -47,6 +47,21 @@ GRADE = (
         ('E', 'Excellent'),
         )
 
+class MedicalAbstract(models.Model):
+    resident = models.OneToOneField('Resident', on_delete=models.CASCADE, null=True)
+    reason_for_confinement = models.TextField(blank=True)
+    history_of_present_illness = models.TextField(blank=True)
+    course_in_the_ward = models.TextField(blank=True)
+
+    class Meta:
+        ordering = ["resident"]
+
+    def __str__(self):
+        return u'{} medical abstract'.format(self.resident)
+
+    def get_absolute_url(self):
+        return reverse('medical-abstract-detail', args=[str(self.id)])
+    
 class Relationship(models.Model):
     related_to = models.ForeignKey('Resident', on_delete=models.CASCADE, null=True)
     relation = models.CharField(max_length=35, blank=True)

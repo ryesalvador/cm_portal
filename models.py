@@ -47,6 +47,25 @@ GRADE = (
         ('E', 'Excellent'),
         )
 
+class Drug(models.Model):
+    generic_name = models.CharField(max_length=35)
+    brand_name = models.CharField(max_length=35, null=True, blank=True)
+    dosage = models.CharField(max_length=35, null=True, blank=True)    
+    price = models.FloatField(null=True, blank=True)
+
+    def __str__(self):
+        return u'{}'.format(self.generic_name)
+
+class Medication(models.Model):    
+    resident = models.ForeignKey('Resident', on_delete=models.CASCADE, null=True)
+    medicine = models.ForeignKey('Drug', on_delete=models.CASCADE, null=True)
+    frequency = models.CharField(max_length=70, blank=True)
+    quantity = models.PositiveIntegerField(null=True, blank=True)
+    due = models.DateField(auto_now=False, null=True, blank=True)
+
+    def __str__(self):
+        return u'{} - {}'.format(self.resident, self.drug)
+    
 class MedicalAbstract(models.Model):
     resident = models.OneToOneField('Resident', on_delete=models.CASCADE, null=True)
     reason_for_confinement = models.TextField(blank=True)

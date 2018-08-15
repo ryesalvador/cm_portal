@@ -1,7 +1,15 @@
 from django.contrib import admin
 from .models import Relative, Physician, Resident, Relationship, \
      PerformanceAppraisal, EmploymentStatus, Employee, Position, Department, \
-     MedicalAbstract
+     MedicalAbstract, Drug, Medication
+
+@admin.register(Drug)
+class DrugAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Medication)
+class Medication(admin.ModelAdmin):
+    pass
 
 @admin.register(MedicalAbstract)
 class MedicalAbstractAdmin(admin.ModelAdmin):

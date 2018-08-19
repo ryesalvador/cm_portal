@@ -32,6 +32,8 @@ urlpatterns += [
     path('nursing-home/relationship/create/', views.RelationshipCreate.as_view(), name='relationship-create'),
     path('nursing-home/relationship/<int:pk>/update/', views.RelationshipUpdate.as_view(), name='relationship-update'),
     path('nursing-home/relationship/<int:pk>/delete/', views.RelationshipDelete.as_view(), name='relationship-delete'),
+    path('nursing-home/medical-abstracts/', views.MedicalAbstractListView.as_view(), name='medical-abstracts'),
+    path('nursing-home/medical-abstract/<int:pk>/', views.MedicalAbstractDetailView.as_view(), name='medical-abstract-detail'),
 ]
 
 urlpatterns += [

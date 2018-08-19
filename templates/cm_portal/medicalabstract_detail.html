@@ -1,0 +1,63 @@
+{% extends "cm_portal/nursing_home_index.html" %}
+
+{% block title %}| Medical Abstract{% endblock %}
+
+{% block page_title %}| Medical Abstract{% endblock %}
+
+{% block content %}  
+  <h2>Name: {{ medicalabstract.resident.first_name }} 
+    {% if medicalabstract.resident.middle_name %}
+      {{ medicalabstract.resident.middle_name|first }}.            
+    {% endif %} {{ medicalabstract.resident.last_name }}</h2>
+  <table class="table table-hover">
+    <thead><h3>General Data</h3></thead>
+    <tr>
+      <td><strong>Name: </strong>{{ medicalabstract.resident }}</td>          
+    </tr> 
+    <tr>
+      <td><strong>Age: </strong>{{ medicalabstract.resident.birth_date|timesince }}</td>
+    </tr>
+    <tr>
+      <td><strong>Address: </strong>{{ medicalabstract.resident.address }}</td>
+    </tr>
+    <tr>
+    </tr>
+      <td><strong>Birthdate: </strong>{{ medicalabstract.resident.birth_date }}</td>
+    <tr>
+      <td><strong>Birthplace: </strong>{{ medicalabstract.resident.birth_place }}</td>
+    </tr>
+    <tr>
+      <td><strong>Gender: </strong>{{ medicalabstract.resident.get_gender_display }}</td>
+    </tr>
+    <tr>
+      <td><strong>Civil status: </strong>{{ medicalabstract.resident.get_civil_status_display }}</td>
+    </tr>
+    <tr>
+      <td><strong>Religion: </strong>{{ medicalabstract.resident.religion }}</td>
+    </tr>
+    <tr>
+      <td><strong>Most Recent Occupation: </strong>{{ medicalabstract.resident.most_recent_occupation }}</td>    
+    </tr>
+    <tr>
+      <td><strong>Date of Admission: </strong>{{ medicalabstract.resident.admission_date }}</td>
+    </tr>    
+  </table>
+  <table class="table table-hover" >
+    <thead><h3>Reason For Confinement</h3></thead>
+    <tr>
+      <td>{{ medicalabstract.reason_for_confinement }}</td>
+    </tr>
+  </table>
+  <table class="table table-hover" >
+    <thead><h3>History of Present Illness</h3></thead>
+    <tr>
+      <td>{{ medicalabstract.history_of_present_illness }}</td>
+    </tr>
+  </table>
+  <table class="table table-hover" >
+    <thead><h3>Course in the Ward</h3></thead>
+    <tr>
+      <td>{{ medicalabstract.course_in_the_ward|linebreaks }}</td>
+    </tr>
+  </table>
+{% endblock %}

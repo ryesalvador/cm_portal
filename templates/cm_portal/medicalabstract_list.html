@@ -1,0 +1,28 @@
+{% extends "cm_portal/nursing_home_index.html" %}
+
+{% block title %}| List of Medical Abstracts{% endblock %}
+
+{% block page_title %}| List of Medical Abstracts{% endblock %}
+
+{% load static %}
+
+{% block content %}
+  <div class="jumbotron">
+  {% if medicalabstract_list %}    
+    <ul class="list-group">
+      {% for medicalabstract in medicalabstract_list %}
+        <li class="list-group-item">
+        <a href="{{ medicalabstract.get_absolute_url }}">
+            {{ medicalabstract.resident.last_name }}, {{ medicalabstract.resident.first_name }} 
+            {% if medicalabstract.resident.middle_name %}
+              {{ medicalabstract.resident.middle_name|first }}.            
+            {% endif %}        
+          </a>          
+        </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+      <p>There are no medical abstracts in the portal.</p>  
+  {% endif %}   
+  </div>
+{% endblock %}

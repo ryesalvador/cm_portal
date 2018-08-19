@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Resident, Physician, Relative, Relationship, \
-     PerformanceAppraisal, EmploymentStatus, Employee, Position, Department
+     PerformanceAppraisal, EmploymentStatus, Employee, Position, Department, \
+     MedicalAbstract
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse, reverse_lazy
@@ -261,3 +262,8 @@ class DepartmentDelete(LoginRequiredMixin, generic.DeleteView):
     model = Department
     success_url = reverse_lazy('departments')
 
+class MedicalAbstractListView(LoginRequiredMixin, generic.ListView):
+    model = MedicalAbstract
+
+class MedicalAbstractDetailView(LoginRequiredMixin, generic.DetailView):
+    model = MedicalAbstract

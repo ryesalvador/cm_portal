@@ -6,6 +6,15 @@
 
 {% load static %}
 
+{% block nav_resident %}
+<li class="nav-item active">
+  <a class="nav-link" href="#">Resident Profile<span class="sr-only">(current)</span></a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="{% if resident.medicalabstract.get_absolute_url %}
+  {{ resident.medicalabstract.get_absolute_url }}{% else %}#{% endif %}">Medical Abstract</a>
+</li>
+{% endblock %}
 {% block content %}  
   {% if resident.vital_status != 'LI' %}
   <h2><strong class="{% if resident.vital_status == 'DE' %}text-danger{% elif resident.vital_status == 'DC' %}text-warning{% endif %}">

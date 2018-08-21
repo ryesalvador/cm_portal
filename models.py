@@ -54,7 +54,10 @@ class Drug(models.Model):
     price = models.FloatField(null=True, blank=True)
 
     def __str__(self):
-        return u'{}'.format(self.generic_name)
+        return u'{} - {}'.format(self.generic_name, self.dosage)
+
+    def get_absolute_url(self):
+        return reverse('drug-detail', args=[str(self.id)])
 
 class Medication(models.Model):    
     resident = models.ForeignKey('Resident', on_delete=models.CASCADE, null=True)
@@ -64,7 +67,10 @@ class Medication(models.Model):
     due = models.DateField(auto_now=False, null=True, blank=True)
 
     def __str__(self):
-        return u'{} - {}'.format(self.resident, self.drug)
+        return u'{} | {}'.format(self.resident, self.medicine)
+
+    def get_absolute_url(self):
+        return reverse('medication-detail', args=[str(self.id)])
     
 class MedicalAbstract(models.Model):
     resident = models.OneToOneField('Resident', on_delete=models.CASCADE, null=True)

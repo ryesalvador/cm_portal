@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Resident, Physician, Relative, Relationship, \
      PerformanceAppraisal, EmploymentStatus, Employee, Position, Department, \
-     MedicalAbstract
+     MedicalAbstract, Drug, Medication
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse, reverse_lazy
@@ -267,3 +267,15 @@ class MedicalAbstractListView(LoginRequiredMixin, generic.ListView):
 
 class MedicalAbstractDetailView(LoginRequiredMixin, generic.DetailView):
     model = MedicalAbstract
+
+class DrugListView(LoginRequiredMixin, generic.ListView):
+    model = Drug
+
+class DrugDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Drug
+
+class MedicationListView(LoginRequiredMixin, generic.ListView):
+    model = Medication
+
+class MedicationDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Medication

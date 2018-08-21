@@ -1,0 +1,14 @@
+{% extends "cm_portal/nursing_home_index.html" %}
+
+{% block title %}| Drug{% endblock %}
+
+{% block page_title %}| Drug{% endblock %}
+{% block content %}  
+  <h2>Name: {{ drug.generic_name }}</h2>
+  <table class="table table-hover">
+    <tr><td><strong>Generic name: </strong>{{ drug.generic_name|lower }}</td></tr>    
+    <tr><td><strong>Brand name: </strong>{{ drug.brand_name }}</td></tr>
+    <tr><td><strong>Dosage: </strong>{{ drug.dosage }}</td></tr>
+    <tr><td><strong>Price: </strong>{{ drug.price }}</td></tr>
+  </table>  
+{% endblock %}

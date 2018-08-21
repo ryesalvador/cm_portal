@@ -1,0 +1,28 @@
+{% extends "cm_portal/nursing_home_index.html" %}
+
+{% block title %}| List of Drugs{% endblock %}
+
+{% block page_title %}| List of Drugs{% endblock %}
+
+{% load static %}
+
+{% block content %}
+  <div class="jumbotron">
+  {% if drug_list %}    
+    <ul class="list-group">
+      {% for drug in drug_list %}
+        <li class="list-group-item">
+        <a href="{{ drug.get_absolute_url }}">
+            {{ drug.generic_name }} 
+            {% if drug.dosage %} - 
+              {{ drug.dosage }}.            
+            {% endif %}        
+          </a>          
+        </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+      <p>There are no drugs in the portal.</p>  
+  {% endif %}   
+  </div>
+{% endblock %}

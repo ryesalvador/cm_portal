@@ -10,7 +10,8 @@
 <li class="nav-item active">
   <a class="nav-link" href="#">Resident Profile<span class="sr-only">(current)</span></a>
 </li>
-<li class="nav-item">
+<li class="{% if resident.medicalabstract.get_absolute_url %}
+  nav-item{% else %}nav-item disabled{% endif %}">
   <a class="nav-link" href="{% if resident.medicalabstract.get_absolute_url %}
   {{ resident.medicalabstract.get_absolute_url }}{% else %}#{% endif %}">Medical Abstract</a>
 </li>

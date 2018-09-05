@@ -12,6 +12,7 @@
     <li><a href="{% url 'relatives' %}">All relatives</a></li>    
     <li><a href="{% url 'physicians' %}">All physicians</a></li>
     <hr>
+    <li><a href="{% url 'medical-abstracts' %}" >All medical abstracts</a></li>
     <li><a href="{% url 'relationships' %}">All relationships</a></li>
     <li><a href="{% url 'drugs' %}">All drugs</a></li>
     <li><a href="{% url 'medications' %}">All medications</a></li>    
@@ -39,6 +40,9 @@
                 <a href="{% url 'physician-create' %}">New physician</a>
               </li>
               <li class="divider"></li>
+              <li>
+                <a href="{% url 'medicalabstract-create' %}">New medical abstract</a>
+              </li>
               <li>
                 <a href="{% url 'relationship-create' %}">New relationship</a>
               </li>              

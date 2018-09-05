@@ -268,6 +268,19 @@ class MedicalAbstractListView(LoginRequiredMixin, generic.ListView):
 class MedicalAbstractDetailView(LoginRequiredMixin, generic.DetailView):
     model = MedicalAbstract
 
+class MedicalAbstractCreate(LoginRequiredMixin, generic.CreateView):
+    model = MedicalAbstract
+    fields = '__all__'
+
+class MedicalAbstractUpdate(LoginRequiredMixin, generic.UpdateView):
+    model = MedicalAbstract
+    fields = '__all__'
+    template_name_suffix = '_update_form'
+
+class MedicalAbstractDelete(LoginRequiredMixin, generic.DeleteView):
+    model = MedicalAbstract
+    success_url = reverse_lazy('medical-abstracts')
+    
 class DrugListView(LoginRequiredMixin, generic.ListView):
     model = Drug
 

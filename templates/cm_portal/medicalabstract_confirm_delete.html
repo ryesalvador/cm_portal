@@ -1,0 +1,15 @@
+{% extends "cm_portal/nursing_home_index.html" %}
+
+{% block title %}| Delete Medical Abstract{% endblock %}
+
+{% block page_title %}| Delete Medical Abstract{% endblock %}
+
+{% block content %}
+
+<p class="text-danger">Are you sure you want to delete the medical abstract of {{ medicalabstract }}?</p>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <input class="btn btn-danger" type="submit" action="" value="Yes, delete." />
+</form>
+{% endblock %}

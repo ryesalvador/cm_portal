@@ -23,6 +23,7 @@
     </ul>
     {% else %}
       <p>There are no medical abstracts in the portal.</p>  
-  {% endif %}   
+  {% endif %}  
+  <a class="btn btn-primary" href="{% url 'medicalabstract-create' %}" role="button">Add a medical abstract</a> 
   </div>
 {% endblock %}

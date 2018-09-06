@@ -34,18 +34,22 @@
                 <a href="{% url 'resident-create' %}">New resident</a>
               </li>
               <li>
-                <a href="{% url 'relative-create' %}">New relative</a>
-              </li>
-              <li>
-                <a href="{% url 'physician-create' %}">New physician</a>
+                <a href="{% url 'medicalabstract-create' %}">New medical abstract</a>
               </li>
               <li class="divider"></li>
               <li>
-                <a href="{% url 'medicalabstract-create' %}">New medical abstract</a>
+                <a href="{% url 'relative-create' %}">New relative</a>
               </li>
               <li>
                 <a href="{% url 'relationship-create' %}">New relationship</a>
-              </li>              
+              </li>
+              <li class="divider"></li>
+              <li>
+                <a href="{% url 'physician-create' %}">New physician</a>
+              </li>
+              <li>
+                <a href="{% url 'drug-create' %}" >New drug</a>
+              </li>         
             </ul>
 </li>
 {% endblock %}

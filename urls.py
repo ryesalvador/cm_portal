@@ -39,6 +39,9 @@ urlpatterns += [
     path('nursing-home/medical-abstract/<int:pk>/delete/', views.MedicalAbstractDelete.as_view(), name='medicalabstract-delete'),
     path('nursing-home/drugs/', views.DrugListView.as_view(), name='drugs'),
     path('nursing-home/drug/<int:pk>/', views.DrugDetailView.as_view(), name='drug-detail'),
+    path('nursing-home/drug/create/', views.DrugCreate.as_view(), name='drug-create'),
+    path('nursing-home/drug/<int:pk>/update/', views.DrugUpdate.as_view(), name='drug-update'),
+    path('nursing-home/drug/<int:pk>/delete/', views.DrugDelete.as_view(), name='drug-delete'),
     path('nursing-home/medications/', views.MedicationListView.as_view(), name='medications'),
     path('nursing-home/medication/<int:pk>/', views.MedicationDetailView.as_view(), name='medication-detail'),
 ]

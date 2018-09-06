@@ -287,6 +287,19 @@ class DrugListView(LoginRequiredMixin, generic.ListView):
 class DrugDetailView(LoginRequiredMixin, generic.DetailView):
     model = Drug
 
+class DrugCreate(LoginRequiredMixin, generic.CreateView):
+    model = Drug
+    fields = '__all__'
+
+class DrugUpdate(LoginRequiredMixin, generic.UpdateView):
+    model = Drug
+    fields = '__all__'
+    template_name_suffix = '_update_form'
+
+class DrugDelete(LoginRequiredMixin, generic.DeleteView):
+    model = Drug
+    success_url = reverse_lazy('drugs')
+
 class MedicationListView(LoginRequiredMixin, generic.ListView):
     model = Medication
 

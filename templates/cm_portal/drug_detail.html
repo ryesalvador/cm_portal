@@ -11,4 +11,6 @@
     <tr><td><strong>Dosage: </strong>{{ drug.dosage }}</td></tr>
     <tr><td><strong>Price: </strong>{{ drug.price }}</td></tr>
   </table>  
+  <a class="btn btn-primary" href="{% url 'drug-update' drug.id %}" role="button">Edit</a>  
+  <a class="btn btn-warning" href="{% url 'drug-delete' drug.id %}" role="button">Delete</a>
 {% endblock %}

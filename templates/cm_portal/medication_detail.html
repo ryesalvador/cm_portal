@@ -12,4 +12,6 @@
     <tr><td><strong>Quantity: </strong>{{ medication.quantity }}</td></tr>
     <tr><td><strong>Due: </strong>{{ medication.due }}</td></tr>
   </table>  
+  <a class="btn btn-primary" href="{% url 'medication-update' medication.id %}" role="button">Edit</a>  
+  <a class="btn btn-warning" href="{% url 'medication-delete' medication.id %}" role="button">Delete</a>
 {% endblock %}

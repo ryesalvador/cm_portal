@@ -31,10 +31,17 @@
             </a>
             <ul class="dropdown-menu" role="menu">
               <li>
+                <a href="{% url 'drug-create' %}" >New drug</a>
+              </li>
+              <li class="divider"></li>
+              <li>
                 <a href="{% url 'resident-create' %}">New resident</a>
               </li>
               <li>
                 <a href="{% url 'medicalabstract-create' %}">New medical abstract</a>
+              </li>
+              <li>
+                <a href="{% url 'medication-create' %}" >New medication</a>
               </li>
               <li class="divider"></li>
               <li>
@@ -46,10 +53,7 @@
               <li class="divider"></li>
               <li>
                 <a href="{% url 'physician-create' %}">New physician</a>
-              </li>
-              <li>
-                <a href="{% url 'drug-create' %}" >New drug</a>
-              </li>         
+              </li>                
             </ul>
 </li>
 {% endblock %}

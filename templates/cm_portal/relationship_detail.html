@@ -7,10 +7,15 @@
 {% load static %}
 
 {% block content %}
+  <h2>{{ relationship }}</h2>
   <table class="table table-hover">
     <tr>
-      <td><strong>Related to: </strong>{{ relationship.related_to }}</td>
-      <td><strong>Relation: </strong>{{ relationship.relation }}</td>    
+      <td><strong>Related to: </strong>{{ relationship.related_to }}</td>          
     </tr>    
+    <tr>
+      <td><strong>Relation: </strong>{{ relationship.relation }}</td>
+    </tr>
   </table>    
+  <a class="btn btn-primary" href="{% url 'relationship-update' relationship.id %}" role="button">Edit</a>  
+  <a class="btn btn-danger" href="{% url 'relationship-delete' relationship.id %}" role="button">Delete</a>
 {% endblock %}

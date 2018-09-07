@@ -49,8 +49,9 @@ GRADE = (
 
 class Drug(models.Model):
     generic_name = models.CharField(max_length=35)
-    brand_name = models.CharField(max_length=35, null=True, blank=True)
-    dosage = models.CharField(max_length=35, null=True, blank=True)    
+    brand_name = models.CharField(max_length=35, default='', blank=True)
+    dosage = models.CharField(max_length=35, default='', blank=True)
+    indication = models.CharField(max_length=70, blank=True)
     price = models.FloatField(null=True, blank=True)
 
     def __str__(self):

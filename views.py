@@ -283,6 +283,7 @@ class MedicalAbstractDelete(LoginRequiredMixin, generic.DeleteView):
     
 class DrugListView(LoginRequiredMixin, generic.ListView):
     model = Drug
+    paginate_by = 10
 
 class DrugDetailView(LoginRequiredMixin, generic.DetailView):
     model = Drug
@@ -302,6 +303,7 @@ class DrugDelete(LoginRequiredMixin, generic.DeleteView):
 
 class MedicationListView(LoginRequiredMixin, generic.ListView):
     model = Medication
+    paginate_by = 10
 
 class MedicationDetailView(LoginRequiredMixin, generic.DetailView):
     model = Medication

@@ -5,7 +5,7 @@ from .models import Relative, Physician, Resident, Relationship, \
 
 @admin.register(Drug)
 class DrugAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('generic_name', 'brand_name')
 
 @admin.register(Medication)
 class Medication(admin.ModelAdmin):

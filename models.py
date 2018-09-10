@@ -54,6 +54,9 @@ class Drug(models.Model):
     indication = models.CharField(max_length=70, blank=True)
     price = models.FloatField(null=True, blank=True)
 
+    class Meta:
+        ordering = ["generic_name"]
+
     def __str__(self):
         return u'{} - {}'.format(self.generic_name, self.dosage)
 

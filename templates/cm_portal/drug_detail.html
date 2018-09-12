@@ -7,8 +7,9 @@
   <h2>Name: {{ drug.generic_name }}</h2>
   <table class="table table-hover">
     <tr><td><strong>Generic name: </strong>{{ drug.generic_name|lower }}</td></tr>    
-    <tr><td><strong>Brand name: </strong>{{ drug.brand_name }}</td></tr>
+    <tr><td><strong>Brand name: </strong>{{ drug.brand_name }}</td></tr>    
     <tr><td><strong>Dosage: </strong>{{ drug.dosage }}</td></tr>
+    <tr><td><strong>Indication: </strong>{{ drug.indication }}</td></tr>
     <tr><td><strong>Price: </strong>{{ drug.price }}</td></tr>
   </table>  
   <a class="btn btn-primary" href="{% url 'drug-update' drug.id %}" role="button">Edit</a>  

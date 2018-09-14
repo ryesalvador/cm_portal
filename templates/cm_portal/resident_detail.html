@@ -89,9 +89,8 @@
       <td><strong>Religion: </strong>{{ resident.religion }}</td>    
     </tr>
   </table>  
-  <div style="margin-left:20px;margin-top:20px">
-    <h4>Contact Person(s)</h4>
-    <table class="table table-hover"> 
+  <table class="table table-hover">
+    <thead><h4>Contact Person(s)</h4></thead>
     {% for relationship in resident.relationship_set.all %}
       {% for relative in relationship.relative_set.all %}
         <tr><td><strong>Name: </strong>
@@ -108,8 +107,34 @@
         <td><strong>HOC: </strong>{{ physician.hospital_of_choice }}</td>  
       </tr>
     {% endfor%}
+  </table>
+  {% if resident.medication_set.all %}
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Current Medications</h4>
+    <table class="table table-hover">
+      {% for medication in resident.medication_set.all %}
+      <tr>
+        <td>
+        {% if medication.medicine.brand_name %}
+        <h4 class="list-group-item-heading">{{ medication.medicine.brand_name }}</h4>
+        {% endif %}
+        <a href="{{ medication.get_absolute_url }}">
+            {{ medication.medicine.generic_name }} 
+            {% if medication.medicine.dosage %} - 
+              {{ medication.medicine.dosage }}            
+            {% endif %}        
+        </a>&nbsp;
+        {% if medication.quantity %}
+        <span class="badge">{{ medication.quantity }}</span>
+        {% else %}
+        <span class="badge">0</span>
+        {% endif %}
+        </td>      
+      </tr>
+      {% endfor %}
     </table>
   </div> 
+  {% endif %}
   <a class="btn btn-primary" href="{% url 'resident-update' resident.id %}" role="button">Edit</a>  
   <a class="btn btn-danger" href="{% url 'resident-delete' resident.id %}" role="button">Delete</a>
 {% endblock %}

@@ -6,7 +6,8 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
-from .forms import ResidentCreateForm, EmployeeCreateForm, SearchForm
+from .forms import ResidentCreateForm, EmployeeCreateForm, SearchForm, \
+     MedicationCreateForm
 from django.http import HttpResponseRedirect
 from itertools import chain
 from django.apps import apps
@@ -309,8 +310,8 @@ class MedicationDetailView(LoginRequiredMixin, generic.DetailView):
     model = Medication
 
 class MedicationCreate(LoginRequiredMixin, generic.CreateView):
-    model = Medication
-    fields = '__all__'
+    model = Medication    
+    form_class = MedicationCreateForm
 
 class MedicationUpdate(LoginRequiredMixin, generic.UpdateView):
     model = Medication

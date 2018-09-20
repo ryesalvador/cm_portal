@@ -105,7 +105,9 @@
   <footer>
       {% block footer%}
         <hr>
-        <a href="">Nursing Home</a> | <a href="">HRIS</a> | <a href="">Inventory</a>
+        <a href="{% url 'nursing-home-index' %}">Nursing Home</a> | 
+        <a href="{% url 'hris-index' %}">HRIS</a> | 
+        <a href="">Inventory</a>
         <p>Caring with Hearts in our Hands</p>      
       {% endblock %}                
   </footer>

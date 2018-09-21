@@ -47,6 +47,42 @@ GRADE = (
         ('E', 'Excellent'),
         )
 
+ITEM_CATEGORY = (
+    ('MS', 'Medical supply'),
+    ('ME', 'Medical equipment'),
+    )
+
+class Item(models.Model):
+    item_name = models.CharField(max_length=70)
+    brand_name = models.CharField(max_length=70, blank=True)
+    manufacturer = models.CharField(max_length=70, blank=True)
+    description = models.TextField(blank=True)
+    perishable = models.BooleanField(default=True)
+    category = models.CharField(
+        max_length=2,
+        choices=ITEM_CATEGORY,
+        default='MS'
+        )    
+
+    def __str__(self):
+        return u'{}'.format(self.item_name)
+
+    def get_absolute_url(self):
+        return reverse('item-detail', args=[str(self.id)])
+
+class ItemInstance(models.Model):
+    item = models.ForeignKey('Item', on_delete=models.CASCADE, null=True)
+    date_received = models.DateField(auto_now=False)
+    expiration_date = models.DateField(auto_now=False)
+    stocks_available = models.PositiveIntegerField(null=True, blank=True)
+    unit_of_measure = models.CharField(max_length=35, blank=True)
+
+    def __str__(self):
+        return u'{}'.format(self.item)
+
+    def get_absolute_url(self):
+        return reverse('item-instance-detail', args=[str(self.id)])
+    
 class Drug(models.Model):
     generic_name = models.CharField(max_length=70)
     brand_name = models.CharField(max_length=70, default='', blank=True)

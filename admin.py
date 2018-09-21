@@ -1,14 +1,22 @@
 from django.contrib import admin
 from .models import Relative, Physician, Resident, Relationship, \
      PerformanceAppraisal, EmploymentStatus, Employee, Position, Department, \
-     MedicalAbstract, Drug, Medication
+     MedicalAbstract, Drug, Medication, Item, ItemInstance
+
+@admin.register(Item)
+class ItemAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(ItemInstance)
+class ItemInstanceAdmin(admin.ModelAdmin):
+    pass
 
 @admin.register(Drug)
 class DrugAdmin(admin.ModelAdmin):
     list_display = ('generic_name', 'brand_name')
 
 @admin.register(Medication)
-class Medication(admin.ModelAdmin):
+class MedicationAdmin(admin.ModelAdmin):
     pass
 
 @admin.register(MedicalAbstract)

@@ -106,11 +106,14 @@ class Drug(models.Model):
     def get_absolute_url(self):
         return reverse('drug-detail', args=[str(self.id)])
 
-class Medication(models.Model):    
+class Medication(models.Model):
+    created = models.DateField(auto_now_add=True, editable=False, null=False, blank=False)
+    last_modified = models.DateField(auto_now=True, editable=False, null=False, blank=False)
     resident = models.ForeignKey('Resident', on_delete=models.CASCADE, null=True)
     medicine = models.ForeignKey('Drug', on_delete=models.CASCADE, null=True)
     frequency = models.CharField(max_length=70, blank=True)
     quantity = models.PositiveIntegerField(null=True, blank=True)
+    date_started = models.DateField(auto_now=False, null=True, blank=True)
     due = models.DateField(auto_now=False, null=True, blank=True)
 
     def __str__(self):

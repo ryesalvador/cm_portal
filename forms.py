@@ -20,7 +20,8 @@ class MedicationCreateForm(ModelForm):
         model = Medication
         fields = '__all__'
         widgets = {
-            'due': DateInput(),
+            'date_started': DateInput(),
+            'due': DateInput(),            
             }
         
 class ResidentCreateForm(ModelForm):

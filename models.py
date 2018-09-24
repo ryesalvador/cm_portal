@@ -52,6 +52,13 @@ ITEM_CATEGORY = (
     ('ME', 'Medical equipment'),
     )
 
+BUILDING = (
+    ('R', 'Blessed Rebuschini Building'),
+    ('L', 'Blessed Luigi Tezza Building'),
+    ('1', 'St. Camillus Building - First floor'),
+    ('2', 'St. Camillus Building - Second floor'),
+    )
+
 class Item(models.Model):
     item_name = models.CharField(max_length=70)
     brand_name = models.CharField(max_length=70, blank=True)
@@ -199,6 +206,7 @@ class Resident(models.Model):
     reminders = models.TextField(blank=True)
     advanced_directives = models.CharField(max_length=70, blank=True)
     admitting_diagnosis = models.TextField(blank=True)
+    building = models.CharField(max_length=1, choices=BUILDING, blank=True)
     room_number = models.CharField(max_length=70, blank=True)
     diet = models.TextField(blank=True)
     weight = models.FloatField(null=True, blank=True)

@@ -59,6 +59,11 @@ BUILDING = (
     ('2', 'St. Camillus Building - Second floor'),
     )
 
+CATEGORY = (
+    ('S', 'Skilled Nursing'),
+    ('L', 'Assisted living'),
+    )
+
 class Item(models.Model):
     item_name = models.CharField(max_length=70)
     brand_name = models.CharField(max_length=70, blank=True)
@@ -108,11 +113,12 @@ class Drug(models.Model):
 
 class Medication(models.Model):
     created = models.DateField(auto_now_add=True, editable=False, null=False, blank=False)
-    last_modified = models.DateField(auto_now=True, editable=False, null=False, blank=False)
+    last_modified = models.DateField(auto_now=True, editable=False, null=False, blank=False)    
     resident = models.ForeignKey('Resident', on_delete=models.CASCADE, null=True)
     medicine = models.ForeignKey('Drug', on_delete=models.CASCADE, null=True)
     frequency = models.CharField(max_length=70, blank=True)
     quantity = models.PositiveIntegerField(null=True, blank=True)
+    discontinued = models.BooleanField(default=False)
     date_started = models.DateField(auto_now=False, null=True, blank=True)
     due = models.DateField(auto_now=False, null=True, blank=True)
 
@@ -209,6 +215,7 @@ class Resident(models.Model):
     reminders = models.TextField(blank=True)
     advanced_directives = models.CharField(max_length=70, blank=True)
     admitting_diagnosis = models.TextField(blank=True)
+    category_of_care = models.CharField(max_length=1, choices=CATEGORY, blank=True)
     building = models.CharField(max_length=1, choices=BUILDING, blank=True)
     room_number = models.CharField(max_length=70, blank=True)
     diet = models.TextField(blank=True)

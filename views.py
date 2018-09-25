@@ -315,7 +315,7 @@ class MedicationCreate(LoginRequiredMixin, generic.CreateView):
 
 class MedicationUpdate(LoginRequiredMixin, generic.UpdateView):
     model = Medication
-    fields = '__all__'
+    form_class = MedicationCreateForm
     template_name_suffix = '_update_form'
 
 class MedicationDelete(LoginRequiredMixin, generic.DeleteView):

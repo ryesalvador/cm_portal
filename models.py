@@ -59,9 +59,10 @@ BUILDING = (
     ('2', 'St. Camillus Building - Second floor'),
     )
 
-CATEGORY = (
-    ('S', 'Skilled Nursing'),
-    ('L', 'Assisted living'),
+LEVEL_OF_CARE = (
+    ('H', 'High'),
+    ('I', 'Intermediate'),
+    ('L', 'Low'),
     )
 
 class Item(models.Model):
@@ -215,7 +216,7 @@ class Resident(models.Model):
     reminders = models.TextField(blank=True)
     advanced_directives = models.CharField(max_length=70, blank=True)
     admitting_diagnosis = models.TextField(blank=True)
-    category_of_care = models.CharField(max_length=1, choices=CATEGORY, blank=True)
+    level_of_care = models.CharField(max_length=1, choices=LEVEL_OF_CARE, blank=True)
     building = models.CharField(max_length=1, choices=BUILDING, blank=True)
     room_number = models.CharField(max_length=70, blank=True)
     diet = models.TextField(blank=True)

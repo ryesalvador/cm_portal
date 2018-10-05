@@ -63,17 +63,24 @@
       </h2>
       <h3>Dynamic content</h3>
       <p>The library has the following record counts:</p>
-    <ul class="list-group">
-      <li class="list-group-item">
-        <strong>Residents: </strong>{{ num_residents }} 
-      </li>
-      <li class="list-group-item">
-        <strong>Physicians: </strong>{{ num_physicians }} 
-      </li>
-      <li class="list-group-item">
-        <strong>Relatives: </strong>{{ num_relatives }}
-      </li>    
-    </ul>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <strong>Residents: </strong>{{ num_residents }} 
+        </li>
+        <li class="list-group-item">
+          <strong>Physicians: </strong>{{ num_physicians }} 
+        </li>
+        <li class="list-group-item">
+          <strong>Relatives: </strong>{{ num_relatives }}
+        </li>
+      </ul>      
+      <h3>Census</h3>
+      <ul class="list-group">
+        <li class="list-group-item"><strong>Blessed Rebuschini: </strong>{{ census_rebuschini }}</li>
+        <li class="list-group-item"><strong>Blessed Luigi Tezza: </strong>{{ census_rebuschini }}</li>
+        <li class="list-group-item"><strong>St. Camillus Building-First floor: </strong>{{ census_rebuschini }}</li>
+        <li class="list-group-item"><strong>St. Camillus Building-Second floor: </strong>{{ census_rebuschini }}</li>
+      </ul>
     </div>
   {% else %}
     <p>Please <a href="{% url 'login'%}?next={{request.path}}">login</a></p>

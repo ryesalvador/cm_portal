@@ -48,16 +48,24 @@ def index(request):
 
 @login_required
 def nursing_home_index(request):    
-    num_residents = Resident.objects.all().count()
+    num_residents = Resident.objects.filter(vital_status='LI').count()
     num_physicians = Physician.objects.all().count()
     num_relatives = Relative.objects.all().count()
+    census_rebuschini = Resident.objects.filter(vital_status='LI').filter(building='R').count()
+    census_luigi = Resident.objects.filter(vital_status='LI').filter(building='L').count()
+    census_first_floor = Resident.objects.filter(vital_status='LI').filter(building='1').count()
+    census_second_floor = Resident.objects.filter(vital_status='LI').filter(building='2').count()
     
     return render(request,
                   'cm_portal/nursing_home_index.html',
                   context={
                       'num_residents': num_residents,
                       'num_physicians': num_physicians,
-                      'num_relatives': num_relatives,                      
+                      'num_relatives': num_relatives,
+                      'census_rebuschini': census_rebuschini,
+                      'census_luigi': census_luigi,
+                      'census_first_floor': census_first_floor,
+                      'census_second_floor': census_second_floor,
                       })
 
 @login_required

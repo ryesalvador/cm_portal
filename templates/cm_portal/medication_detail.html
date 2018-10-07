@@ -4,7 +4,12 @@
 
 {% block page_title %}| Medication{% endblock %}
 {% block content %}  
-  <h2>Resident: {{ medication.resident }}</h2>
+  <h2>Resident: <a href="{{ medication.resident.get_absolute_url }}">
+            {{ medication.resident.last_name }}, {{ medication.resident.first_name }} 
+            {% if medication.resident.middle_name %}
+              {{ medication.resident.middle_name|first }}.            
+            {% endif %}        
+          </a></h2>
   <table class="table table-hover">
     <tr><td><strong>Medicine: </strong><a href="{{ medication.medicine.get_absolute_url }}">
     {{ medication.medicine }}</a></td></tr>    

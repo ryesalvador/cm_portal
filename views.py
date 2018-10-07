@@ -3,9 +3,9 @@ from .models import Resident, Physician, Relative, Relationship, \
      PerformanceAppraisal, EmploymentStatus, Employee, Position, Department, \
      MedicalAbstract, Drug, Medication
 from django.views import generic
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse, reverse_lazy
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from .forms import ResidentCreateForm, EmployeeCreateForm, SearchForm, \
      MedicationCreateForm
 from django.http import HttpResponseRedirect
@@ -78,7 +78,8 @@ def hris_index(request):
                       })
 
 @method_decorator(cache_control(private=True), name='dispatch')
-class ResidentListView(LoginRequiredMixin, generic.ListView):
+class ResidentListView(PermissionRequiredMixin, generic.ListView):
+    permission_required = 'cm_portal.can_view_nursing_home'
     model = Resident
     paginate_by = 10    
     
@@ -96,23 +97,27 @@ class ResidentListView(LoginRequiredMixin, generic.ListView):
         return context
 
 @method_decorator(cache_control(private=True), name='dispatch')
-class ResidentDetailView(LoginRequiredMixin, generic.DetailView):
+class ResidentDetailView(PermissionRequiredMixin, generic.DetailView):
+    permission_required = 'cm_portal.can_view_nursing_home'
     model = Resident
 
-class ResidentCreate(LoginRequiredMixin, generic.CreateView):
+class ResidentCreate(PermissionRequiredMixin, generic.CreateView):
+    permission_required = 'cm_portal.add_resident'
     model = Resident
     form_class = ResidentCreateForm
 
-class ResidentUpdate(LoginRequiredMixin, generic.UpdateView):
+class ResidentUpdate(PermissionRequiredMixin, generic.UpdateView):
+    permission_required = 'cm_portal.change_resident'
     model = Resident
     form_class = ResidentCreateForm
     template_name_suffix = '_update_form'
 
-class ResidentDelete(LoginRequiredMixin, generic.DeleteView):
+class ResidentDelete(PermissionRequiredMixin, generic.DeleteView):
+    permission_required = 'cm_portal.delete_resident'
     model = Resident
     success_url = reverse_lazy('residents')
     
-class PhysicianListView(LoginRequiredMixin, generic.ListView):
+class PhysicianListView(LoginRequiredMixin, generic.ListView):    
     model = Physician
     paginate_by = 10
 
@@ -132,20 +137,24 @@ class PhysicianListView(LoginRequiredMixin, generic.ListView):
 class PhysicianDetailView(LoginRequiredMixin, generic.DetailView):
     model = Physician
 
-class PhysicianCreate(LoginRequiredMixin, generic.CreateView):
+class PhysicianCreate(PermissionRequiredMixin, generic.CreateView):
+    permission_required = 'cm_portal.add_physician'
     model = Physician
     fields = '__all__'
 
-class PhysicianUpdate(LoginRequiredMixin, generic.UpdateView):
+class PhysicianUpdate(PermissionRequiredMixin, generic.UpdateView):
+    permission_required = 'cm_portal.change_physician'
     model = Physician
     fields = '__all__'
     template_name_suffix = '_update_form'
 
-class PhysicianDelete(LoginRequiredMixin, generic.DeleteView):
+class PhysicianDelete(PermissionRequiredMixin, generic.DeleteView):
+    permission_required = 'cm_portal.delete_physician'
     model = Physician
     success_url = reverse_lazy('physicians')
     
-class RelativeListView(LoginRequiredMixin, generic.ListView):
+class RelativeListView(PermissionRequiredMixin, generic.ListView):
+    permission_required = 'cm_portal.can_view_nursing_home'
     model = Relative
     paginate_by = 10
 
@@ -162,43 +171,54 @@ class RelativeListView(LoginRequiredMixin, generic.ListView):
         context['form'] = form        
         return context
 
-class RelativeDetailView(LoginRequiredMixin, generic.DetailView):
+class RelativeDetailView(PermissionRequiredMixin, generic.DetailView):
+    permission_required = 'cm_portal.can_view_nursing_home'
     model = Relative
 
-class RelativeCreate(LoginRequiredMixin, generic.CreateView):
+class RelativeCreate(PermissionRequiredMixin, generic.CreateView):
+    permission_required = 'cm_portal.add_relative'
     model = Relative
     fields = '__all__'
 
-class RelativeUpdate(LoginRequiredMixin, generic.UpdateView):
+class RelativeUpdate(PermissionRequiredMixin, generic.UpdateView):
+    permission_required = 'cm_portal.change_relative'
     model = Relative
     fields = '__all__'
     template_name_suffix = '_update_form'
 
-class RelativeDelete(LoginRequiredMixin, generic.DeleteView):
+class RelativeDelete(PermissionRequiredMixin, generic.DeleteView):
+    permission_required = 'cm_portal.delete_relative'
     model = Relative
     success_url = reverse_lazy('relatives')
    
-class RelationshipListView(LoginRequiredMixin, generic.ListView):
+class RelationshipListView(PermissionRequiredMixin, generic.ListView):
+    permission_required = 'cm_portal.can_view_nursing_home'
     model = Relationship
     paginate_by = 10
 
-class RelationshipDetailView(LoginRequiredMixin, generic.DetailView):
+class RelationshipDetailView(PermissionRequiredMixin, generic.DetailView):
+    permission_required = 'cm_portal.can_view_nursing_home'
     model = Relationship
 
-class RelationshipCreate(LoginRequiredMixin, generic.CreateView):
+class RelationshipCreate(PermissionRequiredMixin, generic.CreateView):
+    permission_required = 'cm_portal.add_relationship'
     model = Relationship
     fields = '__all__'
 
-class RelationshipUpdate(LoginRequiredMixin, generic.UpdateView):
+class RelationshipUpdate(PermissionRequiredMixin, generic.UpdateView):
+    permission_required = 'cm_portal.change_relationship'
     model = Relationship
     fields = '__all__'
     template_name_suffix = '_update_form'
 
-class RelationshipDelete(LoginRequiredMixin, generic.DeleteView):
+class RelationshipDelete(PermissionRequiredMixin, generic.DeleteView):
+    permission_required = 'cm_portal.delete_relationship'
     model = Relationship
     success_url = reverse_lazy('relationship')
 
-class EmployeeListView(LoginRequiredMixin, generic.ListView):
+@method_decorator(cache_control(private=True), name='dispatch')
+class EmployeeListView(PermissionRequiredMixin, generic.ListView):
+    permission_required = 'cm_portal.can_view_hris'
     model = Employee
     paginate_by = 10
 
@@ -215,117 +235,147 @@ class EmployeeListView(LoginRequiredMixin, generic.ListView):
         context['form'] = form        
         return context
 
-class EmployeeDetailView(LoginRequiredMixin, generic.DetailView):
+@method_decorator(cache_control(private=True), name='dispatch')
+class EmployeeDetailView(PermissionRequiredMixin, generic.DetailView):
+    permission_required = 'cm_portal.can_view_hris'
     model = Employee
 
-class EmployeeCreate(LoginRequiredMixin, generic.CreateView):
+class EmployeeCreate(PermissionRequiredMixin, generic.CreateView):
+    permission_required = 'cm_portal.add_employee'
     model = Employee
     form_class = EmployeeCreateForm
 
-class EmployeeUpdate(LoginRequiredMixin, generic.UpdateView):
+class EmployeeUpdate(PermissionRequiredMixin, generic.UpdateView):
+    permission_required = 'cm_portal.change_employee'
     model = Employee
     fields = '__all__'
     template_name_suffix = '_update_form'
 
-class EmployeeDelete(LoginRequiredMixin, generic.DeleteView):
+class EmployeeDelete(PermissionRequiredMixin, generic.DeleteView):
+    permission_required = 'cm_portal.delete_employee'
     model = Employee
     success_url = reverse_lazy('employees')
 
-class PositionListView(LoginRequiredMixin, generic.ListView):
+class PositionListView(PermissionRequiredMixin, generic.ListView):
+    permission_required = 'cm_portal.can_view_hris'
     model = Position
     paginate_by = 10
 
-class PositionDetailView(LoginRequiredMixin, generic.DetailView):
+class PositionDetailView(PermissionRequiredMixin, generic.DetailView):
+    permission_required = 'cm_portal.can_view_hris'
     model = Position
 
-class PositionCreate(LoginRequiredMixin, generic.CreateView):
+class PositionCreate(PermissionRequiredMixin, generic.CreateView):
+    permission_required = 'cm_portal.add_position'
     model = Position
     fields = '__all__'
 
-class PositionUpdate(LoginRequiredMixin, generic.UpdateView):
+class PositionUpdate(PermissionRequiredMixin, generic.UpdateView):
+    permission_required = 'cm_portal.change_position'
     model = Position
     fields = '__all__'
     template_name_suffix = '_update_form'
 
-class PositionDelete(LoginRequiredMixin, generic.DeleteView):
+class PositionDelete(PermissionRequiredMixin, generic.DeleteView):
+    permission_required = 'cm_portal.delete_position'
     model = Position
     success_url = reverse_lazy('positions')
 
-class DepartmentListView(LoginRequiredMixin, generic.ListView):
+class DepartmentListView(PermissionRequiredMixin, generic.ListView):
+    permission_required = 'cm_portal.can_view_hris'
     model = Department
     paginate_by = 10
 
-class DepartmentDetailView(LoginRequiredMixin, generic.DetailView):
+class DepartmentDetailView(PermissionRequiredMixin, generic.DetailView):
+    permission_required = 'cm_portal.can_view_hris'
     model = Department
 
-class DepartmentCreate(LoginRequiredMixin, generic.CreateView):
+class DepartmentCreate(PermissionRequiredMixin, generic.CreateView):
+    permission_required = 'cm_portal.add_department'
     model = Department
     fields = '__all__'
 
-class DepartmentUpdate(LoginRequiredMixin, generic.UpdateView):
+class DepartmentUpdate(PermissionRequiredMixin, generic.UpdateView):
+    permission_required = 'cm_portal.change_department'
     model = Department
     fields = '__all__'
     template_name_suffix = '_update_form'
 
-class DepartmentDelete(LoginRequiredMixin, generic.DeleteView):
+class DepartmentDelete(PermissionRequiredMixin, generic.DeleteView):
+    permission_required = 'cm_portal.delete_department'
     model = Department
     success_url = reverse_lazy('departments')
 
-class MedicalAbstractListView(LoginRequiredMixin, generic.ListView):
+class MedicalAbstractListView(PermissionRequiredMixin, generic.ListView):
+    permission_required = 'cm_portal.can_view_nursing_home'
     model = MedicalAbstract
 
-class MedicalAbstractDetailView(LoginRequiredMixin, generic.DetailView):
+class MedicalAbstractDetailView(PermissionRequiredMixin, generic.DetailView):
+    permission_required = 'cm_portal.can_view_nursing_home'
     model = MedicalAbstract
 
-class MedicalAbstractCreate(LoginRequiredMixin, generic.CreateView):
+class MedicalAbstractCreate(PermissionRequiredMixin, generic.CreateView):
+    permission_required = 'cm_portal.add_medicalabstract'
     model = MedicalAbstract
     fields = '__all__'
 
-class MedicalAbstractUpdate(LoginRequiredMixin, generic.UpdateView):
+class MedicalAbstractUpdate(PermissionRequiredMixin, generic.UpdateView):
+    permission_required = 'cm_portal.change_medicalabstract'
     model = MedicalAbstract
     fields = '__all__'
     template_name_suffix = '_update_form'
 
-class MedicalAbstractDelete(LoginRequiredMixin, generic.DeleteView):
+class MedicalAbstractDelete(PermissionRequiredMixin, generic.DeleteView):
+    permission_required = 'cm_portal.delete_medicalabstract'
     model = MedicalAbstract
     success_url = reverse_lazy('medical-abstracts')
     
-class DrugListView(LoginRequiredMixin, generic.ListView):
+class DrugListView(PermissionRequiredMixin, generic.ListView):
+    permission_required = 'cm_portal.can_view_nursing_home'
     model = Drug
     paginate_by = 10
 
-class DrugDetailView(LoginRequiredMixin, generic.DetailView):
+class DrugDetailView(PermissionRequiredMixin, generic.DetailView):
+    permission_required = 'cm_portal.can_view_nursing_home'
     model = Drug
 
-class DrugCreate(LoginRequiredMixin, generic.CreateView):
+class DrugCreate(PermissionRequiredMixin, generic.CreateView):
+    permission_required = 'cm_portal.add_drug'
     model = Drug
     fields = '__all__'
 
-class DrugUpdate(LoginRequiredMixin, generic.UpdateView):
+class DrugUpdate(PermissionRequiredMixin, generic.UpdateView):
+    permission_required = 'cm_portal.change_drug'
     model = Drug
     fields = '__all__'
     template_name_suffix = '_update_form'
 
-class DrugDelete(LoginRequiredMixin, generic.DeleteView):
+class DrugDelete(PermissionRequiredMixin, generic.DeleteView):
+    permission_required = 'cm_portal.delete_drug'
     model = Drug
     success_url = reverse_lazy('drugs')
 
-class MedicationListView(LoginRequiredMixin, generic.ListView):
+class MedicationListView(PermissionRequiredMixin, generic.ListView):
+    permission_required = 'cm_portal.can_view_nursing_home'
     model = Medication
     paginate_by = 10
 
-class MedicationDetailView(LoginRequiredMixin, generic.DetailView):
+class MedicationDetailView(PermissionRequiredMixin, generic.DetailView):
+    permission_required = 'cm_portal.can_view_nursing_home'
     model = Medication
 
-class MedicationCreate(LoginRequiredMixin, generic.CreateView):
+class MedicationCreate(PermissionRequiredMixin, generic.CreateView):
+    permission_required = 'cm_portal.add_medication'
     model = Medication    
     form_class = MedicationCreateForm
 
-class MedicationUpdate(LoginRequiredMixin, generic.UpdateView):
+class MedicationUpdate(PermissionRequiredMixin, generic.UpdateView):
+    permission_required = 'cm_portal.change_medication'
     model = Medication
     form_class = MedicationCreateForm
     template_name_suffix = '_update_form'
 
-class MedicationDelete(LoginRequiredMixin, generic.DeleteView):
+class MedicationDelete(PermissionRequiredMixin, generic.DeleteView):
+    permission_required = 'cm_portal.delete_medication'
     model = Medication
     success_url = reverse_lazy('medications')

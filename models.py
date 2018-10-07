@@ -166,7 +166,7 @@ class Relative(models.Model):
     telephone = models.CharField(max_length=75, blank=True)
 
     class Meta:
-        ordering = ["last_name","first_name"]
+        ordering = ["last_name","first_name"]        
 
     def __str__(self):
         return u'{1}, {0}'.format(self.first_name, self.last_name)
@@ -233,6 +233,7 @@ class Resident(models.Model):
 
     class Meta:
         ordering = ["last_name","first_name"]
+        permissions = (("can_view_nursing_home", "View nursing home database"),)
 
     def __str__(self):
         return u'{1}, {0}'.format(self.first_name, self.last_name)
@@ -305,6 +306,10 @@ class Employee(models.Model):
     allowance = models.PositiveIntegerField('Allowance/De Minimis', null=True, blank=True)
     monthly_salary = models.PositiveIntegerField(null=True, blank=True)
     remarks = models.TextField(blank=True)
+
+    class Meta:
+        ordering = ["last_name","first_name"]
+        permissions = (("can_view_hris", "View HRIS Database"),)
 
     def __str__(self):
         return u'{1}, {0}'.format(self.first_name, self.last_name)

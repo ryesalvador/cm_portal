@@ -21,15 +21,33 @@
             <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
+              {% if perms.cm_portal.add_employee %}
               <li>
                 <a href="{% url 'employee-create' %}">New employee</a>
               </li>
+              {% else %}
+              <li class="disabled">
+                <a href="#">New employee</a>
+              </li>
+              {% endif %}
+              {% if perms.cm_portal.add_position %}
               <li>
                 <a href="{% url 'position-create' %}">New position</a>
               </li>
+              {% else %}
+              <li class="disabled">
+                <a href="#">New position</a>
+              </li>
+              {% endif %}
+              {% if perms.cm_portal.add_department %}
               <li>
                 <a href="{% url 'department-create' %}">New department</a>
               </li>
+              {% else %}
+              <li class="disabled">
+                <a href="#">New department</a>
+              </li>
+              {% endif %}
               <li class="divider"></li>
               <li>
                 <a href="#">Another action</a>

@@ -17,6 +17,10 @@
     {% else %}
       <p>There are no departments in the portal.</p>  
   {% endif %}  
-  <a class="btn btn-primary" href="{% url 'department-create' %}" role="button">Add a department</a>
+  {% if perms.cm_portal.add_department %}
+    <a class="btn btn-primary" href="{% url 'department-create' %}" role="button">Add a department</a>
+  {% else %}
+    <a class="btn btn-primary disabled" href="{% url 'department-create' %}" role="button">Add a department</a>
+  {% endif %}
   </div>
 {% endblock %}

@@ -21,6 +21,10 @@
     {% else %}
       <p>There are no medications in the portal.</p>  
   {% endif %}
-  <a class="btn btn-primary" href="{% url 'medication-create' %}" role="button">Add a medication</a>   
+  {% if perms.cm_portal.add_medication %}
+    <a class="btn btn-primary" href="{% url 'medication-create' %}" role="button">Add a medication</a>
+  {% else %}   
+    <a class="btn btn-primary disabled" href="{% url 'medication-create' %}" role="button">Add a medication</a>
+  {% endif %}
   </div>  
 {% endblock %}

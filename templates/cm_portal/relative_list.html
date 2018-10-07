@@ -33,7 +33,11 @@
     </ul>    
     {% else %}
       <p>There are no relatives in the portal.</p>  
-  {% endif %}  
-  <a class="btn btn-primary" href="{% url 'relative-create' %}" role="button">Add a relative</a>
+  {% endif %} 
+  {% if perms.cm_portal.add_relative %} 
+    <a class="btn btn-primary" href="{% url 'relative-create' %}" role="button">Add a relative</a>
+  {% else %}
+    <a class="btn btn-primary disabled" href="{% url 'relative-create' %}" role="button">Add a relative</a>
+  {% endif %}
   </div>  
 {% endblock %}

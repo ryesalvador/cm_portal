@@ -15,7 +15,15 @@
     <tr>
       <td><strong>Relation: </strong>{{ relationship.relation }}</td>
     </tr>
-  </table>    
-  <a class="btn btn-primary" href="{% url 'relationship-update' relationship.id %}" role="button">Edit</a>  
-  <a class="btn btn-danger" href="{% url 'relationship-delete' relationship.id %}" role="button">Delete</a>
+  </table>   
+  {% if perms.cm_portal.change_relationship and perms.cm_portal.delete_relationship %} 
+    <a class="btn btn-primary" href="{% url 'relationship-update' relationship.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger" href="{% url 'relationship-delete' relationship.id %}" role="button">Delete</a>
+  {% elif perms.cm_portal.change_relationship %}
+    <a class="btn btn-primary" href="{% url 'relationship-update' relationship.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger disabled" href="{% url 'relationship-delete' relationship.id %}" role="button">Delete</a>
+  {% else %}
+    <a class="btn btn-primary disabled" href="{% url 'relationship-update' relationship.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger disabled" href="{% url 'relationship-delete' relationship.id %}" role="button">Delete</a>
+  {% endif %}
 {% endblock %}

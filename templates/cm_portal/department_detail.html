@@ -14,7 +14,15 @@
     <tr>
       <td><strong>Description: </strong>{{ department.description }}</td>
     </tr>
-  </table>    
-  <a class="btn btn-primary" href="{% url 'department-update' department.id %}" role="button">Edit</a>  
-  <a class="btn btn-danger" href="{% url 'department-delete' department.id %}" role="button">Delete</a>
+  </table>  
+  {% if perms.cm_portal.change_department and perms.cm_portal.delete_department %}  
+    <a class="btn btn-primary" href="{% url 'department-update' department.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger" href="{% url 'department-delete' department.id %}" role="button">Delete</a>
+  {% elif perms.cm_portal.change_department %}
+    <a class="btn btn-primary" href="{% url 'department-update' department.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger disabled" href="{% url 'department-delete' department.id %}" role="button">Delete</a>
+  {% else %}
+    <a class="btn btn-primary disabled" href="{% url 'department-update' department.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger disabled" href="{% url 'department-delete' department.id %}" role="button">Delete</a>
+  {% endif %}
 {% endblock %}

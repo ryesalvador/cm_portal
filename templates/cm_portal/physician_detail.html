@@ -30,6 +30,14 @@
         </tbody>    
     </table>
   </div>
-  <a class="btn btn-primary" href="{% url 'physician-update' physician.id %}" role="button">Edit</a>  
-  <a class="btn btn-danger" href="{% url 'physician-delete' physician.id %}" role="button">Delete</a>  
+  {% if perms.cm_portal.change_physician and perms.cm_portal.delete_physician %}
+    <a class="btn btn-primary" href="{% url 'physician-update' physician.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger" href="{% url 'physician-delete' physician.id %}" role="button">Delete</a>  
+  {% elif perms.cm_portal.change_physician %}
+    <a class="btn btn-primary" href="{% url 'physician-update' physician.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger disabled" href="{% url 'physician-delete' physician.id %}" role="button">Delete</a>
+  {% else %}
+    <a class="btn btn-primary disabled" href="{% url 'physician-update' physician.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger disabled" href="{% url 'physician-delete' physician.id %}" role="button">Delete</a>
+  {% endif %}
 {% endblock %}

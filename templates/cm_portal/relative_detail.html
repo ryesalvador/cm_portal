@@ -31,6 +31,14 @@
         </tbody>    
     </table>
   </div>
-  <a class="btn btn-primary" href="{% url 'relative-update' relative.id %}" role="button">Edit</a>  
-  <a class="btn btn-danger" href="{% url 'relative-delete' relative.id %}" role="button">Delete</a>  
+  {% if perms.cm_portal.change_relative and perms.cm_portal.delete_relative %}
+    <a class="btn btn-primary" href="{% url 'relative-update' relative.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger" href="{% url 'relative-delete' relative.id %}" role="button">Delete</a>
+  {% elif perms.cm_portal.change_relative %}  
+    <a class="btn btn-primary" href="{% url 'relative-update' relative.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger disabled" href="{% url 'relative-delete' relative.id %}" role="button">Delete</a>
+  {% else %}
+    <a class="btn btn-primary disabled" href="{% url 'relative-update' relative.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger disabled" href="{% url 'relative-delete' relative.id %}" role="button">Delete</a>
+  {% endif %}
 {% endblock %}

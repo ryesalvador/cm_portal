@@ -20,7 +20,11 @@
     </ul>
     {% else %}
       <p>There are no relationships in the portal.</p>  
-  {% endif %}    
-  <a class="btn btn-primary" href="{% url 'relationship-create' %}" role="button">Add a relationship</a>
+  {% endif %}  
+  {% if perms.cm_portal.add_relationship %}  
+    <a class="btn btn-primary" href="{% url 'relationship-create' %}" role="button">Add a relationship</a>
+  {% else %}
+    <a class="btn btn-primary disabled" href="{% url 'relationship-create' %}" role="button">Add a relationship</a>
+  {% endif %}
   </div>
 {% endblock %}

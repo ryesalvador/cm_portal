@@ -24,6 +24,10 @@
     {% else %}
       <p>There are no medical abstracts in the portal.</p>  
   {% endif %}  
-  <a class="btn btn-primary" href="{% url 'medicalabstract-create' %}" role="button">Add a medical abstract</a> 
+  {% if perms.cm_portal.add_medicalabstract %}
+    <a class="btn btn-primary" href="{% url 'medicalabstract-create' %}" role="button">Add a medical abstract</a>
+  {% else %}
+    <a class="btn btn-primary disabled" href="{% url 'medicalabstract-create' %}" role="button">Add a medical abstract</a>
+  {% endif %} 
   </div>
 {% endblock %}

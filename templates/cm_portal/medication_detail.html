@@ -12,6 +12,14 @@
     <tr><td><strong>Quantity: </strong>{{ medication.quantity }}</td></tr>
     <tr><td><strong>Due: </strong>{{ medication.due }}</td></tr>
   </table>  
-  <a class="btn btn-primary" href="{% url 'medication-update' medication.id %}" role="button">Edit</a>  
-  <a class="btn btn-danger" href="{% url 'medication-delete' medication.id %}" role="button">Delete</a>
+  {% if perms.cm_portal.change_medication and perms.cm_portal.delete_medication %}
+    <a class="btn btn-primary" href="{% url 'medication-update' medication.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger" href="{% url 'medication-delete' medication.id %}" role="button">Delete</a>
+  {% elif perms.cm_portal.change_medication %}
+    <a class="btn btn-primary" href="{% url 'medication-update' medication.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger disabled" href="{% url 'medication-delete' medication.id %}" role="button">Delete</a>
+  {% else %}
+    <a class="btn btn-primary disabled" href="{% url 'medication-update' medication.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger disabled" href="{% url 'medication-delete' medication.id %}" role="button">Delete</a>
+  {% endif %}
 {% endblock %}

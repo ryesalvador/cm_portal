@@ -39,6 +39,10 @@
     {% else %}
       <p>There are no residents in the portal.</p>  
   {% endif %}  
-  <a class="btn btn-primary" href="{% url 'resident-create' %}" role="button">Add a resident</a>      
+  {% if perms.cm_portal.add_resident %}
+    <a class="btn btn-primary" href="{% url 'resident-create' %}" role="button">Add a resident</a>
+  {% else %}      
+    <a class="btn btn-primary disabled" href="{% url 'resident-create' %}" role="button">Add a resident</a>
+  {% endif %}
   </div>
 {% endblock %}

@@ -69,6 +69,14 @@
       <td>{{ medicalabstract.course_in_the_ward|linebreaks }}</td>
     </tr>
   </table>
-  <a class="btn btn-primary" href="{% url 'medicalabstract-update' medicalabstract.id %}" role="button">Edit</a>  
-  <a class="btn btn-danger" href="{% url 'medicalabstract-delete' medicalabstract.id %}" role="button">Delete</a>
+  {% if perms.cm_portal.change_medicalabstract and perms.cm_portal.delete_medicalabstract %}
+    <a class="btn btn-primary" href="{% url 'medicalabstract-update' medicalabstract.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger" href="{% url 'medicalabstract-delete' medicalabstract.id %}" role="button">Delete</a>
+  {% elif perms.cm_portal.change_medicalabstract %}
+    <a class="btn btn-primary" href="{% url 'medicalabstract-update' medicalabstract.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger disabled" href="{% url 'medicalabstract-delete' medicalabstract.id %}" role="button">Delete</a>
+  {% else %}
+    <a class="btn btn-primary disabled" href="{% url 'medicalabstract-update' medicalabstract.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger disabled" href="{% url 'medicalabstract-delete' medicalabstract.id %}" role="button">Delete</a>
+  {% endif %}
 {% endblock %}

@@ -81,6 +81,17 @@ def hris_index(request):
                       'num_employees': num_employees
                       })
 
+@login_required
+def maintenance(request):
+    male_second_floor = Medication.objects.filter(resident__building='2').filter(resident__gender='M')
+    female_second_floor = Medication.objects.filter(resident__building='2').filter(resident__gender='F')
+    return render(request,
+                  'cm_portal/maintenance.html',
+                  context={
+                      'male_second_floor': male_second_floor,
+                      'female_second_floor': female_second_floor
+                      })
+    
 @method_decorator(cache_control(private=True), name='dispatch')
 class ResidentListView(PermissionRequiredMixin, generic.ListView):
     permission_required = 'cm_portal.can_view_nursing_home'

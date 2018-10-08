@@ -1,0 +1,32 @@
+{% extends "cm_portal/nursing_home_index.html" %}
+
+{% block title %}| Maintenance Medications{% endblock %}
+
+{% block page_title %}| Maintenance Medications{% endblock %}
+
+{% load static %}
+
+{% block content %}
+<table class="table table-sm table-hover">
+  <tr>        
+    <th scope="col">Name</th>
+    <th scope="col">Medicine</th>
+    <th scope="col">Dosage</th>
+    <th scope="col">Frequency</th>
+    <th scope="col">Quantity</th>
+    <th scope="col">Due</th>
+    <th scope="col">Price</th>
+  </tr>
+  {% for meds in female_second_floor %}
+  <tr>
+    <td>{{ meds.resident }}</td>
+    <td>{{ meds.medicine.generic_name }}</td>
+    <td>{{ meds.medicine.dosage }}</td>
+    <td>{{ meds.frequency }}</td>
+    <td>{{ meds.quantity }}</td>    
+    <td>{{ meds.due }}</td>
+    <td>{{ meds.medicine.price }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

@@ -53,6 +53,7 @@ urlpatterns += [
     path('nursing-home/search/residents', views.search, {'model': 'Resident', 'template_name': 'search_residents.html'}, name='search-residents'),
     path('nursing-home/search/relatives', views.search, {'model': 'Relative', 'template_name': 'search_relatives.html'}, name='search-relatives'),
     path('nursing-home/search/physicians', views.search, {'model': 'Physician', 'template_name': 'search_physicians.html'}, name='search-physicians'),
+    path('nursing-home/search/drugs', views.search, {'model': 'Drug', 'template_name': 'search_drugs.html'}, name='search-drugs'),
 ]
 
 urlpatterns += [

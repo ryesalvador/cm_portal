@@ -6,6 +6,12 @@
 
 {% load static %}
 
+{% block search_form %}
+  <form class="navbar-form navbar-right" id="search-form" action="{% url 'search-drugs' %}" method="get">
+    {{ form.as_p }}            
+  </form>        
+{% endblock %}
+
 {% block content %}
   <div class="jumbotron">
   {% if drug_list %}    

@@ -1,0 +1,39 @@
+{% extends "cm_portal/nursing_home_index.html" %}
+
+{% block title %}| Drug Search{% endblock %}
+
+{% block page_title %}| Drug Search{% endblock %}
+
+{% load static %}
+
+{% block search_form %}
+  <form class="navbar-form navbar-right" id="search-form" action="{% url 'search-drugs' %}" method="get">
+    {{ form.as_p }}            
+  </form>        
+{% endblock %}
+
+{% block content %}
+  <div class="jumbotron">  
+  {% if show_results and obj_list %}
+    <ul class="list-group">
+      {% for drug in obj_list %}
+        <li class="list-group-item">          
+          {% if drug.brand_name %}
+            <h4 class="list-group-item-heading">{{ drug.brand_name }}</h4>
+          {% endif %}
+          <a href="{{ drug.get_absolute_url }}">
+            {{ drug.generic_name }} 
+            {% if drug.dosage %} - 
+              {{ drug.dosage }}            
+            {% endif %}        
+          </a>               
+        </li>
+      {% endfor %}
+    </ul>  
+  {% elif show_results %}
+    <p>No drugs matched your search criteria.</p>
+  {% else %}
+    <h3>Please submit a search term.</h3>
+  {% endif %}
+  </div>  
+{% endblock %}

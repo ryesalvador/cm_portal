@@ -31,8 +31,12 @@ def search(request, model, template_name):
         if query:
             form = SearchForm({'query': query})            
             cls = apps.get_model('cm_portal', model)
-            query0 = cls.objects.filter(last_name__icontains=query)
-            query1 = cls.objects.filter(first_name__icontains=query)
+            if model == 'Drug':
+                query0 = cls.objects.filter(generic_name__icontains=query)
+                query1 = cls.objects.filter(brand_name__icontains=query)
+            else:
+                query0 = cls.objects.filter(last_name__icontains=query)
+                query1 = cls.objects.filter(first_name__icontains=query)
             obj_list = list(chain(query0, query1))            
     variables = {
             'form': form,
@@ -334,6 +338,19 @@ class DrugListView(PermissionRequiredMixin, generic.ListView):
     permission_required = 'cm_portal.can_view_nursing_home'
     model = Drug
     paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get the context
+        context = super(DrugListView, self).get_context_data(**kwargs)
+        form = SearchForm()
+        form.fields['query'].widget = forms.TextInput(
+        attrs={
+            'placeholder': 'Search Drugs...',
+            'size': 32
+            })
+        context['form'] = form        
+        return context
+
 
 class DrugDetailView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'cm_portal.can_view_nursing_home'

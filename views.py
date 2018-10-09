@@ -83,13 +83,25 @@ def hris_index(request):
 
 @login_required
 def maintenance(request):
+    male_first_floor = Medication.objects.filter(resident__building='1').filter(resident__gender='M')
+    female_first_floor = Medication.objects.filter(resident__building='1').filter(resident__gender='F')
     male_second_floor = Medication.objects.filter(resident__building='2').filter(resident__gender='M')
     female_second_floor = Medication.objects.filter(resident__building='2').filter(resident__gender='F')
+    male_luigi_tezza = Medication.objects.filter(resident__building='L').filter(resident__gender='M')
+    female_luigi_tezza = Medication.objects.filter(resident__building='L').filter(resident__gender='F')
+    male_rebuschini = Medication.objects.filter(resident__building='R').filter(resident__gender='M')
+    female_rebuschini = Medication.objects.filter(resident__building='R').filter(resident__gender='F')
     return render(request,
                   'cm_portal/maintenance.html',
                   context={
+                      'male_first_floor': male_first_floor,
+                      'female_first_floor': female_first_floor,
                       'male_second_floor': male_second_floor,
-                      'female_second_floor': female_second_floor
+                      'female_second_floor': female_second_floor,
+                      'male_luigi_tezza': male_luigi_tezza,
+                      'female_luigi_tezza': female_luigi_tezza,
+                      'male_rebuschini': male_rebuschini,
+                      'female_rebuschini': female_rebuschini,
                       })
     
 @method_decorator(cache_control(private=True), name='dispatch')

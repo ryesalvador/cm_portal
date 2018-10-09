@@ -7,7 +7,9 @@
 {% load static %}
 
 {% block content %}
+{% if male_first_floor %}
 <table class="table table-sm table-hover">
+  <thead><h4>St. Camillus Bldg. 1st floor (Male) Date: ________</h4></thead>
   <tr>        
     <th scope="col">Name</th>
     <th scope="col">Medicine</th>
@@ -16,26 +18,201 @@
     <th scope="col">Quantity</th>
     <th scope="col">Due</th>
     <th scope="col">Price</th>
-  </tr>  
-  {% for meds in female_second_floor %}  
-  <tr>    
-    {% if forloop.first %}
-    <td rowspan="{{ meds.resident.medication_set.count }}">{{ meds.resident }}<br>{{ meds.resident.osca_id }}</td>
+  </tr>    
+  {% for meds in male_first_floor %}
+  <tr>
+    <td>{{ meds.resident }}<br>{{ meds.resident.osca_id }}</td>
     <td>{{ meds.medicine.generic_name }}</td>
     <td>{{ meds.medicine.dosage }}</td>
     <td>{{ meds.frequency }}</td>
     <td>{{ meds.quantity }}</td>    
     <td>{{ meds.due }}</td>
     <td>{{ meds.medicine.price }}</td>
-    {% else %}
-    <td>{{ meds.medicine.generic_name }}</td>
-    <td>{{ meds.medicine.dosage }}</td>
-    <td>{{ meds.frequency }}</td>
-    <td>{{ meds.quantity }}</td>    
-    <td>{{ meds.due }}</td>
-    <td>{{ meds.medicine.price }}</td>
-    {% endif %}
   </tr>
   {% endfor %}
 </table>
+{% endif %}
+
+{% if female_first_floor %}
+<table class="table table-sm table-hover">
+  <thead><h4>St. Camillus Bldg. 1st floor (Female) Date: ________</h4></thead>
+  <tr>        
+    <th scope="col">Name</th>
+    <th scope="col">Medicine</th>
+    <th scope="col">Dosage</th>
+    <th scope="col">Frequency</th>
+    <th scope="col">Quantity</th>
+    <th scope="col">Due</th>
+    <th scope="col">Price</th>
+  </tr>    
+  {% for meds in female_first_floor %}
+  <tr>
+    <td>{{ meds.resident }}<br>{{ meds.resident.osca_id }}</td>
+    <td>{{ meds.medicine.generic_name }}</td>
+    <td>{{ meds.medicine.dosage }}</td>
+    <td>{{ meds.frequency }}</td>
+    <td>{{ meds.quantity }}</td>    
+    <td>{{ meds.due }}</td>
+    <td>{{ meds.medicine.price }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
+
+{% if male_second_floor %}
+<table class="table table-sm table-hover">
+  <thead><h4>St. Camillus Bldg. 2nd floor (Male) Date: ________</h4></thead>
+  <tr>        
+    <th scope="col">Name</th>
+    <th scope="col">Medicine</th>
+    <th scope="col">Dosage</th>
+    <th scope="col">Frequency</th>
+    <th scope="col">Quantity</th>
+    <th scope="col">Due</th>
+    <th scope="col">Price</th>
+  </tr>    
+  {% for meds in male_second_floor %}
+  <tr>
+    <td>{{ meds.resident }}<br>{{ meds.resident.osca_id }}</td>
+    <td>{{ meds.medicine.generic_name }}</td>
+    <td>{{ meds.medicine.dosage }}</td>
+    <td>{{ meds.frequency }}</td>
+    <td>{{ meds.quantity }}</td>    
+    <td>{{ meds.due }}</td>
+    <td>{{ meds.medicine.price }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
+
+{% if female_second_floor %}
+<table class="table table-sm table-hover">
+  <thead><h4>St. Camillus Bldg. 2nd floor (Female) Date: ________</h4></thead>
+  <tr>        
+    <th scope="col">Name</th>
+    <th scope="col">Medicine</th>
+    <th scope="col">Dosage</th>
+    <th scope="col">Frequency</th>
+    <th scope="col">Quantity</th>
+    <th scope="col">Due</th>
+    <th scope="col">Price</th>
+  </tr>    
+  {% for meds in female_second_floor %}
+  <tr>
+    <td>{{ meds.resident }}<br>{{ meds.resident.osca_id }}</td>
+    <td>{{ meds.medicine.generic_name }}</td>
+    <td>{{ meds.medicine.dosage }}</td>
+    <td>{{ meds.frequency }}</td>
+    <td>{{ meds.quantity }}</td>    
+    <td>{{ meds.due }}</td>
+    <td>{{ meds.medicine.price }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
+
+{% if male_luigi_tezza %}
+<table class="table table-sm table-hover">
+  <thead><h4>Blessed Luigi Tezza (Male) Date: ________</h4></thead>
+  <tr>        
+    <th scope="col">Name</th>
+    <th scope="col">Medicine</th>
+    <th scope="col">Dosage</th>
+    <th scope="col">Frequency</th>
+    <th scope="col">Quantity</th>
+    <th scope="col">Due</th>
+    <th scope="col">Price</th>
+  </tr>    
+  {% for meds in male_luigi_tezza %}
+  <tr>
+    <td>{{ meds.resident }}<br>{{ meds.resident.osca_id }}</td>
+    <td>{{ meds.medicine.generic_name }}</td>
+    <td>{{ meds.medicine.dosage }}</td>
+    <td>{{ meds.frequency }}</td>
+    <td>{{ meds.quantity }}</td>    
+    <td>{{ meds.due }}</td>
+    <td>{{ meds.medicine.price }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
+
+{% if female_luigi_tezza %}
+<table class="table table-sm table-hover">
+  <thead><h4>Blessed Luigi Tezza (Female) Date: ________</h4></thead>
+  <tr>        
+    <th scope="col">Name</th>
+    <th scope="col">Medicine</th>
+    <th scope="col">Dosage</th>
+    <th scope="col">Frequency</th>
+    <th scope="col">Quantity</th>
+    <th scope="col">Due</th>
+    <th scope="col">Price</th>
+  </tr>    
+  {% for meds in female_luigi_tezza %}
+  <tr>
+    <td>{{ meds.resident }}<br>{{ meds.resident.osca_id }}</td>
+    <td>{{ meds.medicine.generic_name }}</td>
+    <td>{{ meds.medicine.dosage }}</td>
+    <td>{{ meds.frequency }}</td>
+    <td>{{ meds.quantity }}</td>    
+    <td>{{ meds.due }}</td>
+    <td>{{ meds.medicine.price }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
+
+{% if male_rebuschini %}
+<table class="table table-sm table-hover">
+  <thead><h4>Blessed Enrico Rebuschini (Male) Date: ________</h4></thead>
+  <tr>        
+    <th scope="col">Name</th>
+    <th scope="col">Medicine</th>
+    <th scope="col">Dosage</th>
+    <th scope="col">Frequency</th>
+    <th scope="col">Quantity</th>
+    <th scope="col">Due</th>
+    <th scope="col">Price</th>
+  </tr>    
+  {% for meds in male_rebuschini %}
+  <tr>
+    <td>{{ meds.resident }}<br>{{ meds.resident.osca_id }}</td>
+    <td>{{ meds.medicine.generic_name }}</td>
+    <td>{{ meds.medicine.dosage }}</td>
+    <td>{{ meds.frequency }}</td>
+    <td>{{ meds.quantity }}</td>    
+    <td>{{ meds.due }}</td>
+    <td>{{ meds.medicine.price }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
+
+{% if female_rebuschini %}
+<table class="table table-sm table-hover">
+  <thead><h4>Blessed Enrico Rebuschini (Female) Date: ________</h4></thead>
+  <tr>        
+    <th scope="col">Name</th>
+    <th scope="col">Medicine</th>
+    <th scope="col">Dosage</th>
+    <th scope="col">Frequency</th>
+    <th scope="col">Quantity</th>
+    <th scope="col">Due</th>
+    <th scope="col">Price</th>
+  </tr>    
+  {% for meds in female_rebuschini %}
+  <tr>
+    <td>{{ meds.resident }}<br>{{ meds.resident.osca_id }}</td>
+    <td>{{ meds.medicine.generic_name }}</td>
+    <td>{{ meds.medicine.dosage }}</td>
+    <td>{{ meds.frequency }}</td>
+    <td>{{ meds.quantity }}</td>    
+    <td>{{ meds.due }}</td>
+    <td>{{ meds.medicine.price }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
+
 {% endblock %}

@@ -19,16 +19,27 @@
     <th scope="col">Due</th>
     <th scope="col">Price</th>
   </tr>    
-  {% for meds in male_first_floor %}
-  <tr>
-    <td>{{ meds.resident }}<br>{{ meds.resident.osca_id }}</td>
-    <td>{{ meds.medicine.generic_name }}</td>
-    <td>{{ meds.medicine.dosage }}</td>
-    <td>{{ meds.frequency }}</td>
-    <td>{{ meds.quantity }}</td>    
-    <td>{{ meds.due }}</td>
-    <td>{{ meds.medicine.price }}</td>
-  </tr>
+  {% for resident in male_first_floor %}
+    {% for meds in resident.medication_set.all %}
+    <tr>
+      {% if forloop.first %}
+        <td rowspan="{{ meds.resident.medication_set.count }}">{{ meds.resident }}<br>{{ meds.resident.osca_id }}</td>
+        <td>{{ meds.medicine.generic_name }}</td>
+        <td>{{ meds.medicine.dosage }}</td>
+        <td>{{ meds.frequency }}</td>
+        <td>{{ meds.quantity }}</td>    
+        <td>{{ meds.due }}</td>
+        <td>{{ meds.medicine.price }}</td>
+      {% else %}
+        <td>{{ meds.medicine.generic_name }}</td>
+        <td>{{ meds.medicine.dosage }}</td>
+        <td>{{ meds.frequency }}</td>
+        <td>{{ meds.quantity }}</td>    
+        <td>{{ meds.due }}</td>
+        <td>{{ meds.medicine.price }}</td>
+      {% endif %}
+    </tr>
+    {% endfor %}
   {% endfor %}
 </table>
 {% endif %}
@@ -45,16 +56,27 @@
     <th scope="col">Due</th>
     <th scope="col">Price</th>
   </tr>    
-  {% for meds in female_first_floor %}
-  <tr>
-    <td>{{ meds.resident }}<br>{{ meds.resident.osca_id }}</td>
-    <td>{{ meds.medicine.generic_name }}</td>
-    <td>{{ meds.medicine.dosage }}</td>
-    <td>{{ meds.frequency }}</td>
-    <td>{{ meds.quantity }}</td>    
-    <td>{{ meds.due }}</td>
-    <td>{{ meds.medicine.price }}</td>
-  </tr>
+  {% for resident in female_first_floor %}
+    {% for meds in resident.medication_set.all %}
+    <tr>
+      {% if forloop.first %}
+        <td rowspan="{{ meds.resident.medication_set.count }}">{{ meds.resident }}<br>{{ meds.resident.osca_id }}</td>
+        <td>{{ meds.medicine.generic_name }}</td>
+        <td>{{ meds.medicine.dosage }}</td>
+        <td>{{ meds.frequency }}</td>
+        <td>{{ meds.quantity }}</td>    
+        <td>{{ meds.due }}</td>
+        <td>{{ meds.medicine.price }}</td>
+      {% else %}
+        <td>{{ meds.medicine.generic_name }}</td>
+        <td>{{ meds.medicine.dosage }}</td>
+        <td>{{ meds.frequency }}</td>
+        <td>{{ meds.quantity }}</td>    
+        <td>{{ meds.due }}</td>
+        <td>{{ meds.medicine.price }}</td>
+      {% endif %}
+    </tr>
+    {% endfor %}
   {% endfor %}
 </table>
 {% endif %}
@@ -71,16 +93,27 @@
     <th scope="col">Due</th>
     <th scope="col">Price</th>
   </tr>    
-  {% for meds in male_second_floor %}
-  <tr>
-    <td>{{ meds.resident }}<br>{{ meds.resident.osca_id }}</td>
-    <td>{{ meds.medicine.generic_name }}</td>
-    <td>{{ meds.medicine.dosage }}</td>
-    <td>{{ meds.frequency }}</td>
-    <td>{{ meds.quantity }}</td>    
-    <td>{{ meds.due }}</td>
-    <td>{{ meds.medicine.price }}</td>
-  </tr>
+  {% for resident in male_second_floor %}
+    {% for meds in resident.medication_set.all %}
+    <tr>
+      {% if forloop.first %}
+        <td rowspan="{{ meds.resident.medication_set.count }}">{{ meds.resident }}<br>{{ meds.resident.osca_id }}</td>
+        <td>{{ meds.medicine.generic_name }}</td>
+        <td>{{ meds.medicine.dosage }}</td>
+        <td>{{ meds.frequency }}</td>
+        <td>{{ meds.quantity }}</td>    
+        <td>{{ meds.due }}</td>
+        <td>{{ meds.medicine.price }}</td>
+      {% else %}
+        <td>{{ meds.medicine.generic_name }}</td>
+        <td>{{ meds.medicine.dosage }}</td>
+        <td>{{ meds.frequency }}</td>
+        <td>{{ meds.quantity }}</td>    
+        <td>{{ meds.due }}</td>
+        <td>{{ meds.medicine.price }}</td>
+      {% endif %}
+    </tr>
+    {% endfor %}
   {% endfor %}
 </table>
 {% endif %}
@@ -97,16 +130,27 @@
     <th scope="col">Due</th>
     <th scope="col">Price</th>
   </tr>    
-  {% for meds in female_second_floor %}
-  <tr>
-    <td>{{ meds.resident }}<br>{{ meds.resident.osca_id }}</td>
-    <td>{{ meds.medicine.generic_name }}</td>
-    <td>{{ meds.medicine.dosage }}</td>
-    <td>{{ meds.frequency }}</td>
-    <td>{{ meds.quantity }}</td>    
-    <td>{{ meds.due }}</td>
-    <td>{{ meds.medicine.price }}</td>
-  </tr>
+  {% for resident in female_second_floor %}
+    {% for meds in resident.medication_set.all %}
+    <tr>
+      {% if forloop.first %}
+        <td rowspan="{{ meds.resident.medication_set.count }}">{{ meds.resident }}<br>{{ meds.resident.osca_id }}</td>
+        <td>{{ meds.medicine.generic_name }}</td>
+        <td>{{ meds.medicine.dosage }}</td>
+        <td>{{ meds.frequency }}</td>
+        <td>{{ meds.quantity }}</td>    
+        <td>{{ meds.due }}</td>
+        <td>{{ meds.medicine.price }}</td>
+      {% else %}
+        <td>{{ meds.medicine.generic_name }}</td>
+        <td>{{ meds.medicine.dosage }}</td>
+        <td>{{ meds.frequency }}</td>
+        <td>{{ meds.quantity }}</td>    
+        <td>{{ meds.due }}</td>
+        <td>{{ meds.medicine.price }}</td>
+      {% endif %}
+    </tr>
+    {% endfor %}
   {% endfor %}
 </table>
 {% endif %}
@@ -123,16 +167,27 @@
     <th scope="col">Due</th>
     <th scope="col">Price</th>
   </tr>    
-  {% for meds in male_luigi_tezza %}
-  <tr>
-    <td>{{ meds.resident }}<br>{{ meds.resident.osca_id }}</td>
-    <td>{{ meds.medicine.generic_name }}</td>
-    <td>{{ meds.medicine.dosage }}</td>
-    <td>{{ meds.frequency }}</td>
-    <td>{{ meds.quantity }}</td>    
-    <td>{{ meds.due }}</td>
-    <td>{{ meds.medicine.price }}</td>
-  </tr>
+  {% for resident in male_luigi_tezza %}
+    {% for meds in resident.medication_set.all %}
+    <tr>
+      {% if forloop.first %}
+        <td rowspan="{{ meds.resident.medication_set.count }}">{{ meds.resident }}<br>{{ meds.resident.osca_id }}</td>
+        <td>{{ meds.medicine.generic_name }}</td>
+        <td>{{ meds.medicine.dosage }}</td>
+        <td>{{ meds.frequency }}</td>
+        <td>{{ meds.quantity }}</td>    
+        <td>{{ meds.due }}</td>
+        <td>{{ meds.medicine.price }}</td>
+      {% else %}
+        <td>{{ meds.medicine.generic_name }}</td>
+        <td>{{ meds.medicine.dosage }}</td>
+        <td>{{ meds.frequency }}</td>
+        <td>{{ meds.quantity }}</td>    
+        <td>{{ meds.due }}</td>
+        <td>{{ meds.medicine.price }}</td>
+      {% endif %}
+    </tr>
+    {% endfor %}
   {% endfor %}
 </table>
 {% endif %}
@@ -149,16 +204,27 @@
     <th scope="col">Due</th>
     <th scope="col">Price</th>
   </tr>    
-  {% for meds in female_luigi_tezza %}
-  <tr>
-    <td>{{ meds.resident }}<br>{{ meds.resident.osca_id }}</td>
-    <td>{{ meds.medicine.generic_name }}</td>
-    <td>{{ meds.medicine.dosage }}</td>
-    <td>{{ meds.frequency }}</td>
-    <td>{{ meds.quantity }}</td>    
-    <td>{{ meds.due }}</td>
-    <td>{{ meds.medicine.price }}</td>
-  </tr>
+  {% for resident in female_luigi_tezza %}
+    {% for meds in resident.medication_set.all %}
+    <tr>
+      {% if forloop.first %}
+        <td rowspan="{{ meds.resident.medication_set.count }}">{{ meds.resident }}<br>{{ meds.resident.osca_id }}</td>
+        <td>{{ meds.medicine.generic_name }}</td>
+        <td>{{ meds.medicine.dosage }}</td>
+        <td>{{ meds.frequency }}</td>
+        <td>{{ meds.quantity }}</td>    
+        <td>{{ meds.due }}</td>
+        <td>{{ meds.medicine.price }}</td>
+      {% else %}
+        <td>{{ meds.medicine.generic_name }}</td>
+        <td>{{ meds.medicine.dosage }}</td>
+        <td>{{ meds.frequency }}</td>
+        <td>{{ meds.quantity }}</td>    
+        <td>{{ meds.due }}</td>
+        <td>{{ meds.medicine.price }}</td>
+      {% endif %}
+    </tr>
+    {% endfor %}
   {% endfor %}
 </table>
 {% endif %}
@@ -175,16 +241,27 @@
     <th scope="col">Due</th>
     <th scope="col">Price</th>
   </tr>    
-  {% for meds in male_rebuschini %}
-  <tr>
-    <td>{{ meds.resident }}<br>{{ meds.resident.osca_id }}</td>
-    <td>{{ meds.medicine.generic_name }}</td>
-    <td>{{ meds.medicine.dosage }}</td>
-    <td>{{ meds.frequency }}</td>
-    <td>{{ meds.quantity }}</td>    
-    <td>{{ meds.due }}</td>
-    <td>{{ meds.medicine.price }}</td>
-  </tr>
+  {% for resident in male_rebuschini %}
+    {% for meds in resident.medication_set.all %}
+    <tr>
+      {% if forloop.first %}
+        <td rowspan="{{ meds.resident.medication_set.count }}">{{ meds.resident }}<br>{{ meds.resident.osca_id }}</td>
+        <td>{{ meds.medicine.generic_name }}</td>
+        <td>{{ meds.medicine.dosage }}</td>
+        <td>{{ meds.frequency }}</td>
+        <td>{{ meds.quantity }}</td>    
+        <td>{{ meds.due }}</td>
+        <td>{{ meds.medicine.price }}</td>
+      {% else %}
+        <td>{{ meds.medicine.generic_name }}</td>
+        <td>{{ meds.medicine.dosage }}</td>
+        <td>{{ meds.frequency }}</td>
+        <td>{{ meds.quantity }}</td>    
+        <td>{{ meds.due }}</td>
+        <td>{{ meds.medicine.price }}</td>
+      {% endif %}
+    </tr>
+    {% endfor %}
   {% endfor %}
 </table>
 {% endif %}
@@ -201,16 +278,27 @@
     <th scope="col">Due</th>
     <th scope="col">Price</th>
   </tr>    
-  {% for meds in female_rebuschini %}
-  <tr>
-    <td>{{ meds.resident }}<br>{{ meds.resident.osca_id }}</td>
-    <td>{{ meds.medicine.generic_name }}</td>
-    <td>{{ meds.medicine.dosage }}</td>
-    <td>{{ meds.frequency }}</td>
-    <td>{{ meds.quantity }}</td>    
-    <td>{{ meds.due }}</td>
-    <td>{{ meds.medicine.price }}</td>
-  </tr>
+  {% for resident in female_rebuschini %}
+    {% for meds in resident.medication_set.all %}
+    <tr>
+      {% if forloop.first %}
+        <td rowspan="{{ meds.resident.medication_set.count }}">{{ meds.resident }}<br>{{ meds.resident.osca_id }}</td>
+        <td>{{ meds.medicine.generic_name }}</td>
+        <td>{{ meds.medicine.dosage }}</td>
+        <td>{{ meds.frequency }}</td>
+        <td>{{ meds.quantity }}</td>    
+        <td>{{ meds.due }}</td>
+        <td>{{ meds.medicine.price }}</td>
+      {% else %}
+        <td>{{ meds.medicine.generic_name }}</td>
+        <td>{{ meds.medicine.dosage }}</td>
+        <td>{{ meds.frequency }}</td>
+        <td>{{ meds.quantity }}</td>    
+        <td>{{ meds.due }}</td>
+        <td>{{ meds.medicine.price }}</td>
+      {% endif %}
+    </tr>
+    {% endfor %}
   {% endfor %}
 </table>
 {% endif %}

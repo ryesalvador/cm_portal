@@ -83,14 +83,14 @@ def hris_index(request):
 
 @login_required
 def maintenance(request):
-    male_first_floor = Medication.objects.filter(resident__building='1').filter(resident__gender='M')
-    female_first_floor = Medication.objects.filter(resident__building='1').filter(resident__gender='F')
-    male_second_floor = Medication.objects.filter(resident__building='2').filter(resident__gender='M')
-    female_second_floor = Medication.objects.filter(resident__building='2').filter(resident__gender='F')
-    male_luigi_tezza = Medication.objects.filter(resident__building='L').filter(resident__gender='M')
-    female_luigi_tezza = Medication.objects.filter(resident__building='L').filter(resident__gender='F')
-    male_rebuschini = Medication.objects.filter(resident__building='R').filter(resident__gender='M')
-    female_rebuschini = Medication.objects.filter(resident__building='R').filter(resident__gender='F')
+    male_first_floor = Resident.objects.filter(building='1').filter(gender='M')
+    female_first_floor = Resident.objects.filter(building='1').filter(gender='F')
+    male_second_floor = Resident.objects.filter(building='2').filter(gender='M')
+    female_second_floor = Resident.objects.filter(building='2').filter(gender='F')
+    male_luigi_tezza = Resident.objects.filter(building='L').filter(gender='M')
+    female_luigi_tezza = Resident.objects.filter(building='L').filter(gender='F')
+    male_rebuschini = Resident.objects.filter(building='R').filter(gender='M')
+    female_rebuschini = Resident.objects.filter(building='R').filter(gender='F')
     return render(request,
                   'cm_portal/maintenance.html',
                   context={

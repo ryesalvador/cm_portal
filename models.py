@@ -107,10 +107,14 @@ class Drug(models.Model):
         ordering = ["generic_name"]
 
     def __str__(self):
-        if self.brand_name != '':
+        if self.brand_name != '' and self.dosage != '':
             return u'{} ({}) - {}'.format(self.generic_name, self.brand_name, self.dosage)
-        else:
+        elif self.brand_name != '':
+            return u'{} ({})'.format(self.generic_name, self.brand_name)
+        elif self.dosage != '':
             return u'{} - {}'.format(self.generic_name, self.dosage)
+        else:
+            return self.generic_name
 
     def get_absolute_url(self):
         return reverse('drug-detail', args=[str(self.id)])

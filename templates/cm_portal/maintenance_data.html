@@ -9,7 +9,8 @@
         <td>{{ meds.due }}</td>
         <td>{{ meds.medicine.price }}</td>
       {% else %}
-        <td>{{ meds.medicine.generic_name }}</td>
+        <td>{{ meds.medicine.generic_name }} 
+        {% if meds.medicine.brand_name %}({{ meds.medicine.brand_name }}){% endif %}</td>
         <td>{{ meds.medicine.dosage }}</td>
         <td>{{ meds.frequency }}</td>
         <td>{{ meds.quantity }}</td>    

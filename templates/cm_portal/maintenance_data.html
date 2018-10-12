@@ -1,0 +1,20 @@
+{% for meds in resident.medication_set.all %}
+    <tr>
+      {% if forloop.first %}
+        <td rowspan="{{ meds.resident.medication_set.count }}">{{ meds.resident }}<br>{{ meds.resident.osca_id }}</td>
+        <td>{{ meds.medicine.generic_name }}</td>
+        <td>{{ meds.medicine.dosage }}</td>
+        <td>{{ meds.frequency }}</td>
+        <td>{{ meds.quantity }}</td>    
+        <td>{{ meds.due }}</td>
+        <td>{{ meds.medicine.price }}</td>
+      {% else %}
+        <td>{{ meds.medicine.generic_name }}</td>
+        <td>{{ meds.medicine.dosage }}</td>
+        <td>{{ meds.frequency }}</td>
+        <td>{{ meds.quantity }}</td>    
+        <td>{{ meds.due }}</td>
+        <td>{{ meds.medicine.price }}</td>
+      {% endif %}
+    </tr>
+ {% endfor %}

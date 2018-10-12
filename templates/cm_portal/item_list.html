@@ -1,0 +1,37 @@
+{% extends "cm_portal/inventory_index.html" %}
+
+{% block title %}| List of Items{% endblock %}
+
+{% block page_title %}| List of Items{% endblock %}
+
+{% load static %}
+
+<!-- {% block search_form %}
+  <form class="navbar-form navbar-right" id="search-form" action="{% url 'search-drugs' %}" method="get">
+    {{ form.as_p }}            
+  </form>        
+{% endblock %} -->
+
+{% block content %}
+  <div class="jumbotron">
+  {% if item_list %}    
+    <ul class="list-group">
+      {% for item in item_list %}
+        <li class="list-group-item">
+        {% if item.brand_name %}
+        <h4 class="list-group-item-heading">{{ item.brand_name }}</h4>
+        {% endif %}
+        <a href="{{ item.get_absolute_url }}">{{ item.item_name }}</a>          
+        </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+      <p>There are no items in the portal.</p>  
+  {% endif %}  
+  <!-- {% if perms.cm_portal.add_drug %}
+    <a class="btn btn-primary" href="{% url 'drug-create' %}" role="button">Add a drug</a>
+  {% else %} 
+    <a class="btn btn-primary disabled" href="{% url 'drug-create' %}" role="button">Add a drug</a>
+  {% endif %} -->
+  </div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "cm_portal/inventory_index.html" %}
+
+{% block title %}| Item{% endblock %}
+
+{% block page_title %}| Item{% endblock %}
+{% block content %}  
+  <h2>Name: {{ item.generic_name }}</h2>
+  <table class="table table-hover">
+    <tr><td><strong>Item name: </strong>{{ item.item_name }}</td></tr>    
+    <tr><td><strong>Brand name: </strong>{{ item.brand_name }}</td></tr>
+    <tr><td><strong>Manufactured by: </strong>{{ item.manufacturer }}</td></tr>
+    <tr><td><strong>Description: </strong>{{ item.description }}</td></tr>
+    <tr><td><strong>Perishable? </strong>{% if item.perishable %}Yes{% else %}No{% endif %}</td></tr> 
+  </table>  
+{% endblock %}

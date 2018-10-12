@@ -75,7 +75,10 @@ class Item(models.Model):
         max_length=2,
         choices=ITEM_CATEGORY,
         default='MS'
-        )    
+        )
+
+    class Meta:
+        ordering = ["item_name"]
 
     def __str__(self):
         return u'{}'.format(self.item_name)
@@ -89,6 +92,9 @@ class ItemInstance(models.Model):
     expiration_date = models.DateField(auto_now=False)
     stocks_available = models.PositiveIntegerField(null=True, blank=True)
     unit_of_measure = models.CharField(max_length=35, blank=True)
+
+    class Meta:
+        ordering = ["item"]
 
     def __str__(self):
         return u'{}'.format(self.item)
@@ -329,6 +335,9 @@ class Position(models.Model):
     department = models.ForeignKey('Department', on_delete=models.SET_NULL, null=True)
     job_description = models.TextField(blank=True)
 
+    class Meta:
+        ordering = ["name"]
+        
     def __str__(self):
         return self.name
 
@@ -339,6 +348,9 @@ class Department(models.Model):
     name = models.CharField(max_length=70)
     description = models.TextField(blank=True)
 
+    class Meta:
+        ordering = ["name"]
+        
     def __str__(self):
         return self.name
 

@@ -8,8 +8,8 @@
   {% if user.is_authenticated %}
     <li><strong>User: </strong>{{ user.get_username|capfirst }}</li>
   {% endif %}  
-  <li><a href="#">All medical supplies</a></li>
-  <li><a href="#">All equipments</a></li>  
+  <li><a href="items">All items</a></li>
+  <li><a href="#">All item inventory</a></li>  
 {% endblock %}
 
 {% block page_title %}| <a href="#">Inventory</a>{% endblock %}
@@ -21,10 +21,10 @@
             </a>
             <ul class="dropdown-menu" role="menu">
               <li>
-                <a href="#">New medical supply</a>
+                <a href="#">New item</a>
               </li>
               <li>
-                <a href="#">New equipment</a>
+                <a href="#">New item inventory</a>
               </li>                            
             </ul>
 </li>

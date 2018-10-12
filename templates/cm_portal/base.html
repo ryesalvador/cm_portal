@@ -50,7 +50,7 @@
                 <a href="{% url 'hris-index' %}">HRIS</a>
               </li>
               <li>
-                <a href="#">Inventory</a>
+                <a href="{% url 'inventory-index' %}">Inventory</a>
               </li>
               <li class="divider"></li>
               <li>
@@ -111,7 +111,7 @@
         <hr>
         <a href="{% url 'nursing-home-index' %}">Nursing Home</a> | 
         <a href="{% url 'hris-index' %}">HRIS</a> | 
-        <a href="">Inventory</a>
+        <a href="{% url 'inventory-index' %}">Inventory</a>
         <p>Caring with Hearts in our Hands</p>      
       {% endblock %}                
   </footer>

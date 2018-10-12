@@ -34,14 +34,17 @@
   {% if user.is_authenticated %}
     <div class="jumbotron">
       <h2>Welcome to the 
-        <em>Inventory</em>,
-        where you can store information regarding the central supplies.
+        <em>Inventory Database</em>,
+        where you can store information regarding the central supplies or any collection in general.
       </h2>
       <h3>Dynamic content</h3>
       <p>The library has the following record counts:</p>
     <ul class="list-group">
       <li class="list-group-item">
-        <strong>Items:</strong>
+        <strong>Items:</strong> {{ num_items }}
+      </li>
+      <li class="list-group-item">
+        <strong>Actual inventory of items:</strong> {{ num_actual_items }}
       </li>            
     </ul>
     </div>

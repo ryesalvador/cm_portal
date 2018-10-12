@@ -81,6 +81,10 @@ urlpatterns += [
 ]
 
 urlpatterns += [
+    path('inventory/', views.inventory_index, name='inventory-index'),
+]
+
+urlpatterns += [
     #path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/login/', login, {'template_name': 'registration/login.html', 'authentication_form': LoginForm}, name='login'),
     path('accounts/logout/', logout, name='logout'),

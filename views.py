@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Resident, Physician, Relative, Relationship, \
      PerformanceAppraisal, EmploymentStatus, Employee, Position, Department, \
-     MedicalAbstract, Drug, Medication
+     MedicalAbstract, Drug, Medication, Item, ItemInstance
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse, reverse_lazy
@@ -79,6 +79,17 @@ def hris_index(request):
                   'cm_portal/hris_index.html',
                   context={
                       'num_employees': num_employees
+                      })
+
+@login_required
+def inventory_index(request):
+    num_items = Item.objects.all().count()
+    num_actual_items = ItemInstance.objects.all().count()
+    return render(request,
+                  'cm_portal/inventory_index.html',
+                  context={
+                      'num_items': num_items,
+                      'num_actual_items': num_actual_items
                       })
 
 @login_required

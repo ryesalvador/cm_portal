@@ -4,8 +4,6 @@
 
 {% block page_title %}| List of Residents{% endblock %}
 
-{% load static %}
-
 {% block search_form %}
   <form class="navbar-form navbar-right" id="search-form" action="{% url 'search-residents' %}" method="get">
     {{ form.as_p }}            
@@ -14,31 +12,7 @@
 
 {% block content %}
   <div class="jumbotron">
-  {% if resident_list %}    
-    <ul class="list-group">
-      {% for resident in resident_list %}
-        <li class="list-group-item">
-          {% if resident.photo %}
-          <img src="{{ resident.photo.url }}" alt="" width="50px" height="50px">
-          {% else %}
-          <img src="{% static 'images/avatar.png' %}" alt="" width="50px" height="50px">
-          {% endif %}
-          <a href="{{ resident.get_absolute_url }}">
-            {{ resident.last_name }}, {{ resident.first_name }} 
-            {% if resident.middle_name %}
-              {{ resident.middle_name|first }}.            
-            {% endif %}        
-          </a>
-          {% if resident.vital_status != 'LI' %} - 
-          <span class="{% if resident.vital_status == 'DE'%}text-danger{% elif resident.vital_status == 'DC' %}text-warning{% endif %}">
-          {{ resident.get_vital_status_display }}</span>
-          {% endif %}              
-        </li>
-      {% endfor %}
-    </ul>
-    {% else %}
-      <p>There are no residents in the portal.</p>  
-  {% endif %}  
+  {% include "cm_portal/resident_list_item.html" %}  
   {% if perms.cm_portal.add_resident %}
     <a class="btn btn-primary" href="{% url 'resident-create' %}" role="button">Add a resident</a>
   {% else %}      

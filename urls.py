@@ -13,6 +13,8 @@ urlpatterns = [
 urlpatterns += [
     path('nursing-home/', views.nursing_home_index, name='nursing-home-index'),    
     path('nursing-home/residents/', views.ResidentListView.as_view(), name='residents'),
+    path('nursing-home/residents/deceased/', views.DeceasedListView.as_view(), name='residents-deceased'),
+    path('nursing-home/residents/discharged/', views.DischargedListView.as_view(), name='residents-discharged'),
     path('nursing-home/resident/<int:pk>/', views.ResidentDetailView.as_view(), name='resident-detail'),
     path('nursing-home/resident/create/', views.ResidentCreate.as_view(), name='resident-create'),
     path('nursing-home/resident/<int:pk>/update/', views.ResidentUpdate.as_view(), name='resident-update'),
@@ -43,6 +45,7 @@ urlpatterns += [
     path('nursing-home/drug/<int:pk>/update/', views.DrugUpdate.as_view(), name='drug-update'),
     path('nursing-home/drug/<int:pk>/delete/', views.DrugDelete.as_view(), name='drug-delete'),
     path('nursing-home/medications/', views.MedicationListView.as_view(), name='medications'),
+    path('nursing-home/medications/inventory/', views.maintenance, name='maintenance'),
     path('nursing-home/medication/<int:pk>/', views.MedicationDetailView.as_view(), name='medication-detail'),
     path('nursing-home/medication/create/', views.MedicationCreate.as_view(), name='medication-create'),
     path('nursing-home/medication/<int:pk>/update/', views.MedicationUpdate.as_view(), name='medication-update'),
@@ -54,7 +57,6 @@ urlpatterns += [
     path('nursing-home/search/relatives', views.search, {'model': 'Relative', 'template_name': 'search_relatives.html'}, name='search-relatives'),
     path('nursing-home/search/physicians', views.search, {'model': 'Physician', 'template_name': 'search_physicians.html'}, name='search-physicians'),
     path('nursing-home/search/drugs', views.search, {'model': 'Drug', 'template_name': 'search_drugs.html'}, name='search-drugs'),
-    path('nursing-home/maintenance/', views.maintenance, name='maintenance'),
 ]
 
 urlpatterns += [

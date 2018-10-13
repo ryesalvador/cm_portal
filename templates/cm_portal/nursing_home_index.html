@@ -12,12 +12,20 @@
     <li><a href="{% url 'relatives' %}">All relatives</a></li>    
     <li><a href="{% url 'physicians' %}">All physicians</a></li>
     <hr>
-    <li><a href="{% url 'medical-abstracts' %}" >All medical abstracts</a></li>
+    <li><strong>Archive</strong></li>
+    <li><a href="{% url 'residents-deceased' %}">Deceased residents</a></li>
+    <li><a href="{% url 'residents-discharged' %}">Discharged residents</a></li>
+    <hr>
+    <li><strong>Reports</strong></li>
+    <li><a href="{% url 'medical-abstracts' %}" >Medical abstracts</a></li>
+    <li><a href="{% url 'maintenance' %}">Inventory of Medicines</a></li> 
+    <hr>
+    <li><strong>Others</strong></li>        
     <li><a href="{% url 'relationships' %}">All relationships</a></li>
-    <li><a href="{% url 'drugs' %}">All drugs</a></li>    
+    <li><a href="{% url 'drugs' %}">All drugs</a></li>
 {% endblock %}
 
-{% block page_title %}| <a href="{% url 'nursing-home-index' %}">Nursing Home</a>{% endblock %}
+{% block page_title %}| <a href="#">Nursing Home</a>{% endblock %}
 
 {% block nav_others %}
 {% block nav_resident %}{% endblock %}

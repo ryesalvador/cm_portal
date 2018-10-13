@@ -8,7 +8,7 @@
   {% if user.is_authenticated %}
     <li><strong>User: </strong>{{ user.get_username|capfirst }}</li>
   {% endif %}  
-  <li><a href="items">All items</a></li>
+  <li><a href="{% url 'items' %}">All items</a></li>
   <li><a href="#">All item inventory</a></li>  
 {% endblock %}
 

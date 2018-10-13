@@ -1,0 +1,17 @@
+{% extends "cm_portal/nursing_home_index.html" %}
+
+{% block title %}| List of Discharged Residents{% endblock %}
+
+{% block page_title %}| List of Discharged Residents{% endblock %}
+
+{% block search_form %}
+  <form class="navbar-form navbar-right" id="search-form" action="{% url 'search-residents' %}" method="get">
+    {{ form.as_p }}            
+  </form>        
+{% endblock %}
+
+{% block content %}
+  <div class="jumbotron">
+  {% include "cm_portal/resident_list_item.html" %}  
+  </div>
+{% endblock %}

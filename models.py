@@ -47,11 +47,6 @@ GRADE = (
         ('E', 'Excellent'),
         )
 
-ITEM_CATEGORY = (
-    ('MS', 'Medical supply'),
-    ('ME', 'Medical equipment'),
-    )
-
 BUILDING = (
     ('R', 'Blessed Rebuschini Building'),
     ('L', 'Blessed Luigi Tezza Building'),
@@ -70,12 +65,7 @@ class Item(models.Model):
     brand_name = models.CharField(max_length=70, blank=True)
     manufacturer = models.CharField(max_length=70, blank=True)
     description = models.TextField(blank=True)
-    perishable = models.BooleanField(default=True)
-    category = models.CharField(
-        max_length=2,
-        choices=ITEM_CATEGORY,
-        default='MS'
-        )
+    perishable = models.BooleanField(default=True)    
 
     class Meta:
         ordering = ["item_name"]
@@ -128,7 +118,7 @@ class Drug(models.Model):
 class Medication(models.Model):
     created = models.DateField(auto_now_add=True, editable=False, null=False, blank=False)
     last_modified = models.DateField(auto_now=True, editable=False, null=False, blank=False)    
-    resident = models.ForeignKey('Resident', on_delete=models.CASCADE, null=True)
+    resident = models.ForeignKey('Resident', on_delete=models.CASCADE, limit_choices_to={'vital_status': 'LI'}, null=True)
     medicine = models.ForeignKey('Drug', on_delete=models.CASCADE, null=True)
     frequency = models.CharField(max_length=70, blank=True)
     quantity = models.PositiveIntegerField(null=True, blank=True)

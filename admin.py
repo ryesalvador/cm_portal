@@ -17,7 +17,7 @@ class DrugAdmin(admin.ModelAdmin):
 
 @admin.register(Medication)
 class MedicationAdmin(admin.ModelAdmin):
-    pass
+    raw_id_fields = ('medicine',)
 
 @admin.register(MedicalAbstract)
 class MedicalAbstractAdmin(admin.ModelAdmin):

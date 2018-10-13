@@ -86,6 +86,9 @@ urlpatterns += [
     path('inventory/', views.inventory_index, name='inventory-index'),
     path('inventory/items/', views.ItemListView.as_view(), name='items'),
     path('inventory/item/<int:pk>/', views.ItemDetailView.as_view(), name='item-detail'),
+    path('inventory/item/create/', views.ItemCreate.as_view(), name='item-create'),
+    path('inventory/item/<int:pk>/update/', views.ItemUpdate.as_view(), name='item-update'),
+    path('inventory/item/<int:pk>/delete/', views.ItemDelete.as_view(), name='item-delete'),
 ]
 
 urlpatterns += [

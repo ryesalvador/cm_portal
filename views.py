@@ -482,3 +482,19 @@ class ItemListView(PermissionRequiredMixin, generic.ListView):
 class ItemDetailView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'cm_portal.can_view_inventory'
     model = Item
+
+class ItemCreate(PermissionRequiredMixin, generic.CreateView):
+    permission_required = 'cm_portal.can_view_inventory'
+    model = Item
+    fields = '__all__'
+
+class ItemUpdate(PermissionRequiredMixin, generic.UpdateView):
+    permission_required = 'cm_portal.can_view_inventory'
+    model = Item
+    fields = '__all__'
+    template_name_suffix = '_update_form'
+
+class ItemDelete(PermissionRequiredMixin, generic.DeleteView):
+    permission_required = 'cm_portal.can_view_inventory'
+    model = Item
+    success_url = reverse_lazy('items')

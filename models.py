@@ -3,6 +3,7 @@ from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
 from django_dropbox_storage.storage import DropboxStorage
+import uuid
 
 DROPBOX_STORAGE = DropboxStorage()
 
@@ -60,6 +61,13 @@ LEVEL_OF_CARE = (
     ('L', 'Low'),
     )
 
+LOAN_STATUS = (
+        ('m', 'Maintenance'),
+        ('o', 'On loan'),
+        ('a', 'Available'),
+        ('r', 'Reserved'),
+    )
+
 class Item(models.Model):
     item_name = models.CharField(max_length=70)
     brand_name = models.CharField(max_length=70, blank=True)
@@ -76,7 +84,8 @@ class Item(models.Model):
     def get_absolute_url(self):
         return reverse('item-detail', args=[str(self.id)])
 
-class ItemInstance(models.Model):
+class MedicalSupply(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for this particular medical supply across whole inventory')
     item = models.ForeignKey('Item', on_delete=models.CASCADE, null=True)
     date_received = models.DateField(auto_now=False)
     expiration_date = models.DateField(auto_now=False)
@@ -84,13 +93,35 @@ class ItemInstance(models.Model):
     unit_of_measure = models.CharField(max_length=35, blank=True)
 
     class Meta:
+        verbose_name_plural = "Medical supplies"
         ordering = ["item"]
 
     def __str__(self):
         return u'{}'.format(self.item)
 
     def get_absolute_url(self):
-        return reverse('item-instance-detail', args=[str(self.id)])
+        return reverse('medicalsupply-detail', args=[str(self.id)])
+
+class MedicalEquipment(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for this particular medical equipment across whole inventory')
+    item = models.ForeignKey('Item', on_delete=models.CASCADE, null=True)
+    date_received = models.DateField(auto_now=False)
+    due_back = models.DateField(null=True, blank=True)
+
+    status = models.CharField(
+        max_length=1,
+        choices=LOAN_STATUS,
+        blank=True,
+        default='m',
+        help_text='Medical equipment availability',
+    )
+
+    class Meta:
+        ordering = ['due_back']
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return f'{self.id} ({self.item.item_name})'
     
 class Drug(models.Model):
     generic_name = models.CharField(max_length=70)

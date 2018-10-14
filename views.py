@@ -500,3 +500,12 @@ class ItemDelete(PermissionRequiredMixin, generic.DeleteView):
     permission_required = 'cm_portal.can_view_inventory'
     model = Item
     success_url = reverse_lazy('items')
+
+class MedicalSupplyListView(PermissionRequiredMixin, generic.ListView):
+    permission_required = 'cm_portal.can_view_inventory'
+    model = MedicalSupply
+    paginate_by = 10
+
+class MedicalSupplyDetailView(PermissionRequiredMixin, generic.DetailView):
+    permission_required = 'cm_portal.can_view_inventory'
+    model = MedicalSupply

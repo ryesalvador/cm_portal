@@ -89,6 +89,8 @@ urlpatterns += [
     path('inventory/item/create/', views.ItemCreate.as_view(), name='item-create'),
     path('inventory/item/<int:pk>/update/', views.ItemUpdate.as_view(), name='item-update'),
     path('inventory/item/<int:pk>/delete/', views.ItemDelete.as_view(), name='item-delete'),
+    path('inventory/medical-supplies/', views.MedicalSupplyListView.as_view(), name='medical-supplies'),
+    path('inventory/medical-supply/<uuid:pk>/', views.MedicalSupplyDetailView.as_view(), name='medicalsupply-detail'),
 ]
 
 urlpatterns += [

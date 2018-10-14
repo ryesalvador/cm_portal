@@ -28,10 +28,10 @@
     {% else %}
       <p>There are no items in the portal.</p>  
   {% endif %}  
-  <!-- {% if perms.cm_portal.add_drug %}
-    <a class="btn btn-primary" href="{% url 'drug-create' %}" role="button">Add a drug</a>
+  {% if perms.cm_portal.add_item %}
+    <a class="btn btn-primary" href="{% url 'item-create' %}" role="button">Add item</a>
   {% else %} 
-    <a class="btn btn-primary disabled" href="{% url 'drug-create' %}" role="button">Add a drug</a>
-  {% endif %} -->
+    <a class="btn btn-primary disabled" href="{% url 'item-create' %}" role="button">Add item</a>
+  {% endif %}
   </div>
 {% endblock %}

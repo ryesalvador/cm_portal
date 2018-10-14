@@ -12,4 +12,14 @@
     <tr><td><strong>Description: </strong>{{ item.description }}</td></tr>
     <tr><td><strong>Perishable? </strong>{% if item.perishable %}Yes{% else %}No{% endif %}</td></tr> 
   </table>  
+  {% if perms.cm_portal.change_item and perms.cm_portal.delete_item %} 
+    <a class="btn btn-primary" href="{% url 'item-update' item.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger" href="{% url 'item-delete' item.id %}" role="button">Delete</a>
+  {% elif perms.cm_portal.change_drug %}
+    <a class="btn btn-primary" href="{% url 'item-update' item.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger disabled" href="{% url 'item-delete' item.id %}" role="button">Delete</a>
+  {% else %}
+    <a class="btn btn-primary disabled" href="{% url 'item-update' item.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger disabled" href="{% url 'item-delete' item.id %}" role="button">Delete</a>
+  {% endif %}
 {% endblock %}

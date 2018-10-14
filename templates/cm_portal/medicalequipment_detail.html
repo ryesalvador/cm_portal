@@ -1,0 +1,14 @@
+{% extends "cm_portal/inventory_index.html" %}
+
+{% block title %}| Medical Equipment{% endblock %}
+
+{% block page_title %}| Medical Equipment{% endblock %}
+{% block content %}  
+  <h2>Name: {{ medicalequipment.item.item_name }}</h2>
+  <table class="table table-hover">        
+    <tr><td><strong>Brand name: </strong>{{ medicalequipment.item.brand_name }}</td></tr>
+    <tr><td><strong>Universally Unique ID: </strong>{{ medicalequipment.id }}</td></tr>
+    <tr><td><strong>Date received: </strong>{{ medicalequipment.date_received }}</td></tr>    
+    <tr><td><strong>Status: </strong>{{ medicalequipment.get_status_display }}</td></tr> 
+  </table>
+{% endblock %}

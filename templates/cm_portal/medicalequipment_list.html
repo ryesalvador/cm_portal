@@ -1,0 +1,39 @@
+{% extends "cm_portal/inventory_index.html" %}
+
+{% block title %}| List of Medical Equipments{% endblock %}
+
+{% block page_title %}| List of Medical Equipments{% endblock %}
+
+{% load static %}
+
+<!-- {% block search_form %}
+  <form class="navbar-form navbar-right" id="search-form" action="{% url 'search-drugs' %}" method="get">
+    {{ form.as_p }}            
+  </form>        
+{% endblock %} -->
+
+{% block content %}
+  <div class="jumbotron">
+  {% if medicalequipment_list %}    
+    <ul class="list-group">
+      {% for medicalequipment in medicalequipment_list %}
+        <li class="list-group-item">
+        {% if medicalequipment.item.brand_name %}
+        <h4 class="list-group-item-heading">{{ medicalequipment.item.brand_name }}</h4>
+        {% endif %}
+        <a href="{{ medicalequipment.get_absolute_url }}">
+        {{ medicalequipment.item.item_name }}        
+        </a>   
+        </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+      <p>There are no medical equipments in the portal.</p>  
+  {% endif %}  
+  <!-- {% if perms.cm_portal.add_medicalsupply %}
+    <a class="btn btn-primary" href="{% url 'medicalsupply-create' %}" role="button">Add a medical supply</a>
+  {% else %} 
+    <a class="btn btn-primary disabled" href="{% url 'medicalsupply-create' %}" role="button">Add a medical supply</a>
+  {% endif %} -->
+  </div>
+{% endblock %}

@@ -10,7 +10,7 @@
   {% endif %}  
   <li><a href="{% url 'items' %}">All items</a></li>  
   <li><a href="{% url 'medical-supplies' %}">All medical supplies</a></li>  
-  <li><a href="#">All medical equipment</a></li>    
+  <li><a href="{% url 'medical-equipments' %}">All medical equipment</a></li>    
 {% endblock %}
 
 {% block page_title %}| <a href="#">Inventory</a>{% endblock %}

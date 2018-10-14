@@ -122,6 +122,9 @@ class MedicalEquipment(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return f'{self.id} ({self.item.item_name})'
+
+    def get_absolute_url(self):
+        return reverse('medicalequipment-detail', args=[str(self.id)])
     
 class Drug(models.Model):
     generic_name = models.CharField(max_length=70)

@@ -28,7 +28,7 @@
                 <a href="{% url 'medicalsupply-create' %}">New medical supply</a>
               </li>                          
               <li>
-                <a href="#">New medical equipment</a>
+                <a href="{% url 'medicalequipment-create' %}">New medical equipment</a>
               </li>                            
             </ul>
 </li>
@@ -48,7 +48,10 @@
         <strong>Items:</strong> {{ num_items }}
       </li>
       <li class="list-group-item">
-        <strong>Actual inventory of items:</strong> {{ num_actual_items }}
+        <strong>Medical supplies:</strong> {{ num_medical_supplies }}
+      </li>            
+      <li class="list-group-item">
+        <strong>Medical equipment:</strong> {{ num_medical_equipment }}
       </li>            
     </ul>
     </div>

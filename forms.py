@@ -2,7 +2,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django import forms
 from django.forms import ModelForm
 from .models import Resident, Medication, Employee, EmploymentStatus, \
-     MedicalSupply
+     MedicalSupply, MedicalEquipment
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -59,6 +59,19 @@ class MedicalSupplyCreateForm(ModelForm):
     class Meta:
         model = MedicalSupply
         exclude = ('id',)
+        widgets = {
+                'date_received': DateInput(),
+                'expiration_date': DateInput(),
+            }
+
+class MedicalEquipmentCreateForm(ModelForm):
+    class Meta:
+        model = MedicalEquipment
+        exclude = ('id',)
+        widgets = {
+                'date_received': DateInput(),
+                'due_back': DateInput(),
+            }
         
 class SearchForm(forms.Form):
     query = forms.CharField(            

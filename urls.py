@@ -96,6 +96,9 @@ urlpatterns += [
     path('inventory/medical-supply/<uuid:pk>/delete/', views.MedicalSupplyDelete.as_view(), name='medicalsupply-delete'),
     path('inventory/medical-equipments/', views.MedicalEquipmentListView.as_view(), name='medical-equipments'),
     path('inventory/medical-equipment/<uuid:pk>/', views.MedicalEquipmentDetailView.as_view(), name='medicalequipment-detail'),
+    path('inventory/medical-equipment/create/', views.MedicalEquipmentCreate.as_view(), name='medicalequipment-create'),
+    path('inventory/medical-equipment/<uuid:pk>/update/', views.MedicalEquipmentUpdate.as_view(), name='medicalequipment-update'),
+    path('inventory/medical-equipment/<uuid:pk>/delete/', views.MedicalEquipmentDelete.as_view(), name='medicalequipment-delete'),
 ]
 
 urlpatterns += [

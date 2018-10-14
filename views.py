@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required, permission_required
 from .forms import ResidentCreateForm, EmployeeCreateForm, SearchForm, \
-     MedicationCreateForm, MedicalSupplyCreateForm
+     MedicationCreateForm, MedicalSupplyCreateForm, MedicalEquipmentCreateForm
 from django.http import HttpResponseRedirect
 from itertools import chain
 from django.apps import apps
@@ -534,3 +534,19 @@ class MedicalEquipmentListView(PermissionRequiredMixin, generic.ListView):
 class MedicalEquipmentDetailView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'cm_portal.can_view_inventory'
     model = MedicalEquipment
+
+class MedicalEquipmentCreate(PermissionRequiredMixin, generic.CreateView):
+    permission_required = 'cm_portal.can_view_inventory'
+    model = MedicalEquipment    
+    form_class = MedicalEquipmentCreateForm
+    
+class MedicalEquipmentUpdate(PermissionRequiredMixin, generic.UpdateView):
+    permission_required = 'cm_portal.can_view_inventory'
+    model = MedicalEquipment    
+    form_class = MedicalEquipmentCreateForm
+    template_name_suffix = '_update_form'
+
+class MedicalEquipmentDelete(PermissionRequiredMixin, generic.DeleteView):
+    permission_required = 'cm_portal.can_view_inventory'
+    model = MedicalEquipment
+    success_url = reverse_lazy('medical-equipments')

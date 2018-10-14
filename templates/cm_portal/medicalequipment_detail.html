@@ -11,4 +11,14 @@
     <tr><td><strong>Date received: </strong>{{ medicalequipment.date_received }}</td></tr>    
     <tr><td><strong>Status: </strong>{{ medicalequipment.get_status_display }}</td></tr> 
   </table>
+  {% if perms.cm_portal.change_medicalequipment and perms.cm_portal.delete_medicalequipment %} 
+    <a class="btn btn-primary" href="{% url 'medicalequipment-update' medicalequipment.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger" href="{% url 'medicalequipment-delete' medicalequipment.id %}" role="button">Delete</a>
+  {% elif perms.cm_portal.change_drug %}
+    <a class="btn btn-primary" href="{% url 'medicalequipment-update' medicalequipment.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger disabled" href="{% url 'medicalequipment-delete' medicalequipment.id %}" role="button">Delete</a>
+  {% else %}
+    <a class="btn btn-primary disabled" href="{% url 'medicalequipment-update' medicalequipment.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger disabled" href="{% url 'medicalequipment-delete' medicalequipment.id %}" role="button">Delete</a>
+  {% endif %}
 {% endblock %}

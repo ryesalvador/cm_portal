@@ -91,6 +91,9 @@ urlpatterns += [
     path('inventory/item/<int:pk>/delete/', views.ItemDelete.as_view(), name='item-delete'),
     path('inventory/medical-supplies/', views.MedicalSupplyListView.as_view(), name='medical-supplies'),
     path('inventory/medical-supply/<uuid:pk>/', views.MedicalSupplyDetailView.as_view(), name='medicalsupply-detail'),
+    path('inventory/medical-supply/create/', views.MedicalSupplyCreate.as_view(), name='medicalsupply-create'),
+    path('inventory/medical-supply/<uuid:pk>/update/', views.MedicalSupplyUpdate.as_view(), name='medicalsupply-update'),
+    path('inventory/medical-supply/<uuid:pk>/delete/', views.MedicalSupplyDelete.as_view(), name='medicalsupply-delete'),
 ]
 
 urlpatterns += [

@@ -1,0 +1,15 @@
+{% extends "cm_portal/inventory_index.html" %}
+
+{% block title %}| Delete Medical Supply{% endblock %}
+
+{% block page_title %}| Delete Medical Supply{% endblock %}
+
+{% block content %}
+
+<p class="text-danger">Are you sure you want to delete {{ medicalsupply }}?</p>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <input class="btn btn-danger" type="submit" action="" value="Yes, delete." />
+</form>
+{% endblock %}

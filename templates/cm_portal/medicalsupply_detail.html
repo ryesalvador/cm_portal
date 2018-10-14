@@ -13,4 +13,14 @@
     <tr><td><strong>Stocks available: </strong>{{ medicalsupply.stocks_available }}
     {% if medicalsupply.unit_of_measure %}{{ medicalsupply.unit_of_measure }}{% endif %}</td></tr> 
   </table>  
+  {% if perms.cm_portal.change_medicalsupply and perms.cm_portal.delete_medicalsupply %} 
+    <a class="btn btn-primary" href="{% url 'medicalsupply-update' medicalsupply.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger" href="{% url 'medicalsupply-delete' medicalsupply.id %}" role="button">Delete</a>
+  {% elif perms.cm_portal.change_drug %}
+    <a class="btn btn-primary" href="{% url 'medicalsupply-update' medicalsupply.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger disabled" href="{% url 'medicalsupply-delete' medicalsupply.id %}" role="button">Delete</a>
+  {% else %}
+    <a class="btn btn-primary disabled" href="{% url 'medicalsupply-update' medicalsupply.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger disabled" href="{% url 'medicalsupply-delete' medicalsupply.id %}" role="button">Delete</a>
+  {% endif %}
 {% endblock %}

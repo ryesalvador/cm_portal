@@ -68,12 +68,15 @@ LOAN_STATUS = (
         ('r', 'Reserved'),
     )
 
-class Item(models.Model):
+ITEM_MODEL = (
+        ('S', 'Medical Supply'),
+        ('E', 'Medical Equipment'),
+    )
+
+class Item(models.Model):   
     item_name = models.CharField(max_length=70)
-    brand_name = models.CharField(max_length=70, blank=True)
-    manufacturer = models.CharField(max_length=70, blank=True)
-    description = models.TextField(blank=True)
-    perishable = models.BooleanField(default=True)    
+    brand_name = models.CharField(max_length=70, blank=True)    
+    description = models.TextField(blank=True)    
 
     class Meta:
         ordering = ["item_name"]
@@ -87,7 +90,8 @@ class Item(models.Model):
 class MedicalSupply(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for this particular medical supply across whole inventory')
     item = models.ForeignKey('Item', on_delete=models.CASCADE, null=True)
-    date_received = models.DateField(auto_now=False)
+    manufacturer = models.CharField(max_length=70, blank=True)
+    date_acquired = models.DateField(auto_now=False)
     expiration_date = models.DateField(auto_now=False)
     stocks_available = models.PositiveIntegerField(null=True, blank=True)
     unit_of_measure = models.CharField(max_length=35, blank=True)
@@ -105,7 +109,8 @@ class MedicalSupply(models.Model):
 class MedicalEquipment(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for this particular medical equipment across whole inventory')
     item = models.ForeignKey('Item', on_delete=models.CASCADE, null=True)
-    date_received = models.DateField(auto_now=False)
+    manufacturer = models.CharField(max_length=70, blank=True)
+    date_acquired = models.DateField(auto_now=False)
     due_back = models.DateField(null=True, blank=True)
 
     status = models.CharField(

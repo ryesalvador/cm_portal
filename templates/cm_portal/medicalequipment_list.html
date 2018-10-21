@@ -30,10 +30,10 @@
     {% else %}
       <p>There are no medical equipments in the portal.</p>  
   {% endif %}  
-  <!-- {% if perms.cm_portal.add_medicalsupply %}
-    <a class="btn btn-primary" href="{% url 'medicalsupply-create' %}" role="button">Add a medical supply</a>
+  {% if perms.cm_portal.add_medicalequipment %}
+    <a class="btn btn-primary" href="{% url 'medicalequipment-create' %}" role="button">Add a medical equipment</a>
   {% else %} 
-    <a class="btn btn-primary disabled" href="{% url 'medicalsupply-create' %}" role="button">Add a medical supply</a>
-  {% endif %} -->
+    <a class="btn btn-primary disabled" href="{% url 'medicalequipment-create' %}" role="button">Add a medical equipment</a>
+  {% endif %}
   </div>
 {% endblock %}

@@ -60,7 +60,7 @@ class MedicalSupplyCreateForm(ModelForm):
         model = MedicalSupply
         exclude = ('id',)
         widgets = {
-                'date_received': DateInput(),
+                'date_acquired': DateInput(),
                 'expiration_date': DateInput(),
             }
 
@@ -69,7 +69,7 @@ class MedicalEquipmentCreateForm(ModelForm):
         model = MedicalEquipment
         exclude = ('id',)
         widgets = {
-                'date_received': DateInput(),
+                'date_acquired': DateInput(),
                 'due_back': DateInput(),
             }
         

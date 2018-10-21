@@ -8,12 +8,14 @@
     <thead><h2>{{ item.item_name|capfirst }}</h2></thead>
     <tr>
       <th>Name</th>
-      <th>Brand</th>      
-      <th>Short description</th>
+      <th>Brand</th>   
+      <th>Manufacturer</th>   
+      <th>Description</th>
     </tr>
     <tr>
       <td>{{ item.item_name }}</td>
       <td>{{ item.brand_name }}</td>      
+      <td>{{ item.manufacturer }}</td>
       <td>{{ item.description }}</td>
     </tr>   
      
@@ -22,11 +24,11 @@
     <h4>Medical Supply</h4>
     <div style="margin-left:20px;margin-top:20px">
       {% for medical_supply in item.medicalsupply_set.all %}
-      <hr>      
-      <p><strong>Stocks available: </strong>{{ medical_supply.stocks_available }} 
+      <hr>     
       {{ medical_supply.unit_of_measure|capfirst }}</p>
-      <p><strong>Expiration date: </strong>{{ medical_supply.expiration_date }}</p>      
-      <p><strong>Manufacturer: </strong>{{ medical_supply.manufacturer }}</p>      
+      <p><strong>Date acquired: </strong>{{ medical_supply.date_acquired }}</p>
+      <p><strong>Expiration date: </strong>{{ medical_supply.expiration_date }}</p>
+      <p><strong>Stocks available: </strong>{{ medical_supply.stocks_available }}
       <p class="text-muted"><strong>Id: </strong> {{ medical_supply.id}}</p>      
       {% endfor %}    
     </div>    
@@ -34,13 +36,13 @@
     <h4>Medical Equipment</h4>
     <div style="margin-left:20px;margin-top:20px">    
       {% for medical_equipment in item.medicalequipment_set.all %}
-      <hr>
+      <hr>      
       <p class="{% if medical_equipment.status == 'a' %}text-success{% elif medical_equipment.status == 'm' %}text-danger{% else %}text-warning{% endif %}">
       {{ medical_equipment.get_status_display }}</p>
       {% if medical_equipment.status != 'a' %}
         <p><strong>Due to be returned:</strong> {{medical_equipment.due_back}}</p>
-      {% endif %}
-      <p><strong>Manufacturer: </strong>{{ medical_equipment.manufacturer }}</p>      
+      {% endif %}            
+      <p><strong>Date acquired: </strong>{{ medical_equipment.date_acquired }}</p>
       <p class="text-muted"><strong>Id: </strong>{{ medical_equipment.id }}</p>
       {% endfor %}    
     </div>

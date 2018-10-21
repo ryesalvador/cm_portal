@@ -91,8 +91,8 @@ class Item(models.Model):
 class MedicalSupply(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for this particular medical supply across whole inventory')
     item = models.ForeignKey('Item', on_delete=models.CASCADE, null=True)    
-    date_acquired = models.DateField(auto_now=False)
-    expiration_date = models.DateField(auto_now=False)
+    date_acquired = models.DateField(auto_now=False, null=True, blank=True)
+    expiration_date = models.DateField(auto_now=False, null=True, blank=True)
     stocks_available = models.PositiveIntegerField(null=True, blank=True)
     unit_of_measure = models.CharField(max_length=35, blank=True)
 
@@ -109,7 +109,7 @@ class MedicalSupply(models.Model):
 class MedicalEquipment(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for this particular medical equipment across whole inventory')
     item = models.ForeignKey('Item', on_delete=models.CASCADE, null=True)    
-    date_acquired = models.DateField(auto_now=False)
+    date_acquired = models.DateField(auto_now=False, null=True, blank=True)
     due_back = models.DateField(null=True, blank=True)
 
     status = models.CharField(

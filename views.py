@@ -122,7 +122,7 @@ class ResidentListView(PermissionRequiredMixin, generic.ListView):
     permission_required = 'cm_portal.can_view_nursing_home'
     model = Resident
     queryset = Resident.objects.filter(vital_status='LI')
-    paginate_by = 10    
+    #paginate_by = 10    
     
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get the context
@@ -134,7 +134,15 @@ class ResidentListView(PermissionRequiredMixin, generic.ListView):
             'placeholder': 'Search Residents...',
             'size': 32
             })
-        context['form'] = form        
+        rebuschini = Resident.objects.filter(building='R')        
+        tezza = Resident.objects.filter(building='L')
+        first_floor = Resident.objects.filter(building='1')
+        second_floor = Resident.objects.filter(building='2')
+        context['form'] = form
+        context['rebuschini'] = rebuschini
+        context['tezza'] = tezza
+        context['first_floor'] = first_floor
+        context['second_floor'] = second_floor
         return context
 
 @method_decorator(cache_control(private=True), name='dispatch')

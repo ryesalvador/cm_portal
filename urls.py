@@ -12,7 +12,7 @@ urlpatterns = [
 
 urlpatterns += [
     path('nursing-home/', views.nursing_home_index, name='nursing-home-index'),    
-    path('nursing-home/residents/', views.ResidentListView.as_view(), name='residents'),
+    path('nursing-home/residents/', views.ResidentListView.as_view(paginate_by=10), name='residents'),
     path('nursing-home/residents/order-by/building/', views.ResidentListView.as_view(
         template_name='cm_portal/resident_list_by_building.html'), name='resident-list-by-building'),
     path('nursing-home/residents/deceased/', views.DeceasedListView.as_view(), name='residents-deceased'),

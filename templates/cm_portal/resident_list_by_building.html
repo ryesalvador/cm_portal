@@ -1,0 +1,48 @@
+{% extends "cm_portal/nursing_home_index.html" %}
+
+{% block title %}| List of Residents by Building{% endblock %}
+
+{% block page_title %}| List of Residents by Building{% endblock %}
+
+{% block search_form %}
+  <form class="navbar-form navbar-right" id="search-form" action="{% url 'search-residents' %}" method="get">
+    {{ form.as_p }}            
+  </form>        
+{% endblock %}
+
+{% block content %}
+  <div class="jumbotron">  
+  <h4>Blessed Enrico Rebuschini</h4>
+  <ul class="list-group">
+  {% for resident in resident_list %}       
+    {% if resident.building == 'R' %}    
+      {% include "cm_portal/resident_list_item.html" %}        
+    {% endif %}    
+  {% endfor%}
+  </ul>  
+  <h4>Blessed Luigi Tezza Building</h4>
+  <ul class="list-group">
+  {% for resident in resident_list %}        
+    {% if resident.building == 'L' %}    
+      {% include "cm_portal/resident_list_item.html" %}        
+    {% endif %}   
+  {% endfor%}
+  </ul>  
+  <h4>St. Camillus Building First Floor</h4>
+  <ul class="list-group">
+  {% for resident in resident_list %}        
+    {% if resident.building == '1' %}    
+      {% include "cm_portal/resident_list_item.html" %}        
+    {% endif %}   
+  {% endfor%}
+  </ul>
+  <h4>St. Camillus Building Second Floor</h4>
+  <ul class="list-group">
+  {% for resident in resident_list %}        
+    {% if resident.building == '2' %}    
+      {% include "cm_portal/resident_list_item.html" %}        
+    {% endif %}   
+  {% endfor%}
+  </ul>  
+  </div>
+{% endblock %}

@@ -12,6 +12,9 @@
     <li><a href="{% url 'relatives' %}">All relatives</a></li>    
     <li><a href="{% url 'physicians' %}">All physicians</a></li>
     <hr>
+    <li><strong>Sort residents by:</strong></li>        
+    <li><a href="{% url 'resident-list-by-building' %}">Building</a></li>    
+    <hr>
     <li><strong>Archive</strong></li>
     <li><a href="{% url 'residents-deceased' %}">Deceased residents</a></li>
     <li><a href="{% url 'residents-discharged' %}">Discharged residents</a></li>

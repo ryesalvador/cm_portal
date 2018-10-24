@@ -96,14 +96,14 @@ def inventory_index(request):
 
 @login_required
 def maintenance(request):
-    male_first_floor = Resident.objects.filter(building='1').filter(gender='M')
-    female_first_floor = Resident.objects.filter(building='1').filter(gender='F')
-    male_second_floor = Resident.objects.filter(building='2').filter(gender='M')
-    female_second_floor = Resident.objects.filter(building='2').filter(gender='F')
-    male_luigi_tezza = Resident.objects.filter(building='L').filter(gender='M')
-    female_luigi_tezza = Resident.objects.filter(building='L').filter(gender='F')
-    male_rebuschini = Resident.objects.filter(building='R').filter(gender='M')
-    female_rebuschini = Resident.objects.filter(building='R').filter(gender='F')
+    male_first_floor = Resident.objects.filter(building='1').filter(gender='M').filter(vital_status='LI')
+    female_first_floor = Resident.objects.filter(building='1').filter(gender='F').filter(vital_status='LI')
+    male_second_floor = Resident.objects.filter(building='2').filter(gender='M').filter(vital_status='LI')
+    female_second_floor = Resident.objects.filter(building='2').filter(gender='F').filter(vital_status='LI')
+    male_luigi_tezza = Resident.objects.filter(building='L').filter(gender='M').filter(vital_status='LI')
+    female_luigi_tezza = Resident.objects.filter(building='L').filter(gender='F').filter(vital_status='LI')
+    male_rebuschini = Resident.objects.filter(building='R').filter(gender='M').filter(vital_status='LI')
+    female_rebuschini = Resident.objects.filter(building='R').filter(gender='F').filter(vital_status='LI')
     return render(request,
                   'cm_portal/maintenance.html',
                   context={
@@ -134,10 +134,10 @@ class ResidentListView(PermissionRequiredMixin, generic.ListView):
             'placeholder': 'Search Residents...',
             'size': 32
             })
-        rebuschini = Resident.objects.filter(building='R')        
-        tezza = Resident.objects.filter(building='L')
-        first_floor = Resident.objects.filter(building='1')
-        second_floor = Resident.objects.filter(building='2')
+        rebuschini = Resident.objects.filter(building='R').filter(vital_status='LI')        
+        tezza = Resident.objects.filter(building='L').filter(vital_status='LI')
+        first_floor = Resident.objects.filter(building='1').filter(vital_status='LI')
+        second_floor = Resident.objects.filter(building='2').filter(vital_status='LI')
         context['form'] = form
         context['rebuschini'] = rebuschini
         context['tezza'] = tezza

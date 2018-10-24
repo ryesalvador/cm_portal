@@ -5,17 +5,17 @@
         <td>{{ meds.medicine.generic_name }}</td>
         <td>{{ meds.medicine.dosage }}</td>
         <td>{{ meds.frequency }}</td>
-        <td>{{ meds.quantity }}</td>    
-        <td>{{ meds.due }}</td>
-        <td>{{ meds.medicine.price }}</td>
+        <td>{% if meds.quantity %}{{ meds.quantity }}{% endif %}</td>    
+        <td>{% if meds.due %}{{ meds.due }}{% endif %}</td>
+        <td>{% if meds.medicine.price %}{{ meds.medicine.price }}{% endif %}</td>
       {% else %}
         <td>{{ meds.medicine.generic_name }} 
         {% if meds.medicine.brand_name %}({{ meds.medicine.brand_name }}){% endif %}</td>
         <td>{{ meds.medicine.dosage }}</td>
         <td>{{ meds.frequency }}</td>
-        <td>{{ meds.quantity }}</td>    
-        <td>{{ meds.due }}</td>
-        <td>{{ meds.medicine.price }}</td>
+        <td>{% if meds.quantity %}{{ meds.quantity }}{% endif %}</td>    
+        <td>{% if meds.due %}{{ meds.due }}{% endif %}</td>
+        <td>{% if meds.medicine.price %}{{ meds.medicine.price }}{% endif %}</td>
       {% endif %}
     </tr>
  {% endfor %}

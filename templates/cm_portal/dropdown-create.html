@@ -1,0 +1,73 @@
+<li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">New...
+            <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+              {% if perms.cm_portal.add_drug %}
+              <li>
+                <a href="{% url 'drug-create' %}" >New drug</a>
+              </li>
+              {% else %}
+              <li class="disabled">
+                <a href="#" >New drug</a>
+              </li>
+              {% endif %}
+              <li class="divider"></li>
+              {% if perms.cm_portal.add_resident %}
+              <li>
+                <a href="{% url 'resident-create' %}">New resident</a>
+              </li>
+              {% else %}
+              <li class="disabled ">
+                <a href="#">New resident</a>
+              </li>
+              {% endif %}
+              {% if perms.cm_portal.add_medicalabstract %}
+              <li>
+                <a href="{% url 'medicalabstract-create' %}">New medical abstract</a>
+              </li>
+              {% else %}
+              <li class="disabled">
+                <a href="#">New medical abstract</a>
+              </li>
+              {% endif %}
+              {% if perms.cm_portal.add_medication %}
+              <li>
+                <a href="{% url 'medication-create' %}" >New medication</a>
+              </li>
+              {% else %}
+              <li class="disabled">
+                <a href="#" >New medication</a>
+              </li>
+              {% endif %}              
+              <li class="divider"></li>
+              {% if perms.cm_portal.add_relative %}
+              <li>
+                <a href="{% url 'relative-create' %}">New relative</a>
+              </li>
+              {% else %}
+              <li class="disabled">
+                <a href="#">New relative</a>
+              </li>
+              {% endif %}
+              {% if perms.cm_portal.add_relationship %}
+              <li>
+                <a href="{% url 'relationship-create' %}">New relationship</a>
+              </li>
+              {% else %}
+              <li class="disabled">
+                <a href="#">New relationship</a>
+              </li>
+              {% endif %}
+              <li class="divider"></li>
+              {% if perms.cm_portal.add_physician %}
+              <li>
+                <a href="{% url 'physician-create' %}">New physician</a>
+              </li>                
+              {% else %}
+              <li class="disabled">
+                <a href="#">New physician</a>
+              </li>   
+              {% endif %}
+            </ul>
+</li>

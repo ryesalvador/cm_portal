@@ -12,9 +12,7 @@ urlpatterns = [
 
 urlpatterns += [
     path('nursing-home/', views.nursing_home_index, name='nursing-home-index'),    
-    path('nursing-home/residents/', views.ResidentListView.as_view(paginate_by=10), name='residents'),
-    path('nursing-home/residents/order-by/building/', views.ResidentListView.as_view(
-        template_name='cm_portal/resident_list_by_building.html'), name='resident-list-by-building'),
+    path('nursing-home/residents/', views.ResidentListView.as_view(paginate_by=10), name='residents'),    
     path('nursing-home/residents/deceased/', views.DeceasedListView.as_view(), name='residents-deceased'),
     path('nursing-home/residents/discharged/', views.DischargedListView.as_view(), name='residents-discharged'),
     path('nursing-home/resident/<int:pk>/', views.ResidentDetailView.as_view(), name='resident-detail'),
@@ -59,6 +57,14 @@ urlpatterns += [
     path('nursing-home/search/relatives', views.search, {'model': 'Relative', 'template_name': 'search_relatives.html'}, name='search-relatives'),
     path('nursing-home/search/physicians', views.search, {'model': 'Physician', 'template_name': 'search_physicians.html'}, name='search-physicians'),
     path('nursing-home/search/drugs', views.search, {'model': 'Drug', 'template_name': 'search_drugs.html'}, name='search-drugs'),
+    path('nursing-home/residents/rebuschini/', views.ResidentListView.as_view(
+        template_name='cm_portal/resident_list_rebuschini.html'), name='resident-list-rebuschini'),
+    path('nursing-home/residents/tezza/', views.ResidentListView.as_view(
+        template_name='cm_portal/resident_list_tezza.html'), name='resident-list-tezza'),
+    path('nursing-home/residents/first-floor/', views.ResidentListView.as_view(
+        template_name='cm_portal/resident_list_first_floor.html'), name='resident-list-first-floor'),
+    path('nursing-home/residents/second-floor/', views.ResidentListView.as_view(
+        template_name='cm_portal/resident_list_second_floor.html'), name='resident-list-second-floor'),
 ]
 
 urlpatterns += [

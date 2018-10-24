@@ -10,6 +10,11 @@
   </form>        
 {% endblock %}
 
+{% block nav_others %}
+  {% include 'cm_portal/dropdown-sort.html' %}
+  {% include 'cm_portal/dropdown-create.html' %}
+{% endblock %}
+
 {% block content %}
   <div class="jumbotron">
    

@@ -11,100 +11,23 @@
     <li><a href="{% url 'residents' %}">All residents</a></li>
     <li><a href="{% url 'relatives' %}">All relatives</a></li>    
     <li><a href="{% url 'physicians' %}">All physicians</a></li>
-    <hr>
-    <li><strong>Sort residents by:</strong></li>        
-    <li><a href="{% url 'resident-list-by-building' %}">Building</a></li>    
+    <li><a href="{% url 'medical-abstracts' %}" >All medical abstracts</a></li>
+    <li><a href="{% url 'relationships' %}">All relationships</a></li>
+    <li><a href="{% url 'drugs' %}">All drugs</a></li>            
     <hr>
     <li><strong>Archive</strong></li>
     <li><a href="{% url 'residents-deceased' %}">Deceased residents</a></li>
     <li><a href="{% url 'residents-discharged' %}">Discharged residents</a></li>
     <hr>
-    <li><strong>Reports</strong></li>
-    <li><a href="{% url 'medical-abstracts' %}" >Medical abstracts</a></li>
-    <li><a href="{% url 'maintenance' %}">Inventory of Medicines</a></li> 
-    <hr>
-    <li><strong>Others</strong></li>        
-    <li><a href="{% url 'relationships' %}">All relationships</a></li>
-    <li><a href="{% url 'drugs' %}">All drugs</a></li>
+    <li><strong>Reports</strong></li>    
+    <li><a href="{% url 'maintenance' %}">Inventory of Medicines</a></li>
 {% endblock %}
 
 {% block page_title %}| <a href="#">Nursing Home</a>{% endblock %}
 
 {% block nav_others %}
 {% block nav_resident %}{% endblock %}
-<li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">New...
-            <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu" role="menu">
-              {% if perms.cm_portal.add_drug %}
-              <li>
-                <a href="{% url 'drug-create' %}" >New drug</a>
-              </li>
-              {% else %}
-              <li class="disabled">
-                <a href="#" >New drug</a>
-              </li>
-              {% endif %}
-              <li class="divider"></li>
-              {% if perms.cm_portal.add_resident %}
-              <li>
-                <a href="{% url 'resident-create' %}">New resident</a>
-              </li>
-              {% else %}
-              <li class="disabled ">
-                <a href="#">New resident</a>
-              </li>
-              {% endif %}
-              {% if perms.cm_portal.add_medicalabstract %}
-              <li>
-                <a href="{% url 'medicalabstract-create' %}">New medical abstract</a>
-              </li>
-              {% else %}
-              <li class="disabled">
-                <a href="#">New medical abstract</a>
-              </li>
-              {% endif %}
-              {% if perms.cm_portal.add_medication %}
-              <li>
-                <a href="{% url 'medication-create' %}" >New medication</a>
-              </li>
-              {% else %}
-              <li class="disabled">
-                <a href="#" >New medication</a>
-              </li>
-              {% endif %}              
-              <li class="divider"></li>
-              {% if perms.cm_portal.add_relative %}
-              <li>
-                <a href="{% url 'relative-create' %}">New relative</a>
-              </li>
-              {% else %}
-              <li class="disabled">
-                <a href="#">New relative</a>
-              </li>
-              {% endif %}
-              {% if perms.cm_portal.add_relationship %}
-              <li>
-                <a href="{% url 'relationship-create' %}">New relationship</a>
-              </li>
-              {% else %}
-              <li class="disabled">
-                <a href="#">New relationship</a>
-              </li>
-              {% endif %}
-              <li class="divider"></li>
-              {% if perms.cm_portal.add_physician %}
-              <li>
-                <a href="{% url 'physician-create' %}">New physician</a>
-              </li>                
-              {% else %}
-              <li class="disabled">
-                <a href="#">New physician</a>
-              </li>   
-              {% endif %}
-            </ul>
-</li>
+  {% include 'cm_portal/dropdown-create.html' %}
 {% endblock %}
 
 
@@ -129,7 +52,7 @@
       </ul>      
       <h3>Census</h3>
       <ul class="list-group">
-        <li class="list-group-item"><strong>Blessed Rebuschini: </strong>{{ census_rebuschini }}</li>
+        <li class="list-group-item"><strong>Blessed Enrico Rebuschini: </strong>{{ census_rebuschini }}</li>
         <li class="list-group-item"><strong>Blessed Luigi Tezza: </strong>{{ census_luigi }}</li>
         <li class="list-group-item"><strong>St. Camillus Building-First floor: </strong>{{ census_first_floor }}</li>
         <li class="list-group-item"><strong>St. Camillus Building-Second floor: </strong>{{ census_second_floor }}</li>

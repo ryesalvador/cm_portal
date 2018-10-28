@@ -4,6 +4,10 @@
 
 {% load static %}
 
+{% block navbar %}
+  {% include 'cm_portal/nav-hris.html' %}
+{% endblock %}
+
 {% block sidebar %}
   {% if user.is_authenticated %}
     <li><strong>User: </strong>{{ user.get_username|capfirst }}</li>

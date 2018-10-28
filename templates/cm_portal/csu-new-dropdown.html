@@ -1,0 +1,24 @@
+<ul class="nav nav-pills">
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">New...</a>
+    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 39px, 0px);">
+      {% if perms.cm_portal.add_item %}
+        <a class="dropdown-item" href="{% url 'item-create' %}">New item</a>
+      {% else %}
+        <a class="dropdown-item disabled" href="#">New item</a>
+      {% endif %}
+      
+      {% if perms.cm_portal.add_medicalsupply %}
+        <a class="dropdown-item" href="{% url 'medicalsupply-create' %}">New medical supply</a>
+      {% else %}
+        <a class="dropdown-item disabled" href="#">New medical supply</a>
+      {% endif %}
+      
+      {% if perms.cm_portal.add_medicalequipment %}
+        <a class="dropdown-item" href="{% url 'medicalequipment-create' %}">New medical equipment</a>
+      {% else %}
+        <a class="dropdown-item disabled" href="#">New medical equipment</a>
+      {% endif %}
+    </div>
+  </li>  
+</ul>

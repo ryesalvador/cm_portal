@@ -1,0 +1,24 @@
+<ul class="nav nav-pills">
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">New...</a>
+    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 39px, 0px);">
+      {% if perms.cm_portal.add_employee %}
+        <a class="dropdown-item" href="{% url 'employee-create' %}">New employee</a>
+      {% else %}
+        <a class="dropdown-item disabled" href="#">New employee</a>
+      {% endif %}
+      
+      {% if perms.cm_portal.add_position %}
+        <a class="dropdown-item" href="{% url 'position-create' %}">New position</a>
+      {% else %}
+        <a class="dropdown-item disabled" href="#">New position</a>
+      {% endif %}
+      
+      {% if perms.cm_portal.add_department %}
+        <a class="dropdown-item" href="{% url 'department-create' %}">New department</a>
+      {% else %}
+        <a class="dropdown-item disabled" href="#">New department</a>
+      {% endif %}
+    </div>
+  </li>  
+</ul>

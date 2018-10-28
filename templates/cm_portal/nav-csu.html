@@ -1,14 +1,14 @@
 {% extends 'cm_portal/nav-base.html' %}
 
 {% block nav_left %}
-    {% include 'cm_portal/geria-new-dropdown.html' %}
-    <li class="nav-item active">
+    {% include 'cm_portal/csu-new-dropdown.html' %}
+    <li class="nav-item">
       <a class="nav-link" href="{% url 'geriatric-index' %}">Geriatric</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="{% url 'hris-index' %}">HRIS</a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item active">
       <a class="nav-link" href="{% url 'csu-index' %}">CSU</a>
     </li>    
 {% endblock %}

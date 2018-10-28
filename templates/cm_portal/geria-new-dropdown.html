@@ -1,6 +1,6 @@
 <li class="nav-item dropdown show">
   <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">New...</a>
-  <div class="dropdown-menu show" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 39px, 0px); top: 0px; left: 0px; will-change: transform;">
+  <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 39px, 0px); top: 0px; left: 0px; will-change: transform;">
         
   {% if perms.cm_portal.add_resident %}
     <a class="dropdown-item" href="{% url 'resident-create' %}">New resident</a>

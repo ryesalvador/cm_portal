@@ -11,63 +11,19 @@
   <meta name="description" content="CM Portal is a Django App that aims to handle the RDBMS needs of a nursing home.
                                     GNU GPL v3 licensed so feel free to customize it according to your needs.
                                     Source is available at http://gitlab.com/salvadorrye/cm_portal" />
-  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+  <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.3/cyborg/bootstrap.min.css" rel="stylesheet" integrity="sha384-4DAPMwiyOJv/C/LvTiUsW5ueiD7EsaAhwUKO0Llp+fWzT40XrmAbayhVP00bAJVa" crossorigin="anonymous">    
   <link rel="shortcut icon" href="{% static 'images/emblem.jpg' %}" type="image/x-icon">  
-  <script src="/static/js/jquery.min.js"></script>
-  <script src="/static/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  
   <!-- Add additional CSS in static file -->  
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
   
 </head>
 
 <body>
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="{% url 'index' %}">Camillus MedHaven Portal</a>
-      </div>
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-right">
-          {% block nav_others %}{% endblock %}
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Account
-              <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu" role="menu">
-              <li>
-                <a href="{% url 'index' %}">Home</a>
-              </li>
-              <li>
-                <a href="{% url 'nursing-home-index' %}">Nursing Home</a>
-              </li>
-              <li>
-                <a href="{% url 'hris-index' %}">HRIS</a>
-              </li>
-              <li>
-                <a href="{% url 'inventory-index' %}">Inventory</a>
-              </li>
-              <li class="divider"></li>
-              <li>
-                <a href="#">About</a>
-              </li>
-              <li class="divider"></li>
-              <li>
-                <a href="{% url 'logout' %}">Logout</a>
-              </li>
-            </ul>
-          </li>          
-        </ul>  
-        {% block search_form %}{% endblock %}               
-      </div>
-    </div>
-  </nav>
-  
+  {% include 'cm_portal/navbar.html' %}  
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-2">
@@ -109,9 +65,9 @@
   <footer>
       {% block footer%}
         <hr>
-        <a href="{% url 'nursing-home-index' %}">Nursing Home</a> | 
+        <a href="{% url 'geriatric-index' %}">Geriatric</a> | 
         <a href="{% url 'hris-index' %}">HRIS</a> | 
-        <a href="{% url 'inventory-index' %}">Inventory</a>
+        <a href="{% url 'csu-index' %}">CSU</a>
         <p>Caring with Hearts in our Hands</p>      
       {% endblock %}                
   </footer>

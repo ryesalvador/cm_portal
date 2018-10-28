@@ -1,6 +1,6 @@
 {% extends "cm_portal/base.html" %}
 
-{% block title %}| Inventory{% endblock %}
+{% block title %}| Central Supplies{% endblock %}
 
 {% load static %}
 
@@ -13,7 +13,7 @@
   <li><a href="{% url 'medical-equipments' %}">All medical equipment</a></li>    
 {% endblock %}
 
-{% block page_title %}| <a href="#">Inventory</a>{% endblock %}
+{% block page_title %}| <a href="#">Central Supplies</a>{% endblock %}
 
 {% block nav_others %}
 <li class="dropdown">
@@ -38,8 +38,8 @@
   {% if user.is_authenticated %}
     <div class="jumbotron">
       <h2>Welcome to the 
-        <em>Inventory Database</em>,
-        where you can store information regarding the central supplies or any collection in general.
+        <em>Central Supplies Database</em>,
+        where you can store inventories of medical supplies and medical equipments.
       </h2>
       <h3>Dynamic content</h3>
       <p>The library has the following record counts:</p>

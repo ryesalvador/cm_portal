@@ -1,6 +1,6 @@
 {% extends "cm_portal/base.html" %}
 
-{% block title %}| Nursing Home{% endblock %}
+{% block title %}| Geriatric Section{% endblock %}
 
 {% load static %}
 
@@ -23,7 +23,7 @@
     <li><a href="{% url 'maintenance' %}">Inventory of Medicines</a></li>
 {% endblock %}
 
-{% block page_title %}| <a href="#">Nursing Home</a>{% endblock %}
+{% block page_title %}| <a href="#">Geriatric Section</a>{% endblock %}
 
 {% block nav_others %}
 {% block nav_resident %}{% endblock %}
@@ -35,7 +35,7 @@
   {% if user.is_authenticated %}
     <div class="jumbotron">
       <h2>Welcome to the 
-        <em>Nursing Home Database</em>, where you can store resident profiles and other related information.
+        <em>Geriatrics Database</em>, where you can store resident profiles and other related information.
       </h2>
       <h3>Dynamic content</h3>
       <p>The library has the following record counts:</p>
@@ -49,8 +49,9 @@
         <li class="list-group-item">
           <strong>Relatives: </strong>{{ num_relatives }}
         </li>
-      </ul>      
-      <h3>Census</h3>
+      </ul>    
+      <br>  
+      <p>Census by building:</p>
       <ul class="list-group">
         <li class="list-group-item"><strong>Blessed Enrico Rebuschini: </strong>{{ census_rebuschini }}</li>
         <li class="list-group-item"><strong>Blessed Luigi Tezza: </strong>{{ census_luigi }}</li>

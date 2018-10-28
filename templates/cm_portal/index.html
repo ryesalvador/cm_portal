@@ -1,8 +1,12 @@
-{% extends "cm_portal/base.html" %}
+{% extends 'cm_portal/base.html' %}
 
 {% block title %}| Home{% endblock %}
 
 {% load static %}
+
+{% block navbar %}
+  {% include 'cm_portal/nav-base.html' %}
+{% endblock %}
 
 {% block sidebar %} 
     {% if user.is_authenticated %}
@@ -16,11 +20,14 @@
 {% endblock %}
      
 {% block page_title %}| Home{% endblock %}
-{% block content %}
-        
+
+{% block content %}       
   <div class="jumbotron">
   <h1>Welcome {{ user.get_username|capfirst }} to <em>Camillus MedHaven Portal!</em></h1>
   <p>You are on your Dashboard</p>  
-  </div>
-  
+  </div>  
+{% endblock %}
+
+{% block footer %}
+  {% include 'cm_portal/footer-base.html' %}
 {% endblock %}

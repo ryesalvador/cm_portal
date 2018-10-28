@@ -1,8 +1,12 @@
-{% extends "cm_portal/base.html" %}
+{% extends 'cm_portal/index.html' %}
 
 {% block title %}| Geriatric Section{% endblock %}
 
 {% load static %}
+
+{% block navbar %}
+  {% include 'cm_portal/nav-geria.html' %}
+{% endblock %}
 
 {% block sidebar %}
     {% if user.is_authenticated %}
@@ -24,12 +28,6 @@
 {% endblock %}
 
 {% block page_title %}| <a href="#">Geriatric Section</a>{% endblock %}
-
-{% block nav_others %}
-{% block nav_resident %}{% endblock %}
-  {% include 'cm_portal/dropdown-create.html' %}
-{% endblock %}
-
 
 {% block content %}
   {% if user.is_authenticated %}

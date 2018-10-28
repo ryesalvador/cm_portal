@@ -51,10 +51,30 @@
       <br>  
       <p>Census by building:</p>
       <ul class="list-group">
-        <li class="list-group-item"><strong>Blessed Enrico Rebuschini: </strong>{{ census_rebuschini }}</li>
-        <li class="list-group-item"><strong>Blessed Luigi Tezza: </strong>{{ census_luigi }}</li>
-        <li class="list-group-item"><strong>St. Camillus Building-First floor: </strong>{{ census_first_floor }}</li>
-        <li class="list-group-item"><strong>St. Camillus Building-Second floor: </strong>{{ census_second_floor }}</li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <a href="{% url 'resident-list-rebuschini' %}">
+            <strong>Blessed Enrico Rebuschini</strong>            
+          </a>          
+          <span class="badge badge-primary badge-pill">{{ census_rebuschini }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <a href="{% url 'resident-list-tezza' %}" >
+            <strong>Blessed Luigi Tezza</strong>
+          </a>
+          <span class="badge badge-primary badge-pill">{{ census_luigi }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <a href="{% url 'resident-list-first-floor' %}" >
+            <strong>St. Camillus Building-First floor</strong>{{ census_first_floor }}
+          </a>
+          <span class="badge badge-primary badge-pill">{{ census_first_floor }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <a href="{% url 'resident-list-second-floor' %}" >
+            <strong>St. Camillus Building-Second floor</strong>{{ census_second_floor }}
+          </a>
+          <span class="badge badge-primary badge-pill">{{ census_second_floor }}</span>
+        </li>
       </ul>
     </div>
   {% else %}

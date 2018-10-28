@@ -38,14 +38,17 @@
       <h3>Dynamic content</h3>
       <p>The library has the following record counts:</p>
       <ul class="list-group">
-        <li class="list-group-item">
-          <strong>Residents: </strong>{{ num_residents }} 
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <strong>Residents</strong>
+          <span class="badge badge-primary badge-pill">{{ num_residents }}</span> 
         </li>
-        <li class="list-group-item">
-          <strong>Physicians: </strong>{{ num_physicians }} 
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <strong>Physicians: </strong>
+          <span class="badge badge-primary badge-pill">{{ num_physicians }}</span> 
         </li>
-        <li class="list-group-item">
-          <strong>Relatives: </strong>{{ num_relatives }}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <strong>Relatives: </strong>
+          <span class="badge badge-primary badge-pill">{{ num_relatives }}</span>
         </li>
       </ul>    
       <br>  

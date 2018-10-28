@@ -19,25 +19,6 @@
 
 {% block page_title %}| <a href="#">Central Supplies</a>{% endblock %}
 
-{% block nav_others %}
-<li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">New...
-            <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu" role="menu">
-              <li>
-                <a href="{% url 'item-create' %}">New item</a>
-              </li>
-              <li>
-                <a href="{% url 'medicalsupply-create' %}">New medical supply</a>
-              </li>                          
-              <li>
-                <a href="{% url 'medicalequipment-create' %}">New medical equipment</a>
-              </li>                            
-            </ul>
-</li>
-{% endblock %}
-
 {% block content %}
   {% if user.is_authenticated %}
     <div class="jumbotron">
@@ -47,15 +28,19 @@
       </h2>
       <h3>Dynamic content</h3>
       <p>The library has the following record counts:</p>
+      
     <ul class="list-group">
-      <li class="list-group-item">
-        <strong>Items:</strong> {{ num_items }}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <strong>Items</strong>        
+        <span class="badge badge-primary badge-pill">{{ num_items }}</span>
       </li>
-      <li class="list-group-item">
-        <strong>Medical supplies:</strong> {{ num_medical_supplies }}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <strong>Medical supplies</strong> 
+        <span class="badge badge-primary badge-pill">{{ num_medical_supplies }}</span>
       </li>            
-      <li class="list-group-item">
-        <strong>Medical equipment:</strong> {{ num_medical_equipment }}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <strong>Medical equipment</strong> 
+        <span class="badge badge-primary badge-pill">{{ num_medical_equipment }}</span>
       </li>            
     </ul>
     </div>

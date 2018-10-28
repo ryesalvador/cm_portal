@@ -19,47 +19,6 @@
 
 {% block page_title %}| <a href="#">HRIS</a>{% endblock %}
 
-{% block nav_others %}
-<li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">New...
-            <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu" role="menu">
-              {% if perms.cm_portal.add_employee %}
-              <li>
-                <a href="{% url 'employee-create' %}">New employee</a>
-              </li>
-              {% else %}
-              <li class="disabled">
-                <a href="#">New employee</a>
-              </li>
-              {% endif %}
-              {% if perms.cm_portal.add_position %}
-              <li>
-                <a href="{% url 'position-create' %}">New position</a>
-              </li>
-              {% else %}
-              <li class="disabled">
-                <a href="#">New position</a>
-              </li>
-              {% endif %}
-              {% if perms.cm_portal.add_department %}
-              <li>
-                <a href="{% url 'department-create' %}">New department</a>
-              </li>
-              {% else %}
-              <li class="disabled">
-                <a href="#">New department</a>
-              </li>
-              {% endif %}
-              <li class="divider"></li>
-              <li>
-                <a href="#">Another action</a>
-              </li>              
-            </ul>
-</li>
-{% endblock %}
-
 {% block content %}
   {% if user.is_authenticated %}
     <div class="jumbotron">
@@ -70,9 +29,10 @@
       <h3>Dynamic content</h3>
       <p>The library has the following record counts:</p>
     <ul class="list-group">
-      <li class="list-group-item">
-        <strong>Employees:</strong> {{ num_employees }}
-      </li>            
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <strong>Employees</strong> 
+        <span class="badge badge-primary badge-pill">{{ num_employees }}</span>
+      </li>      
     </ul>
     </div>
   {% else %}  

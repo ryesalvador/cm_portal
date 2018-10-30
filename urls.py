@@ -53,10 +53,11 @@ urlpatterns += [
 ]
 
 urlpatterns += [
-    path('geriatric/search/residents', views.search, {'model': 'Resident', 'template_name': 'search_residents.html'}, name='search-residents'),
-    path('geriatric/search/relatives', views.search, {'model': 'Relative', 'template_name': 'search_relatives.html'}, name='search-relatives'),
-    path('geriatric/search/physicians', views.search, {'model': 'Physician', 'template_name': 'search_physicians.html'}, name='search-physicians'),
-    path('geriatric/search/drugs', views.search, {'model': 'Drug', 'template_name': 'search_drugs.html'}, name='search-drugs'),
+    path('geriatric/search/', views.search, name='search'),
+    path('geriatric/search/residents/', views.search, {'model': 'Resident', 'template_name': 'search_residents.html'}, name='search-residents'),
+    path('geriatric/search/relatives/', views.search, {'model': 'Relative', 'template_name': 'search_relatives.html'}, name='search-relatives'),
+    path('geriatric/search/physicians/', views.search, {'model': 'Physician', 'template_name': 'search_physicians.html'}, name='search-physicians'),
+    path('geriatric/search/drugs/', views.search, {'model': 'Drug', 'template_name': 'search_drugs.html'}, name='search-drugs'),
     path('geriatric/residents/rebuschini/', views.ResidentListView.as_view(
         template_name='cm_portal/resident_list_rebuschini.html'), name='resident-list-rebuschini'),
     path('geriatric/residents/tezza/', views.ResidentListView.as_view(

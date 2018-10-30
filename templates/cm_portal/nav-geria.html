@@ -12,3 +12,24 @@
       <a class="nav-link" href="{% url 'csu-index' %}">CSU</a>
     </li>    
 {% endblock %}
+
+{% block nav_right %}   
+	<div class="input-group mb-3">
+		<form class="form-inline my-2 my-lg-0" id="search-form" action="{% url 'search' %}">
+		  <div class="input-group-prepend">
+		  <button type="submit" class="btn btn-secondary my-2 my-sm-0">
+        <i class="fa fa-search" aria-hidden="true"></i>
+			</button>
+			</div>
+			<input class="form-control" name="query" placeholder="Search" type="text" size="32" required id="id_query">
+			<div class="input-group-append">
+			<select class="custom-select" name="model" id="model">
+				<option value="resident" selected>Residents</option>
+				<option value="relative">Relatives</option>
+				<option value="physician">Physicians</option>
+				<option value="drug">Drugs</option>
+			</select>			
+			</div>
+		</form>
+	</div>
+{% endblock %}

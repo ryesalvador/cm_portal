@@ -16,30 +16,27 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_control
 
 @login_required
-def search(request, model, template_name):
-    form = SearchForm()
-    form.fields['query'].widget = forms.TextInput(
-        attrs={
-            'placeholder': 'Search {}s...'.format(model),
-            'size': 32
-            })
+def search(request):
+    template_name = 'search_residents.html'
     obj_list = []
     show_results = False
-    if 'query' in request.GET:
+    if 'model' in request.GET and 'query' in request.GET:
         show_results = True
+        model = request.GET['model'].strip()
         query = request.GET['query'].strip()
-        if query:
+        if model and query:
             form = SearchForm({'query': query})            
             cls = apps.get_model('cm_portal', model)
-            if model == 'Drug':
+            print(cls)
+            if model == 'drug':
+                template_name = 'search_drugs.html'
                 query0 = cls.objects.filter(generic_name__icontains=query)
                 query1 = cls.objects.filter(brand_name__icontains=query)
             else:
                 query0 = cls.objects.filter(last_name__icontains=query)
                 query1 = cls.objects.filter(first_name__icontains=query)
             obj_list = list(chain(query0, query1))            
-    variables = {
-            'form': form,
+    variables = {            
             'obj_list': obj_list,
             'show_results': show_results,
             }

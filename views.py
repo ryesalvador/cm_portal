@@ -17,17 +17,17 @@ from django.views.decorators.cache import cache_control
 
 @login_required
 def search(request):
-    template_name = 'search_residents.html'
+    model = ''
     obj_list = []
     show_results = False
+    
     if 'model' in request.GET and 'query' in request.GET:
         show_results = True
         model = request.GET['model'].strip()
         query = request.GET['query'].strip()
         if model and query:
             form = SearchForm({'query': query})            
-            cls = apps.get_model('cm_portal', model)
-            print(cls)
+            cls = apps.get_model('cm_portal', model)            
             if model == 'drug':
                 template_name = 'search_drugs.html'
                 query0 = cls.objects.filter(generic_name__icontains=query)
@@ -36,11 +36,14 @@ def search(request):
                 query0 = cls.objects.filter(last_name__icontains=query)
                 query1 = cls.objects.filter(first_name__icontains=query)
             obj_list = list(chain(query0, query1))            
-    variables = {            
+
+    variables = {
+            'model': model,
             'obj_list': obj_list,
             'show_results': show_results,
             }
-    return render(request, 'cm_portal/{}'.format(template_name), variables)
+    
+    return render(request, 'cm_portal/search_geria.html', variables)
     
 
 @login_required

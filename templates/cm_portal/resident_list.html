@@ -4,20 +4,8 @@
 
 {% block page_title %}| List of Residents{% endblock %}
 
-{% block search_form %}
-  <form class="navbar-form navbar-right" id="search-form" action="{% url 'search-residents' %}" method="get">
-    {{ form.as_p }}            
-  </form>        
-{% endblock %}
-
-{% block nav_others %}
-  {% include 'cm_portal/dropdown-sort.html' %}
-  {% include 'cm_portal/dropdown-create.html' %}
-{% endblock %}
-
 {% block content %}
-  <div class="jumbotron">
-   
+  <div class="jumbotron">   
   {% if resident_list %}    
     <ul class="list-group">
       {% for resident in resident_list %}

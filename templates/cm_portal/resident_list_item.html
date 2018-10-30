@@ -1,15 +1,15 @@
 {% load static %}
 
 <li class="list-group-item">
-          {% if resident.photo %}
-          <img src="{{ resident.photo.url }}" alt="" width="50px" height="50px">
-          {% else %}
-          <img src="{% static 'images/avatar.png' %}" alt="" width="50px" height="50px">
-          {% endif %}
-          <a href="{{ resident.get_absolute_url }}">
-            {{ resident.last_name }}, {{ resident.first_name }} 
-            {% if resident.middle_name %}
-              {{ resident.middle_name|first }}.            
-            {% endif %}        
-          </a>                      
-        </li>
+	{% if resident.photo %}
+		<img src="{{ resident.photo.url }}" alt="" width="50px" height="50px">
+	{% else %}
+		<img src="{% static 'images/avatar.png' %}" alt="" width="50px" height="50px">
+	{% endif %}
+	<a href="{{ resident.get_absolute_url }}">
+		{{ resident.last_name }}, {{ resident.first_name }} 
+		{% if resident.middle_name %}
+			{{ resident.middle_name|first }}.            
+		{% endif %}        
+	</a>                      
+</li>

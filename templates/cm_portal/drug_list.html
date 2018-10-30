@@ -17,17 +17,7 @@
   {% if drug_list %}    
     <ul class="list-group">
       {% for drug in drug_list %}
-        <li class="list-group-item">
-        {% if drug.brand_name %}
-        <h4 class="list-group-item-heading">{{ drug.brand_name }}</h4>
-        {% endif %}
-        <a href="{{ drug.get_absolute_url }}">
-            {{ drug.generic_name }} 
-            {% if drug.dosage %} - 
-              {{ drug.dosage }}            
-            {% endif %}        
-          </a>          
-        </li>
+        {% include 'cm_portal/drug_list_item.html' %}
       {% endfor %}
     </ul>
     {% else %}

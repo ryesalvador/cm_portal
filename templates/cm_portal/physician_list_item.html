@@ -1,0 +1,8 @@
+<li class="list-group-item">
+	<a href="{{ physician.get_absolute_url }}">
+		{{ physician.last_name }}, {{ physician.first_name }}         
+		{% if physician.middle_name %}
+			{{ physician.middle_name|first }}.            
+		{% endif %}
+	</a>               
+</li>

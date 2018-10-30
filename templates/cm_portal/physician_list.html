@@ -4,28 +4,12 @@
 
 {% block page_title %}| List of Physicians{% endblock %}
 
-{% load static %}
-
-{% block search_form %}
-  <form class="navbar-form navbar-right" id="search-form" action="{% url 'search-physicians' %}" method="get">
-    {{ form.as_p }}            
-  </form>        
-{% endblock %}
-
 {% block content %}
-
   <div class="jumbotron">
   {% if physician_list %}    
     <ul class="list-group">
       {% for physician in physician_list %}
-        <li class="list-group-item">
-          <a href="{{ physician.get_absolute_url }}">
-            {{ physician.last_name }}, {{ physician.first_name }}         
-            {% if physician.middle_name %}
-              {{ physician.middle_name|first }}.            
-            {% endif %}
-          </a>               
-        </li>
+        {% include 'cm_portal/physician_list_item.html' %}
       {% endfor %}
     </ul>
     {% else %}

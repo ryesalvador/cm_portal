@@ -1,0 +1,43 @@
+{% extends "cm_portal/nursing_home_index.html" %}
+
+{% block title %}| {{ model|capfirst }} Search Results{% endblock %}
+
+{% block page_title %}| {{ model|capfirst }} Search Results{% endblock %}
+
+{% load static %}
+
+{% block content %}
+  <div class="jumbotron">  
+  {% if show_results and obj_list %}
+    {% if model == 'resident' %}
+    <ul class="list-group">
+      {% for resident in obj_list %}
+        {% include "cm_portal/resident_list_item.html" %}
+      {% endfor %}
+    </ul>  
+    {% elif model == 'relative' %}
+    <ul class="list-group">
+      {% for relative in obj_list %}
+        {% include "cm_portal/relative_list_item.html" %}
+      {% endfor %}
+    </ul>
+    {% elif model == 'physician' %}
+    <ul class="list-group">
+      {% for physician in obj_list %}
+        {% include 'cm_portal/physician_list_item.html' %}
+      {% endfor %}
+    </ul>
+    {% elif model == 'drug' %}
+    <ul class="list-group">
+      {% for drug in obj_list %}
+        {% include 'cm_portal/drug_list_item.html' %}
+      {% endfor %}
+    </ul>
+    {% endif %}
+  {% elif show_results %}
+    <p>No {{ model }}s matched your search criteria.</p>
+  {% else %}
+    <h3>Please submit a search term.</h3>
+  {% endif %}
+  </div>  
+{% endblock %}

@@ -29,7 +29,28 @@
 
 {% block page_title %}| <a href="#">Geriatric Section</a>{% endblock %}
 
-{% block content %}
+{% block searchbar %}
+	<div class="input-group mb-3">
+		<form class="form-inline my-2 my-lg-0" id="search-form" action="{% url 'search' %}">
+			<div class="input-group-prepend">
+				<button type="submit" class="btn btn-secondary my-2 my-sm-0">
+					<i class="fa fa-search" aria-hidden="true"></i>
+				</button>
+			</div>
+			<input class="form-control" name="query" placeholder="Search" type="text" size="32" required id="id_query">
+			<div class="input-group-append">
+				<select class="custom-select" name="model" id="model">
+					<option value="resident" selected>Residents</option>
+					<option value="relative">Relatives</option>
+					<option value="physician">Physicians</option>
+					<option value="drug">Drugs</option>
+				</select>			
+			</div>
+		</form>
+	</div>
+{% endblock %}
+   
+{% block content %}   	
   {% if user.is_authenticated %}
     <div class="jumbotron">
       <h2>Welcome to the 

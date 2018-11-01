@@ -72,10 +72,6 @@ class MedicalEquipmentCreateForm(ModelForm):
                 'date_acquired': DateInput(),
                 'due_back': DateInput(),
             }
-        
-class SearchForm(forms.Form):
-    query = forms.CharField(            
-            widget=forms.TextInput({'size': 32}))
 
 
 

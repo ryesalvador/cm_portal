@@ -53,15 +53,9 @@ urlpatterns += [
 ]
 
 urlpatterns += [
-    path('geriatric/search/', views.search, name='search'),    
-    path('geriatric/residents/rebuschini/', views.ResidentListView.as_view(
-        template_name='cm_portal/resident_list_rebuschini.html'), name='resident-list-rebuschini'),
-    path('geriatric/residents/tezza/', views.ResidentListView.as_view(
-        template_name='cm_portal/resident_list_tezza.html'), name='resident-list-tezza'),
-    path('geriatric/residents/first-floor/', views.ResidentListView.as_view(
-        template_name='cm_portal/resident_list_first_floor.html'), name='resident-list-first-floor'),
-    path('geriatric/residents/second-floor/', views.ResidentListView.as_view(
-        template_name='cm_portal/resident_list_second_floor.html'), name='resident-list-second-floor'),
+    path('geriatric/search/', views.search, name='search'),
+    path('geriatric/residents/order_by/building/', views.ResidentListView.as_view(
+        template_name='cm_portal/resident_list_by_building.html'), name='resident-list-by-building'),   
 ]
 
 urlpatterns += [

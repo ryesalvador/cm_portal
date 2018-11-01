@@ -6,7 +6,7 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required, permission_required
-from .forms import ResidentCreateForm, EmployeeCreateForm, SearchForm, \
+from .forms import ResidentCreateForm, EmployeeCreateForm, \
      MedicationCreateForm, MedicalSupplyCreateForm, MedicalEquipmentCreateForm
 from django.http import HttpResponseRedirect
 from itertools import chain
@@ -127,18 +127,11 @@ class ResidentListView(PermissionRequiredMixin, generic.ListView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get the context
         context = super(ResidentListView, self).get_context_data(**kwargs)
-        # Create any data and add it to the context        
-        form = SearchForm()
-        form.fields['query'].widget = forms.TextInput(
-        attrs={
-            'placeholder': 'Search Residents...',
-            'size': 32
-            })
+        # Create any data and add it to the context                
         rebuschini = Resident.objects.filter(building='R').filter(vital_status='LI')        
         tezza = Resident.objects.filter(building='L').filter(vital_status='LI')
         first_floor = Resident.objects.filter(building='1').filter(vital_status='LI')
-        second_floor = Resident.objects.filter(building='2').filter(vital_status='LI')
-        context['form'] = form
+        second_floor = Resident.objects.filter(building='2').filter(vital_status='LI')        
         context['rebuschini'] = rebuschini
         context['tezza'] = tezza
         context['first_floor'] = first_floor

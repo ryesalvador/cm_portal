@@ -6,16 +6,6 @@
 
 {% load static %}
 
-{% block nav_resident %}
-<li class="nav-item active">
-  <a class="nav-link" href="#">Resident Profile<span class="sr-only">(current)</span></a>
-</li>
-<li class="{% if resident.medicalabstract.get_absolute_url %}
-  nav-item{% else %}nav-item disabled{% endif %}">
-  <a class="nav-link" href="{% if resident.medicalabstract.get_absolute_url %}
-  {{ resident.medicalabstract.get_absolute_url }}{% else %}#{% endif %}">Medical Abstract</a>
-</li>
-{% endblock %}
 {% block content %}  
   {% if resident.vital_status != 'LI' %}
   <h2><strong class="{% if resident.vital_status == 'DE' %}text-danger{% elif resident.vital_status == 'DC' %}text-warning{% endif %}">
@@ -37,50 +27,50 @@
     </div>
   </div>
   
-<br>
-<ul class="nav nav-tabs">
-	<li class="nav-item">
-		<a class="nav-link active" data-toggle="tab" href="#home">Resident Profile</a>
-	</li>
-	
-	{% if resident.medication_set.all %}
+	<br>
+	<ul class="nav nav-tabs">
 		<li class="nav-item">
-			<a class="nav-link" data-toggle="tab" href="#medications">Current Medications</a>
+			<a class="nav-link active" data-toggle="tab" href="#home">Resident Profile</a>
 		</li>
-	{% else %}
-		<li class="nav-item">
-			<a class="nav-link disabled" href="#">Current Medications</a>
+		
+		{% if resident.medication_set.all %}
+			<li class="nav-item">
+				<a class="nav-link" data-toggle="tab" href="#medications">Current Medications</a>
+			</li>
+		{% else %}
+			<li class="nav-item">
+				<a class="nav-link disabled" href="#">Current Medications</a>
+			</li>
+		{% endif %}
+		  
+		{% if resident.medicalabstract.get_absolute_url %}
+			<li class="nav-item">
+				<a class="nav-link" data-toggle="tab" href="#abstract">Medical Abstract</a>
+			</li>
+		{% else %}
+			<li class="nav-item">
+				<a class="nav-link disabled" href="#">Medical Abstract</a>
+			</li>
+		{% endif %}
+		  
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Actions</a>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="#">Create a medical abstract</a>
+				<a class="dropdown-item" href="#">Add new medication</a>      
+			</div>
 		</li>
-	{% endif %}
+	</ul>  
 	  
-	{% if resident.medicalabstract.get_absolute_url %}
-		<li class="nav-item">
-			<a class="nav-link" data-toggle="tab" href="#abstract">Medical Abstract</a>
-		</li>
-	{% else %}
-		<li class="nav-item">
-			<a class="nav-link disabled" href="#">Medical Abstract</a>
-		</li>
-	{% endif %}
-	  
-	<li class="nav-item dropdown">
-		<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Actions</a>
-		<div class="dropdown-menu">
-			<a class="dropdown-item" href="#">Create a medical abstract</a>
-			<a class="dropdown-item" href="#">Add new medication</a>      
+	<div id="myTabContent" class="tab-content">
+		<div class="tab-pane fade active show" id="home">
+			{% include 'cm_portal/resident_profile.html' %}
 		</div>
-	</li>
-</ul>  
-  
-<div id="myTabContent" class="tab-content">
-	<div class="tab-pane fade active show" id="home">
-		{% include 'cm_portal/resident_profile.html' %}
+		<div class="tab-pane fade" id="medications">
+			<table class="table table-hover">{% include 'cm_portal/resident_medications.html' %}</table>
+		</div> 
+		<div class="tab-pane fade" id="abstract">
+			{% include 'cm_portal/resident_medical_abstract.html' %}
+		</div>
 	</div>
-	<div class="tab-pane fade" id="medications">
-		{% include 'cm_portal/resident_medication.html' %}
-	</div> 
-	<div class="tab-pane fade" id="abstract">
-		{% include 'cm_portal/resident_medical_abstract.html' %}
-	</div>
-</div>
 {% endblock %}

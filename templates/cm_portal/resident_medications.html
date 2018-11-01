@@ -1,0 +1,18 @@
+<tr>      
+    <th scope="col">Medicine</th>
+    <th scope="col">Dosage</th>
+    <th scope="col">Frequency</th>
+    <th scope="col">Quantity</th>
+    <th scope="col">Due</th>    
+</tr>
+{% for meds in resident.medication_set.all %}            
+<tr>
+	<td><a href="{{ meds.get_absolute_url }}">{{ meds.medicine.generic_name }}
+	{% if meds.medicine.brand_name %}({{ meds.medicine.brand_name }}){% endif %}</a>
+	</td>
+	<td>{{ meds.medicine.dosage }}</td>
+	<td>{{ meds.frequency }}</td>
+	<td>{% if meds.quantity %}<span class="badge badge-primary badge-pill">{{ meds.quantity }}</span>{% endif %}</td>    
+	<td>{% if meds.due %}{{ meds.due }}{% endif %}</td>
+</tr>              
+{% endfor %}

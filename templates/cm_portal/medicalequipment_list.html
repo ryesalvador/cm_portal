@@ -29,7 +29,8 @@
     </ul>
     {% else %}
       <p>There are no medical equipments in the portal.</p>  
-  {% endif %}  
+  {% endif %}
+  <br>  
   {% if perms.cm_portal.add_medicalequipment %}
     <a class="btn btn-primary" href="{% url 'medicalequipment-create' %}" role="button">Add a medical equipment</a>
   {% else %} 

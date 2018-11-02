@@ -146,39 +146,13 @@ class DeceasedListView(PermissionRequiredMixin, generic.ListView):
     template_name = 'cm_portal/resident_list_deceased.html'
     paginate_by = 10
 
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get the context
-        context = super(DeceasedListView, self).get_context_data(**kwargs)
-        # Create any data and add it to the context        
-        form = SearchForm()
-        form.fields['query'].widget = forms.TextInput(
-        attrs={
-            'placeholder': 'Search Residents...',
-            'size': 32
-            })
-        context['form'] = form        
-        return context
-
 @method_decorator(cache_control(private=True), name='dispatch')
 class DischargedListView(PermissionRequiredMixin, generic.ListView):
     permission_required = 'cm_portal.can_view_nursing_home'
     model = Resident
     queryset = Resident.objects.filter(vital_status='DC')
     template_name = 'cm_portal/resident_list_discharged.html'
-    paginate_by = 10
-
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get the context
-        context = super(DischargedListView, self).get_context_data(**kwargs)
-        # Create any data and add it to the context        
-        form = SearchForm()
-        form.fields['query'].widget = forms.TextInput(
-        attrs={
-            'placeholder': 'Search Residents...',
-            'size': 32
-            })
-        context['form'] = form        
-        return context
+    paginate_by = 10   
 
 @method_decorator(cache_control(private=True), name='dispatch')
 class ResidentDetailView(PermissionRequiredMixin, generic.DetailView):
@@ -205,19 +179,6 @@ class PhysicianListView(LoginRequiredMixin, generic.ListView):
     model = Physician
     paginate_by = 10
 
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get the context
-        context = super(PhysicianListView, self).get_context_data(**kwargs)
-        # Create any data and add it to the context        
-        form = SearchForm()
-        form.fields['query'].widget = forms.TextInput(
-        attrs={
-            'placeholder': 'Search Physicians...',
-            'size': 32
-            })
-        context['form'] = form        
-        return context
-
 class PhysicianDetailView(LoginRequiredMixin, generic.DetailView):
     model = Physician
 
@@ -241,19 +202,6 @@ class RelativeListView(PermissionRequiredMixin, generic.ListView):
     permission_required = 'cm_portal.can_view_nursing_home'
     model = Relative
     paginate_by = 10
-
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get the context
-        context = super(RelativeListView, self).get_context_data(**kwargs)
-        # Create any data and add it to the context        
-        form = SearchForm()
-        form.fields['query'].widget = forms.TextInput(
-        attrs={
-            'placeholder': 'Search Relatives...',
-            'size': 32
-            })
-        context['form'] = form        
-        return context
 
 class RelativeDetailView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'cm_portal.can_view_nursing_home'
@@ -305,19 +253,6 @@ class EmployeeListView(PermissionRequiredMixin, generic.ListView):
     permission_required = 'cm_portal.can_view_hris'
     model = Employee
     paginate_by = 10
-
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get the context
-        context = super(EmployeeListView, self).get_context_data(**kwargs)
-        # Create any data and add it to the context        
-        form = SearchForm()
-        form.fields['query'].widget = forms.TextInput(
-        attrs={
-            'placeholder': 'Search Employees...',
-            'size': 32
-            })
-        context['form'] = form        
-        return context
 
 @method_decorator(cache_control(private=True), name='dispatch')
 class EmployeeDetailView(PermissionRequiredMixin, generic.DetailView):
@@ -418,19 +353,6 @@ class DrugListView(PermissionRequiredMixin, generic.ListView):
     permission_required = 'cm_portal.can_view_nursing_home'
     model = Drug
     paginate_by = 10
-
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get the context
-        context = super(DrugListView, self).get_context_data(**kwargs)
-        form = SearchForm()
-        form.fields['query'].widget = forms.TextInput(
-        attrs={
-            'placeholder': 'Search Drugs...',
-            'size': 32
-            })
-        context['form'] = form        
-        return context
-
 
 class DrugDetailView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'cm_portal.can_view_nursing_home'

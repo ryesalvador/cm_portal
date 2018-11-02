@@ -5,20 +5,32 @@
 {% block page_title %}| List of Residents{% endblock %}
 
 {% block content %}
-  <div class="jumbotron">   
-  {% if resident_list %}    
-    <ul class="list-group">
-      {% for resident in resident_list %}
-        {% include "cm_portal/resident_list_item.html" %}
-      {% endfor %}
-    </ul>
-  {% else %}
-      <p>There are no residents in the portal.</p>  
-  {% endif %} 
-  {% if perms.cm_portal.add_resident %}
-    <a class="btn btn-primary" href="{% url 'resident-create' %}" role="button">Add a resident</a>
-  {% else %}      
-    <a class="btn btn-primary disabled" href="{% url 'resident-create' %}" role="button">Add a resident</a>
-  {% endif %}
-  </div>
+<div class="jumbotron">   
+	<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+		<button type="button" class="btn btn-info">Sort By:</button>
+		<div class="btn-group" role="group">
+			<button id="btnGroupDrop3" type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+			<div class="dropdown-menu" aria-labelledby="btnGroupDrop3" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+				<a class="dropdown-item" href="#">Birthdays</a>				
+				<a class="dropdown-item" href="{% url 'resident-list-by-building' %}">Building</a>				
+			</div>
+		</div>
+	</div>
+	<p></p>
+	{% if resident_list %}    
+	<ul class="list-group">
+		{% for resident in resident_list %}
+			{% include "cm_portal/resident_list_item.html" %}
+		{% endfor %}
+	</ul>
+	{% else %}
+		<p>There are no residents in the portal.</p>  
+	{% endif %} 
+	<br>
+	{% if perms.cm_portal.add_resident %}
+		<a class="btn btn-primary" href="{% url 'resident-create' %}" role="button">Add a resident</a>
+	{% else %}      
+		<a class="btn btn-primary disabled" href="{% url 'resident-create' %}" role="button">Add a resident</a>
+	{% endif %}
+</div>
 {% endblock %}

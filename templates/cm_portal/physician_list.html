@@ -14,7 +14,8 @@
     </ul>
     {% else %}
       <p>There are no physicians in the portal.</p>
-  {% endif %} 
+  {% endif %}
+  <br> 
   {% if perms.cm_portal.add_physician %} 
     <a class="btn btn-primary" href="{% url 'physician-create' %}" role="button">Add a physician</a>
   {% else %}

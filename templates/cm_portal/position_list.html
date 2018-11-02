@@ -17,6 +17,7 @@
     {% else %}
       <p>There are no positions in the portal.</p>  
   {% endif %}
+  <br>
   {% if perms.cm_portal.add_position %}
     <a class="btn btn-primary" href="{% url 'position-create' %}" role="button">Add a position</a>
   {% else %}

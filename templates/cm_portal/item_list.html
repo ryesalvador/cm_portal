@@ -28,6 +28,7 @@
     {% else %}
       <p>There are no items in the portal.</p>  
   {% endif %}  
+  <br>
   {% if perms.cm_portal.add_item %}
     <a class="btn btn-primary" href="{% url 'item-create' %}" role="button">Add item</a>
   {% else %} 

@@ -22,7 +22,8 @@
     </ul>
     {% else %}
       <p>There are no drugs in the portal.</p>  
-  {% endif %}  
+  {% endif %}
+  <br>  
   {% if perms.cm_portal.add_drug %}
     <a class="btn btn-primary" href="{% url 'drug-create' %}" role="button">Add a drug</a>
   {% else %} 

@@ -25,8 +25,7 @@ def search(request):
         show_results = True
         model = request.GET['model'].strip()
         query = request.GET['query'].strip()
-        if model and query:
-            form = SearchForm({'query': query})            
+        if model and query:            
             cls = apps.get_model('cm_portal', model)            
             if model == 'drug':
                 template_name = 'search_drugs.html'

@@ -19,12 +19,12 @@ $(document).ready(function () {
 			$.ajax({				
 				url: "#",
 				beforeSend: function () {
-					$(element).find("img").hide();		
-					$(element).prepend(res.loader);					
+					//$(element).find("img").hide();		
+					//$(element).prepend(res.loader);					
 				},
 				success: function (data) {
-					$(element).find("img").show();
-					$(element).find(res.loader).remove();
+					//$(element).find("img").show();
+					//$(element).find(res.loader).remove();
 				}
 			});
 			

@@ -121,9 +121,9 @@ class ResidentListView(PermissionRequiredMixin, generic.ListView):
     permission_required = 'cm_portal.can_view_nursing_home'
     model = Resident
     queryset = Resident.objects.filter(vital_status='LI')
-    #paginate_by = 10    
+    paginate_by = 10    
     
-    def get_context_data(self, **kwargs):
+    """def get_context_data(self, **kwargs):
         # Call the base implementation first to get the context
         context = super(ResidentListView, self).get_context_data(**kwargs)
         # Create any data and add it to the context                
@@ -135,7 +135,7 @@ class ResidentListView(PermissionRequiredMixin, generic.ListView):
         context['tezza'] = tezza
         context['first_floor'] = first_floor
         context['second_floor'] = second_floor
-        return context
+        return context"""
 
 @method_decorator(cache_control(private=True), name='dispatch')
 class DeceasedListView(PermissionRequiredMixin, generic.ListView):

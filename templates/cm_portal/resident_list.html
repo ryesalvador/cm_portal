@@ -4,6 +4,10 @@
 
 {% block page_title %}| List of Residents{% endblock %}
 
+{% block external %}
+<script type="text/javascript" src="/static/js/resident_list.js"></script>
+{% endblock %}
+
 {% block content %}
 <div class="jumbotron">   
 	<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
@@ -17,7 +21,7 @@
 		</div>
 	</div>
 	<p></p>
-	<div id="list-all">
+	<div id="resident_list">
 		{% if resident_list %}    
 		<ul class="list-group">
 			{% for resident in resident_list %}
@@ -28,51 +32,7 @@
 			<p>There are no residents in the portal.</p>  
 		{% endif %}
 	</div>
-	<div id="list-by-bldg">
-		<ul class="nav nav-tabs">
-		  <li class="nav-item">
-		    <a class="nav-link active show" data-toggle="tab" href="#rebuschini">Blessed Enrico Rebuschini</a>
-		  </li>
-		  <li class="nav-item">
-		    <a class="nav-link" data-toggle="tab" href="#tezza">Blessed Luigi Tezza</a>
-		  </li>
-		  <li class="nav-item">
-		    <a class="nav-link" data-toggle="tab" href="#first">St. Camillus - First Floor</a>
-		  </li>
-		  <li class="nav-item">
-		    <a class="nav-link" data-toggle="tab" href="#second">St. Camillus - Second Floor</a>
-		  </li>
-		</ul>
-		<div id="myTabContent" class="tab-content">
-		  <div class="tab-pane fade active show" id="rebuschini">
-		    <ul class="list-group">
-		    {% for resident in rebuschini %}        
-		      {% include 'cm_portal/resident_list_item.html' %}        
-		    {% endfor%}
-		    </ul>
-		  </div>
-		  <div class="tab-pane fade" id="tezza">
-		    <ul class="list-group">
-		    {% for resident in tezza %}        
-		      {% include 'cm_portal/resident_list_item.html' %}        
-		    {% endfor%}
-		    </ul>    
-		  </div>
-		  <div class="tab-pane fade" id="first">
-		    <ul class="list-group">
-		    {% for resident in first_floor %}        
-		      {% include 'cm_portal/resident_list_item.html' %}        
-		    {% endfor%}
-		    </ul>
-		  </div>
-		  <div class="tab-pane fade" id="second">
-		    <ul class="list-group">
-		    {% for resident in second_floor %}        
-		      {% include 'cm_portal/resident_list_item.html' %}        
-		    {% endfor%}
-		    </ul>
-		  </div>
-		</div>
+	<div id="list-by-bldg">		
 	</div> 
 	<br>
 	{% if perms.cm_portal.add_resident %}

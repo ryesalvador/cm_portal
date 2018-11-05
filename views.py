@@ -14,6 +14,7 @@ from django.apps import apps
 from django import forms
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_control
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 @login_required
 def search(request):
@@ -72,6 +73,23 @@ def nursing_home_index(request):
                       })
 
 @login_required
+def ResidentListView(request):
+    resident_list = Resident.objects.filter(vital_status='LI')
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(resident_list, 10)
+    try:
+        resident_list = paginator.page(page)
+    except PageNotAnInteger:
+        resident_list = paginator.page(1)
+    except EmptyPage:
+        resident_list = paginator.page(paginator.num_pages)
+    if 'ajax' in request.GET:
+        return render_to_response('cm_portal/resident_list.html', { 'resident_list': resident_list })
+    else:
+        return render(request, 'cm_portal/residents.html', { 'resident_list': resident_list })
+
+@login_required
 def hris_index(request):
     num_employees = Employee.objects.all().count()
     return render(request,
@@ -115,28 +133,7 @@ def maintenance(request):
                       'male_rebuschini': male_rebuschini,
                       'female_rebuschini': female_rebuschini,
                       })
-    
-@method_decorator(cache_control(private=True), name='dispatch')
-class ResidentListView(PermissionRequiredMixin, generic.ListView):
-    permission_required = 'cm_portal.can_view_nursing_home'
-    model = Resident
-    queryset = Resident.objects.filter(vital_status='LI')
-    paginate_by = 10    
-    
-    """def get_context_data(self, **kwargs):
-        # Call the base implementation first to get the context
-        context = super(ResidentListView, self).get_context_data(**kwargs)
-        # Create any data and add it to the context                
-        rebuschini = Resident.objects.filter(building='R').filter(vital_status='LI')        
-        tezza = Resident.objects.filter(building='L').filter(vital_status='LI')
-        first_floor = Resident.objects.filter(building='1').filter(vital_status='LI')
-        second_floor = Resident.objects.filter(building='2').filter(vital_status='LI')        
-        context['rebuschini'] = rebuschini
-        context['tezza'] = tezza
-        context['first_floor'] = first_floor
-        context['second_floor'] = second_floor
-        return context"""
-
+  
 @method_decorator(cache_control(private=True), name='dispatch')
 class DeceasedListView(PermissionRequiredMixin, generic.ListView):
     permission_required = 'cm_portal.can_view_nursing_home'

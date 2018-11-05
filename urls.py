@@ -12,7 +12,7 @@ urlpatterns = [
 
 urlpatterns += [
     path('geriatric/', views.nursing_home_index, name='geriatric-index'),    
-    path('geriatric/residents/', views.ResidentListView.as_view(), name='residents'),    
+    path('geriatric/residents/', views.ResidentListView, name='residents'),    
     path('geriatric/residents/deceased/', views.DeceasedListView.as_view(), name='residents-deceased'),
     path('geriatric/residents/discharged/', views.DischargedListView.as_view(), name='residents-discharged'),
     path('geriatric/resident/<int:pk>/', views.ResidentDetailView.as_view(), name='resident-detail'),

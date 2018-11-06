@@ -76,18 +76,22 @@ def nursing_home_index(request):
 def ResidentListView(request):
     resident_list = Resident.objects.filter(vital_status='LI')
     page = request.GET.get('page', 1)
-
     paginator = Paginator(resident_list, 10)
+    context = { 'resident_list': resident_list,
+                'is_paginated': False }
+    if paginator.num_pages > 1:
+        context['is_paginated'] = True
+    
     try:
-        resident_list = paginator.page(page)
+        resident_list = paginator.page(page)        
     except PageNotAnInteger:
         resident_list = paginator.page(1)
     except EmptyPage:
         resident_list = paginator.page(paginator.num_pages)
     if 'ajax' in request.GET:
-        return render_to_response('cm_portal/resident_list.html', { 'resident_list': resident_list })
+        return render(request, 'cm_portal/residents.html', context)
     else:
-        return render(request, 'cm_portal/residents.html', { 'resident_list': resident_list })
+        return render(request, 'cm_portal/resident_list.html', context)
 
 @login_required
 def hris_index(request):

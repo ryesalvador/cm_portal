@@ -46,10 +46,11 @@
         <h1><a href="{% url 'index' %}">CM Portal </a>{% block page_title %}{% endblock %}</h1>
         {% block searchbar %}{% endblock %}
         {% block content %}{% endblock %}
-
-        {% if is_paginated %}
-          {% include 'cm_portal/pagination.html' %}
-        {% endif %}
+        
+       <div id="pagination">
+       {% include 'cm_portal/pagination.html' %}
+       </div>
+        
       </div>      
     </div>
   </div>  

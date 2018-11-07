@@ -1,17 +1,15 @@
 from django.shortcuts import render
 from .models import Resident, Physician, Relative, Relationship, \
-     PerformanceAppraisal, EmploymentStatus, Employee, Position, Department, \
+     Employee, Position, Department, \
      MedicalAbstract, Drug, Medication, Item, MedicalSupply, MedicalEquipment
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.urls import reverse, reverse_lazy
-from django.contrib.auth.decorators import login_required, permission_required
+from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
 from .forms import ResidentCreateForm, EmployeeCreateForm, \
      MedicationCreateForm, MedicalSupplyCreateForm, MedicalEquipmentCreateForm
-from django.http import HttpResponseRedirect
 from itertools import chain
 from django.apps import apps
-from django import forms
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_control
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -21,37 +19,36 @@ def search(request):
     model = ''
     obj_list = []
     show_results = False
-    
+
     if 'model' in request.GET and 'query' in request.GET:
         show_results = True
         model = request.GET['model'].strip()
         query = request.GET['query'].strip()
-        if model and query:            
-            cls = apps.get_model('cm_portal', model)            
+        if model and query:
+            cls = apps.get_model('cm_portal', model)
             if model == 'drug':
-                template_name = 'search_drugs.html'
                 query0 = cls.objects.filter(generic_name__icontains=query)
                 query1 = cls.objects.filter(brand_name__icontains=query)
             else:
                 query0 = cls.objects.filter(last_name__icontains=query)
                 query1 = cls.objects.filter(first_name__icontains=query)
-            obj_list = list(chain(query0, query1))            
+            obj_list = list(chain(query0, query1))
 
     variables = {
             'model': model,
             'obj_list': obj_list,
             'show_results': show_results,
             }
-    
+
     return render(request, 'cm_portal/search_geria.html', variables)
-    
+
 
 @login_required
-def index(request):    
+def index(request):
     return render(request, 'cm_portal/index.html')
 
 @login_required
-def nursing_home_index(request):    
+def nursing_home_index(request):
     num_residents = Resident.objects.filter(vital_status='LI').count()
     num_physicians = Physician.objects.all().count()
     num_relatives = Relative.objects.all().count()
@@ -59,7 +56,7 @@ def nursing_home_index(request):
     census_luigi = Resident.objects.filter(vital_status='LI').filter(building='L').count()
     census_first_floor = Resident.objects.filter(vital_status='LI').filter(building='1').count()
     census_second_floor = Resident.objects.filter(vital_status='LI').filter(building='2').count()
-    
+
     return render(request,
                   'cm_portal/nursing_home_index.html',
                   context={
@@ -77,21 +74,23 @@ def ResidentListView(request):
     resident_list = Resident.objects.filter(vital_status='LI')
     page = request.GET.get('page', 1)
     paginator = Paginator(resident_list, 10)
-    context = { 'resident_list': resident_list,
-                'is_paginated': False }
-    if paginator.num_pages > 1:
-        context['is_paginated'] = True
-    
+
     try:
-        resident_list = paginator.page(page)        
+        resident_list = paginator.page(page)
     except PageNotAnInteger:
         resident_list = paginator.page(1)
     except EmptyPage:
         resident_list = paginator.page(paginator.num_pages)
+
+    context = { 'resident_list': resident_list,
+                'is_paginated': False }
+    if paginator.num_pages > 1:
+        context['is_paginated'] = True
+
     if 'ajax' in request.GET:
-        return render(request, 'cm_portal/residents.html', context)
-    else:
         return render(request, 'cm_portal/resident_list.html', context)
+    else:
+        return render(request, 'cm_portal/residents.html', context)
 
 @login_required
 def hris_index(request):
@@ -137,7 +136,7 @@ def maintenance(request):
                       'male_rebuschini': male_rebuschini,
                       'female_rebuschini': female_rebuschini,
                       })
-  
+
 @method_decorator(cache_control(private=True), name='dispatch')
 class DeceasedListView(PermissionRequiredMixin, generic.ListView):
     permission_required = 'cm_portal.can_view_nursing_home'
@@ -152,7 +151,7 @@ class DischargedListView(PermissionRequiredMixin, generic.ListView):
     model = Resident
     queryset = Resident.objects.filter(vital_status='DC')
     template_name = 'cm_portal/resident_list_discharged.html'
-    paginate_by = 10   
+    paginate_by = 10
 
 @method_decorator(cache_control(private=True), name='dispatch')
 class ResidentDetailView(PermissionRequiredMixin, generic.DetailView):
@@ -174,8 +173,8 @@ class ResidentDelete(PermissionRequiredMixin, generic.DeleteView):
     permission_required = 'cm_portal.delete_resident'
     model = Resident
     success_url = reverse_lazy('residents')
-    
-class PhysicianListView(LoginRequiredMixin, generic.ListView):    
+
+class PhysicianListView(LoginRequiredMixin, generic.ListView):
     model = Physician
     paginate_by = 10
 
@@ -197,7 +196,7 @@ class PhysicianDelete(PermissionRequiredMixin, generic.DeleteView):
     permission_required = 'cm_portal.delete_physician'
     model = Physician
     success_url = reverse_lazy('physicians')
-    
+
 class RelativeListView(PermissionRequiredMixin, generic.ListView):
     permission_required = 'cm_portal.can_view_nursing_home'
     model = Relative
@@ -222,7 +221,7 @@ class RelativeDelete(PermissionRequiredMixin, generic.DeleteView):
     permission_required = 'cm_portal.delete_relative'
     model = Relative
     success_url = reverse_lazy('relatives')
-   
+
 class RelationshipListView(PermissionRequiredMixin, generic.ListView):
     permission_required = 'cm_portal.can_view_nursing_home'
     model = Relationship
@@ -348,7 +347,7 @@ class MedicalAbstractDelete(PermissionRequiredMixin, generic.DeleteView):
     permission_required = 'cm_portal.delete_medicalabstract'
     model = MedicalAbstract
     success_url = reverse_lazy('medical-abstracts')
-    
+
 class DrugListView(PermissionRequiredMixin, generic.ListView):
     permission_required = 'cm_portal.can_view_nursing_home'
     model = Drug
@@ -385,7 +384,7 @@ class MedicationDetailView(PermissionRequiredMixin, generic.DetailView):
 
 class MedicationCreate(PermissionRequiredMixin, generic.CreateView):
     permission_required = 'cm_portal.add_medication'
-    model = Medication    
+    model = Medication
     form_class = MedicationCreateForm
 
 class MedicationUpdate(PermissionRequiredMixin, generic.UpdateView):
@@ -435,12 +434,12 @@ class MedicalSupplyDetailView(PermissionRequiredMixin, generic.DetailView):
 
 class MedicalSupplyCreate(PermissionRequiredMixin, generic.CreateView):
     permission_required = 'cm_portal.can_view_inventory'
-    model = MedicalSupply    
+    model = MedicalSupply
     form_class = MedicalSupplyCreateForm
-    
+
 class MedicalSupplyUpdate(PermissionRequiredMixin, generic.UpdateView):
     permission_required = 'cm_portal.can_view_inventory'
-    model = MedicalSupply    
+    model = MedicalSupply
     form_class = MedicalSupplyCreateForm
     template_name_suffix = '_update_form'
 
@@ -460,12 +459,12 @@ class MedicalEquipmentDetailView(PermissionRequiredMixin, generic.DetailView):
 
 class MedicalEquipmentCreate(PermissionRequiredMixin, generic.CreateView):
     permission_required = 'cm_portal.can_view_inventory'
-    model = MedicalEquipment    
+    model = MedicalEquipment
     form_class = MedicalEquipmentCreateForm
-    
+
 class MedicalEquipmentUpdate(PermissionRequiredMixin, generic.UpdateView):
     permission_required = 'cm_portal.can_view_inventory'
-    model = MedicalEquipment    
+    model = MedicalEquipment
     form_class = MedicalEquipmentCreateForm
     template_name_suffix = '_update_form'
 

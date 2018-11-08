@@ -71,6 +71,21 @@ def nursing_home_index(request):
 
 @login_required
 def ResidentListView(request):
+    if 'ajax' in request.GET and 'sort' in request.GET:
+        sort = request.GET['sort'].strip()
+        if sort and sort == 'bldg':            
+            rebuschini = Resident.objects.filter(building='R').filter(vital_status='LI')        
+            tezza = Resident.objects.filter(building='L').filter(vital_status='LI')
+            first_floor = Resident.objects.filter(building='1').filter(vital_status='LI')
+            second_floor = Resident.objects.filter(building='2').filter(vital_status='LI') 
+            context = {
+                'rebuschini': rebuschini,
+                'tezza': tezza,
+                'first_floor': first_floor,
+                'second_floor': second_floor
+            }
+            return render(request, 'cm_portal/resident_list_by_building.html', context)
+    
     resident_list = Resident.objects.filter(vital_status='LI')
     page = request.GET.get('page', 1)
     paginator = Paginator(resident_list, 10)

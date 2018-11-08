@@ -30,26 +30,26 @@
 	<br>
 	<ul class="nav nav-tabs">
 		<li class="nav-item">
-			<a class="nav-link active" data-toggle="tab" href="#home">Resident Profile</a>
+			<a class="nav-link active" data-toggle="tab" href="#home"><i class="fas fa-pen"></i> Resident Profile</a>
 		</li>
 		
 		{% if resident.medication_set.all %}
 			<li class="nav-item">
-				<a class="nav-link" data-toggle="tab" href="#medications">Current Medications</a>
+				<a class="nav-link" data-toggle="tab" href="#medications"><i class="fas fa-file-prescription"></i> Current Medications</a>
 			</li>
 		{% else %}
 			<li class="nav-item">
-				<a class="nav-link disabled" href="#">Current Medications</a>
+				<a class="nav-link disabled" href="#"><i class="fas fa-file-prescription"></i> Current Medications</a>
 			</li>
 		{% endif %}
 		  
 		{% if resident.medicalabstract.get_absolute_url %}
 			<li class="nav-item">
-				<a class="nav-link" data-toggle="tab" href="#abstract">Medical Abstract</a>
+				<a class="nav-link" data-toggle="tab" href="#abstract"><i class="fas fa-file-medical"></i> Medical Abstract</a>
 			</li>
 		{% else %}
 			<li class="nav-item">
-				<a class="nav-link disabled" href="#">Medical Abstract</a>
+				<a class="nav-link disabled" href="#"><i class="fas fa-file-medical"></i> Medical Abstract</a>
 			</li>
 		{% endif %}
 		  

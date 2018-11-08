@@ -5,12 +5,12 @@
 {% load static %}
 
 {% block navbar %}
-  {% include 'cm_portal/nav-geria.html' %}
+  {% include 'cm_portal/nav_geria.html' %}
 {% endblock %}
 
 {% block sidebar %}
     {% if user.is_authenticated %}
-      <li><strong>User: </strong>{{ user.get_username|capfirst }}</li>
+      {% include 'cm_portal/user.html' %}
     {% endif %}    
     <li><a href="{% url 'residents' %}">All residents</a></li>
     <li><a href="{% url 'relatives' %}">All relatives</a></li>    

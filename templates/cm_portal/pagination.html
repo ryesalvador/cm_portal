@@ -1,21 +1,21 @@
 {% if is_paginated %}
 <ul class="pagination">
-  {% if model.page_obj.has_previous %}
-    <li class="page-item"><a class="page-link" onclick="load_list('{{ id }}', 'page', {{ model.page_obj.previous_page_number }});" href="javascript:void(0);">&laquo;</a></li>
+  {% if model.has_previous %}
+    <li class="page-item"><a class="page-link" onclick="load_list('{{ id }}', 'page', {{ model.previous_page_number }});" href="javascript:void(0);">&laquo;</a></li>
   {% else %}
     <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
   {% endif %}
 
   {% for i in model.paginator.page_range %}
-    {% if model.page_obj.number == i %}
+    {% if model.number == i %}
       <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
     {% else %}
       <li class="page-item"><a class="page-link" onclick="load_list('{{ id }}', 'page', {{ i }})" href="javascript:void(0);">{{ i }}</a></li>
     {% endif %}
   {% endfor %}
 
-  {% if model.page_obj.has_next %}
-    <li class="page-item"><a class="page-link" onclick="load_list('{{ id }}', 'page', {{ model.page_obj.next_page_number }})" href="javascript:void(0);">&raquo;</a></li>
+  {% if model.has_next %}
+    <li class="page-item"><a class="page-link" onclick="load_list('{{ id }}', 'page', {{ model.next_page_number }})" href="javascript:void(0);">&raquo;</a></li>
   {% else %}
     <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
   {% endif %}

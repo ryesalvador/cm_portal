@@ -56,37 +56,40 @@ def nursing_home_index(request):
     census_luigi = Resident.objects.filter(vital_status='LI').filter(building='L').count()
     census_first_floor = Resident.objects.filter(vital_status='LI').filter(building='1').count()
     census_second_floor = Resident.objects.filter(vital_status='LI').filter(building='2').count()
-
-    return render(request,
-                  'cm_portal/nursing_home_index.html',
-                  context={
-                      'num_residents': num_residents,
-                      'num_physicians': num_physicians,
-                      'num_relatives': num_relatives,
-                      'census_rebuschini': census_rebuschini,
-                      'census_luigi': census_luigi,
-                      'census_first_floor': census_first_floor,
-                      'census_second_floor': census_second_floor,
-                      })
+    context={'num_residents': num_residents,
+             'num_physicians': num_physicians,
+             'num_relatives': num_relatives,
+             'census_rebuschini': census_rebuschini,
+             'census_luigi': census_luigi,
+             'census_first_floor': census_first_floor,
+             'census_second_floor': census_second_floor,
+             }
+    return render(request, 'cm_portal/nursing_home_index.html', context)
 
 @login_required
 def ResidentListView(request):
+    resident_list = Resident.objects.filter(vital_status='LI')
+
+    def filter_bldg(name):
+        return resident_list.filter(building=name)
+    
+    def filter_bday(month):
+        return resident_list.filter(birth_date__month=month)
+    
     if 'ajax' in request.GET and 'sort' in request.GET:
         sort = request.GET['sort'].strip()
-        if sort and sort == 'bldg':            
-            rebuschini = Resident.objects.filter(building='R').filter(vital_status='LI')        
-            tezza = Resident.objects.filter(building='L').filter(vital_status='LI')
-            first_floor = Resident.objects.filter(building='1').filter(vital_status='LI')
-            second_floor = Resident.objects.filter(building='2').filter(vital_status='LI') 
-            context = {
-                'rebuschini': rebuschini,
-                'tezza': tezza,
-                'first_floor': first_floor,
-                'second_floor': second_floor
-            }
+        if sort and sort == 'bldg':                        
+            context = {'rebuschini': 'R', 'tezza': 'L', 'first_floor': '1', 'second_floor': '2'}
+            for k, v in context.items():
+                context[k] = filter_bldg(v)
             return render(request, 'cm_portal/resident_list_by_building.html', context)
+        elif sort == 'bday':
+            context = {'jan':1, 'feb':2, 'mar':3, 'apr':4, 'may':5, 'jun':6,
+                       'jul':7, 'aug':8, 'sept':9, 'oct':10, 'nov':11, 'dec':12}
+            for k, v in context.items():
+                context[k] = filter_bday(v)
+            return render(request, 'cm_portal/resident_list_by_bday.html', context)                
     
-    resident_list = Resident.objects.filter(vital_status='LI')
     page = request.GET.get('page', 1)
     paginator = Paginator(resident_list, 10)
 

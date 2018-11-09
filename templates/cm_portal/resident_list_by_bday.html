@@ -1,0 +1,124 @@
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active show" data-toggle="tab" href="#jan">January</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#feb">February</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#mar">March</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#apr">April</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#may">May</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#jun">June</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#jul">July</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#aug">August</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#sept">September</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#oct">October</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#nov">November</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#dec">December</a>
+  </li>
+</ul>
+<div id="myTabContent" class="tab-content">
+  <div class="tab-pane fade active show" id="jan">
+    <ul class="list-group">
+    {% for resident in jan %}        
+      {% include 'cm_portal/resident_list_item.html' %}        
+    {% endfor%}
+    </ul>
+  </div>
+  <div class="tab-pane fade" id="feb">
+    <ul class="list-group">
+    {% for resident in feb %}        
+      {% include 'cm_portal/resident_list_item.html' %}        
+    {% endfor%}
+    </ul>    
+  </div>
+  <div class="tab-pane fade" id="mar">
+    <ul class="list-group">
+    {% for resident in mar %}        
+      {% include 'cm_portal/resident_list_item.html' %}        
+    {% endfor%}
+    </ul>
+  </div>
+  <div class="tab-pane fade" id="apr">
+    <ul class="list-group">
+    {% for resident in apr %}        
+      {% include 'cm_portal/resident_list_item.html' %}        
+    {% endfor%}
+    </ul>
+  </div>
+  <div class="tab-pane fade" id="may">
+    <ul class="list-group">
+    {% for resident in may %}        
+      {% include 'cm_portal/resident_list_item.html' %}        
+    {% endfor%}
+    </ul>
+  </div>
+  <div class="tab-pane fade" id="jun">
+    <ul class="list-group">
+    {% for resident in jun %}        
+      {% include 'cm_portal/resident_list_item.html' %}        
+    {% endfor%}
+    </ul>
+  </div>
+  <div class="tab-pane fade" id="jul">
+    <ul class="list-group">
+    {% for resident in jul %}        
+      {% include 'cm_portal/resident_list_item.html' %}        
+    {% endfor%}
+    </ul>
+  </div>
+  <div class="tab-pane fade" id="aug">
+    <ul class="list-group">
+    {% for resident in aug %}        
+      {% include 'cm_portal/resident_list_item.html' %}        
+    {% endfor%}
+    </ul>
+  </div>
+  <div class="tab-pane fade" id="sept">
+    <ul class="list-group">
+    {% for resident in sept %}        
+      {% include 'cm_portal/resident_list_item.html' %}        
+    {% endfor%}
+    </ul>
+  </div>
+  <div class="tab-pane fade" id="oct">
+    <ul class="list-group">
+    {% for resident in oct %}        
+      {% include 'cm_portal/resident_list_item.html' %}        
+    {% endfor%}
+    </ul>
+  </div>
+  <div class="tab-pane fade" id="nov">
+    <ul class="list-group">
+    {% for resident in nov %}        
+      {% include 'cm_portal/resident_list_item.html' %}        
+    {% endfor%}
+    </ul>
+  </div>
+  <div class="tab-pane fade" id="dec">
+    <ul class="list-group">
+    {% for resident in dec %}        
+      {% include 'cm_portal/resident_list_item.html' %}        
+    {% endfor%}
+    </ul>
+  </div>  
+</div>

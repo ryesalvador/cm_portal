@@ -1,4 +1,4 @@
 function load_list(id, query, val) {
-    $(id).load("?ajax&" + encodeURIComponent(query) + "=" + encodeURIComponent(val));
+    $(id).load("?" + encodeURIComponent(query) + "=" + encodeURIComponent(val));
     return false;
 }

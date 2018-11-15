@@ -16,7 +16,8 @@ urlpatterns += [
     path('geriatric/', views.GeriatricIndex.as_view(), name='geriatric-index'),    
     path('geriatric/residents/', views.ResidentListView.as_view(
         template_name='cm_portal/residents.html',
-        queryset=Resident.objects.filter(vital_status='LI')), name='residents'),    
+        queryset=Resident.objects.filter(vital_status='LI'),
+        paginate_by=5), name='residents'),    
     path('geriatric/residents/deceased/', views.ResidentListView.as_view(
         template_name='cm_portal/resident_list_deceased.html',
         queryset=Resident.objects.filter(vital_status='DE')), name='residents-deceased'),    

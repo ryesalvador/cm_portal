@@ -65,6 +65,9 @@ def maintenance(request):
                       'female_rebuschini': female_rebuschini,
                       })
 
+class Dashboard(LoginRequiredMixin, generic.base.TemplateView):
+    template_name = 'cm_portal/index.html'
+    
 class GeriatricIndex(PermissionRequiredMixin, generic.base.TemplateView):
     permission_required = 'cm_portal.can_view_nursing_home'
     template_name = 'cm_portal/geriatric_index.html'
@@ -126,7 +129,9 @@ class ResidentListView(PermissionRequiredMixin, generic.ListView):
                            'jul':7, 'aug':8, 'sept':9, 'oct':10, 'nov':11, 'dec':12}
                 for k, v in context.items():
                     context[k] = self.filter_bday(v, self.queryset)
-                return context        
+                return context
+        elif 'page' in self.request.GET:            
+            self.template_name = 'cm_portal/resident_list.html'
         return context                
     
 @method_decorator(cache_control(private=True), name='dispatch')

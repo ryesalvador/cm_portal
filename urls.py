@@ -2,14 +2,12 @@ from django.urls import path, include, re_path
 from . import views
 from django.contrib.auth.views import login, logout
 from .forms import LoginForm
-
 from django.conf import settings
 from django.views.static import serve
 from cm_portal.models import Resident
-from django.views.generic import TemplateView
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='cm_portal/index.html'), name='index'),    
+    path('', views.Dashboard.as_view(), name='index'),    
 ]
 
 urlpatterns += [
@@ -17,7 +15,7 @@ urlpatterns += [
     path('geriatric/residents/', views.ResidentListView.as_view(
         template_name='cm_portal/residents.html',
         queryset=Resident.objects.filter(vital_status='LI'),
-        paginate_by=5), name='residents'),    
+        paginate_by=10), name='residents'),    
     path('geriatric/residents/deceased/', views.ResidentListView.as_view(
         template_name='cm_portal/resident_list_deceased.html',
         queryset=Resident.objects.filter(vital_status='DE')), name='residents-deceased'),    

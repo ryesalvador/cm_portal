@@ -24,7 +24,8 @@
     <li><a href="{% url 'residents-discharged' %}">Discharged residents</a></li>
     <hr>
     <li><strong>Reports</strong></li>    
-    <li><a href="{% url 'maintenance' %}">Inventory of Medicines</a></li>
+    <li><a href="{% url 'residents' %}?reports=maintenance">Inventory of Medicines</a></li>
+    <li><a href="#">Spiritual Profile</a></li>
 {% endblock %}
 
 {% block page_title %}| <a href="#">Geriatric Section</a>{% endblock %}
@@ -77,19 +78,19 @@
       <ul class="list-group">
         <li class="list-group-item d-flex justify-content-between align-items-center">          
             <strong>Blessed Enrico Rebuschini</strong>                           
-          <span class="badge badge-primary badge-pill">{{ census_rebuschini }}</span>
+          <span class="badge badge-primary badge-pill">{{ census_rebuschini.count }}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">          
             <strong>Blessed Luigi Tezza</strong>          
-          <span class="badge badge-primary badge-pill">{{ census_luigi }}</span>
+          <span class="badge badge-primary badge-pill">{{ census_luigi.count }}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">          
             <strong>St. Camillus Building-First floor</strong>          
-          <span class="badge badge-primary badge-pill">{{ census_first_floor }}</span>
+          <span class="badge badge-primary badge-pill">{{ census_first_floor.count }}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">          
             <strong>St. Camillus Building-Second floor</strong>          
-          <span class="badge badge-primary badge-pill">{{ census_second_floor }}</span>
+          <span class="badge badge-primary badge-pill">{{ census_second_floor.count }}</span>
         </li>
       </ul>
     </div>

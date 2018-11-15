@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import Resident, Physician, Relative, Relationship, \
      Employee, Position, Department, \
      MedicalAbstract, Drug, Medication, Item, MedicalSupply, MedicalEquipment
-from django.views import generic, View
+from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
@@ -12,11 +12,9 @@ from itertools import chain
 from django.apps import apps
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_control
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 @login_required
-def search(request):
-    model = ''
+def search(request):    
     obj_list = []
     show_results = False
 
@@ -33,6 +31,7 @@ def search(request):
                 query0 = cls.objects.filter(last_name__icontains=query)
                 query1 = cls.objects.filter(first_name__icontains=query)
             obj_list = list(chain(query0, query1))
+        model = 'resident'
 
     variables = {
             'model': model,
@@ -41,29 +40,6 @@ def search(request):
             }
 
     return render(request, 'cm_portal/search_geria.html', variables)
-
-@login_required
-def maintenance(request):
-    male_first_floor = Resident.objects.filter(building='1').filter(gender='M').filter(vital_status='LI')
-    female_first_floor = Resident.objects.filter(building='1').filter(gender='F').filter(vital_status='LI')
-    male_second_floor = Resident.objects.filter(building='2').filter(gender='M').filter(vital_status='LI')
-    female_second_floor = Resident.objects.filter(building='2').filter(gender='F').filter(vital_status='LI')
-    male_luigi_tezza = Resident.objects.filter(building='L').filter(gender='M').filter(vital_status='LI')
-    female_luigi_tezza = Resident.objects.filter(building='L').filter(gender='F').filter(vital_status='LI')
-    male_rebuschini = Resident.objects.filter(building='R').filter(gender='M').filter(vital_status='LI')
-    female_rebuschini = Resident.objects.filter(building='R').filter(gender='F').filter(vital_status='LI')
-    return render(request,
-                  'cm_portal/maintenance.html',
-                  context={
-                      'male_first_floor': male_first_floor,
-                      'female_first_floor': female_first_floor,
-                      'male_second_floor': male_second_floor,
-                      'female_second_floor': female_second_floor,
-                      'male_luigi_tezza': male_luigi_tezza,
-                      'female_luigi_tezza': female_luigi_tezza,
-                      'male_rebuschini': male_rebuschini,
-                      'female_rebuschini': female_rebuschini,
-                      })
 
 class Dashboard(LoginRequiredMixin, generic.base.TemplateView):
     template_name = 'cm_portal/index.html'
@@ -76,7 +52,11 @@ class GeriatricIndex(PermissionRequiredMixin, generic.base.TemplateView):
         context = super().get_context_data(**kwargs)
         context['resident_list'] = Resident.objects.filter(vital_status='LI')
         context['relative_list'] = Relative.objects.all()
-        context['physician_list'] = Physician.objects.all()        
+        context['physician_list'] = Physician.objects.all()
+        context['census_rebuschini'] = context['resident_list'].filter(building='R')
+        context['census_luigi'] = context['resident_list'].filter(building='L')
+        context['census_first_floor'] = context['resident_list'].filter(building='1')
+        context['census_second_floor'] = context['resident_list'].filter(building='2')
         return context
 
 class HRISIndex(PermissionRequiredMixin, generic.base.TemplateView):
@@ -130,8 +110,22 @@ class ResidentListView(PermissionRequiredMixin, generic.ListView):
                 for k, v in context.items():
                     context[k] = self.filter_bday(v, self.queryset)
                 return context
+        elif 'reports' in self.request.GET:
+            reports = self.request.GET['reports'].strip()
+            if reports == 'maintenance':                
+                self.template_name = 'cm_portal/maintenance.html'
+                residents = self.queryset
+                context['male_first_floor'] = residents.filter(building='1').filter(gender='M')
+                context['female_first_floor'] = residents.filter(building='1').filter(gender='F')
+                context['male_second_floor'] = residents.filter(building='2').filter(gender='M')
+                context['female_second_floor'] = residents.filter(building='2').filter(gender='F')
+                context['male_luigi_tezza'] = residents.filter(building='L').filter(gender='M')
+                context['female_luigi_tezza'] = residents.filter(building='L').filter(gender='F')
+                context['male_rebuschini'] = residents.filter(building='R').filter(gender='M')
+                context['female_rebuschini'] = residents.filter(building='R').filter(gender='F')
+                return context
         elif 'page' in self.request.GET:            
-            self.template_name = 'cm_portal/resident_list.html'
+            self.template_name = 'cm_portal/resident_list.html'                    
         return context                
     
 @method_decorator(cache_control(private=True), name='dispatch')

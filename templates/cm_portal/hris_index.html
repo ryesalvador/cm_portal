@@ -31,7 +31,15 @@
     <ul class="list-group">
       <li class="list-group-item d-flex justify-content-between align-items-center">
         <strong>Employees</strong> 
-        <span class="badge badge-primary badge-pill">{{ num_employees }}</span>
+        <span class="badge badge-primary badge-pill">{{ employee_list.count }}</span>
+      </li> 
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <strong>Positions</strong> 
+        <span class="badge badge-primary badge-pill">{{ position_list.count }}</span>
+      </li> 
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <strong>Departments</strong> 
+        <span class="badge badge-primary badge-pill">{{ department_list.count }}</span>
       </li>      
     </ul>
     </div>

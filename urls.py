@@ -5,16 +5,25 @@ from .forms import LoginForm
 
 from django.conf import settings
 from django.views.static import serve
+from cm_portal.models import Resident
+from django.views.generic import TemplateView
 
 urlpatterns = [
-    path('', views.index, name='index'),    
+    path('', TemplateView.as_view(template_name='cm_portal/index.html'), name='index'),    
 ]
 
 urlpatterns += [
-    path('geriatric/', views.nursing_home_index, name='geriatric-index'),    
-    path('geriatric/residents/', views.ResidentListView, name='residents'),    
-    path('geriatric/residents/deceased/', views.DeceasedListView.as_view(), name='residents-deceased'),
-    path('geriatric/residents/discharged/', views.DischargedListView.as_view(), name='residents-discharged'),
+    path('geriatric/', views.GeriatricIndex.as_view(), name='geriatric-index'),    
+    path('geriatric/residents/', views.ResidentListView.as_view(
+        template_name='cm_portal/residents.html',
+        queryset=Resident.objects.filter(vital_status='LI')), name='residents'),    
+    path('geriatric/residents/deceased/', views.ResidentListView.as_view(
+        template_name='cm_portal/resident_list_deceased.html',
+        queryset=Resident.objects.filter(vital_status='DE')), name='residents-deceased'),    
+    path('geriatric/residents/discharged/', views.ResidentListView.as_view(
+        template_name='cm_portal/resident_list_discharged.html',
+        queryset=Resident.objects.filter(vital_status='DC')), name='residents-discharged'),    
+    path('geriatric/residents/maintenance/', views.maintenance, name='maintenance'),
     path('geriatric/resident/<int:pk>/', views.ResidentDetailView.as_view(), name='resident-detail'),
     path('geriatric/resident/create/', views.ResidentCreate.as_view(), name='resident-create'),
     path('geriatric/resident/<int:pk>/update/', views.ResidentUpdate.as_view(), name='resident-update'),
@@ -44,8 +53,7 @@ urlpatterns += [
     path('geriatric/drug/create/', views.DrugCreate.as_view(), name='drug-create'),
     path('geriatric/drug/<int:pk>/update/', views.DrugUpdate.as_view(), name='drug-update'),
     path('geriatric/drug/<int:pk>/delete/', views.DrugDelete.as_view(), name='drug-delete'),
-    path('geriatric/medications/', views.MedicationListView.as_view(), name='medications'),
-    path('geriatric/medications/csu/', views.maintenance, name='maintenance'),
+    path('geriatric/medications/', views.MedicationListView.as_view(), name='medications'),    
     path('geriatric/medication/<int:pk>/', views.MedicationDetailView.as_view(), name='medication-detail'),
     path('geriatric/medication/create/', views.MedicationCreate.as_view(), name='medication-create'),
     path('geriatric/medication/<int:pk>/update/', views.MedicationUpdate.as_view(), name='medication-update'),
@@ -57,7 +65,7 @@ urlpatterns += [
 ]
 
 urlpatterns += [
-    path('hris/', views.hris_index, name='hris-index'),
+    path('hris/', views.HRISIndex.as_view(), name='hris-index'),
     path('hris/employees/', views.EmployeeListView.as_view(), name='employees'),
     path('hris/employee/<int:pk>/', views.EmployeeDetailView.as_view(), name='employee-detail'),
     path('hris/employee/create/', views.EmployeeCreate.as_view(), name='employee-create'),
@@ -80,7 +88,7 @@ urlpatterns += [
 ]
 
 urlpatterns += [
-    path('csu/', views.inventory_index, name='csu-index'),
+    path('csu/', views.CSUIndex.as_view(), name='csu-index'),
     path('csu/items/', views.ItemListView.as_view(), name='items'),
     path('csu/item/<int:pk>/', views.ItemDetailView.as_view(), name='item-detail'),
     path('csu/item/create/', views.ItemCreate.as_view(), name='item-create'),

@@ -57,19 +57,19 @@
         <em>Geriatrics Database</em>, where you can store resident profiles and other related information.
       </h2>
       <h3>Dynamic content</h3>
-      <p>The library has the following record counts:</p>
+      <p>The library has the following record counts:</p>      
       <ul class="list-group">
         <li class="list-group-item d-flex justify-content-between align-items-center">
           <strong>Residents</strong>
-          <span class="badge badge-primary badge-pill">{{ num_residents }}</span> 
+          <span class="badge badge-primary badge-pill">{{ resident_list.count }}</span> 
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
           <strong>Physicians</strong>
-          <span class="badge badge-primary badge-pill">{{ num_physicians }}</span> 
+          <span class="badge badge-primary badge-pill">{{ physician_list.count }}</span> 
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
           <strong>Relatives</strong>
-          <span class="badge badge-primary badge-pill">{{ num_relatives }}</span>
+          <span class="badge badge-primary badge-pill">{{ relative_list.count }}</span>
         </li>
       </ul>    
       <br>  

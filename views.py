@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import Resident, Physician, Relative, Relationship, \
      Employee, Position, Department, \
      MedicalAbstract, Drug, Medication, Item, MedicalSupply, MedicalEquipment
-from django.views import generic
+from django.views import generic, View
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
@@ -42,96 +42,6 @@ def search(request):
 
     return render(request, 'cm_portal/search_geria.html', variables)
 
-
-@login_required
-def index(request):
-    return render(request, 'cm_portal/index.html')
-
-@login_required
-def nursing_home_index(request):
-    num_residents = Resident.objects.filter(vital_status='LI').count()
-    num_physicians = Physician.objects.all().count()
-    num_relatives = Relative.objects.all().count()
-    census_rebuschini = Resident.objects.filter(vital_status='LI').filter(building='R').count()
-    census_luigi = Resident.objects.filter(vital_status='LI').filter(building='L').count()
-    census_first_floor = Resident.objects.filter(vital_status='LI').filter(building='1').count()
-    census_second_floor = Resident.objects.filter(vital_status='LI').filter(building='2').count()
-    context={'num_residents': num_residents,
-             'num_physicians': num_physicians,
-             'num_relatives': num_relatives,
-             'census_rebuschini': census_rebuschini,
-             'census_luigi': census_luigi,
-             'census_first_floor': census_first_floor,
-             'census_second_floor': census_second_floor,
-             }
-    return render(request, 'cm_portal/nursing_home_index.html', context)
-
-@login_required
-def ResidentListView(request):
-    resident_list = Resident.objects.filter(vital_status='LI')
-
-    def filter_bldg(name):
-        return resident_list.filter(building=name)
-    
-    def filter_bday(month):
-        return resident_list.filter(birth_date__month=month)
-    
-    if 'ajax' in request.GET and 'sort' in request.GET:
-        sort = request.GET['sort'].strip()
-        if sort and sort == 'bldg':                        
-            context = {'rebuschini': 'R', 'tezza': 'L', 'first_floor': '1', 'second_floor': '2'}
-            for k, v in context.items():
-                context[k] = filter_bldg(v)
-            return render(request, 'cm_portal/resident_list_by_building.html', context)
-        elif sort == 'bday':
-            context = {'jan':1, 'feb':2, 'mar':3, 'apr':4, 'may':5, 'jun':6,
-                       'jul':7, 'aug':8, 'sept':9, 'oct':10, 'nov':11, 'dec':12}
-            for k, v in context.items():
-                context[k] = filter_bday(v)
-            return render(request, 'cm_portal/resident_list_by_bday.html', context)                
-    
-    page = request.GET.get('page', 1)
-    paginator = Paginator(resident_list, 10)
-
-    try:
-        resident_list = paginator.page(page)
-    except PageNotAnInteger:
-        resident_list = paginator.page(1)
-    except EmptyPage:
-        resident_list = paginator.page(paginator.num_pages)
-
-    context = { 'resident_list': resident_list,
-                'is_paginated': False }
-    if paginator.num_pages > 1:
-        context['is_paginated'] = True
-
-    if 'ajax' in request.GET:
-        return render(request, 'cm_portal/resident_list.html', context)
-    else:
-        return render(request, 'cm_portal/residents.html', context)
-
-@login_required
-def hris_index(request):
-    num_employees = Employee.objects.all().count()
-    return render(request,
-                  'cm_portal/hris_index.html',
-                  context={
-                      'num_employees': num_employees
-                      })
-
-@login_required
-def inventory_index(request):
-    num_items = Item.objects.all().count()
-    num_medical_supplies = MedicalSupply.objects.all().count()
-    num_medical_equipment = MedicalEquipment.objects.all().count()
-    return render(request,
-                  'cm_portal/inventory_index.html',
-                  context={
-                      'num_items': num_items,
-                      'num_medical_supplies': num_medical_supplies,
-                      'num_medical_equipment': num_medical_equipment
-                      })
-
 @login_required
 def maintenance(request):
     male_first_floor = Resident.objects.filter(building='1').filter(gender='M').filter(vital_status='LI')
@@ -155,21 +65,42 @@ def maintenance(request):
                       'female_rebuschini': female_rebuschini,
                       })
 
-@method_decorator(cache_control(private=True), name='dispatch')
-class DeceasedListView(PermissionRequiredMixin, generic.ListView):
+class GeriatricIndex(PermissionRequiredMixin, generic.base.TemplateView):
     permission_required = 'cm_portal.can_view_nursing_home'
-    model = Resident
-    queryset = Resident.objects.filter(vital_status='DE')
-    template_name = 'cm_portal/resident_list_deceased.html'
-    paginate_by = 10
+    template_name = 'cm_portal/geriatric_index.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['resident_list'] = Resident.objects.filter(vital_status='LI')
+        context['relative_list'] = Relative.objects.all()
+        context['physician_list'] = Physician.objects.all()        
+        return context
+
+class HRISIndex(PermissionRequiredMixin, generic.base.TemplateView):
+    permission_required = 'cm_portal.can_view_hris'
+    template_name = 'cm_portal/hris_index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['employee_list'] = Employee.objects.all()
+        context['position_list'] = Position.objects.all()
+        context['department_list'] = Department.objects.all()        
+        return context
+
+class CSUIndex(PermissionRequiredMixin, generic.base.TemplateView):
+    permission_required = 'cm_portal.can_view_inventory'
+    template_name = 'cm_portal/csu_index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['item_list'] = Item.objects.all()
+        context['medicalequipment_list'] = MedicalEquipment.objects.all()
+        context['medicalsupply_list'] = MedicalSupply.objects.all()        
+        return context
+    
 @method_decorator(cache_control(private=True), name='dispatch')
-class DischargedListView(PermissionRequiredMixin, generic.ListView):
+class ResidentListView(PermissionRequiredMixin, generic.ListView):    
     permission_required = 'cm_portal.can_view_nursing_home'
-    model = Resident
-    queryset = Resident.objects.filter(vital_status='DC')
-    template_name = 'cm_portal/resident_list_discharged.html'
-    paginate_by = 10
 
 @method_decorator(cache_control(private=True), name='dispatch')
 class ResidentDetailView(PermissionRequiredMixin, generic.DetailView):
@@ -490,3 +421,48 @@ class MedicalEquipmentDelete(PermissionRequiredMixin, generic.DeleteView):
     permission_required = 'cm_portal.can_view_inventory'
     model = MedicalEquipment
     success_url = reverse_lazy('medical-equipments')
+
+
+"""@login_required
+def Residents(request):
+    resident_list = Resident.objects.filter(vital_status='LI')
+
+    def filter_bldg(name):
+        return resident_list.filter(building=name)
+    
+    def filter_bday(month):
+        return resident_list.filter(birth_date__month=month)
+    
+    if 'ajax' in request.GET and 'sort' in request.GET:
+        sort = request.GET['sort'].strip()
+        if sort and sort == 'bldg':                        
+            context = {'rebuschini': 'R', 'tezza': 'L', 'first_floor': '1', 'second_floor': '2'}
+            for k, v in context.items():
+                context[k] = filter_bldg(v)
+            return render(request, 'cm_portal/resident_list_by_building.html', context)
+        elif sort == 'bday':
+            context = {'jan':1, 'feb':2, 'mar':3, 'apr':4, 'may':5, 'jun':6,
+                       'jul':7, 'aug':8, 'sept':9, 'oct':10, 'nov':11, 'dec':12}
+            for k, v in context.items():
+                context[k] = filter_bday(v)
+            return render(request, 'cm_portal/resident_list_by_bday.html', context)                
+    
+    page = request.GET.get('page', 1)
+    paginator = Paginator(resident_list, 10)
+
+    try:
+        resident_list = paginator.page(page)
+    except PageNotAnInteger:
+        resident_list = paginator.page(1)
+    except EmptyPage:
+        resident_list = paginator.page(paginator.num_pages)
+
+    context = { 'resident_list': resident_list,
+                'is_paginated': False }
+    if paginator.num_pages > 1:
+        context['is_paginated'] = True
+
+    if 'ajax' in request.GET:
+        return render(request, 'cm_portal/resident_list.html', context)
+    else:
+        return render(request, 'cm_portal/residents.html', context)"""

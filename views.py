@@ -100,8 +100,7 @@ class ResidentListView(PermissionRequiredMixin, generic.ListView):
                 self.template_name = 'cm_portal/resident_list_by_building.html'
                 context = {'rebuschini': 'R', 'tezza': 'L', 'first_floor': '1', 'second_floor': '2'}
                 for k, v in context.items():
-                    context[k] = self.filter_bldg(v, self.queryset)
-                    print(context)
+                    context[k] = self.filter_bldg(v, self.queryset)                    
                 return context
             elif sort == 'birthday':
                 self.template_name = 'cm_portal/resident_list_by_birthday.html'
@@ -123,6 +122,12 @@ class ResidentListView(PermissionRequiredMixin, generic.ListView):
                 context['female_luigi_tezza'] = residents.filter(building='L').filter(gender='F')
                 context['male_rebuschini'] = residents.filter(building='R').filter(gender='M')
                 context['female_rebuschini'] = residents.filter(building='R').filter(gender='F')
+                return context
+            elif reports == 'osca':
+                self.template_name = 'cm_portal/osca.html'                
+                context = {'rebuschini': 'R', 'tezza': 'L', 'first_floor': '1', 'second_floor': '2'}
+                for k, v in context.items():
+                    context[k] = self.filter_bldg(v, self.queryset)
                 return context
         elif 'page' in self.request.GET:            
             self.template_name = 'cm_portal/resident_list.html'                    

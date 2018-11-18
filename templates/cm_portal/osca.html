@@ -1,0 +1,75 @@
+{% extends "cm_portal/geriatric_index.html" %}
+
+{% block title %}| Inventory of Medicines{% endblock %}
+
+{% block page_title %}| Inventory of Medicines{% endblock %}
+
+{% load static %}
+
+{% block content %}
+<button type="button" class="btn btn-outline-info btn-sm">Get printable version</button>
+<p></p>
+   {% if first_floor %}
+	<table class="table table-sm table-hover">
+	  <thead><h4>St. Camillus Bldg. 1st floor</h4></thead>  
+	  <tr>        
+       <th scope="col">Resident</th>
+       <th scope="col">Osca #</th>    
+     </tr>
+	  {% for resident in first_floor %}
+	  <tr>
+	    <td>{{ resident }}</td>
+	    <td>{{ resident.osca_id }}</td>
+	  </tr>
+	  {% endfor %}
+	</table>
+	{% endif %}
+		
+	{% if second_floor %}
+	<table class="table table-sm table-hover">
+	  <thead><h4>St. Camillus Bldg. 2nd floor</h4></thead>
+	  <tr>        
+       <th scope="col">Resident</th>
+       <th scope="col">Osca #</th>    
+     </tr>
+	  {% for resident in second_floor %}
+	  <tr>
+	    <td>{{ resident }}</td>
+	    <td>{{ resident.osca_id }}</td>
+	  </tr>
+	  {% endfor %}
+	</table>
+	{% endif %}
+		
+	{% if tezza %}
+	<table class="table table-sm table-hover">
+	  <thead><h4>Blessed Luigi Tezza</h4></thead>
+	  <tr>        
+       <th scope="col">Resident</th>
+       <th scope="col">Osca #</th>    
+     </tr>
+	  {% for resident in tezza %}
+	  <tr>
+	    <td>{{ resident }}</td>
+	    <td>{{ resident.osca_id }}</td>
+	  </tr>
+	  {% endfor %}
+	</table>
+	{% endif %}
+		
+	{% if rebuschini %}
+	<table class="table table-sm table-hover">
+	  <thead><h4>Blessed Enrico Rebuschini</h4></thead>
+	  <tr>        
+       <th scope="col">Resident</th>
+       <th scope="col">Osca #</th>    
+     </tr>
+	  {% for resident in rebuschini %}
+	  <tr>
+	    <td>{{ resident }}</td>
+	    <td>{{ resident.osca_id }}</td>
+	  </tr>
+	  {% endfor %}
+	</table>
+	{% endif %}	
+{% endblock %}

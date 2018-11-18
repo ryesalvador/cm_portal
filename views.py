@@ -12,6 +12,7 @@ from itertools import chain
 from django.apps import apps
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_control
+from string import ascii_lowercase
 
 @login_required
 def search(request):    
@@ -91,6 +92,9 @@ class ResidentListView(PermissionRequiredMixin, generic.ListView):
     
     def filter_bday(self, month, lst):
         return lst.filter(birth_date__month=month)
+
+    def filter_atoz(self, char, lst):
+        return lst.filter(last_name__startswith=char)
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -108,6 +112,14 @@ class ResidentListView(PermissionRequiredMixin, generic.ListView):
                            'jul':7, 'aug':8, 'sept':9, 'oct':10, 'nov':11, 'dec':12}
                 for k, v in context.items():
                     context[k] = self.filter_bday(v, self.queryset)
+                return context
+            elif sort == 'atoz':
+                self.template_name = 'cm_portal/resident_list_by_a_to_z.html'
+                context = {}
+                for c in ascii_lowercase:
+                    context[c] = c
+                for k, v in context.items():
+                    context[k] = self.filter_atoz(v, self.queryset)
                 return context
         elif 'reports' in self.request.GET:
             reports = self.request.GET['reports'].strip()

@@ -377,7 +377,17 @@ class MedicationDetailView(PermissionRequiredMixin, generic.DetailView):
 class MedicationCreate(PermissionRequiredMixin, generic.CreateView):
     permission_required = 'cm_portal.add_medication'
     model = Medication
-    form_class = MedicationCreateForm
+    form_class = MedicationCreateForm    
+    
+    def get_form(self, *args, **kwargs):
+        form = super(MedicationCreate, self).get_form(*args, **kwargs)
+        if 'pk' in self.kwargs:
+            try:
+              resident = Resident.objects.get(id=self.kwargs['pk'])
+              form.fields['resident'].initial = resident
+            except Resident.DoesNotExist:
+              pass        
+        return form
 
 class MedicationUpdate(PermissionRequiredMixin, generic.UpdateView):
     permission_required = 'cm_portal.change_medication'

@@ -55,9 +55,9 @@
 		  
 		<li class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Actions</a>
-			<div class="dropdown-menu">
+			<div class="dropdown-menu">			
 				<a class="dropdown-item" href="#">Create a medical abstract</a>
-				<a class="dropdown-item" href="#">Add new medication</a>      
+				<a class="dropdown-item" href="{% url 'medication-create' resident.id %}">Add new medication</a>      
 			</div>
 		</li>
 	</ul>  

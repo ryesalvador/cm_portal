@@ -1,4 +1,4 @@
-from django.urls import path, include, re_path
+from django.urls import path, include, re_path, reverse
 from . import views
 from django.contrib.auth.views import login, logout
 from .forms import LoginForm
@@ -54,6 +54,7 @@ urlpatterns += [
     path('geriatric/medications/', views.MedicationListView.as_view(), name='medications'),    
     path('geriatric/medication/<int:pk>/', views.MedicationDetailView.as_view(), name='medication-detail'),
     path('geriatric/medication/create/', views.MedicationCreate.as_view(), name='medication-create'),
+    path('geriatric/medication/create/<int:pk>', views.MedicationCreate.as_view(), name='medication-create'),
     path('geriatric/medication/<int:pk>/update/', views.MedicationUpdate.as_view(), name='medication-update'),
     path('geriatric/medication/<int:pk>/delete/', views.MedicationDelete.as_view(), name='medication-delete'),
 ]

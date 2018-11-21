@@ -329,6 +329,16 @@ class MedicalAbstractCreate(PermissionRequiredMixin, generic.CreateView):
     model = MedicalAbstract
     fields = '__all__'
 
+    def get_form(self, *args, **kwargs):
+        form = super(MedicalAbstractCreate, self).get_form(*args, **kwargs)
+        if 'pk' in self.kwargs:
+            try:
+              resident = Resident.objects.get(id=self.kwargs['pk'])
+              form.fields['resident'].initial = resident
+            except Resident.DoesNotExist:
+              pass        
+        return form
+
 class MedicalAbstractUpdate(PermissionRequiredMixin, generic.UpdateView):
     permission_required = 'cm_portal.change_medicalabstract'
     model = MedicalAbstract

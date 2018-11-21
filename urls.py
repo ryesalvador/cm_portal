@@ -44,6 +44,7 @@ urlpatterns += [
     path('geriatric/medical-abstracts/', views.MedicalAbstractListView.as_view(), name='medical-abstracts'),
     path('geriatric/medical-abstract/<int:pk>/', views.MedicalAbstractDetailView.as_view(), name='medical-abstract-detail'),
     path('geriatric/medical-abstract/create/', views.MedicalAbstractCreate.as_view(), name='medicalabstract-create'),
+    path('geriatric/medical-abstract/create/<int:pk>', views.MedicalAbstractCreate.as_view(), name='medicalabstract-create'),
     path('geriatric/medical-abstract/<int:pk>/update/', views.MedicalAbstractUpdate.as_view(), name='medicalabstract-update'),
     path('geriatric/medical-abstract/<int:pk>/delete/', views.MedicalAbstractDelete.as_view(), name='medicalabstract-delete'),
     path('geriatric/drugs/', views.DrugListView.as_view(), name='drugs'),

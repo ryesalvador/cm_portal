@@ -15,7 +15,7 @@
   {% if resident_list %}    
     <ul class="list-group">
       {% for resident in resident_list %}
-        {% include "cm_portal/resident_list_item.html" %}
+        {% include "cm_portal/resident_list_item.html" with discharged=True %}
       {% endfor %}
     </ul>
   {% else %}

@@ -37,7 +37,7 @@
   <div class="tab-pane fade" id="second">
     <ul class="list-group">
     {% for resident in second_floor %}        
-      {% include 'cm_portal/resident_list_item.html' %}        
+      {% include 'cm_portal/resident_list_item.html' with building=True %}        
     {% endfor%}
     </ul>
   </div>

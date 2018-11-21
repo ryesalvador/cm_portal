@@ -1,9 +1,9 @@
 {% if resident_list %}
-		<ul class="list-group">
+		<div class="list-group">
 			{% for resident in resident_list %}
-				{% include "cm_portal/resident_list_item.html" %}
+				{% include "cm_portal/resident_list_item.html" with building=True %}
 			{% endfor %}
-		</ul>
+		</div>
 		{% else %}
 			<p>There are no residents in the portal.</p>
 {% endif %}

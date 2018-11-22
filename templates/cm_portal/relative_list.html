@@ -7,11 +7,11 @@
 {% block content %}
   <div class="jumbotron">
   {% if relative_list %}    
-    <ul class="list-group">
+    <div class="list-group">
       {% for relative in relative_list %}
         {% include 'cm_portal/relative_list_item.html' %}
       {% endfor %}
-    </ul>    
+    </div>    
     {% else %}
       <p>There are no relatives in the portal.</p>  
   {% endif %} 

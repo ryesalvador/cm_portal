@@ -9,15 +9,15 @@
 {% block content %}
   <div class="jumbotron">
   {% if relationship_list %}    
-    <ul class="list-group">
-      {% for relationship in relationship_list %}
-        <li class="list-group-item">
-          <a href="{{ relationship.get_absolute_url }}">
-            {{ relationship }}       
-          </a>               
-        </li>
+    <div class="list-group">
+      {% for relationship in relationship_list %}        
+         <a href="{{ relationship.get_absolute_url }}" class="list-group-item list-group-item-action flex-column align-items-start">            
+				<div class="d-flex w-100 justify-content-between">
+				<h5 class="mb-1"><i class="fas fa-user-friends"></i> {{ relationship }}</h5>				
+				</div>       
+         </a>            
       {% endfor %}
-    </ul>
+    </div>
     {% else %}
       <p>There are no relationships in the portal.</p>  
   {% endif %}

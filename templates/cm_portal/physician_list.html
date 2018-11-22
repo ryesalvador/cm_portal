@@ -7,11 +7,11 @@
 {% block content %}
   <div class="jumbotron">
   {% if physician_list %}    
-    <ul class="list-group">
+    <div class="list-group">
       {% for physician in physician_list %}
         {% include 'cm_portal/physician_list_item.html' %}
       {% endfor %}
-    </ul>
+    </div>
     {% else %}
       <p>There are no physicians in the portal.</p>
   {% endif %}

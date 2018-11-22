@@ -1,11 +1,14 @@
-<li class="list-group-item">
-	{% if drug.brand_name %}
-		<h4 class="list-group-item-heading">{{ drug.brand_name }}</h4>
-	{% endif %}
-	<a href="{{ drug.get_absolute_url }}">
-		{{ drug.generic_name }} 
-		{% if drug.dosage %} - 
-			{{ drug.dosage }}            
-		{% endif %}        
-	</a>          
-</li>
+<a href="{{ drug.get_absolute_url }}" class="list-group-item list-group-item-action flex-column align-items-start">		
+  <div class="d-flex w-100 justify-content-between">
+    <h5 class="mb-1">{{ drug.generic_name }}</h5>
+    {% if drug.dosage %}
+	   <small class="text-muted">{{ drug.dosage }}</small>            
+	 {% endif %}      
+  </div>
+  {% if drug.brand_name %}
+    <p class="mb-1">{{ drug.brand_name }}</p>
+  {% endif %}
+  {% if drug.indication %}   
+    <small class="text-muted">{{ drug.indication }}</small>
+  {% endif %}       
+</a>

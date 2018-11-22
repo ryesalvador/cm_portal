@@ -1,26 +1,19 @@
 {% extends "cm_portal/geriatric_index.html" %}
 
-{% block title %}| List of Medical Abstracts{% endblock %}
+{% block title %}| List of Residents with Medical Abstracts{% endblock %}
 
-{% block page_title %}| List of Medical Abstracts{% endblock %}
+{% block page_title %}| List of Residents with Medical Abstracts{% endblock %}
 
 {% load static %}
 
 {% block content %}
   <div class="jumbotron">
   {% if medicalabstract_list %}    
-    <ul class="list-group">
-      {% for medicalabstract in medicalabstract_list %}
-        <li class="list-group-item">
-        <a href="{{ medicalabstract.get_absolute_url }}">
-            {{ medicalabstract.resident.last_name }}, {{ medicalabstract.resident.first_name }} 
-            {% if medicalabstract.resident.middle_name %}
-              {{ medicalabstract.resident.middle_name|first }}.            
-            {% endif %}        
-          </a>          
-        </li>
+    <div class="list-group">
+      {% for medicalabstract in medicalabstract_list %}      
+          {% include "cm_portal/resident_list_item.html" with resident=medicalabstract.resident building=True %}                     
       {% endfor %}
-    </ul>
+    </div>
     {% else %}
       <p>There are no medical abstracts in the portal.</p>  
   {% endif %}

@@ -1,8 +1,16 @@
-<li class="list-group-item">
-	<a href="{{ physician.get_absolute_url }}">
-		{{ physician.last_name }}, {{ physician.first_name }}         
+<a href="{{ physician.get_absolute_url }}" class="list-group-item list-group-item-action flex-column align-items-start">
+  <div class="d-flex w-100 justify-content-between">
+    <h5 class="mb-1"><i class="fas fa-user-md"></i> {{ physician.last_name }}, {{ physician.first_name }}         
 		{% if physician.middle_name %}
 			{{ physician.middle_name|first }}.            
-		{% endif %}
-	</a>               
-</li>
+		{% endif %}</h5>    
+  </div>
+  <p class="mb-1">{{ physician.specialty }}</p>
+  <small class="text-muted">{{ physician.telephone }}</small>	
+</a>              
+
+
+
+
+    
+    

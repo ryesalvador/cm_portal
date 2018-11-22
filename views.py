@@ -13,6 +13,7 @@ from django.apps import apps
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_control
 from string import ascii_lowercase
+from django.db.models.functions import Extract
 
 @login_required
 def search(request):    
@@ -90,8 +91,10 @@ class ResidentListView(PermissionRequiredMixin, generic.ListView):
     def filter_bldg(self, name, lst):
         return lst.filter(building=name)
     
-    def filter_bday(self, month, lst):
-        return lst.filter(birth_date__month=month)
+    def filter_bday(self, month, lst):      
+        return lst.annotate(birth_date_month = Extract('birth_date', 'month'),
+                            birth_date_day = Extract('birth_date', 'day')
+                            ).order_by('birth_date_month', 'birth_date_day').filter(birth_date__month=month)
 
     def filter_atoz(self, char, lst):
         return lst.filter(last_name__startswith=char)

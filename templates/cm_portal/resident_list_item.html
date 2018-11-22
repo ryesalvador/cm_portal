@@ -17,7 +17,9 @@
    <small class="text-muted">{{ resident.discharged_on }}</small>
  {% elif deceased %}
    <small class="text-muted">{{ resident.died_on }}</small>
+ {% elif admission %}
+   <small class="text-muted">{{ resident.admission_date }}</small>
  {% else %}   
-   <small class="text-muted">{{ resident.get_building_display }}</small>
+   <small class="text-muted">{{ resident.get_building_display }}</small> 
  {% endif %}
 </a>                  

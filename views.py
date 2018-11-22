@@ -124,6 +124,10 @@ class ResidentListView(PermissionRequiredMixin, generic.ListView):
                 for k, v in context.items():
                     context[k] = self.filter_atoz(v, self.queryset)
                 return context
+            elif sort == 'admission':                                
+                self.template_name = 'cm_portal/resident_list_by_admission.html'
+                context['resident_list'] = self.queryset.order_by('-admission_date')
+                return context
         elif 'reports' in self.request.GET:
             reports = self.request.GET['reports'].strip()
             if reports == 'maintenance':                

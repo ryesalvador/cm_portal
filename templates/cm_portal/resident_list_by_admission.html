@@ -1,0 +1,13 @@
+{% if resident_list %}
+		<div class="list-group">
+			{% for resident in resident_list %}
+				{% include "cm_portal/resident_list_item.html" with admission=True %}
+			{% endfor %}
+		</div>
+		{% else %}
+			<p>There are no residents in the portal.</p>
+{% endif %}
+<br>
+{% if is_paginated %}
+    {% include 'cm_portal/pagination.html' with id="#resident_list" %}
+{% endif %}

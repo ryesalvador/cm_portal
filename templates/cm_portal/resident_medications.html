@@ -7,7 +7,7 @@
 </tr>
 {% for meds in resident.medication_set.all %}            
 <tr>
-	<td><a href="{{ meds.get_absolute_url }}">{{ meds.medicine.generic_name }}
+	<td><a target="_blank" rel="noopener noreferrer" href="{{ meds.get_absolute_url }}">{{ meds.medicine.generic_name }}
 	{% if meds.medicine.brand_name %}({{ meds.medicine.brand_name }}){% endif %}</a>
 	</td>
 	<td>{{ meds.medicine.dosage }}</td>

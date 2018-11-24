@@ -6,14 +6,14 @@
 
 {% block content %}
 <div class="card border-warning mb-3" style="max-width: 20rem;">
-  <div class="card-header"><strong>Name:</strong>
+  <div class="card-header">
     <a href="{{ medication.resident.get_absolute_url }}">{{ medication.resident.last_name }}, {{ medication.resident.first_name }}
             {% if medication.resident.middle_name %}
               {{ medication.resident.middle_name|first }}.
             {% endif %}</a>
   </div>
   <div class="card-body">
-    <h4 class="card-title"><i class="fas fa-prescription"></i> 
+    <h4 class="card-title">
       <a href="{{ medication.medicine.get_absolute_url }}">{{ medication.medicine }}</a>
     </h4>
     <p><strong>Frequency: </strong>{{ medication.frequency }}</p>

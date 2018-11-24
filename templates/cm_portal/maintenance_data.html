@@ -2,7 +2,7 @@
     <tr>
       {% if forloop.first %}
         <td rowspan="{{ meds.resident.medication_set.count }}">
-        <a href="{{ meds.resident.get_absolute_url }}">{{ meds.resident }}</a><br>{{ meds.resident.osca_id }}</td>
+        <a target="_blank" rel="noopener noreferrer" href="{{ meds.resident.get_absolute_url }}">{{ meds.resident }}</a><br>{{ meds.resident.osca_id }}</td>
         <td>{{ meds.medicine.generic_name }}
         {% if meds.medicine.brand_name %}({{ meds.medicine.brand_name }}){% endif %}
         </td>

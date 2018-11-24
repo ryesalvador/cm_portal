@@ -55,13 +55,13 @@
 		  
 		<li class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Actions</a>
-			<div class="dropdown-menu">		
+			<div class="dropdown-menu">
+			  <a class="dropdown-item" href="{% url 'medication-create' resident.id %}">Add new medication</a>		
 			  {% if resident.medicalabstract %}
 			    <a class="dropdown-item disabled" href="#">Create a medical abstract</a>			    
 			  {% else %}
 			    <a class="dropdown-item" href="{% url 'medicalabstract-create' resident.id %}">Create a medical abstract</a> 
-			  {% endif %}					
-			  <a class="dropdown-item" href="{% url 'medication-create' resident.id %}">Add new medication</a>      
+			  {% endif %}		
 			</div>
 		</li>
 	</ul>  

@@ -1,9 +1,10 @@
-<tr>      
+<tr>          
     <th scope="col">Medicine</th>
     <th scope="col">Dosage</th>
     <th scope="col">Frequency</th>
     <th scope="col">Quantity</th>
-    <th scope="col">Due</th>    
+    <th scope="col">Due</th>
+    <th scope="col">Last Modified</th>    
 </tr>
 {% for meds in resident.medication_set.all %}            
 <tr>
@@ -14,5 +15,6 @@
 	<td>{{ meds.frequency }}</td>
 	<td>{% if meds.quantity %}<span class="badge badge-primary badge-pill">{{ meds.quantity }}</span>{% endif %}</td>    
 	<td>{% if meds.due %}{{ meds.due }}{% endif %}</td>
+	<td>{{ meds.last_modified }}</td>
 </tr>              
 {% endfor %}

@@ -33,12 +33,13 @@
   </nav>
 
   <div class="container-fluid">
-    <div class="row">
+    <div class="row content">
       <div class="col-sm-2">
-        <ul class="sidebar-nav">
-          <a href="{% url 'index' %}">
+        <br>
+        <a href="{% url 'index' %}">
             <img src="{% static 'images/21.jpg' %}" alt="Camillus MedHaven Logo" width = "100" height = "150">
-          </a>
+        </a>
+        <ul class="nav nav-pills flex-column">          
           {% block sidebar %}{% endblock %}
         </ul>
       </div>

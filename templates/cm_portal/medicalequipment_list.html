@@ -12,6 +12,16 @@
   </form>        
 {% endblock %} -->
 
+{% block sidebar %}
+  <p></p>
+  {% if user.is_authenticated %}
+    {% include 'cm_portal/user.html' %}
+  {% endif %}  
+  <li class="nav-item"><a class="nav-link" href="{% url 'items' %}">All items</a></li>  
+  <li class="nav-item"><a class="nav-link" href="{% url 'medical-supplies' %}">All medical supplies</a></li>  
+  <li class="nav-item"><a class="nav-link active" href="{% url 'medical-equipments' %}">All medical equipment</a></li>    
+{% endblock %}
+
 {% block content %}
   <div class="jumbotron">
   {% if medicalequipment_list %}    

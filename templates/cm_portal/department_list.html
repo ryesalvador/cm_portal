@@ -4,6 +4,16 @@
 
 {% block page_title %}| List of Positions{% endblock %}
 
+{% block sidebar %}
+  <p></p>
+  {% if user.is_authenticated %}
+    {% include 'cm_portal/user.html' %}
+  {% endif %}  
+  <li class="nav-item"><a class="nav-link" href="{% url 'employees' %}">All employees</a></li>
+  <li class="nav-item"><a class="nav-link" href="{% url 'positions' %}">All positions</a></li>
+  <li class="nav-item"><a class="nav-link active" href="{% url 'departments' %}">All departments</a></li>  
+{% endblock %}
+
 {% block content %}
   <div class="jumbotron">
   {% if department_list %}    

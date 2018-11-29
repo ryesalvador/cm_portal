@@ -1,4 +1,4 @@
-<table class="table table-sm table-hover">
+<div class="table-responsive"><table class="table table-sm table-hover">
     {% if resident.vital_status == 'DE' and resident.died_on %}
     <tr>
       <td><strong class="text-danger">Died on: </strong>{{ resident.died_on }}</td>    
@@ -68,7 +68,7 @@
       </tr>
     {% endfor%}
   </table>
-  {% endif %}
+  {% endif %}</div>
   
   {% if perms.cm_portal.change_resident and perms.cm_portal.delete_resident %}
     <a class="btn btn-primary" href="{% url 'resident-update' resident.id %}" role="button">Edit</a>  

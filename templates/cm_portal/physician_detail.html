@@ -9,13 +9,13 @@
       {{ physician.middle_name|first }}.            
     {% endif %}  
     {{ physician.last_name }}, MD</h2>
-  <table class="table table-hover">    
+  <div class="table-responsive"><table class="table table-hover">    
     <tr><td><strong>Surname: </strong>{{ physician.last_name }}</td></tr>
     <tr><td><strong>First Name: </strong>{{ physician.first_name }}</td></tr>
     <tr><td><strong>Middle Name: </strong>{{ physician.middle_name }}</td></tr>
-  </table>  
+  </table></div>  
   <div style="margin-left:20px;margin-top:20px">
-    <table class="table table-hover">
+    <div class="table-responsive"><table class="table table-hover">
         <thead>
           <tr>
             <th><strong>Contact #</strong></th>
@@ -28,7 +28,7 @@
             <td>{{ physician.hospital_of_choice }}</td>      
           </tr>
         </tbody>    
-    </table>
+    </table></div>
   </div>
   {% if perms.cm_portal.change_physician and perms.cm_portal.delete_physician %}
     <a class="btn btn-primary" href="{% url 'physician-update' physician.id %}" role="button">Edit</a>  

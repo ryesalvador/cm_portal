@@ -22,7 +22,7 @@
     </div>
   </div>
     
-  <table class="table table-hover">
+  <div class="table-responsive"><table class="table table-hover">
     <tr>
       <td><strong>Remarks: </strong>{{ employee.remarks }}</td>
       <td><strong>Basic Salary: </strong>{{ employee.basic_salary }}</td>    
@@ -66,11 +66,11 @@
       {% endfor %}
       <td><strong>TIN: </strong>{{ employee.tin }}</td>            
     </tr>    
-  </table>
+  </table></div>
   {% if employee.employmentstatus_set.all %}
   <div style="margin-left:20px;margin-top:20px">
     <h4>Contract(s)</h4>
-    <table class="table table-hover">
+    <div class="table-responsive"><table class="table table-hover">
     
       {% for contract in employee.employmentstatus_set.all %}
       <tr>
@@ -87,7 +87,7 @@
       </tr>      
       {% endfor %}  
     
-    </table>  
+    </table></div>  
   </div>
   {% endif%}
   {% if perms.cm_portal.change_employee and perms.cm_portal.delete_employee %}

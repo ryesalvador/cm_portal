@@ -5,14 +5,14 @@
 {% block page_title %}| Medical Supply{% endblock %}
 {% block content %}  
   <h2>Name: {{ medicalsupply }}</h2>
-  <table class="table table-hover">
+  <div class="table-responsive"><table class="table table-hover">
     <tr><td><strong>Item name: </strong>{{ medicalsupply.item.item_name }}</td></tr>    
     <tr><td><strong>Brand name: </strong>{{ medicalsupply.item.brand_name }}</td></tr>
     <tr><td><strong>Date acquired: </strong>{{ medicalsupply.date_acquired }}</td></tr>
     <tr><td><strong>Expiration date: </strong>{{ medicalsupply.expiration_date }}</td></tr>
     <tr><td><strong>Stocks available: </strong>{{ medicalsupply.stocks_available }}
     {% if medicalsupply.unit_of_measure %}{{ medicalsupply.unit_of_measure }}{% endif %}</td></tr> 
-  </table>  
+  </table></div>  
   {% if perms.cm_portal.change_medicalsupply and perms.cm_portal.delete_medicalsupply %} 
     <a class="btn btn-primary" href="{% url 'medicalsupply-update' medicalsupply.id %}" role="button">Edit</a>  
     <a class="btn btn-danger" href="{% url 'medicalsupply-delete' medicalsupply.id %}" role="button">Delete</a>

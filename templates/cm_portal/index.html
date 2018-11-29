@@ -12,12 +12,12 @@
     <p></p>
     {% if user.is_authenticated %}
       {% include 'cm_portal/user.html' %}
-      <li class="nav-item"><a class="nav-link" href="{% url 'logout'%}">Logout</a></li> 
-    {% endif %}
-    <hr>
-    <li class="nav-item"><a class="nav-link" href="#">Profile</a></li>  
-    <li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
-    <li class="nav-item"><a class="nav-link" href="#">Change password</a></li>    
+      <li class="nav-item"><a class="nav-link" href="{% url 'logout'%}">Logout</a></li>
+      <hr>
+      <li class="nav-item"><a class="nav-link" href="#">Profile</a></li>  
+      <li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">Change password</a></li>  
+    {% endif %}       
 {% endblock %}
      
 {% block page_title %}| Home{% endblock %}

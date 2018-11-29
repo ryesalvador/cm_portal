@@ -16,15 +16,23 @@
     <li class="nav-item"><a class="nav-link" href="{% url 'physicians' %}">All physicians</a></li>
     <li class="nav-item"><a class="nav-link" href="{% url 'medical-abstracts' %}" >All medical abstracts</a></li>    
     <li class="nav-item"><a class="nav-link" href="{% url 'drugs' %}">All drugs</a></li>            
-    <hr>
-    <li class="nav-item"><strong>Archive</strong></li>
-    <li class="nav-item"><a class="nav-link" href="{% url 'residents-deceased' %}">Deceased residents</a></li>
-    <li class="nav-item"><a class="nav-link" href="{% url 'residents-discharged' %}">Discharged residents</a></li>
-    <hr>
-    <li class="nav-item"><strong>Reports</strong></li>    
-    <li class="nav-item"><a class="nav-link" href="{% url 'residents' %}?reports=maintenance">Inventory of Medicines</a></li>
-    <li class="nav-item"><a class="nav-link active" href="{% url 'residents' %}?reports=osca">OSCA Numbers</a></li>
-    <li class="nav-item"><a class="nav-link" href="#">Spiritual Profile</a></li>
+    <hr>    
+    <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Archive</a>
+      <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 39px, 0px);">
+	      <a class="dropdown-item" href="{% url 'residents-deceased' %}">Deceased residents</a>
+	      <a class="dropdown-item" href="{% url 'residents-discharged' %}">Discharged residents</a>
+	    </div>
+    </li>
+    <hr>        
+    <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Reports</a>
+      <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 39px, 0px);">
+		    <a class="dropdown-item" href="{% url 'residents' %}?reports=maintenance">Inventory of Medicines</a>
+		    <a class="dropdown-item active" href="{% url 'residents' %}?reports=osca">OSCA Numbers</a>
+		    <a class="dropdown-item" href="#">Spiritual Profile</a>
+	    </div>
+    </li>
 {% endblock %}
 
 {% block content %}

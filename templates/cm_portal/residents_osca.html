@@ -1,90 +1,104 @@
-{% extends "cm_portal/geriatric_index.html" %}
+{% extends "cm_portal/residents.html" %}
 
-{% block title %}| Residents OSCA Numbers{% endblock %}
+{% block title %}| OSCA Numbers{% endblock %}
 
-{% block page_title %}| Residents OSCA Numbers{% endblock %}
+{% block page_title %}| OSCA Numbers{% endblock %}
 
 {% load static %}
 
+{% block sidebar %}
+    <p></p>
+    {% if user.is_authenticated %}
+      {% include 'cm_portal/user.html' %}
+    {% endif %}    
+    <li class="nav-item"><a class="nav-link" href="{% url 'residents' %}">All residents</a></li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'relatives' %}">All relatives</a></li>    
+    <li class="nav-item"><a class="nav-link" href="{% url 'physicians' %}">All physicians</a></li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'medical-abstracts' %}" >All medical abstracts</a></li>    
+    <li class="nav-item"><a class="nav-link" href="{% url 'drugs' %}">All drugs</a></li>            
+    <hr>    
+    <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Archive</a>
+      <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 39px, 0px);">
+	      <a class="dropdown-item" href="{% url 'residents-deceased' %}">Deceased residents</a>
+	      <a class="dropdown-item" href="{% url 'residents-discharged' %}">Discharged residents</a>
+	    </div>
+    </li>
+    <hr>        
+    <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Reports</a>
+      <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 39px, 0px);">
+		    <a class="dropdown-item" href="{% url 'residents' %}?reports=maintenance">Inventory of Medicines</a>
+		    <a class="dropdown-item active" href="{% url 'residents' %}?reports=osca">OSCA Numbers</a>
+		    <a class="dropdown-item" href="#">Spiritual Profile</a>
+	    </div>
+    </li>
+{% endblock %}
+
 {% block content %}
-{% if male_first_floor %}
-<table class="table table-sm table-hover">
-  <thead><h4>St. Camillus Bldg. 1st floor (Male)</h4></thead>  
-  {% include "cm_portal/maintenance_th.html" %}
-  {% for resident in male_first_floor %}
-    {% include "cm_portal/maintenance_data.html" %}
-  {% endfor %}
-</table>
-{% endif %}
-
-{% if female_first_floor %}
-<table class="table table-sm table-hover">
-  <thead><h4>St. Camillus Bldg. 1st floor (Female)</h4></thead>
-  {% include "cm_portal/maintenance_th.html" %}  
-  {% for resident in female_first_floor %}
-    {% include "cm_portal/maintenance_data.html" %}
-  {% endfor %}
-</table>
-{% endif %}
-
-{% if male_second_floor %}
-<table class="table table-sm table-hover">
-  <thead><h4>St. Camillus Bldg. 2nd floor (Male)</h4></thead>
-  {% include "cm_portal/maintenance_th.html" %}  
-  {% for resident in male_second_floor %}
-    {% include "cm_portal/maintenance_data.html" %}
-  {% endfor %}
-</table>
-{% endif %}
-
-{% if female_second_floor %}
-<table class="table table-sm table-hover">
-  <thead><h4>St. Camillus Bldg. 2nd floor (Female)</h4></thead>
-  {% include "cm_portal/maintenance_th.html" %}  
-  {% for resident in female_second_floor %}
-    {% include "cm_portal/maintenance_data.html" %}
-  {% endfor %}
-</table>
-{% endif %}
-
-{% if male_luigi_tezza %}
-<table class="table table-sm table-hover">
-  <thead><h4>Blessed Luigi Tezza (Male)</h4></thead>
-  {% include "cm_portal/maintenance_th.html" %}  
-  {% for resident in male_luigi_tezza %}
-    {% include "cm_portal/maintenance_data.html" %}
-  {% endfor %}
-</table>
-{% endif %}
-
-{% if female_luigi_tezza %}
-<table class="table table-sm table-hover">
-  <thead><h4>Blessed Luigi Tezza (Female)</h4></thead>
-  {% include "cm_portal/maintenance_th.html" %}  
-  {% for resident in female_luigi_tezza %}
-    {% include "cm_portal/maintenance_data.html" %}
-  {% endfor %}
-</table>
-{% endif %}
-
-{% if male_rebuschini %}
-<table class="table table-sm table-hover">
-  <thead><h4>Blessed Enrico Rebuschini (Male)</h4></thead>
-  {% include "cm_portal/maintenance_th.html" %}  
-  {% for resident in male_rebuschini %}
-    {% include "cm_portal/maintenance_data.html" %}
-  {% endfor %}
-</table>
-{% endif %}
-
-{% if female_rebuschini %}
-<table class="table table-sm table-hover">
-  <thead><h4>Blessed Enrico Rebuschini (Female)</h4></thead>
-  {% include "cm_portal/maintenance_th.html" %}  
-  {% for resident in female_rebuschini %}
-    {% include "cm_portal/maintenance_data.html" %}
-  {% endfor %}
-</table>
-{% endif %}
-
+<button type="button" class="btn btn-outline-info btn-sm">Get printable version</button>
+<p></p>
+   {% if first_floor %}
+	<table class="table table-sm table-hover">
+	  <thead><h4>St. Camillus Bldg. 1st floor</h4></thead>  
+	  <tr>        
+       <th scope="col">Resident</th>
+       <th scope="col">OSCA #</th>    
+     </tr>
+	  {% for resident in first_floor %}
+	  <tr>
+	    <td>{{ resident }}</td>
+	    <td>{{ resident.osca_id }}</td>
+	  </tr>
+	  {% endfor %}
+	</table>
+	{% endif %}
+		
+	{% if second_floor %}
+	<table class="table table-sm table-hover">
+	  <thead><h4>St. Camillus Bldg. 2nd floor</h4></thead>
+	  <tr>        
+       <th scope="col">Resident</th>
+       <th scope="col">OSCA #</th>    
+     </tr>
+	  {% for resident in second_floor %}
+	  <tr>
+	    <td>{{ resident }}</td>
+	    <td>{{ resident.osca_id }}</td>
+	  </tr>
+	  {% endfor %}
+	</table>
+	{% endif %}
+		
+	{% if tezza %}
+	<table class="table table-sm table-hover">
+	  <thead><h4>Blessed Luigi Tezza</h4></thead>
+	  <tr>        
+       <th scope="col">Resident</th>
+       <th scope="col">OSCA #</th>    
+     </tr>
+	  {% for resident in tezza %}
+	  <tr>
+	    <td>{{ resident }}</td>
+	    <td>{{ resident.osca_id }}</td>
+	  </tr>
+	  {% endfor %}
+	</table>
+	{% endif %}
+		
+	{% if rebuschini %}
+	<table class="table table-sm table-hover">
+	  <thead><h4>Blessed Enrico Rebuschini</h4></thead>
+	  <tr>        
+       <th scope="col">Resident</th>
+       <th scope="col">OSCA #</th>    
+     </tr>
+	  {% for resident in rebuschini %}
+	  <tr>
+	    <td>{{ resident }}</td>
+	    <td>{{ resident.osca_id }}</td>
+	  </tr>
+	  {% endfor %}
+	</table>
+	{% endif %}	
 {% endblock %}

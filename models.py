@@ -185,25 +185,14 @@ class MedicalAbstract(models.Model):
     def get_absolute_url(self):
         return reverse('medical-abstract-detail', args=[str(self.id)])
     
-class Relationship(models.Model):
-    related_to = models.ForeignKey('Resident', on_delete=models.CASCADE, null=True)
-    relation = models.CharField(max_length=35, blank=True)
-
-    def __str__(self):
-        return u'{} of {} {}'.format(self.relation.capitalize(),
-                                     self.related_to.first_name.capitalize(),
-                                     self.related_to.last_name.capitalize())
-
-    def get_absolute_url(self):
-        return reverse('relationship-detail', args=[str(self.id)])
-
 #Nursing Home Database Models
 class Relative(models.Model):
+    related_to = models.ForeignKey('Resident', on_delete=models.CASCADE, null=True)
+    relation_to_resident = models.CharField(max_length=35, blank=True)
     first_name = models.CharField(max_length=35)
     middle_name = models.CharField(max_length=35, blank=True)
     last_name = models.CharField(max_length=35)
-    address = models.TextField(max_length=175, blank=True)
-    relationship = models.ForeignKey('Relationship', on_delete=models.SET_NULL, null=True)
+    address = models.TextField(max_length=175, blank=True)    
     telephone = models.CharField(max_length=75, blank=True)
 
     class Meta:

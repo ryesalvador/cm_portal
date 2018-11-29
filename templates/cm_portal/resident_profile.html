@@ -50,16 +50,14 @@
       <td><strong>Religion: </strong>{{ resident.religion }}</td>    
     </tr>
   </table>  
-  {% if resident.relationship_set.all or resident.physicians.all %}
+  {% if resident.relative_set.all or resident.physicians.all %}
   <table class="table table-hover">
     <thead><h4>Contact Person(s)</h4></thead>
-    {% for relationship in resident.relationship_set.all %}
-      {% for relative in relationship.relative_set.all %}
-        <tr><td><strong>Name: </strong>
-        <a href="{% url 'relative-detail' relative.pk %}" >{{relative.first_name}} {{relative.middle_name }} {{ relative.last_name }}</a></td>
-        <td><strong>Relation: </strong>{{ relationship.relation }}</td>
-        <td><strong>Telephone #: </strong>{{ relative.telephone }}</td></tr>
-      {% endfor %}
+    {% for relative in resident.relative_set.all %}      
+			<tr><td><strong>Name: </strong>
+			<a href="{% url 'relative-detail' relative.pk %}" >{{relative.first_name}} {{relative.middle_name }} {{ relative.last_name }}</a></td>
+			<td><strong>Relation: </strong>{{ relative.relation_to_resident }}</td>
+			<td><strong>Telephone #: </strong>{{ relative.telephone }}</td></tr>      
     {% endfor %}  
     {% for physician in resident.physicians.all %}
       <tr>

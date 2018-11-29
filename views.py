@@ -1,6 +1,5 @@
 from django.shortcuts import render
-from .models import Resident, Physician, Relative, Relationship, \
-     Employee, Position, Department, \
+from .models import Resident, Physician, Relative, Employee, Position, Department, \
      MedicalAbstract, Drug, Medication, Item, MedicalSupply, MedicalEquipment
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
@@ -220,31 +219,6 @@ class RelativeDelete(PermissionRequiredMixin, generic.DeleteView):
     permission_required = 'cm_portal.delete_relative'
     model = Relative
     success_url = reverse_lazy('relatives')
-
-class RelationshipListView(PermissionRequiredMixin, generic.ListView):
-    permission_required = 'cm_portal.can_view_nursing_home'
-    model = Relationship
-    paginate_by = 10
-
-class RelationshipDetailView(PermissionRequiredMixin, generic.DetailView):
-    permission_required = 'cm_portal.can_view_nursing_home'
-    model = Relationship
-
-class RelationshipCreate(PermissionRequiredMixin, generic.CreateView):
-    permission_required = 'cm_portal.add_relationship'
-    model = Relationship
-    fields = '__all__'
-
-class RelationshipUpdate(PermissionRequiredMixin, generic.UpdateView):
-    permission_required = 'cm_portal.change_relationship'
-    model = Relationship
-    fields = '__all__'
-    template_name_suffix = '_update_form'
-
-class RelationshipDelete(PermissionRequiredMixin, generic.DeleteView):
-    permission_required = 'cm_portal.delete_relationship'
-    model = Relationship
-    success_url = reverse_lazy('relationship')
 
 @method_decorator(cache_control(private=True), name='dispatch')
 class EmployeeListView(PermissionRequiredMixin, generic.ListView):

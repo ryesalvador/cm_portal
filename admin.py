@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import Relative, Physician, Resident, Relationship, \
-     PerformanceAppraisal, EmploymentStatus, Employee, Position, Department, \
-     MedicalAbstract, Drug, Medication, Item, MedicalSupply, MedicalEquipment
+from .models import Relative, Physician, Resident, PerformanceAppraisal, \
+     EmploymentStatus, Employee, Position, Department, MedicalAbstract, \
+     Drug, Medication, Item, MedicalSupply, MedicalEquipment
 
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
@@ -27,13 +27,9 @@ class MedicationAdmin(admin.ModelAdmin):
 class MedicalAbstractAdmin(admin.ModelAdmin):
     pass
 
-@admin.register(Relationship)
-class RelationshipAdmin(admin.ModelAdmin):
-    pass
-
 @admin.register(Relative)
 class RelativeAdmin(admin.ModelAdmin):
-    list_display = ('last_name', 'first_name', 'relationship', 'telephone')
+    list_display = ('last_name', 'first_name', 'telephone')
     search_fields = ('first_name', 'last_name')
     
 @admin.register(Physician)

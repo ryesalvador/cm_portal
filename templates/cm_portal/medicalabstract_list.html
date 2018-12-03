@@ -46,7 +46,10 @@
     {% else %}
       <p>There are no medical abstracts in the portal.</p>  
   {% endif %}
-  <br>  
+  <br> 
+  {% if is_paginated %}
+    {% include 'cm_portal/pagination.html' %}
+  {% endif %} 
   {% if perms.cm_portal.add_medicalabstract %}
     <a class="btn btn-primary" href="{% url 'medicalabstract-create' %}" role="button">Add a medical abstract</a>
   {% else %}

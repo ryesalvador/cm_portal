@@ -39,6 +39,9 @@
       <p>There are no items in the portal.</p>  
   {% endif %}  
   <br>
+  {% if is_paginated %}
+    {% include 'cm_portal/pagination.html' %}
+  {% endif %}
   {% if perms.cm_portal.add_item %}
     <a class="btn btn-primary" href="{% url 'item-create' %}" role="button">Add item</a>
   {% else %} 

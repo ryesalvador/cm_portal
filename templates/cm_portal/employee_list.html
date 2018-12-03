@@ -46,6 +46,9 @@
       <p>There are no employees in the portal.</p>  
   {% endif %}  
   <br>
+  {% if is_paginated %}
+    {% include 'cm_portal/pagination.html' %}
+  {% endif %}
   {% if perms.cm_portal.add_employee %}  
     <a class="btn btn-primary" href="{% url 'employee-create' %}" role="button">Add an employee</a>
   {% else %}

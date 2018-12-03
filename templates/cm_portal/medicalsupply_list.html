@@ -40,7 +40,10 @@
     {% else %}
       <p>There are no medical supplies in the portal.</p>  
   {% endif %}
-  <br>  
+  <br> 
+  {% if is_paginated %}
+    {% include 'cm_portal/pagination.html' %}
+  {% endif %} 
   {% if perms.cm_portal.add_medicalsupply %}
     <a class="btn btn-primary" href="{% url 'medicalsupply-create' %}" role="button">Add a medical supply</a>
   {% else %} 

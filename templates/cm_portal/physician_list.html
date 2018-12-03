@@ -45,6 +45,9 @@
       <p>There are no physicians in the portal.</p>
   {% endif %}
   <br> 
+  {% if is_paginated %}
+    {% include 'cm_portal/pagination.html' %}
+  {% endif %}
   {% if perms.cm_portal.add_physician %} 
     <a class="btn btn-primary" href="{% url 'physician-create' %}" role="button">Add a physician</a>
   {% else %}

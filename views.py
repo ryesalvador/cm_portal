@@ -147,8 +147,8 @@ class ResidentListView(PermissionRequiredMixin, generic.ListView):
                 for k, v in context.items():
                     context[k] = self.filter_bldg(v, self.queryset)
                 return context
-        elif 'page' in self.request.GET:            
-            self.template_name = 'cm_portal/resident_list.html'                    
+        #elif 'page' in self.request.GET:            
+        #    self.template_name = 'cm_portal/resident_list.html'                    
         return context                
     
 @method_decorator(cache_control(private=True), name='dispatch')

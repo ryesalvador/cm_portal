@@ -45,6 +45,9 @@
       <p>There are no relatives in the portal.</p>  
   {% endif %} 
   <br>
+  {% if is_paginated %}
+    {% include 'cm_portal/pagination.html' %}
+  {% endif %}
   {% if perms.cm_portal.add_relative %} 
     <a class="btn btn-primary" href="{% url 'relative-create' %}" role="button">Add a relative</a>
   {% else %}

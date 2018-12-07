@@ -1,9 +1,12 @@
 <a href="{{ drug.get_absolute_url }}" class="list-group-item list-group-item-action flex-column align-items-start">		
   <div class="d-flex w-100 justify-content-between">
-    <h5 class="mb-1">{{ drug.generic_name }}</h5>
+    <h5 class="mb-1">{{ drug.generic_name }}
     {% if drug.dosage %}
-	   <small class="text-muted">{{ drug.dosage }}</small>            
-	 {% endif %}      
+      {{ drug.dosage }}
+    {% endif %}</h5>    
+	   <small class="text-muted">{{ drug.medication_set.count }} 
+	     resident{{ drug.medication_set.count|pluralize }}
+	     {{ drug.medication_set.count|pluralize:"is,are" }} taking this</small>          
   </div>
   {% if drug.brand_name %}
     <p class="mb-1">{{ drug.brand_name }}</p>

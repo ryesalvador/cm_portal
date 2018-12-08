@@ -1,0 +1,19 @@
+<li class="nav-item dropdown show active d-block d-sm-none">
+  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">Geriatric</a>
+  <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 39px, 0px); top: 0px; left: 0px; will-change: transform;">      
+	  <a class="dropdown-item" href="{% url 'residents' %}">All residents</a>
+	  <a class="dropdown-item" href="{% url 'relatives' %}">All relatives</a>
+	  <a class="dropdown-item" href="{% url 'physicians' %}">All physicians</a>
+	  <a class="dropdown-item" href="{% url 'medical-abstracts' %}">All medical abstracts</a>
+	  <a class="dropdown-item" href="{% url 'drugs' %}">All drugs</a>
+	  <div class="dropdown-divider"></div>
+	  <a class="dropdown-item disabled" href="#"><strong>Archive</strong></a>
+	  <a class="dropdown-item" href="{% url 'residents-deceased' %}">Deceased residents</a>
+	  <a class="dropdown-item" href="{% url 'residents-discharged' %}">Discharged residents</a>
+	  <div class="dropdown-divider"></div>
+	  <a class="dropdown-item disabled" href="#"><strong>Reports</strong></a>
+	  <a class="dropdown-item" href="{% url 'residents' %}?reports=maintenance">Inventory of medicines</a>
+	  <a class="dropdown-item" href="{% url 'residents' %}?reports=osca">OSCA numbers</a>
+	  <a class="dropdown-item" href="#">Spiritual profile</a>
+  </div>
+</li>

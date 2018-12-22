@@ -38,7 +38,7 @@
 {% endblock %} 
 
 {% block content %}
-<div class="jumbotron">
+
   <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
 	 <button type="button" class="btn btn-info">Sort By:</button>
 	 <div class="btn-group" role="group">
@@ -61,5 +61,5 @@
   {% else %}
           <a class="btn btn-primary disabled" href="{% url 'resident-create' %}" role="button">Add a resident</a>
   {% endif %}
-</div>
+
 {% endblock %}

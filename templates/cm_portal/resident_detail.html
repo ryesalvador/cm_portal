@@ -6,7 +6,8 @@
 
 {% load static %}
 
-{% block content %}  
+{% block content %}
+<div class="jumbotron"> 
   {% if resident.vital_status != 'LI' %}
   <h2><strong class="{% if resident.vital_status == 'DE' %}text-danger{% elif resident.vital_status == 'DC' %}text-warning{% endif %}">
   {{ resident.get_vital_status_display|upper }}  
@@ -77,4 +78,5 @@
 			{% include 'cm_portal/resident_medical_abstract.html' %}
 		</div>
 	</div>
+</div>
 {% endblock %}

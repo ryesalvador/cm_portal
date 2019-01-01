@@ -33,8 +33,7 @@
     </li>
 {% endblock %}
 
-{% block content %}
-  <div class="jumbotron">
+{% block content %}  
   {% if physician_list %}    
     <div class="list-group">
       {% for physician in physician_list %}
@@ -52,6 +51,5 @@
     <a class="btn btn-primary" href="{% url 'physician-create' %}" role="button">Add a physician</a>
   {% else %}
     <a class="btn btn-primary disabled" href="{% url 'physician-create' %}" role="button">Add a physician</a>
-  {% endif %}
-  </div>
+  {% endif %}  
 {% endblock %}

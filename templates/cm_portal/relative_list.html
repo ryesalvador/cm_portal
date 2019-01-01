@@ -33,8 +33,7 @@
     </li>
 {% endblock %}
 
-{% block content %}
-  <div class="jumbotron">
+{% block content %}  
   {% if relative_list %}    
     <div class="list-group">
       {% for relative in relative_list %}
@@ -52,6 +51,5 @@
     <a class="btn btn-primary" href="{% url 'relative-create' %}" role="button">Add a relative</a>
   {% else %}
     <a class="btn btn-primary disabled" href="{% url 'relative-create' %}" role="button">Add a relative</a>
-  {% endif %}
-  </div>  
+  {% endif %}  
 {% endblock %}

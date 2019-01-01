@@ -36,7 +36,7 @@
 {% endblock %}
 
 {% block content %}
-{% if male_first_floor %}
+<div class="jumbotron">{% if male_first_floor %}
 <button type="button" class="btn btn-outline-info btn-sm">Get printable version</button>
 <p></p>
 <div class="table-responsive"><table class="table table-sm table-hover">
@@ -116,6 +116,5 @@
     {% include "cm_portal/maintenance_data.html" %}
   {% endfor %}
 </table></div>
-{% endif %}
-
+{% endif %}</div>
 {% endblock %}

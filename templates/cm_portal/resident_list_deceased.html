@@ -39,8 +39,7 @@
     </li>
 {% endblock %}
 
-{% block content %}
-  <div class="jumbotron">
+{% block content %}  
   {% if resident_list %}    
     <ul class="list-group">
       {% for resident in resident_list %}
@@ -49,6 +48,5 @@
     </ul>
   {% else %}
       <p>There are no deceased residents in the portal.</p>  
-  {% endif %}
-  </div>
+  {% endif %}  
 {% endblock %}

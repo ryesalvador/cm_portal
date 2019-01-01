@@ -36,7 +36,7 @@
 {% endblock %}
 
 {% block content %}
-<button type="button" class="btn btn-outline-info btn-sm">Get printable version</button>
+<div class="jumbotron"><button type="button" class="btn btn-outline-info btn-sm">Get printable version</button>
 <p></p>
    {% if first_floor %}
 	<table class="table table-sm table-hover">
@@ -100,5 +100,5 @@
 	  </tr>
 	  {% endfor %}
 	</table>
-	{% endif %}	
+	{% endif %}</div>	
 {% endblock %}

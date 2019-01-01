@@ -35,8 +35,7 @@
     </li>
 {% endblock %}
 
-{% block content %}
-  <div class="jumbotron">
+{% block content %}  
   {% if medicalabstract_list %}    
     <div class="list-group">
       {% for medicalabstract in medicalabstract_list %}      
@@ -54,6 +53,5 @@
     <a class="btn btn-primary" href="{% url 'medicalabstract-create' %}" role="button">Add a medical abstract</a>
   {% else %}
     <a class="btn btn-primary disabled" href="{% url 'medicalabstract-create' %}" role="button">Add a medical abstract</a>
-  {% endif %} 
-  </div>
+  {% endif %}  
 {% endblock %}

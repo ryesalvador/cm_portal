@@ -4,7 +4,7 @@
 
 {% block page_title %}| Physician Profile{% endblock %}
 {% block content %}  
-  <h2>Name: {{ physician.first_name }}
+  <div class="jumbotron"><h2>Name: {{ physician.first_name }}
     {% if physician.middle_name %}
       {{ physician.middle_name|first }}.            
     {% endif %}  
@@ -39,5 +39,5 @@
   {% else %}
     <a class="btn btn-primary disabled" href="{% url 'physician-update' physician.id %}" role="button">Edit</a>  
     <a class="btn btn-danger disabled" href="{% url 'physician-delete' physician.id %}" role="button">Delete</a>
-  {% endif %}
+  {% endif %}</div>
 {% endblock %}

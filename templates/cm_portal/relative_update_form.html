@@ -6,7 +6,7 @@
 
 {% block content %}
 
-<form method="post" enctype="multipart/form-data">
+<div class="jumbotron"><form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="table-responsive"><table class="table table-hover">
       {% for field in form %}      
@@ -17,5 +17,5 @@
       {% endfor %}
     </table></div>
     <input class="btn btn-success" type="submit" value="Update" />    
-</form>
+</form></div>
 {% endblock %}

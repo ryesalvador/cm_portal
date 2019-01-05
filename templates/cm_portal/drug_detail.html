@@ -4,7 +4,7 @@
 
 {% block page_title %}| Drug{% endblock %}
 {% block content %}  
-  <h2>Name: {{ drug.generic_name }}</h2>
+  <div class="jumbotron"><h2>Name: {{ drug.generic_name }}</h2>
   <div class="table-responsive"><table class="table table-hover">
     <tr><td><strong>Generic name: </strong>{{ drug.generic_name|lower }}</td></tr>    
     <tr><td><strong>Brand name: </strong>{{ drug.brand_name }}</td></tr>    
@@ -21,5 +21,5 @@
   {% else %}
     <a class="btn btn-primary disabled" href="{% url 'drug-update' drug.id %}" role="button">Edit</a>  
     <a class="btn btn-danger disabled" href="{% url 'drug-delete' drug.id %}" role="button">Delete</a>
-  {% endif %}
+  {% endif %}</div>
 {% endblock %}

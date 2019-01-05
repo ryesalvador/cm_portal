@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block content %}  
-  <h2>Name: {{ medicalabstract.resident.first_name }} 
+  <div class="jumbotron"><h2>Name: {{ medicalabstract.resident.first_name }} 
     {% if medicalabstract.resident.middle_name %}
       {{ medicalabstract.resident.middle_name|first }}.            
     {% endif %} {{ medicalabstract.resident.last_name }}</h2>
@@ -78,5 +78,5 @@
   {% else %}
     <a class="btn btn-primary disabled" href="{% url 'medicalabstract-update' medicalabstract.id %}" role="button">Edit</a>  
     <a class="btn btn-danger disabled" href="{% url 'medicalabstract-delete' medicalabstract.id %}" role="button">Delete</a>
-  {% endif %}
+  {% endif %}</div>
 {% endblock %}

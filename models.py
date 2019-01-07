@@ -49,10 +49,11 @@ GRADE = (
         )
 
 BUILDING = (
-    ('R', 'Blessed Rebuschini Building'),
+    ('R', 'Blessed Enrico Rebuschini Building'),
     ('L', 'Blessed Luigi Tezza Building'),
     ('1', 'St. Camillus Building - First floor'),
     ('2', 'St. Camillus Building - Second floor'),
+    ('3', 'Building 3'),
     )
 
 LEVEL_OF_CARE = (
@@ -68,14 +69,16 @@ LOAN_STATUS = (
         ('r', 'Reserved'),
     )
 
-ITEM_MODEL = (
+ITEM_TYPE = (
         ('S', 'Medical Supply'),
         ('E', 'Medical Equipment'),
     )
 
-class Item(models.Model):   
+class Item(models.Model):
+    item_type = models.CharField(max_length=1, choices=ITEM_TYPE, default='S')
     item_name = models.CharField(max_length=70)
     brand_name = models.CharField(max_length=70, blank=True)
+    model = models.CharField(max_length=70, blank=True)
     manufacturer = models.CharField(max_length=70, blank=True)
     description = models.TextField(blank=True)    
 
@@ -108,7 +111,8 @@ class MedicalSupply(models.Model):
 
 class MedicalEquipment(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for this particular medical equipment across whole inventory')
-    item = models.ForeignKey('Item', on_delete=models.CASCADE, null=True)    
+    item = models.ForeignKey('Item', on_delete=models.CASCADE, null=True)
+    location = models.CharField(max_length=1, choices=BUILDING, blank=True)
     date_acquired = models.DateField(auto_now=False, null=True, blank=True)
     due_back = models.DateField(null=True, blank=True)
 

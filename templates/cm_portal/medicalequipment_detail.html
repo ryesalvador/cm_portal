@@ -4,7 +4,7 @@
 
 {% block page_title %}| Medical Equipment{% endblock %}
 {% block content %}  
-  <h2>Name: {{ medicalequipment.item.item_name }}</h2>
+  <div class="jumbotron"><h2>Name: {{ medicalequipment.item.item_name }}</h2>
   <div class="table-responsive"><table class="table table-hover">        
     <tr><td><strong>Brand name: </strong>{{ medicalequipment.item.brand_name }}</td></tr>
     <tr><td><strong>Universally Unique ID: </strong>{{ medicalequipment.id }}</td></tr>
@@ -20,5 +20,5 @@
   {% else %}
     <a class="btn btn-primary disabled" href="{% url 'medicalequipment-update' medicalequipment.id %}" role="button">Edit</a>  
     <a class="btn btn-danger disabled" href="{% url 'medicalequipment-delete' medicalequipment.id %}" role="button">Delete</a>
-  {% endif %}
+  {% endif %}</div>
 {% endblock %}

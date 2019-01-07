@@ -4,7 +4,7 @@
 
 {% block page_title %}| Medical Supply{% endblock %}
 {% block content %}  
-  <h2>Name: {{ medicalsupply }}</h2>
+  <div class="jumbotron"><h2>Name: {{ medicalsupply }}</h2>
   <div class="table-responsive"><table class="table table-hover">
     <tr><td><strong>Item name: </strong>{{ medicalsupply.item.item_name }}</td></tr>    
     <tr><td><strong>Brand name: </strong>{{ medicalsupply.item.brand_name }}</td></tr>
@@ -22,5 +22,5 @@
   {% else %}
     <a class="btn btn-primary disabled" href="{% url 'medicalsupply-update' medicalsupply.id %}" role="button">Edit</a>  
     <a class="btn btn-danger disabled" href="{% url 'medicalsupply-delete' medicalsupply.id %}" role="button">Delete</a>
-  {% endif %}
+  {% endif %}</div>
 {% endblock %}

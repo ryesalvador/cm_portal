@@ -26,7 +26,7 @@
     </tr>
     <tr>
       <td><strong>Age: </strong>{{ resident.birth_date|timesince }}</td>
-      <td><strong>Sex: </strong>{% if resident.gender  == 'M' %} Male{% else %} Female{% endif%}</td>
+      <td><strong>Sex: </strong>{{ resident.get_gender_display }}</td>
       <td><strong>OSCA ID #: </strong>{{ resident.osca_id }}</td>    
     </tr>
     <tr>
@@ -38,10 +38,7 @@
       <td><strong>Nationality: </strong>{{ resident.nationality }}</td>    
     </tr>
     <tr>
-      <td><strong>Civil Status: </strong>{% if resident.civil_status  == 'S' %}Single
-                                   {% elif resident.civil_status == 'M' %}Married
-                                   {% else %}Widowed
-                                   {% endif%}</td>
+      <td><strong>Civil Status: </strong>{{ resident.get_civil_status_display }}</td>
       <td><strong>Most Recent Occupation: </strong>{{ resident.most_recent_occupation }}</td>    
     </tr>
     <tr>

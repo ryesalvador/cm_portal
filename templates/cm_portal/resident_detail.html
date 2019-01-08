@@ -11,7 +11,9 @@
   {% if resident.vital_status != 'LI' %}
   <h2><strong class="{% if resident.vital_status == 'DE' %}text-danger{% elif resident.vital_status == 'DC' %}text-warning{% endif %}">
   {{ resident.get_vital_status_display|upper }}  
-  </strong></h2>  
+  </strong></h2>
+  {% else %}
+  <h2><strong class="text-success">{{ resident.get_building_display }}</strong></h2>
   {% endif %}
   <h2>Name: {{ resident.first_name }} 
     {% if resident.middle_name %}

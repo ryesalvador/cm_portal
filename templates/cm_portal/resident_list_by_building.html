@@ -11,6 +11,9 @@
   <li class="nav-item">
     <a class="nav-link" data-toggle="tab" href="#second">St. Camillus - Second Floor</a>
   </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#three">Building 3</a>
+  </li>
 </ul>
 <div id="myTabContent" class="tab-content">
   <div class="tab-pane fade active show" id="rebuschini">
@@ -39,6 +42,13 @@
     {% for resident in second_floor %}        
       {% include 'cm_portal/resident_list_item.html' with building=True %}        
     {% endfor%}
+    </ul>
+  </div>
+  <div class="tab-pane fade" id="three">
+    <ul class="list-group">
+      {% for resident in bldg_three %}
+        {% include 'cm_portal/resident_list_item.html' with building=True %}
+      {% endfor %}
     </ul>
   </div>
 </div>

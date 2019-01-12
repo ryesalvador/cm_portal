@@ -104,7 +104,7 @@ class ResidentListView(PermissionRequiredMixin, generic.ListView):
             sort = self.request.GET['sort'].strip()
             if sort == 'building':
                 self.template_name = 'cm_portal/resident_list_by_building.html'
-                context = {'rebuschini': 'R', 'tezza': 'L', 'first_floor': '1', 'second_floor': '2'}
+                context = {'rebuschini': 'R', 'tezza': 'L', 'first_floor': '1', 'second_floor': '2', 'bldg_three': '3'}
                 for k, v in context.items():
                     context[k] = self.filter_bldg(v, self.queryset)                    
                 return context

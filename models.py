@@ -225,6 +225,11 @@ class Physician(models.Model):
     def get_absolute_url(self):
         return reverse('physician-detail', args=[str(self.id)])
 
+class ResidentWeight(models.Model):
+    resident = models.ForeignKey('Resident', on_delete=models.CASCADE, limit_choices_to={'vital_status': 'LI'}, null=True)
+    date = models.DateField(auto_now=False, null=True, blank=True)
+    weight = models.FloatField(null=True, blank=True)
+    
 class Resident(models.Model):
     first_name = models.CharField(max_length=35)
     middle_name = models.CharField(max_length=35, blank=True)

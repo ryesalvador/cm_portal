@@ -1,7 +1,11 @@
 from django.contrib import admin
 from .models import Relative, Physician, Resident, PerformanceAppraisal, \
      EmploymentStatus, Employee, Position, Department, MedicalAbstract, \
-     Drug, Medication, Item, MedicalSupply, MedicalEquipment
+     Drug, Medication, Item, MedicalSupply, MedicalEquipment, ResidentWeight
+
+@admin.register(ResidentWeight)
+class ResidentWeight(admin.ModelAdmin):
+    pass
 
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):

@@ -6,12 +6,12 @@
 
 {% block content %}
 
-<form action="" method="post">
+<div class="jumbotron"><form action="" method="post">
     {% csrf_token %}
     <div class="table-responsive"><table class="table table-hover">
     {{ form.as_table }}
     </table></div>
     <input class="btn btn-success" type="submit" value="Update" />
     
-</form>
+</form></div>
 {% endblock %}

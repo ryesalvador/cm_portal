@@ -5,7 +5,7 @@
 {% block page_title %}| Department{% endblock %}
 
 {% block content %}
-  <h2>Name: {{ department.name }}</h2>
+  <div class="jumbotron"><h2>Name: {{ department.name }}</h2>
     
   <div class="table-responsive"><table class="table table-hover">
     <tr>
@@ -24,5 +24,5 @@
   {% else %}
     <a class="btn btn-primary disabled" href="{% url 'department-update' department.id %}" role="button">Edit</a>  
     <a class="btn btn-danger disabled" href="{% url 'department-delete' department.id %}" role="button">Delete</a>
-  {% endif %}
+  {% endif %}</div>
 {% endblock %}

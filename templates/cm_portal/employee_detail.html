@@ -7,7 +7,7 @@
 {% load static %}
 
 {% block content %}
-  <h2>Name: {{ employee.first_name }} 
+  <div class="jumbotron"><h2>Name: {{ employee.first_name }} 
     {% if employee.middle_name %}
       {{ employee.middle_name|first }}.            
     {% endif %} {{ employee.last_name }}</h2>
@@ -99,5 +99,5 @@
   {% else %}
     <a class="btn btn-primary disabled" href="{% url 'employee-update' employee.id %}" role="button">Edit</a>  
     <a class="btn btn-danger disabled" href="{% url 'employee-delete' employee.id %}" role="button">Delete</a>
-  {% endif %}
+  {% endif %}</div>
 {% endblock %}

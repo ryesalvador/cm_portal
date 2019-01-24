@@ -1,8 +1,14 @@
 html,
 body,
 header,
-.view {
+.view {  
   height: 100%;
+}
+
+html,
+body {
+  margin:0;
+  padding:0;
 }
 
 .sidebar-nav {
@@ -13,4 +19,25 @@ header,
 
 footer {  
   text-align: center;
+}
+
+#container {
+   min-height:100%;
+   position:relative;
+}
+
+#header {
+   /*background:#ff0;*/
+   padding:30px;
+}
+#body {
+   padding:10px;
+   padding-bottom:60px;   /* Height of the footer */
+}
+#footer {
+   position:absolute;
+   bottom:0;
+   width:100%;
+   height:60px;   /* Height of the footer */
+   /*background:#6cf;*/
 }

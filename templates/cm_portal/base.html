@@ -23,8 +23,9 @@
 
 </head>
 
+<div class="view" style="background-image: url({% static 'images/new-bldg.jpg' %}); background-size: cover; background-position: center center;">
 <body>
-  <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+  <div id="container"><nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
     <a class="navbar-brand abs" href="{% url 'index' %}">Camillus MedHaven Portal</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
       <span class="navbar-toggler-icon"></span>
@@ -32,8 +33,9 @@
     {% block navbar %}{% endblock %}
   </nav>
 
-  <div class="view" style="background-image: url({% static 'images/new-bldg.jpg' %}); background-repeat: no-repeat; background-size: cover; background-position: center center;">
-	  <main>
+  
+     <div id="header"></div>
+	  <div id="body"><main>
 		  <div class="container-fluid">
 		    <div class="row content">
 		      <div class="col-sm-2 d-none d-sm-block">
@@ -52,10 +54,11 @@
 		      </div>
 		    </div>
 		  </div>
-	  </main>	  	  
-	  <footer>
+	  </main></div>	  	  
+	  <div id="footer"><footer>
 	    {% block footer%}{% endblock %}
-	  </footer>
+	  </footer></div>
   </div>
 </body>
+</div>
 </html>

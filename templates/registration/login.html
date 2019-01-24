@@ -7,8 +7,8 @@
 <p class="text-danger">Your username and password didn't match. Please try again.</p>
 {% endif %}
 
-<div class="container">
-    <div class="row">
+<div class="container wow bounceInRight jumbotron">
+    <div class="row align-items-center justify-content-center">
         <div class="col-md-4">
             <div class="login-panel panel panel-default">
                 <div class="panel-heading">
@@ -21,18 +21,18 @@
                         <p class="bs-component">
                             <table>
                                 <tr>
-                                    <td>{{ form.username.label_tag }}</td>
+                                    <td>{{ form.username.label_tag }} </td>
                                     <td>{{ form.username }}</td>
                                 </tr>
                                 <tr>
-                                    <td>{{ form.password.label_tag }}</td>
+                                    <td>{{ form.password.label_tag }} </td>
                                     <td>{{ form.password }}</td>
                                 </tr>
                             </table>
                         </p>
                         <p class="bs-component">
                             <center>
-                                <input class="btn btn-success btn-sm" type="submit" value="login" />
+                                <input class="btn btn-success" type="submit" value="Login" />
                             </center>
                         </p>
                         <input type="hidden" name="next" value="{{ next }}" />

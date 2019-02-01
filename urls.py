@@ -1,6 +1,6 @@
 from django.urls import path, include, re_path, reverse
 from . import views
-from django.contrib.auth.views import login, logout
+from django.contrib.auth.views import LoginView, LogoutView
 from .forms import LoginForm
 from django.conf import settings
 from django.views.static import serve
@@ -103,8 +103,8 @@ urlpatterns += [
 
 urlpatterns += [
     #path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/login/', login, {'template_name': 'registration/login.html', 'authentication_form': LoginForm}, name='login'),
-    path('accounts/logout/', logout, name='logout'),
+    path('accounts/login/', LoginView.as_view(), {'template_name': 'registration/login.html', 'authentication_form': LoginForm}, name='login'),
+    path('accounts/logout/', LogoutView.as_view(), name='logout'),
 ]
 
 if settings.DEBUG:

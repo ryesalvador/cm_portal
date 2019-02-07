@@ -2,10 +2,10 @@ from django.db import models
 from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
-from django_dropbox_storage.storage import DropboxStorage
+#from django_dropbox_storage.storage import DropboxStorage
 import uuid
 
-DROPBOX_STORAGE = DropboxStorage()
+#DROPBOX_STORAGE = DropboxStorage()
 
 GENDER = (
     ('M', 'Male'),
@@ -238,7 +238,7 @@ class Resident(models.Model):
             null=True,
             blank=True,
             upload_to="photos/residents/%Y/%m/%D",
-            storage=DROPBOX_STORAGE
+            #storage=DROPBOX_STORAGE
             )
     #age
     gender = models.CharField(max_length=1, choices=GENDER, blank=True)
@@ -318,7 +318,7 @@ class Employee(models.Model):
             null=True,
             blank=True,
             upload_to="photos/employees/%Y/%m/%D",
-            storage=DROPBOX_STORAGE
+            #storage=DROPBOX_STORAGE
             )
 
     #Basic info

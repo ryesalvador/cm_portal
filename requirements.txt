@@ -1,4 +1,0 @@
-django-sortedm2m==1.5.0
-django-cleanup==2.1.0
-Pillow==5.2.0
-whitenoise==3.3.1

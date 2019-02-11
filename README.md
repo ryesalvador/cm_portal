@@ -1,10 +1,5 @@
 ﻿# Camillus MedHaven Portal: A Django Web App for a Nursing Home Facility
 
-## Requirements
-This web app requires Python 3. It is recommended to test it on `virtualenv` first. So on `virtualenv` you do:
-    `$ virtualenv .venv -p /usr/bin/python3`
-    `$ source .venv/bin/activate`
-
 ## Installation
 1. Add cm_portal and its dependency to your `INSTALLED_APPS` like this:
 ~~~~
@@ -16,7 +11,15 @@ This web app requires Python 3. It is recommended to test it on `virtualenv` fir
     ] 
 ~~~~
 
-2. Include the cm_portal URLconf in your project urls.py like this::
+2. Append the following environment variables to your `settings.py`.
+    ~~~~
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    MEDIA_URL = '/media/'
+    LOGIN_REDIRECT_URL = '/'
+    ~~~~
+
+3. Include the cm_portal URLconf in your project `urls.py` like this:
 ~~~~
     from django.conf.urls import include
     urlpatterns += [
@@ -28,7 +31,7 @@ This web app requires Python 3. It is recommended to test it on `virtualenv` fir
     ]
  ~~~~
 
-3. Run `python manage.py migrate` to create the cm_portal models.
+4. Run `python manage.py migrate` to create the cm_portal models.
 
-4. Start the development server and visit http://127.0.0.1:8000/
+5. Start the development server and visit http://127.0.0.1:8000/
    to begin using app.

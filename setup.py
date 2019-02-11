@@ -15,12 +15,13 @@ requires = [
 
 setup(
     name='cm_portal',
-    version='0.0.1',
+    version='0.0.2',
     packages=find_packages(),
     include_package_data=True,
     license='GPLv3',  
     description='A Django Web App for a Nursing Home Facility',
     long_description=README,
+    long_description_content_type='text/markdown',
     url='https://github.com/ryesalvador/cm_portal/',
     author='Rye Salvador',
     author_email='salvadorrye@gmail.com',

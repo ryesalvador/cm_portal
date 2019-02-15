@@ -22,6 +22,8 @@ RUN echo "MEDIA_URL = '/media/'" >> mysite/settings.py
 RUN echo "LOGIN_REDIRECT_URL = '/'" >> mysite/settings.py
 RUN echo "from django.conf.urls import include" >> mysite/urls.py
 RUN echo "urlpatterns += [path('', include('cm_portal.urls')), path('accounts/', include('django.contrib.auth.urls')),]" >> mysite/urls.py
+RUN python manage.py migrate
+RUN python manage.py migrate cm_portal
 
 EXPOSE 8000
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

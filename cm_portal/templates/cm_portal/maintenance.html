@@ -40,7 +40,7 @@
 <button type="button" class="btn btn-outline-info btn-sm">Get printable version</button>
 <p></p>
 <div class="table-responsive"><table class="table table-sm table-hover">
-  <thead><h4>St. Camillus Bldg. 1st floor (Male)</h4></thead>  
+  <thead><h4>St. Camillus Building - First floor (Male)</h4></thead>  
   {% include "cm_portal/maintenance_th.html" %}
   {% for resident in male_first_floor %}
     {% include "cm_portal/maintenance_data.html" %}
@@ -50,7 +50,7 @@
 
 {% if female_first_floor %}
 <div class="table-responsive"><table class="table table-sm table-hover">
-  <thead><h4>St. Camillus Bldg. 1st floor (Female)</h4></thead>
+  <thead><h4>St. Camillus Building - First floor (Female)</h4></thead>
   {% include "cm_portal/maintenance_th.html" %}  
   {% for resident in female_first_floor %}
     {% include "cm_portal/maintenance_data.html" %}
@@ -60,7 +60,7 @@
 
 {% if male_second_floor %}
 <div class="table-responsive"><table class="table table-sm table-hover">
-  <thead><h4>St. Camillus Bldg. 2nd floor (Male)</h4></thead>
+  <thead><h4>St. Camillus Building - Second floor (Male)</h4></thead>
   {% include "cm_portal/maintenance_th.html" %}  
   {% for resident in male_second_floor %}
     {% include "cm_portal/maintenance_data.html" %}
@@ -70,9 +70,19 @@
 
 {% if female_second_floor %}
 <div class="table-responsive"><table class="table table-sm table-hover">
-  <thead><h4>St. Camillus Bldg. 2nd floor (Female)</h4></thead>
+  <thead><h4>St. Camillus Building - Second floor (Female)</h4></thead>
   {% include "cm_portal/maintenance_th.html" %}  
   {% for resident in female_second_floor %}
+    {% include "cm_portal/maintenance_data.html" %}
+  {% endfor %}
+</table></div>
+{% endif %}
+
+{% if female_bldg_three %}
+<div class="table-responsive"><table class="table table-sm table-hover">
+  <thead><h4>Building Three (Female)</h4></thead>
+  {% include "cm_portal/maintenance_th.html" %}  
+  {% for resident in female_bldg_three %}
     {% include "cm_portal/maintenance_data.html" %}
   {% endfor %}
 </table></div>

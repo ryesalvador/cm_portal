@@ -136,6 +136,7 @@ class ResidentListView(PermissionRequiredMixin, generic.ListView):
                 context['female_first_floor'] = residents.filter(building='1').filter(gender='F')
                 context['male_second_floor'] = residents.filter(building='2').filter(gender='M')
                 context['female_second_floor'] = residents.filter(building='2').filter(gender='F')
+                context['female_bldg_three'] = residents.filter(building='3').filter(gender='F')
                 context['male_luigi_tezza'] = residents.filter(building='L').filter(gender='M')
                 context['female_luigi_tezza'] = residents.filter(building='L').filter(gender='F')
                 context['male_rebuschini'] = residents.filter(building='R').filter(gender='M')

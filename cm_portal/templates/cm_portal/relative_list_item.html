@@ -1,9 +1,0 @@
-<a href="{{ relative.get_absolute_url }}" class="list-group-item list-group-item-action flex-column align-items-start">
-  <div class="d-flex w-100 justify-content-between">
-    <h5 class="mb-1">{{ relative.last_name }}, {{ relative.first_name }}
-	 {% if relative.middle_name %}
-	   {{ relative.middle_name|first }}.            
-	 {% endif %}</h5>      
-  </div>  
-  {% if relative.telephone %}<small class="text-muted">{{ relative.telephone }}</small>{% endif %}  	        
-</a>

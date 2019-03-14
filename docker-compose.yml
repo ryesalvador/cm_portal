@@ -1,25 +1,26 @@
-version: '3'
+version: '3.7'
 
 services:
-        db:
-                image: postgres:10.1-alpine
-                volumes:
-                        - postgres_data:/var/lib/postgresql/data/
-        paasdata:
-                image: ryesalvador/cmportal_data
-                volumes:
-                        - data-vol:/mysite/media/
-                command: tail -f /dev/null
-        cmportal:
-                image: ryesalvador/cm_portal
-                ports:
-                        - 8000:8000
-                volumes:
-                        - data-vol:/mysite/media/
-                depends_on:
-                        - db
-                        - paasdata
+  db:
+    image: postgres:10.1-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+  paasdata:
+    image: ryesalvador/cmportal_data
+    volumes:
+      - data-vol:/mysite/media/
+    command: tail -f /dev/null
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - data-vol:/mysite/media/
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+      - paasdata
 
 volumes:
-        data-vol:
-        postgres_data: 
+  postgres_data:
+  data-vol:

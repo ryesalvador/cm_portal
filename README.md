@@ -6,7 +6,6 @@
     INSTALLED_APPS = [    
         ...
         'cm_portal.apps.CmPortalConfig',
-        'sortedm2m',
         ...
     ] 
 ~~~~

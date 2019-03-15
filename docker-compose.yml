@@ -11,10 +11,11 @@ services:
       - data-vol:/mysite/media/
     command: tail -f /dev/null
   web:
-    build: .
+    image: ryesalvador/cm_portal
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - data-vol:/mysite/media/
+      - postgres_data:/var/lib/postgresql/data/
     ports:
       - 8000:8000
     depends_on:

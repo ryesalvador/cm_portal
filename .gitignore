@@ -1,4 +1,6 @@
 __pycache__
 *.pyc
 *~
-
+manage.py
+mysite
+db.sqlite3

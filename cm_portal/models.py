@@ -243,6 +243,7 @@ class Resident(models.Model):
     #age
     gender = models.CharField(max_length=1, choices=GENDER, blank=True)
     osca_id = models.CharField(max_length=24, blank=True)
+    philhealth = models.CharField(max_length=24, blank=True)
     address = models.TextField(max_length=175)
     birth_date = models.DateField(auto_now=False)
     birth_place = models.CharField(max_length=35)

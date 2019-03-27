@@ -28,7 +28,6 @@
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 
-<div class="view" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/architecture.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
 <body>
   <div id="container"><nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
     <a class="navbar-brand abs" href="{% url 'index' %}">Camillus MedHaven Portal</a>
@@ -44,7 +43,7 @@
 	  <div id="body"><main>
 		  <div class="container-fluid">
 		    <div class="row content">
-		      <div class="col-sm-2 d-none d-sm-block">
+		      <div class="col-sm-3 d-none d-sm-block">
 		        <br>		        
 		        <div class="wow flip"><a href="{% url 'index' %}">
 		            <img src="{% static 'images/21.jpg' %}" alt="Camillus MedHaven Logo" width = "100" height = "150">
@@ -56,7 +55,7 @@
 		        </ul>
 		        {% endif %}
 		      </div>
-		      <div class="col-sm-10">
+		      <div class="col-sm-9">
 		        <div class="wow slideInRight">
 		          <h1><a href="{% url 'index' %}">CM Portal </a>{% block page_title %}{% endblock %}</h1>
 		        </div>
@@ -71,5 +70,4 @@
 	  </footer></div>
   </div>
 </body>
-</div>
 </html>

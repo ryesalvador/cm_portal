@@ -57,6 +57,7 @@ class ResidentAdmin(admin.ModelAdmin):
                     'last_name',
                     'gender',
                     'osca_id',
+                    'philhealth',
                     'address',
                     'birth_date',
                     'birth_place',

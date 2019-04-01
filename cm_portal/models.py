@@ -86,7 +86,10 @@ class Item(models.Model):
         ordering = ["item_name"]
 
     def __str__(self):
-        return u'{}'.format(self.item_name)
+        if self.brand_name != '':
+            return f'{self.item_name} <{self.brand_name}>'
+        else:
+            return f'{self.item_name}'
 
     def get_absolute_url(self):
         return reverse('item-detail', args=[str(self.id)])

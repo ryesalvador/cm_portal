@@ -21,7 +21,5 @@ for i in data[1:]:
     elif data[0][index] == 'discharged_on' and item == '':
       item = None
     d[data[0][index]] = item
-  r = Resident.objects.create(**d)
+  r = Resident.objects.get_or_create(**d)
 
-
-	

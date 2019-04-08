@@ -15,5 +15,12 @@ model = apps.get_model('cm_portal', sys.argv[2])
 for i in data[1:]:
   d = {}
   for index, item in enumerate(i):    	
+    t =  model._meta.get_field(data[0][index]).get_internal_type()
+    if t == 'DateField' and item == '':
+        item = None
+    elif t == 'FloatField' and item == '':
+        item = None
+    elif t == 'TimeField' and item == '':
+        item = None
     d[data[0][index]] = item
   result = model.objects.create(**d)

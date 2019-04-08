@@ -16,7 +16,6 @@ first = True
 for item in items:
   fields = item.__dict__
   l = []
-  col = 0
   if first:
     for f, v in fields.items():
     	l.append(f)
@@ -24,9 +23,6 @@ for item in items:
     first = False
     l = []
   for f, v in fields.items():
-    #if col == n:
-    #   v = ForeignKey.objects.get(id=v)
     l.append(v)
-    col +=1
   ow.writerow(l)
 of.close()

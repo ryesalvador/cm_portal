@@ -8,6 +8,8 @@ from cm_portal.models import Resident
 
 urlpatterns = [
     path('', views.Dashboard.as_view(), name='index'),    
+    path('mission/', views.Mission.as_view(), name='mission'),
+    path('vision/', views.Vision.as_view(), name='vision'),
 ]
 
 urlpatterns += [

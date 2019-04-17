@@ -44,7 +44,13 @@ def search(request):
 
 class Dashboard(LoginRequiredMixin, generic.base.TemplateView):
     template_name = 'cm_portal/index.html'
-    
+
+class Mission(generic.base.TemplateView):
+    template_name = 'cm_portal/mission.html'
+
+class Vision(generic.base.TemplateView):
+    template_name = 'cm_portal/vision.html'
+
 class GeriatricIndex(PermissionRequiredMixin, generic.base.TemplateView):
     permission_required = 'cm_portal.can_view_nursing_home'
     template_name = 'cm_portal/geriatric_index.html'

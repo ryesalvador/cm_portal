@@ -1,0 +1,49 @@
+{% extends 'cm_portal/base.html' %}
+
+{% block title %}| Our Vision{% endblock %}
+
+{% load static %}
+
+{% block navbar %}
+  {% include 'cm_portal/nav_base.html' %}
+{% endblock %}
+
+{% block sidebar %} 
+  <p></p>    
+  {% include 'cm_portal/user.html' %}
+  <li class="nav-item"><a class="nav-link" href="{% url 'logout'%}">Logout</a></li>
+  <hr>
+  <li class="nav-item"><a class="nav-link" href="#">Profile</a></li>  
+  <li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
+  <li class="nav-item"><a class="nav-link" href="#">Change password</a></li> 
+{% endblock %}
+     
+{% block page_title %}| Our Vision{% endblock %}
+
+{% block content %}       
+  <div class="jumbotron">
+  <div class="container-fluid"><div class="row content">    
+  <div class="col-sm-7">
+  <p class="lead text-center">Camillus Medhaven,</p>
+  <p class="lead text-center">a Camillian Healthcare institution,</p>
+  <p class="lead text-center">envisions to provide</p>
+  <p class="lead text-center">a home,</p>
+  <p class="lead text-center">a nurturing community</p>
+  <p class="lead text-center">and</p>
+  <p class="lead text-center">a center of excellence</p>
+  <p class="lead text-center">for holistic care</p>
+  <p class="lead text-center">of the elderly</p>
+  <p class="lead text-center">and persons in need</p>
+  <p class="lead text-center">of convalescent</p>
+  <p class="lead text-center">and palliative care.</p>
+  </div>
+  <div class="col-sm-5">
+  <img src="{% static 'images/vision-cover.jpg' %}" class="img-fluid" alt="">
+  </div>
+  </div></div>    
+  </div>    
+{% endblock %}
+
+{% block footer %}
+  {% include 'cm_portal/footer_base.html' %}
+{% endblock %}

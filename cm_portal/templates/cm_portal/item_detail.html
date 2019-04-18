@@ -24,11 +24,10 @@
     <h4>Medical Supply</h4>
     <div style="margin-left:20px;margin-top:20px">
       {% for medical_supply in item.medicalsupply_set.all %}
-      <hr>     
-      {{ medical_supply.unit_of_measure|capfirst }}</p>
+      <hr>    
       <p><strong>Date acquired: </strong>{{ medical_supply.date_acquired }}</p>
       <p><strong>Expiration date: </strong>{{ medical_supply.expiration_date }}</p>
-      <p><strong>Stocks available: </strong>{{ medical_supply.stocks_available }}
+      <p><strong>Stocks available: </strong>{{ medical_supply.stocks_available }} {{ medical_supply.unit_of_measure|capfirst }}</p>
       <p class="text-muted"><strong>Id: </strong> {{ medical_supply.id}}</p>      
       {% endfor %}    
     </div>    
@@ -37,13 +36,13 @@
     <div style="margin-left:20px;margin-top:20px">    
       {% for medical_equipment in item.medicalequipment_set.all %}
       <hr>      
+      <p class="text-muted"><strong>Id: </strong>{{ medical_equipment.id }}</p>
       <p class="{% if medical_equipment.status == 'a' %}text-success{% elif medical_equipment.status == 'm' %}text-danger{% else %}text-warning{% endif %}">
       {{ medical_equipment.get_status_display }}</p>
       {% if medical_equipment.status != 'a' %}
         <p><strong>Due to be returned:</strong> {{medical_equipment.due_back}}</p>
       {% endif %}            
-      <p><strong>Date acquired: </strong>{{ medical_equipment.date_acquired }}</p>
-      <p class="text-muted"><strong>Id: </strong>{{ medical_equipment.id }}</p>
+      <p><strong>Date acquired: </strong>{{ medical_equipment.date_acquired }}</p>      
       {% endfor %}    
     </div>
   {% endif %}      

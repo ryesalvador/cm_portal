@@ -1,8 +1,8 @@
 {% extends "cm_portal/csu_index.html" %}
 
-{% block title %}| List of Medical Equipments{% endblock %}
+{% block title %}| List of Medical Equipment{% endblock %}
 
-{% block page_title %}| List of Medical Equipments{% endblock %}
+{% block page_title %}| List of Medical Equipment{% endblock %}
 
 {% load static %}
 
@@ -19,7 +19,7 @@
   {% endif %}  
   <li class="nav-item"><a class="nav-link" href="{% url 'items' %}">All items</a></li>  
   <li class="nav-item"><a class="nav-link" href="{% url 'medical-supplies' %}">All medical supplies</a></li>  
-  <li class="nav-item"><a class="nav-link active" href="{% url 'medical-equipments' %}">All medical equipment</a></li>    
+  <li class="nav-item"><a class="nav-link active" href="{% url 'medical-equipment' %}">All medical equipment</a></li>    
 {% endblock %}
 
 {% block content %}
@@ -27,18 +27,29 @@
   {% if medicalequipment_list %}    
     <ul class="list-group">
       {% for medicalequipment in medicalequipment_list %}
-        <li class="list-group-item">
+        <!-- <li class="list-group-item">
         {% if medicalequipment.item.brand_name %}
         <h4 class="list-group-item-heading">{{ medicalequipment.item.brand_name }}</h4>
         {% endif %}
         <a href="{{ medicalequipment.get_absolute_url }}">
         {{ medicalequipment.item.item_name }}        
         </a>   
-        </li>
+        </li> -->
+        <a href="{{ medicalequipment.get_absolute_url }}" class="list-group-item list-group-item-action flex-column align-items-start">
+	        <h5 class="list-group-item-heading">{{ medicalequipment.item.item_name }}</h5>          
+           <div class="d-flex w-100 justify-content-between">
+	           {% if medicalequipment.item.brand_name %}
+	             <small class="text-muted">{{ medicalequipment.item.brand_name }}</small>
+	           {% else %}
+	             <small class="text-muted"></small>
+	           {% endif %}
+	           <span class="badge badge-primary badge-pill">{{ medicalequipment.stocks_available }}</span>
+           </div>                
+        </a>
       {% endfor %}
     </ul>
     {% else %}
-      <p>There are no medical equipments in the portal.</p>  
+      <p>There are no medical equipment in the portal.</p>  
   {% endif %}
   <br>  
   {% if is_paginated %}

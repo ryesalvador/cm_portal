@@ -19,7 +19,7 @@
   {% endif %}  
   <li class="nav-item"><a class="nav-link active" href="{% url 'items' %}">All items</a></li>  
   <li class="nav-item"><a class="nav-link" href="{% url 'medical-supplies' %}">All medical supplies</a></li>  
-  <li class="nav-item"><a class="nav-link" href="{% url 'medical-equipments' %}">All medical equipment</a></li>    
+  <li class="nav-item"><a class="nav-link" href="{% url 'medical-equipment' %}">All medical equipment</a></li>    
 {% endblock %}
 
 {% block content %}
@@ -27,12 +27,12 @@
   {% if item_list %}    
     <ul class="list-group">
       {% for item in item_list %}
-        <li class="list-group-item">
+        <a href="{{ item.get_absolute_url }}" class="list-group-item list-group-item-action flex-column align-items-start">
+        <h5 class="list-group-item-heading">{{ item.item_name }}</h5>
         {% if item.brand_name %}
-        <h4 class="list-group-item-heading">{{ item.brand_name }}</h4>
-        {% endif %}
-        <a href="{{ item.get_absolute_url }}">{{ item.item_name }}</a>          
-        </li>
+        <small class="text-muted">{{ item.brand_name }}</small>
+        {% endif %}                  
+        </a>
       {% endfor %}
     </ul>
     {% else %}

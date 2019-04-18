@@ -62,6 +62,7 @@ class GeriatricIndex(PermissionRequiredMixin, generic.base.TemplateView):
         context['physician_list'] = Physician.objects.all()
         context['census_rebuschini'] = context['resident_list'].filter(building='R')
         context['census_luigi'] = context['resident_list'].filter(building='L')
+        context['census_pastoral'] = context['resident_list'].filter(building='3')
         context['census_first_floor'] = context['resident_list'].filter(building='1')
         context['census_second_floor'] = context['resident_list'].filter(building='2')
         return context

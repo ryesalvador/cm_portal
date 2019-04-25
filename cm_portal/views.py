@@ -6,13 +6,15 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from .forms import ResidentCreateForm, EmployeeCreateForm, \
-     MedicationCreateForm, MedicalSupplyCreateForm, MedicalEquipmentCreateForm
+     MedicationCreateForm, MedicalSupplyCreateForm, MedicalEquipmentCreateForm, \
+     UserUpdateForm
 from itertools import chain
 from django.apps import apps
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_control
 from string import ascii_lowercase
 from django.db.models.functions import Extract
+from django.contrib.auth.models import User
 
 @login_required
 def search(request):    
@@ -186,6 +188,19 @@ class PhysicianListView(LoginRequiredMixin, generic.ListView):
 
 class PhysicianDetailView(LoginRequiredMixin, generic.DetailView):
     model = Physician
+
+class UserDetailView(LoginRequiredMixin, generic.DetailView):
+    model = User
+    template_name = 'cm_portal/user_detail.html'
+
+class UserUpdate(LoginRequiredMixin, generic.UpdateView):
+    model = User
+    form_class = UserUpdateForm
+    success_url = reverse_lazy('index')
+    template_name = 'cm_portal/user_update_form.html'
+
+    def get_object(self):
+        return self.request.user
 
 class PhysicianCreate(PermissionRequiredMixin, generic.CreateView):
     permission_required = 'cm_portal.add_physician'

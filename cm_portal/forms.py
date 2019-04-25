@@ -3,6 +3,7 @@ from django import forms
 from django.forms import ModelForm
 from .models import Resident, Medication, Employee, EmploymentStatus, \
      MedicalSupply, MedicalEquipment
+from django.contrib.auth.models import User
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -73,6 +74,13 @@ class MedicalEquipmentCreateForm(ModelForm):
                 'due_back': DateInput(),
             }
 
+class UserUpdateForm(ModelForm):
+    class Meta:
+        model = User
+        exclude = ('password', 'last_login',
+                'is_superuser', 'groups',
+                'user_permissions', 'is_staff',
+                'is_active', 'date_joined',)
 
 
 

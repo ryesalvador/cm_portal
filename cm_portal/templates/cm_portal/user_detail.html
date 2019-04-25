@@ -1,0 +1,24 @@
+{% extends "cm_portal/index.html" %}
+
+{% block title %}| User Profile{% endblock %}
+
+{% block page_title %}| User Profile{% endblock %}
+{% block content %}  
+  <div class="jumbotron">
+  {% if not user.first_name or not user.last_name %}
+    <div class="alert alert-dismissible alert-warning">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <h4 class="alert-heading">Warning!</h4>
+  <p class="mb-0">You have not yet provided your complete name. Please <a href="{% url 'user-update' %}" class="alert-link">update</a> your personal information.</p>
+</div>
+    {% else %}
+    <h2>{{ user.first_name }} {{ user.last_name }}</h2>{% endif %}
+  <div class="table-responsive"><table class="table table-hover">
+    <tr><td><strong>Username: </strong>{{ user.username }}</td></tr>  
+    <tr><td><strong>Email: </strong>{{ user.email }}</td></tr>
+    <tr><td><strong>First name: </strong>{{ user.first_name }}</td></tr>
+    <tr><td><strong>Last name: </strong>{{ user.last_name }}</td></tr>        
+  </table></div> 
+    <a class="btn btn-primary" href="{% url 'user-update' %}" role="button">Edit</a>   
+  </div>
+{% endblock %}

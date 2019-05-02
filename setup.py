@@ -10,11 +10,12 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 requires = [
     "django",
     "Pillow",
+    "django-widget-tweaks",
 ]
 
 setup(
     name='cm_portal',
-    version='0.1.1',
+    version='0.1.22',
     packages=find_packages(),
     include_package_data=True,
     license='GPLv3',  

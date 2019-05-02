@@ -9,7 +9,7 @@
 {% block sidebar %}
     <p></p>
     {% if user.is_authenticated %}
-      {% include 'cm_portal/user.html' %}
+      {% include 'includes/user.html' %}
     {% endif %}    
     <li class="nav-item"><a class="nav-link" href="{% url 'residents' %}">All residents</a></li>
     <li class="nav-item"><a class="nav-link" href="{% url 'relatives' %}">All relatives</a></li>    
@@ -41,9 +41,9 @@
 <p></p>
 <div class="table-responsive"><table class="table table-sm table-hover">
   <thead><h4>St. Camillus Building - First floor (Male)</h4></thead>  
-  {% include "cm_portal/maintenance_th.html" %}
+  {% include 'includes/maintenance_th.html' %}
   {% for resident in male_first_floor %}
-    {% include "cm_portal/maintenance_data.html" %}
+    {% include 'includes/maintenance_data.html' %}
   {% endfor %}
 </table></div>
 {% endif %}
@@ -51,9 +51,9 @@
 {% if female_first_floor %}
 <div class="table-responsive"><table class="table table-sm table-hover">
   <thead><h4>St. Camillus Building - First floor (Female)</h4></thead>
-  {% include "cm_portal/maintenance_th.html" %}  
+  {% include 'includes/maintenance_th.html' %}  
   {% for resident in female_first_floor %}
-    {% include "cm_portal/maintenance_data.html" %}
+    {% include 'includes/maintenance_data.html' %}
   {% endfor %}
 </table></div>
 {% endif %}
@@ -61,9 +61,9 @@
 {% if male_second_floor %}
 <div class="table-responsive"><table class="table table-sm table-hover">
   <thead><h4>St. Camillus Building - Second floor (Male)</h4></thead>
-  {% include "cm_portal/maintenance_th.html" %}  
+  {% include 'includes/maintenance_th.html' %}  
   {% for resident in male_second_floor %}
-    {% include "cm_portal/maintenance_data.html" %}
+    {% include 'includes/maintenance_data.html' %}
   {% endfor %}
 </table></div>
 {% endif %}
@@ -71,9 +71,9 @@
 {% if female_second_floor %}
 <div class="table-responsive"><table class="table table-sm table-hover">
   <thead><h4>St. Camillus Building - Second floor (Female)</h4></thead>
-  {% include "cm_portal/maintenance_th.html" %}  
+  {% include 'includes/maintenance_th.html' %}  
   {% for resident in female_second_floor %}
-    {% include "cm_portal/maintenance_data.html" %}
+    {% include 'includes/maintenance_data.html' %}
   {% endfor %}
 </table></div>
 {% endif %}
@@ -81,9 +81,9 @@
 {% if female_bldg_three %}
 <div class="table-responsive"><table class="table table-sm table-hover">
   <thead><h4>Building Three (Female)</h4></thead>
-  {% include "cm_portal/maintenance_th.html" %}  
+  {% include 'includes/maintenance_th.html' %}  
   {% for resident in female_bldg_three %}
-    {% include "cm_portal/maintenance_data.html" %}
+    {% include 'includes/maintenance_data.html' %}
   {% endfor %}
 </table></div>
 {% endif %}
@@ -91,9 +91,9 @@
 {% if male_luigi_tezza %}
 <div class="table-responsive"><table class="table table-sm table-hover">
   <thead><h4>Blessed Luigi Tezza (Male)</h4></thead>
-  {% include "cm_portal/maintenance_th.html" %}  
+  {% include 'includes/maintenance_th.html' %}  
   {% for resident in male_luigi_tezza %}
-    {% include "cm_portal/maintenance_data.html" %}
+    {% include 'includes/maintenance_data.html' %}
   {% endfor %}
 </table></div>
 {% endif %}
@@ -101,9 +101,9 @@
 {% if female_luigi_tezza %}
 <div class="table-responsive"><table class="table table-sm table-hover">
   <thead><h4>Blessed Luigi Tezza (Female)</h4></thead>
-  {% include "cm_portal/maintenance_th.html" %}  
+  {% include 'includes/maintenance_th.html' %}  
   {% for resident in female_luigi_tezza %}
-    {% include "cm_portal/maintenance_data.html" %}
+    {% include 'includes/maintenance_data.html' %}
   {% endfor %}
 </table></div>
 {% endif %}
@@ -111,9 +111,9 @@
 {% if male_rebuschini %}
 <div class="table-responsive"><table class="table table-sm table-hover">
   <thead><h4>Blessed Enrico Rebuschini (Male)</h4></thead>
-  {% include "cm_portal/maintenance_th.html" %}  
+  {% include 'includes/maintenance_th.html' %}  
   {% for resident in male_rebuschini %}
-    {% include "cm_portal/maintenance_data.html" %}
+    {% include 'includes/maintenance_data.html' %}
   {% endfor %}
 </table></div>
 {% endif %}
@@ -121,9 +121,9 @@
 {% if female_rebuschini %}
 <div class="table-responsive"><table class="table table-sm table-hover">
   <thead><h4>Blessed Enrico Rebuschini (Female)</h4></thead>
-  {% include "cm_portal/maintenance_th.html" %}  
+  {% include 'includes/maintenance_th.html' %}  
   {% for resident in female_rebuschini %}
-    {% include "cm_portal/maintenance_data.html" %}
+    {% include 'includes/maintenance_data.html' %}
   {% endfor %}
 </table></div>
 {% endif %}</div>

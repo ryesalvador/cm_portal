@@ -15,6 +15,10 @@ from django.views.decorators.cache import cache_control
 from string import ascii_lowercase
 from django.db.models.functions import Extract
 from django.contrib.auth.models import User
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+from django.shortcuts import render, redirect
 
 @login_required
 def search(request):    
@@ -43,6 +47,23 @@ def search(request):
             }
 
     return render(request, 'cm_portal/search_geria.html', variables)
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('user-detail', user.id)
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'cm_portal/change_password.html', {
+        'form': form
+    })
 
 class Dashboard(LoginRequiredMixin, generic.base.TemplateView):
     template_name = 'cm_portal/index.html'
@@ -188,19 +209,6 @@ class PhysicianListView(LoginRequiredMixin, generic.ListView):
 
 class PhysicianDetailView(LoginRequiredMixin, generic.DetailView):
     model = Physician
-
-class UserDetailView(LoginRequiredMixin, generic.DetailView):
-    model = User
-    template_name = 'cm_portal/user_detail.html'
-
-class UserUpdate(LoginRequiredMixin, generic.UpdateView):
-    model = User
-    form_class = UserUpdateForm
-    success_url = reverse_lazy('index')
-    template_name = 'cm_portal/user_update_form.html'
-
-    def get_object(self):
-        return self.request.user
 
 class PhysicianCreate(PermissionRequiredMixin, generic.CreateView):
     permission_required = 'cm_portal.add_physician'
@@ -488,3 +496,16 @@ class MedicalEquipmentDelete(PermissionRequiredMixin, generic.DeleteView):
     permission_required = 'cm_portal.can_view_inventory'
     model = MedicalEquipment
     success_url = reverse_lazy('medical-equipments')
+
+class UserDetailView(LoginRequiredMixin, generic.DetailView):
+    model = User
+    template_name = 'cm_portal/user_detail.html'
+
+class UserUpdate(LoginRequiredMixin, generic.UpdateView):
+    model = User
+    form_class = UserUpdateForm
+    success_url = reverse_lazy('index')
+    template_name = 'cm_portal/user_update_form.html'
+
+    def get_object(self):
+        return self.request.user

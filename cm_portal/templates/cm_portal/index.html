@@ -5,21 +5,30 @@
 {% load static %}
 
 {% block navbar %}
-  {% include 'cm_portal/nav_base.html' %}
+  {% include 'includes/nav_base.html' %}
 {% endblock %}
 
 {% block sidebar %} 
   <p></p>    
-  {% include 'cm_portal/user.html' %}
+  {% include 'includes/user.html' %}
   <li class="nav-item"><a class="nav-link" href="{% url 'logout'%}">Logout</a></li>
   <hr>
   <li class="nav-item"><a class="nav-link" href="{% url 'user-detail' user.id %}">Profile</a></li>  
   <li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
-  <li class="nav-item"><a class="nav-link" href="#">Change password</a></li> 
+  <li class="nav-item"><a class="nav-link" href="{% url 'change-password' %}">Change password</a></li> 
 {% endblock %}
      
 {% block page_title %}| Home{% endblock %}
-
+{% block messages %}  
+  {% if messages %}
+    {% for message in messages %}
+    <div class="{% if message.tags == 'success' %}alert alert-dismissible alert-success{% else %}alert alert-dismissible alert-danger{% endif %}">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>{{ message }}</strong>
+    </div>    
+    {% endfor %} 
+  {% endif %}
+{% endblock %}
 {% block content %}       
   <div class="jumbotron">
   <h2>Welcome <a href="{% url 'user-detail' user.id %}">{{ user.get_username|capfirst }}</a> to <em>Camillus MedHaven Portal!</em></h2>
@@ -57,5 +66,5 @@
 {% endblock %}
 
 {% block footer %}
-  {% include 'cm_portal/footer_base.html' %}
+  {% include 'includes/footer_base.html' %}
 {% endblock %}

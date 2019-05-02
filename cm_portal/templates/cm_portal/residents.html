@@ -11,7 +11,7 @@
 {% block sidebar %}
     <p></p>
     {% if user.is_authenticated %}
-      {% include 'cm_portal/user.html' %}
+      {% include 'includes/user.html' %}
     {% endif %}    
     <li class="nav-item"><a class="nav-link active" href="{% url 'residents' %}">All residents</a></li>
     <li class="nav-item"><a class="nav-link" href="{% url 'relatives' %}">All relatives</a></li>    
@@ -53,7 +53,7 @@
   </div>
   <p></p>
   <div id="resident_list">
-          {% include 'cm_portal/resident_list.html' %}
+          {% include 'includes/resident_list.html' %}
   </div>
   <br>
   {% if perms.cm_portal.add_resident %}

@@ -9,7 +9,7 @@
 {% block sidebar %}
     <p></p>
     {% if user.is_authenticated %}
-      {% include 'cm_portal/user.html' %}
+      {% include 'includes/user.html' %}
     {% endif %}    
     <li class="nav-item"><a class="nav-link" href="{% url 'residents' %}">All residents</a></li>
     <li class="nav-item"><a class="nav-link" href="{% url 'relatives' %}">All relatives</a></li>    
@@ -39,7 +39,7 @@
   {% if medicalabstract_list %}    
     <div class="list-group">
       {% for medicalabstract in medicalabstract_list %}      
-          {% include "cm_portal/resident_list_item.html" with resident=medicalabstract.resident building=True %}                     
+          {% include 'includes/resident_list_item.html' with resident=medicalabstract.resident building=True %}                     
       {% endfor %}
     </div>
     {% else %}
@@ -47,7 +47,7 @@
   {% endif %}
   <br> 
   {% if is_paginated %}
-    {% include 'cm_portal/pagination.html' %}
+    {% include 'includes/pagination.html' %}
   {% endif %} 
   {% if perms.cm_portal.add_medicalabstract %}
     <a class="btn btn-primary" href="{% url 'medicalabstract-create' %}" role="button">Add a medical abstract</a>

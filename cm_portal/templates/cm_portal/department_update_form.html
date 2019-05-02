@@ -4,14 +4,12 @@
 
 {% block page_title %}| Update Department{% endblock %}
 
-{% block content %}
-
-<div class="jumbotron"><form action="" method="post">
-    {% csrf_token %}
-    <div class="table-responsive"><table class="table table-hover">
-    {{ form.as_table }}
-    </table></div>
-    <input class="btn btn-success" type="submit" value="Update" />
-    
-</form></div>
+{% block content %}  
+  <div class="jumbotron">
+	  <form method="post" novalidate>
+		  {% csrf_token %}
+		  {% include 'includes/bs4_form.html' with form=form %}
+		  <input class="btn btn-success" type="submit" value="Update" />
+	  </form>
+  </div>    
 {% endblock %}

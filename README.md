@@ -5,6 +5,7 @@
 ~~~~
     INSTALLED_APPS = [    
         ...
+        'widget_tweaks',
         'cm_portal.apps.CmPortalConfig',
         ...
     ] 
@@ -16,6 +17,7 @@
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
     MEDIA_URL = '/media/'
     LOGIN_REDIRECT_URL = '/'
+    LOGOUT_REDIRECT_URL = '/'
     ~~~~
 
 3. Include the cm_portal URLconf in your project `urls.py` like this:

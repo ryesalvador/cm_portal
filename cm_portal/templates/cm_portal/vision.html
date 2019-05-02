@@ -5,12 +5,12 @@
 {% load static %}
 
 {% block navbar %}
-  {% include 'cm_portal/nav_base.html' %}
+  {% include 'includes/nav_base.html' %}
 {% endblock %}
 
 {% block sidebar %} 
   <p></p>    
-  {% include 'cm_portal/user.html' %}
+  {% include 'includes/user.html' %}
   <li class="nav-item"><a class="nav-link" href="{% url 'logout'%}">Logout</a></li>
   <hr>
   <li class="nav-item"><a class="nav-link" href="#">Profile</a></li>  
@@ -45,5 +45,5 @@
 {% endblock %}
 
 {% block footer %}
-  {% include 'cm_portal/footer_base.html' %}
+  {% include 'includes/footer_base.html' %}
 {% endblock %}

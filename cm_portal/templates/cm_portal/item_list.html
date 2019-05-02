@@ -15,7 +15,7 @@
 {% block sidebar %}
   <p></p>
   {% if user.is_authenticated %}
-    {% include 'cm_portal/user.html' %}
+    {% include 'includes/user.html' %}
   {% endif %}  
   <li class="nav-item"><a class="nav-link active" href="{% url 'items' %}">All items</a></li>  
   <li class="nav-item"><a class="nav-link" href="{% url 'medical-supplies' %}">All medical supplies</a></li>  
@@ -40,7 +40,7 @@
   {% endif %}  
   <br>
   {% if is_paginated %}
-    {% include 'cm_portal/pagination.html' %}
+    {% include 'includes/pagination.html' %}
   {% endif %}
   {% if perms.cm_portal.add_item %}
     <a class="btn btn-primary" href="{% url 'item-create' %}" role="button">Add item</a>

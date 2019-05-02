@@ -29,9 +29,7 @@ urlpatterns += [
     path('geriatric/resident/<int:pk>/update/', views.ResidentUpdate.as_view(), name='resident-update'),
     path('geriatric/resident/<int:pk>/delete/', views.ResidentDelete.as_view(), name='resident-delete'),
     path('geriatric/physicians/', views.PhysicianListView.as_view(), name='physicians'),
-    path('geriatric/physician/<int:pk>/', views.PhysicianDetailView.as_view(), name='physician-detail'),
-    path('accounts/user/<int:pk>/', views.UserDetailView.as_view(), name='user-detail'),
-    path('accounts/user/update/', views.UserUpdate.as_view(), name='user-update'),
+    path('geriatric/physician/<int:pk>/', views.PhysicianDetailView.as_view(), name='physician-detail'),    
     path('geriatric/physician/create/', views.PhysicianCreate.as_view(), name='physician-create'),
     path('geriatric/physician/<int:pk>/update/', views.PhysicianUpdate.as_view(), name='physician-update'),
     path('geriatric/physician/<int:pk>/delete/', views.PhysicianDelete.as_view(), name='physician-delete'),
@@ -109,6 +107,9 @@ urlpatterns += [
     #path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/login/', LoginView.as_view(), {'template_name': 'registration/login.html', 'authentication_form': LoginForm}, name='login'),
     path('accounts/logout/', LogoutView.as_view(), name='logout'),
+    path('accounts/user/<int:pk>/', views.UserDetailView.as_view(), name='user-detail'),
+    path('accounts/user/update/', views.UserUpdate.as_view(), name='user-update'),
+    path('accounts/password/', views.change_password, name='change-password'),
 ]
 
 if settings.DEBUG:

@@ -7,7 +7,7 @@
 {% block sidebar %}
     <p></p>
     {% if user.is_authenticated %}
-      {% include 'cm_portal/user.html' %}
+      {% include 'includes/user.html' %}
     {% endif %}    
     <li class="nav-item"><a class="nav-link" href="{% url 'residents' %}">All residents</a></li>
     <li class="nav-item"><a class="nav-link" href="{% url 'relatives' %}">All relatives</a></li>    
@@ -37,7 +37,7 @@
   {% if physician_list %}    
     <div class="list-group">
       {% for physician in physician_list %}
-        {% include 'cm_portal/physician_list_item.html' %}
+        {% include 'includes/physician_list_item.html' %}
       {% endfor %}
     </div>
     {% else %}
@@ -45,7 +45,7 @@
   {% endif %}
   <br> 
   {% if is_paginated %}
-    {% include 'cm_portal/pagination.html' %}
+    {% include 'includes/pagination.html' %}
   {% endif %}
   {% if perms.cm_portal.add_physician %} 
     <a class="btn btn-primary" href="{% url 'physician-create' %}" role="button">Add a physician</a>

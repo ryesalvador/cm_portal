@@ -15,7 +15,7 @@ requires = [
 
 setup(
     name='cm_portal',
-    version='0.1.22',
+    version='0.1.3',
     packages=find_packages(),
     include_package_data=True,
     license='GPLv3',  

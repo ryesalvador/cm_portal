@@ -84,6 +84,7 @@ class Item(models.Model):
 
     class Meta:
         ordering = ["item_name"]
+        permissions = (("can_view_csu", "View CSU Database"),)
 
     def __str__(self):
         if self.brand_name != '':

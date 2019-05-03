@@ -102,7 +102,7 @@ class HRISIndex(PermissionRequiredMixin, generic.base.TemplateView):
         return context
 
 class CSUIndex(PermissionRequiredMixin, generic.base.TemplateView):
-    permission_required = 'cm_portal.can_view_inventory'
+    permission_required = 'cm_portal.can_view_csu'
     template_name = 'cm_portal/csu_index.html'
 
     def get_context_data(self, **kwargs):
@@ -423,77 +423,77 @@ class MedicationDelete(PermissionRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy('medications')
 
 class ItemListView(PermissionRequiredMixin, generic.ListView):
-    permission_required = 'cm_portal.can_view_inventory'
+    permission_required = 'cm_portal.can_view_csu'
     model = Item
     paginate_by = 10
 
 class ItemDetailView(PermissionRequiredMixin, generic.DetailView):
-    permission_required = 'cm_portal.can_view_inventory'
+    permission_required = 'cm_portal.can_view_csu'
     model = Item
 
 class ItemCreate(PermissionRequiredMixin, generic.CreateView):
-    permission_required = 'cm_portal.can_view_inventory'
+    permission_required = 'cm_portal.can_view_csu'
     model = Item
     fields = '__all__'
 
 class ItemUpdate(PermissionRequiredMixin, generic.UpdateView):
-    permission_required = 'cm_portal.can_view_inventory'
+    permission_required = 'cm_portal.can_view_csu'
     model = Item
     fields = '__all__'
     template_name_suffix = '_update_form'
 
 class ItemDelete(PermissionRequiredMixin, generic.DeleteView):
-    permission_required = 'cm_portal.can_view_inventory'
+    permission_required = 'cm_portal.can_view_csu'
     model = Item
     success_url = reverse_lazy('items')
 
 class MedicalSupplyListView(PermissionRequiredMixin, generic.ListView):
-    permission_required = 'cm_portal.can_view_inventory'
+    permission_required = 'cm_portal.can_view_csu'
     model = MedicalSupply
     paginate_by = 10
 
 class MedicalSupplyDetailView(PermissionRequiredMixin, generic.DetailView):
-    permission_required = 'cm_portal.can_view_inventory'
+    permission_required = 'cm_portal.can_view_csu'
     model = MedicalSupply
 
 class MedicalSupplyCreate(PermissionRequiredMixin, generic.CreateView):
-    permission_required = 'cm_portal.can_view_inventory'
+    permission_required = 'cm_portal.can_view_csu'
     model = MedicalSupply
     form_class = MedicalSupplyCreateForm
 
 class MedicalSupplyUpdate(PermissionRequiredMixin, generic.UpdateView):
-    permission_required = 'cm_portal.can_view_inventory'
+    permission_required = 'cm_portal.can_view_csu'
     model = MedicalSupply
     form_class = MedicalSupplyCreateForm
     template_name_suffix = '_update_form'
 
 class MedicalSupplyDelete(PermissionRequiredMixin, generic.DeleteView):
-    permission_required = 'cm_portal.can_view_inventory'
+    permission_required = 'cm_portal.can_view_csu'
     model = MedicalSupply
     success_url = reverse_lazy('medical-supplies')
 
 class MedicalEquipmentListView(PermissionRequiredMixin, generic.ListView):
-    permission_required = 'cm_portal.can_view_inventory'
+    permission_required = 'cm_portal.can_view_csu'
     model = MedicalEquipment
     paginate_by = 10
 
 class MedicalEquipmentDetailView(PermissionRequiredMixin, generic.DetailView):
-    permission_required = 'cm_portal.can_view_inventory'
+    permission_required = 'cm_portal.can_view_csu'
     model = MedicalEquipment
 
 class MedicalEquipmentCreate(PermissionRequiredMixin, generic.CreateView):
-    permission_required = 'cm_portal.can_view_inventory'
+    permission_required = 'cm_portal.can_view_csu'
     model = MedicalEquipment
     form_class = MedicalEquipmentCreateForm
 
 class MedicalEquipmentUpdate(PermissionRequiredMixin, generic.UpdateView):
-    permission_required = 'cm_portal.can_view_inventory'
+    permission_required = 'cm_portal.can_view_csu'
     model = MedicalEquipment
     form_class = MedicalEquipmentCreateForm
     template_name_suffix = '_update_form'
 
 class MedicalEquipmentDelete(PermissionRequiredMixin, generic.DeleteView):
-    permission_required = 'cm_portal.can_view_inventory'
+    permission_required = 'cm_portal.can_view_csu'
     model = MedicalEquipment
     success_url = reverse_lazy('medical-equipments')
 

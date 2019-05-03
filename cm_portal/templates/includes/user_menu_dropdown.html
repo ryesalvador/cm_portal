@@ -1,0 +1,8 @@
+<li class="nav-item dropdown show active d-block d-sm-none">
+  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">User</a>
+  <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 39px, 0px); top: 0px; left: 0px; will-change: transform;">      
+	  <a class="dropdown-item" href="{% url 'user-detail' user.id %}">View profile</a>
+	  <a class="dropdown-item" href="#">Settings</a>
+	  <a class="dropdown-item" href="{% url 'change-password' %}">Change password</a>
+  </div>
+</li>

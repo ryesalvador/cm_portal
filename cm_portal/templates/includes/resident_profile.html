@@ -25,7 +25,12 @@
       <td><strong>Middle Name: </strong>{{ resident.middle_name }}</td>    
     </tr>
     <tr>
-      <td><strong>Age: </strong>{{ resident.birth_date|timesince }}</td>
+      <td><strong>Age: </strong>
+      {% if not resident.vital_status == 'LI' %}
+        {{ resident.died_on|timeuntil:resident.birth_date }}        
+      {% else %}
+        {{ resident.birth_date|timesince }}
+      {% endif %}</td>
       <td><strong>Sex: </strong>{{ resident.get_gender_display }}</td>
       <td><strong>OSCA ID #: </strong>{{ resident.osca_id }}</td>    
     </tr>

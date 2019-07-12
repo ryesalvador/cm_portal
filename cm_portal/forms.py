@@ -2,7 +2,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django import forms
 from django.forms import ModelForm
 from .models import Resident, Medication, Employee, EmploymentStatus, \
-     MedicalSupply, MedicalEquipment
+     MedicalSupply, MedicalEquipment, Charge
 from django.contrib.auth.models import User
 
 class DateInput(forms.DateInput):
@@ -16,6 +16,14 @@ class LoginForm(AuthenticationForm):
                                widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'username'}))
     password = forms.CharField(label="Password", max_length=30, 
                                widget=forms.PasswordInput(attrs={'class': 'form-control', 'name': 'password'}))
+
+class ChargeCreateForm(ModelForm):
+    class Meta:
+        model = Charge
+        fields = '__all__'
+        widgets = {
+            'date_acquired': DateInput(),            
+            }
 
 class MedicationCreateForm(ModelForm):
     class Meta:

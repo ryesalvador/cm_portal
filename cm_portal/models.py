@@ -2,7 +2,9 @@ from django.db import models
 from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
+from django.contrib.auth.models import User
 #from django_dropbox_storage.storage import DropboxStorage
+from datetime import date
 import uuid
 
 #DROPBOX_STORAGE = DropboxStorage()
@@ -74,6 +76,23 @@ ITEM_TYPE = (
         ('E', 'Medical Equipment'),
     )
 
+class Charge(models.Model):
+    date_acquired = models.DateField(null=True, blank=True, default=date.today)
+    borrower = models.ForeignKey('Resident', on_delete=models.CASCADE, limit_choices_to={'vital_status': 'LI'}, null=True)
+    item = models.ForeignKey('MedicalSupply', on_delete=models.CASCADE, null=True)
+    quantity = models.FloatField()
+    unit_of_measure = models.CharField(max_length=35)
+    cashier = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+
+    class Meta:        
+        ordering = ['date_acquired']
+
+    def __str__(self):
+        return f'{self.date_acquired} | {self.borrower} | {self.item} - {self.quantity} {self.unit_of_measure}'
+
+    def get_absolute_url(self):
+        return reverse('charge-detail', args=[str(self.id)])
+        
 class Item(models.Model):
     item_type = models.CharField(max_length=1, choices=ITEM_TYPE, default='S')
     item_name = models.CharField(max_length=70)
@@ -142,7 +161,7 @@ class Drug(models.Model):
     generic_name = models.CharField(max_length=70)
     brand_name = models.CharField(max_length=70, default='', blank=True)
     dosage = models.CharField(max_length=35, default='', blank=True)
-    indication = models.CharField(max_length=70, blank=True)
+    indication = models.TextField(blank=True)
     price = models.FloatField(null=True, blank=True)
 
     class Meta:

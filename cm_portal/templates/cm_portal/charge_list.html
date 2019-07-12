@@ -1,0 +1,50 @@
+{% extends "cm_portal/csu_index.html" %}
+
+{% block title %}| List of Charges{% endblock %}
+
+{% block page_title %}| List of Charges{% endblock %}
+
+{% load static %}
+
+<!-- {% block search_form %}
+  <form class="navbar-form navbar-right" id="search-form" action="{% url 'search-drugs' %}" method="get">
+    {{ form.as_p }}            
+  </form>        
+{% endblock %} -->
+
+{% block sidebar %}
+  <p></p>
+  {% if user.is_authenticated %}
+    {% include 'includes/user.html' %}
+  {% endif %}  
+  <li class="nav-item"><a class="nav-link" href="{% url 'items' %}">All items</a></li>  
+  <li class="nav-item"><a class="nav-link" href="{% url 'medical-supplies' %}">All medical supplies</a></li>  
+  <li class="nav-item"><a class="nav-link" href="{% url 'medical-equipment' %}">All medical equipment</a></li>  
+  <li class="nav-item"><a class="nav-link active" href="{% url 'charges' %}">All charges</a></li>  
+{% endblock %}
+
+{% block content %}
+  <div class="jumbotron">
+  {% if charge_list %}    
+    <ul class="list-group">
+      {% for charge in charge_list %}
+        <a href="{{ charge.get_absolute_url }}" class="list-group-item list-group-item-action flex-column align-items-start">
+        <h5 class="list-group-item-heading">{{ charge.borrower }}</h5>
+        <small class="text-muted">{{ charge.item }}</small>                
+        </a>
+      {% endfor %}
+    </ul>
+    {% else %}
+      <p>There are no charges in the portal.</p>  
+  {% endif %}  
+  <br>
+  {% if is_paginated %}
+    {% include 'includes/pagination.html' %}
+  {% endif %}
+  {% if perms.cm_portal.add_charge %}
+    <a class="btn btn-primary" href="{% url 'charge-create' %}" role="button">Add charge</a>
+  {% else %} 
+    <a class="btn btn-primary disabled" href="{% url 'charge-create' %}" role="button">Add charge</a>
+  {% endif %}
+  </div>
+{% endblock %}

@@ -1,7 +1,12 @@
 from django.contrib import admin
 from .models import Relative, Physician, Resident, PerformanceAppraisal, \
      EmploymentStatus, Employee, Position, Department, MedicalAbstract, \
-     Drug, Medication, Item, MedicalSupply, MedicalEquipment, ResidentWeight
+     Drug, Medication, Item, MedicalSupply, MedicalEquipment, ResidentWeight, \
+     Charge
+
+@admin.register(Charge)
+class ChargeAdmin(admin.ModelAdmin):
+    pass
 
 @admin.register(ResidentWeight)
 class ResidentWeight(admin.ModelAdmin):
@@ -21,7 +26,8 @@ class MedicalEquipmentAdmin(admin.ModelAdmin):
 
 @admin.register(Drug)
 class DrugAdmin(admin.ModelAdmin):
-    list_display = ('generic_name', 'brand_name')
+    search_fields = ('generic_name', 'brand_name')
+    list_display = ('generic_name', 'brand_name', 'indication')
 
 @admin.register(Medication)
 class MedicationAdmin(admin.ModelAdmin):

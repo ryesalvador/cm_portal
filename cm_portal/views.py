@@ -1,13 +1,14 @@
 from django.shortcuts import render
 from .models import Resident, Physician, Relative, Employee, Position, Department, \
-     MedicalAbstract, Drug, Medication, Item, MedicalSupply, MedicalEquipment
+     MedicalAbstract, Drug, Medication, Item, MedicalSupply, MedicalEquipment, \
+     Charge
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from .forms import ResidentCreateForm, EmployeeCreateForm, \
      MedicationCreateForm, MedicalSupplyCreateForm, MedicalEquipmentCreateForm, \
-     UserUpdateForm
+     UserUpdateForm, ChargeCreateForm
 from itertools import chain
 from django.apps import apps
 from django.utils.decorators import method_decorator
@@ -509,3 +510,41 @@ class UserUpdate(LoginRequiredMixin, generic.UpdateView):
 
     def get_object(self):
         return self.request.user
+
+class ChargeListView(PermissionRequiredMixin, generic.ListView):
+    permission_required = 'cm_portal.can_view_csu'
+    model = Charge
+    paginate_by = 10
+
+class ChargeDetailView(PermissionRequiredMixin, generic.DetailView):
+    permission_required = 'cm_portal.can_view_csu'
+    model = Charge
+
+class ChargeCreate(PermissionRequiredMixin, generic.CreateView):
+    permission_required = 'cm_portal.can_view_csu'
+    form_class = ChargeCreateForm
+    model = Charge
+
+    def get_form(self, *args, **kwargs):
+        form = super(ChargeCreate, self).get_form(*args, **kwargs)
+        if 'pk' in self.kwargs:
+            try:
+              item = MedicalSupply.objects.get(id=self.kwargs['pk'])
+              user = self.request.user              
+              form.fields['item'].initial = item
+              form.fields['unit_of_measure'].initial = item.unit_of_measure
+              form.fields['cashier'].initial = user
+            except MedicalSupply.DoesNotExist:
+              pass        
+        return form
+
+class ChargeUpdate(PermissionRequiredMixin, generic.UpdateView):
+    permission_required = 'cm_portal.can_view_csu'
+    model = Charge
+    form_class = ChargeCreateForm    
+    template_name_suffix = '_update_form'
+
+class ChargeDelete(PermissionRequiredMixin, generic.DeleteView):
+    permission_required = 'cm_portal.can_view_csu'
+    model = Charge
+    success_url = reverse_lazy('charges')

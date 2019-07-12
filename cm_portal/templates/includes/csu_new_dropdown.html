@@ -19,6 +19,12 @@
       {% else %}
         <a class="dropdown-item disabled" href="#"><i class="fas fa-plus"></i> New medical equipment</a>
       {% endif %}
+      
+      {% if perms.cm_portal.add_charge %}
+        <a class="dropdown-item" href="{% url 'charge-create' %}"><i class="fas fa-plus"></i> New charge</a>
+      {% else %}
+        <a class="dropdown-item disabled" href="#"><i class="fas fa-plus"></i> New charge</a>
+      {% endif %}
     </div>
   </li>  
 </ul>

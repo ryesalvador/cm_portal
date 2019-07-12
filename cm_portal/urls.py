@@ -101,6 +101,12 @@ urlpatterns += [
     path('csu/medical-equipment/create/', views.MedicalEquipmentCreate.as_view(), name='medicalequipment-create'),
     path('csu/medical-equipment/<uuid:pk>/update/', views.MedicalEquipmentUpdate.as_view(), name='medicalequipment-update'),
     path('csu/medical-equipment/<uuid:pk>/delete/', views.MedicalEquipmentDelete.as_view(), name='medicalequipment-delete'),
+    path('csu/charge/<int:pk>', views.ChargeDetailView.as_view(), name='charge-detail'),
+    path('csu/charges/', views.ChargeListView.as_view(), name='charges'),
+    path('csu/charge/create/', views.ChargeCreate.as_view(), name='charge-create'),
+    path('csu/charge/create/<uuid:pk>', views.ChargeCreate.as_view(), name='charge-create'),
+    path('csu/charge/<int:pk>/update/', views.ChargeUpdate.as_view(), name='charge-update'),
+    path('csu/charge/<int:pk>/delete/', views.ChargeDelete.as_view(), name='charge-delete'),
 ]
 
 urlpatterns += [

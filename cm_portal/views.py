@@ -538,12 +538,6 @@ class ChargeCreate(PermissionRequiredMixin, generic.CreateView):
               pass        
         return form
 
-class ChargeUpdate(PermissionRequiredMixin, generic.UpdateView):
-    permission_required = 'cm_portal.can_view_csu'
-    model = Charge
-    form_class = ChargeCreateForm    
-    template_name_suffix = '_update_form'
-
 class ChargeDelete(PermissionRequiredMixin, generic.DeleteView):
     permission_required = 'cm_portal.can_view_csu'
     model = Charge

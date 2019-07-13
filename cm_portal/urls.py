@@ -104,8 +104,7 @@ urlpatterns += [
     path('csu/charge/<int:pk>', views.ChargeDetailView.as_view(), name='charge-detail'),
     path('csu/charges/', views.ChargeListView.as_view(), name='charges'),
     path('csu/charge/create/', views.ChargeCreate.as_view(), name='charge-create'),
-    path('csu/charge/create/<uuid:pk>', views.ChargeCreate.as_view(), name='charge-create'),
-    path('csu/charge/<int:pk>/update/', views.ChargeUpdate.as_view(), name='charge-update'),
+    path('csu/charge/create/<uuid:pk>', views.ChargeCreate.as_view(), name='charge-create'),    
     path('csu/charge/<int:pk>/delete/', views.ChargeDelete.as_view(), name='charge-delete'),
 ]
 

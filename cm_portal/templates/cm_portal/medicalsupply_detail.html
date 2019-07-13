@@ -16,11 +16,11 @@
   {% if perms.cm_portal.change_medicalsupply and perms.cm_portal.delete_medicalsupply %}     
     <a class="btn btn-primary" href="{% url 'medicalsupply-update' medicalsupply.id %}" role="button">Edit</a>  
     <a class="btn btn-danger" href="{% url 'medicalsupply-delete' medicalsupply.id %}" role="button">Delete</a>
-    <a class="btn btn-success" href="{% url 'charge-create' medicalsupply.id %}">Charge this Item</a>
+    <a class="btn btn-success" href="{% url 'charge-create' medicalsupply.id %}">Charge Item</a>
   {% elif perms.cm_portal.change_medicalsupply %}
     <a class="btn btn-primary" href="{% url 'medicalsupply-update' medicalsupply.id %}" role="button">Edit</a>  
     <a class="btn btn-danger disabled" href="{% url 'medicalsupply-delete' medicalsupply.id %}" role="button">Delete</a>
-    <a class="btn btn-success" href="{% url 'charge-create' medicalsupply.id %}">Charge this Item</a>
+    <a class="btn btn-success" href="{% url 'charge-create' medicalsupply.id %}">Charge Item</a>
   {% else %}
     <a class="btn btn-primary disabled" href="{% url 'medicalsupply-update' medicalsupply.id %}" role="button">Edit</a>  
     <a class="btn btn-danger disabled" href="{% url 'medicalsupply-delete' medicalsupply.id %}" role="button">Delete</a>

@@ -12,14 +12,9 @@
     <tr><td><strong>Unit of measure: </strong>{{ charge.unit_of_measure }}</td></tr>
     <tr><td><strong>Cashier: </strong>{{ charge.cashier }}</td></tr>
   </table></div> 
-  {% if perms.cm_portal.change_charge and perms.cm_portal.delete_charge %} 
-    <a class="btn btn-primary" href="{% url 'charge-update' charge.id %}" role="button">Edit</a>  
-    <a class="btn btn-danger" href="{% url 'charge-delete' charge.id %}" role="button">Delete</a>
-  {% elif perms.cm_portal.change_charge %}
-    <a class="btn btn-primary" href="{% url 'charge-update' charge.id %}" role="button">Edit</a>  
-    <a class="btn btn-danger disabled" href="{% url 'charge-delete' charge.id %}" role="button">Delete</a>
-  {% else %}
-    <a class="btn btn-primary disabled" href="{% url 'charge-update' charge.id %}" role="button">Edit</a>  
+  {% if perms.cm_portal.delete_charge %}      
+    <a class="btn btn-danger" href="{% url 'charge-delete' charge.id %}" role="button">Delete</a>  
+  {% else %}     
     <a class="btn btn-danger disabled" href="{% url 'charge-delete' charge.id %}" role="button">Delete</a>
   {% endif %}</div>
 {% endblock %}

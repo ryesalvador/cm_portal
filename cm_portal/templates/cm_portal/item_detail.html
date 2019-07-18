@@ -49,7 +49,7 @@
   {% if perms.cm_portal.change_item and perms.cm_portal.delete_item %} 
     <a class="btn btn-primary" href="{% url 'item-update' item.id %}" role="button">Edit</a>  
     <a class="btn btn-danger" href="{% url 'item-delete' item.id %}" role="button">Delete</a>
-  {% elif perms.cm_portal.change_drug %}
+  {% elif perms.cm_portal.change_item %}
     <a class="btn btn-primary" href="{% url 'item-update' item.id %}" role="button">Edit</a>  
     <a class="btn btn-danger disabled" href="{% url 'item-delete' item.id %}" role="button">Delete</a>
   {% else %}

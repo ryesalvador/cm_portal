@@ -125,7 +125,7 @@ class MedicalSupply(models.Model):
     class Meta:
         verbose_name_plural = "Medical supplies"
         ordering = ["item"]
-
+        
     def __str__(self):
         return u'{}'.format(self.item)
 

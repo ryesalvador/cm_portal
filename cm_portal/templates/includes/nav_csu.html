@@ -1,14 +1,12 @@
 {% extends 'includes/nav_base.html' %}
 
 {% block nav_left %}
-    {% include 'includes/csu_new_dropdown.html' %}
+    {% include 'includes/csu_new_dropdown.html' %}    
     <li class="nav-item">
       <a class="nav-link" href="{% url 'geriatric-index' %}">Geriatric</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="{% url 'hris-index' %}">HRIS</a>
     </li>
-    <li class="nav-item active">
-      <a class="nav-link" href="{% url 'csu-index' %}">CSU</a>
-    </li>    
+    {% include 'includes/csu_menu_dropdown.html' %}    
 {% endblock %}

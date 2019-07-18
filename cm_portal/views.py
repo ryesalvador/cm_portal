@@ -110,7 +110,8 @@ class CSUIndex(PermissionRequiredMixin, generic.base.TemplateView):
         context = super().get_context_data(**kwargs)
         context['item_list'] = Item.objects.all()
         context['medicalequipment_list'] = MedicalEquipment.objects.all()
-        context['medicalsupply_list'] = MedicalSupply.objects.all()        
+        context['medicalsupply_list'] = MedicalSupply.objects.all()
+        context['charge_list'] = Charge.objects.all()
         return context
     
 @method_decorator(cache_control(private=True), name='dispatch')

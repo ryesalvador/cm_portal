@@ -41,6 +41,10 @@
       <a href="{% url 'medical-equipment' %}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
         <strong>Medical equipment</strong> 
         <span class="badge badge-primary badge-pill">{{ medicalequipment_list.count }}</span>
+      </a>
+      <a href="{% url 'charges' %}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+        <strong>Charges</strong> 
+        <span class="badge badge-primary badge-pill">{{ charge_list.count }}</span>
       </a>            
     </ul>
     </div>

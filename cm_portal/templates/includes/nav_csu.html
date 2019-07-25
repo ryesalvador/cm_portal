@@ -8,5 +8,8 @@
     <li class="nav-item">
       <a class="nav-link" href="{% url 'hris-index' %}">HRIS</a>
     </li>
+    <li class="nav-item active d-none d-sm-block">
+      <a class="nav-link" href="{% url 'csu-index' %}">CSU</a>
+    </li>
     {% include 'includes/csu_menu_dropdown.html' %}    
 {% endblock %}

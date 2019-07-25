@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Resident, Physician, Relative, Employee, Position, Department, \
      MedicalAbstract, Drug, Medication, Item, MedicalSupply, MedicalEquipment, \
-     Charge
+     Charge, Building
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
@@ -543,3 +543,12 @@ class ChargeDelete(PermissionRequiredMixin, generic.DeleteView):
     permission_required = 'cm_portal.can_view_csu'
     model = Charge
     success_url = reverse_lazy('charges')
+
+class BuildingListView(PermissionRequiredMixin, generic.ListView):
+    permission_required = 'cm_portal.can_view_nursing_home'
+    model = Building
+    paginate_by = 10
+
+class BuildingDetailView(PermissionRequiredMixin, generic.DetailView):
+    permission_required = 'cm_portal.can_view_nursing_home'
+    model = Building

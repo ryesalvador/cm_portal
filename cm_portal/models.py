@@ -76,86 +76,18 @@ ITEM_TYPE = (
         ('E', 'Medical Equipment'),
     )
 
-class Charge(models.Model):
-    date_acquired = models.DateField(null=True, blank=True, default=date.today)
-    borrower = models.ForeignKey('Resident', on_delete=models.CASCADE, limit_choices_to={'vital_status': 'LI'}, null=True)
-    item = models.ForeignKey('MedicalSupply', on_delete=models.CASCADE, null=True)
-    quantity = models.FloatField()
-    unit_of_measure = models.CharField(max_length=35)
-    cashier = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-
-    class Meta:        
-        ordering = ['date_acquired']
-
-    def __str__(self):
-        return f'{self.date_acquired} | {self.borrower} | {self.item} - {self.quantity} {self.unit_of_measure}'
-
-    def get_absolute_url(self):
-        return reverse('charge-detail', args=[str(self.id)])
-        
-class Item(models.Model):
-    item_type = models.CharField(max_length=1, choices=ITEM_TYPE, default='S')
-    item_name = models.CharField(max_length=70)
-    brand_name = models.CharField(max_length=70, blank=True)
-    model = models.CharField(max_length=70, blank=True)
-    manufacturer = models.CharField(max_length=70, blank=True)
-    description = models.TextField(blank=True)    
+class Building(models.Model):
+    name = models.CharField(max_length=70)
+    alias = models.CharField(max_length=70, default='', blank=True)
 
     class Meta:
-        ordering = ["item_name"]
-        permissions = (("can_view_csu", "View CSU Database"),)
+        ordering = ["name"]        
 
     def __str__(self):
-        if self.brand_name != '':
-            return f'{self.item_name} <{self.brand_name}>'
-        else:
-            return f'{self.item_name}'
-
+        return u'{0} ({1})'.format(self.name, self.alias)
+    
     def get_absolute_url(self):
-        return reverse('item-detail', args=[str(self.id)])
-
-class MedicalSupply(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for this particular medical supply across whole inventory')
-    item = models.ForeignKey('Item', on_delete=models.CASCADE, null=True)    
-    date_acquired = models.DateField(auto_now=False, null=True, blank=True)
-    expiration_date = models.DateField(auto_now=False, null=True, blank=True)
-    stocks_available = models.PositiveIntegerField(null=True, blank=True)
-    unit_of_measure = models.CharField(max_length=35, blank=True)
-
-    class Meta:
-        verbose_name_plural = "Medical supplies"
-        ordering = ["item"]
-        
-    def __str__(self):
-        return u'{}'.format(self.item)
-
-    def get_absolute_url(self):
-        return reverse('medicalsupply-detail', args=[str(self.id)])
-
-class MedicalEquipment(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for this particular medical equipment across whole inventory')
-    item = models.ForeignKey('Item', on_delete=models.CASCADE, null=True)
-    location = models.CharField(max_length=1, choices=BUILDING, blank=True)
-    date_acquired = models.DateField(auto_now=False, null=True, blank=True)
-    due_back = models.DateField(null=True, blank=True)
-
-    status = models.CharField(
-        max_length=1,
-        choices=LOAN_STATUS,
-        blank=True,
-        default='m',
-        help_text='Medical equipment availability',
-    )
-
-    class Meta:
-        ordering = ['due_back']
-
-    def __str__(self):
-        """String for representing the Model object."""
-        return f'{self.id} ({self.item.item_name})'
-
-    def get_absolute_url(self):
-        return reverse('medicalequipment-detail', args=[str(self.id)])
+        return reverse('building-detail', args=[str(self.id)])
     
 class Drug(models.Model):
     generic_name = models.CharField(max_length=70)
@@ -406,3 +338,85 @@ class Department(models.Model):
 
     def get_absolute_url(self):
         return reverse('department-detail', args=[str(self.id)])
+
+#Central Supplies Unit Models       
+class Item(models.Model):
+    item_type = models.CharField(max_length=1, choices=ITEM_TYPE, default='S')
+    item_name = models.CharField(max_length=70)
+    brand_name = models.CharField(max_length=70, blank=True)
+    model = models.CharField(max_length=70, blank=True)
+    manufacturer = models.CharField(max_length=70, blank=True)
+    description = models.TextField(blank=True)    
+
+    class Meta:
+        ordering = ["item_name"]
+        permissions = (("can_view_csu", "View CSU Database"),)
+
+    def __str__(self):
+        if self.brand_name != '':
+            return f'{self.item_name} <{self.brand_name}>'
+        else:
+            return f'{self.item_name}'
+
+    def get_absolute_url(self):
+        return reverse('item-detail', args=[str(self.id)])
+
+class MedicalSupply(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for this particular medical supply across whole inventory')
+    item = models.ForeignKey('Item', on_delete=models.CASCADE, null=True)    
+    date_acquired = models.DateField(auto_now=False, null=True, blank=True)
+    expiration_date = models.DateField(auto_now=False, null=True, blank=True)
+    stocks_available = models.PositiveIntegerField(null=True, blank=True)
+    unit_of_measure = models.CharField(max_length=35, blank=True)
+
+    class Meta:
+        verbose_name_plural = "Medical supplies"
+        ordering = ["item"]
+        
+    def __str__(self):
+        return u'{}'.format(self.item)
+
+    def get_absolute_url(self):
+        return reverse('medicalsupply-detail', args=[str(self.id)])
+
+class MedicalEquipment(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for this particular medical equipment across whole inventory')
+    item = models.ForeignKey('Item', on_delete=models.CASCADE, null=True)
+    location = models.CharField(max_length=1, choices=BUILDING, blank=True)
+    date_acquired = models.DateField(auto_now=False, null=True, blank=True)
+    due_back = models.DateField(null=True, blank=True)
+
+    status = models.CharField(
+        max_length=1,
+        choices=LOAN_STATUS,
+        blank=True,
+        default='m',
+        help_text='Medical equipment availability',
+    )
+
+    class Meta:
+        ordering = ['due_back']
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return f'{self.id} ({self.item.item_name})'
+
+    def get_absolute_url(self):
+        return reverse('medicalequipment-detail', args=[str(self.id)])
+
+class Charge(models.Model):
+    date_acquired = models.DateField(null=True, blank=True, default=date.today)
+    borrower = models.ForeignKey('Resident', on_delete=models.CASCADE, limit_choices_to={'vital_status': 'LI'}, null=True)
+    item = models.ForeignKey('MedicalSupply', on_delete=models.CASCADE, null=True)
+    quantity = models.FloatField()
+    unit_of_measure = models.CharField(max_length=35)
+    cashier = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+
+    class Meta:        
+        ordering = ['date_acquired']
+
+    def __str__(self):
+        return f'{self.date_acquired} | {self.borrower} | {self.item} - {self.quantity} {self.unit_of_measure}'
+
+    def get_absolute_url(self):
+        return reverse('charge-detail', args=[str(self.id)])

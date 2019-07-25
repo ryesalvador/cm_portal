@@ -1,5 +1,4 @@
 from django.db import models
-from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.models import User
@@ -213,6 +212,7 @@ class Resident(models.Model):
     admitting_diagnosis = models.TextField(blank=True)
     level_of_care = models.CharField(max_length=1, choices=LEVEL_OF_CARE, blank=True)
     building = models.CharField(max_length=1, choices=BUILDING, blank=True)
+    residence = models.ForeignKey('Building', on_delete=models.CASCADE, null=True)
     room_number = models.CharField(max_length=70, blank=True)
     diet = models.TextField(blank=True)
     weight = models.FloatField(null=True, blank=True)

@@ -14,10 +14,10 @@
 {% endblock %}
 
 {% block content %}  
-  <div class="jumbotron"><h2>Name: {{ medicalabstract.resident.first_name }} 
+  <div class="jumbotron"><h2>Name: <a href="{{ medicalabstract.resident.get_absolute_url }}" >{{ medicalabstract.resident.first_name }} 
     {% if medicalabstract.resident.middle_name %}
       {{ medicalabstract.resident.middle_name|first }}.            
-    {% endif %} {{ medicalabstract.resident.last_name }}</h2>
+    {% endif %} {{ medicalabstract.resident.last_name }}</a></h2>
   <div class="table-responsive"><table class="table table-hover">
     <thead><h3>General Data</h3></thead>
     <tr>

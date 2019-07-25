@@ -57,6 +57,9 @@ urlpatterns += [
     path('geriatric/medication/<int:pk>/delete/', views.MedicationDelete.as_view(), name='medication-delete'),
     path('geriatric/buildings/', views.BuildingListView.as_view(), name='buildings'),
     path('geriatric/building/<int:pk>/', views.BuildingDetailView.as_view(), name='building-detail'),
+    path('geriatric/building/create/', views.BuildingCreate.as_view(), name='building-create'),
+    path('geriatric/building/<int:pk>/update/', views.BuildingUpdate.as_view(), name='building-update'),
+    path('geriatric/building/<int:pk>/delete/', views.BuildingDelete.as_view(), name='building-delete'),
 ]
 
 urlpatterns += [

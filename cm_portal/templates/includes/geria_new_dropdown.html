@@ -41,6 +41,12 @@
   {% else %}
     <a class="dropdown-item disabled" href="#" ><i class="fas fa-plus"></i> New medication</a>
   {% endif %}
+  
+  {% if perms.cm_portal.add_building %}
+    <a class="dropdown-item" href="{% url 'building-create' %}" ><i class="fas fa-plus"></i> New building</a>            
+  {% else %}
+    <a class="dropdown-item disabled" href="#" ><i class="fas fa-plus"></i> New building</a>
+  {% endif %}
 
   </div>
 </li>

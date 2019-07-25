@@ -15,4 +15,16 @@
       <td><strong>Alias: </strong>{{ building.alias }}</td>
     </tr>
   </table>
+  </div>
+  {% if perms.cm_portal.change_building and perms.cm_portal.delete_building %} 
+    <a class="btn btn-primary" href="{% url 'building-update' building.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger" href="{% url 'building-delete' building.id %}" role="button">Delete</a>
+  {% elif perms.cm_portal.change_building %}
+    <a class="btn btn-primary" href="{% url 'building-update' building.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger disabled" href="{% url 'building-delete' building.id %}" role="button">Delete</a>
+  {% else %}
+    <a class="btn btn-primary disabled" href="{% url 'building-update' building.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger disabled" href="{% url 'building-delete' building.id %}" role="button">Delete</a>
+  {% endif %}
+  </div>
 {% endblock %}

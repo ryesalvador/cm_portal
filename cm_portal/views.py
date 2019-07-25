@@ -552,3 +552,19 @@ class BuildingListView(PermissionRequiredMixin, generic.ListView):
 class BuildingDetailView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'cm_portal.can_view_nursing_home'
     model = Building
+
+class BuildingCreate(PermissionRequiredMixin, generic.CreateView):
+    permission_required = 'cm_portal.can_view_nursing_home'
+    model = Building
+    fields = '__all__'
+
+class BuildingUpdate(PermissionRequiredMixin, generic.UpdateView):
+    permission_required = 'cm_portal.can_view_nursing_home'
+    model = Building
+    fields = '__all__'
+    template_name_suffix = '_update_form'
+
+class BuildingDelete(PermissionRequiredMixin, generic.DeleteView):
+    permission_required = 'cm_portal.can_view_nursing_home'
+    model = Building
+    success_url = reverse_lazy('buildings')

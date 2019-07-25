@@ -37,95 +37,30 @@
 {% endblock %}
 
 {% block content %}
-<div class="jumbotron">{% if male_first_floor %}
+<div class="jumbotron">
 <button type="button" class="btn btn-outline-info btn-sm">Get printable version</button>
 <p></p>
+
+{% for building in building_list %}
 <div class="table-responsive"><table class="table table-sm table-hover">
-  <thead><h4>St. Camillus Building - First floor (Male)</h4></thead>  
+  <thead><h4>{{ building }} - Male</h4></thead>  
   {% include 'includes/maintenance_th.html' %}
-  {% for resident in male_first_floor %}
-    {% include 'includes/maintenance_data.html' %}
+  {% for resident in building.resident_set.all  %}
+    {% if resident.gender == 'M' and resident.vital_status == 'LI' %}
+      {% include 'includes/maintenance_data.html' %}
+    {% endif %}
   {% endfor %}
 </table></div>
-{% endif %}
 
-{% if female_first_floor %}
 <div class="table-responsive"><table class="table table-sm table-hover">
-  <thead><h4>St. Camillus Building - First floor (Female)</h4></thead>
-  {% include 'includes/maintenance_th.html' %}  
-  {% for resident in female_first_floor %}
-    {% include 'includes/maintenance_data.html' %}
+  <thead><h4>{{ building }} - Female</h4></thead>  
+  {% include 'includes/maintenance_th.html' %}
+  {% for resident in building.resident_set.all  %}
+    {% if resident.gender == 'F' and resident.vital_status == 'LI' %}
+      {% include 'includes/maintenance_data.html' %}
+    {% endif %}
   {% endfor %}
 </table></div>
-{% endif %}
-
-{% if male_second_floor %}
-<div class="table-responsive"><table class="table table-sm table-hover">
-  <thead><h4>St. Camillus Building - Second floor (Male)</h4></thead>
-  {% include 'includes/maintenance_th.html' %}  
-  {% for resident in male_second_floor %}
-    {% include 'includes/maintenance_data.html' %}
-  {% endfor %}
-</table></div>
-{% endif %}
-
-{% if female_second_floor %}
-<div class="table-responsive"><table class="table table-sm table-hover">
-  <thead><h4>St. Camillus Building - Second floor (Female)</h4></thead>
-  {% include 'includes/maintenance_th.html' %}  
-  {% for resident in female_second_floor %}
-    {% include 'includes/maintenance_data.html' %}
-  {% endfor %}
-</table></div>
-{% endif %}
-
-{% if female_bldg_three %}
-<div class="table-responsive"><table class="table table-sm table-hover">
-  <thead><h4>Building Three (Female)</h4></thead>
-  {% include 'includes/maintenance_th.html' %}  
-  {% for resident in female_bldg_three %}
-    {% include 'includes/maintenance_data.html' %}
-  {% endfor %}
-</table></div>
-{% endif %}
-
-{% if male_luigi_tezza %}
-<div class="table-responsive"><table class="table table-sm table-hover">
-  <thead><h4>Blessed Luigi Tezza (Male)</h4></thead>
-  {% include 'includes/maintenance_th.html' %}  
-  {% for resident in male_luigi_tezza %}
-    {% include 'includes/maintenance_data.html' %}
-  {% endfor %}
-</table></div>
-{% endif %}
-
-{% if female_luigi_tezza %}
-<div class="table-responsive"><table class="table table-sm table-hover">
-  <thead><h4>Blessed Luigi Tezza (Female)</h4></thead>
-  {% include 'includes/maintenance_th.html' %}  
-  {% for resident in female_luigi_tezza %}
-    {% include 'includes/maintenance_data.html' %}
-  {% endfor %}
-</table></div>
-{% endif %}
-
-{% if male_rebuschini %}
-<div class="table-responsive"><table class="table table-sm table-hover">
-  <thead><h4>Blessed Enrico Rebuschini (Male)</h4></thead>
-  {% include 'includes/maintenance_th.html' %}  
-  {% for resident in male_rebuschini %}
-    {% include 'includes/maintenance_data.html' %}
-  {% endfor %}
-</table></div>
-{% endif %}
-
-{% if female_rebuschini %}
-<div class="table-responsive"><table class="table table-sm table-hover">
-  <thead><h4>Blessed Enrico Rebuschini (Female)</h4></thead>
-  {% include 'includes/maintenance_th.html' %}  
-  {% for resident in female_rebuschini %}
-    {% include 'includes/maintenance_data.html' %}
-  {% endfor %}
-</table></div>
-{% endif %}</div>
+{% endfor %}
+</div>
 {% endblock %}

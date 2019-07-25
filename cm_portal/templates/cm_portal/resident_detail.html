@@ -13,7 +13,7 @@
   {{ resident.get_vital_status_display|upper }}  
   </strong></h2>
   {% else %}
-  <h2><strong class="text-success">{{ resident.get_building_display }}</strong></h2>
+  <h2><strong class="text-success">{{ resident.residence }}</strong></h2>
   {% endif %}
   <h2>Name: {{ resident.first_name }} 
     {% if resident.middle_name %}

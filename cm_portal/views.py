@@ -79,7 +79,7 @@ class GeriatricIndex(PermissionRequiredMixin, generic.base.TemplateView):
     permission_required = 'cm_portal.can_view_nursing_home'
     template_name = 'cm_portal/geriatric_index.html'
 
-    def get_context_data(self, **kwargs):        
+    '''def get_context_data(self, **kwargs):        
         context = super().get_context_data(**kwargs)
         context['resident_list'] = Resident.objects.filter(vital_status='LI')
         context['relative_list'] = Relative.objects.all()
@@ -89,7 +89,7 @@ class GeriatricIndex(PermissionRequiredMixin, generic.base.TemplateView):
         context['census_pastoral'] = context['resident_list'].filter(building='3')
         context['census_first_floor'] = context['resident_list'].filter(building='1')
         context['census_second_floor'] = context['resident_list'].filter(building='2')
-        return context
+        return context'''
 
 class HRISIndex(PermissionRequiredMixin, generic.base.TemplateView):
     permission_required = 'cm_portal.can_view_hris'
@@ -161,24 +161,13 @@ class ResidentListView(PermissionRequiredMixin, generic.ListView):
                 return context
         elif 'reports' in self.request.GET:
             reports = self.request.GET['reports'].strip()
-            if reports == 'maintenance':                
+            if reports == 'maintenance' or reports == 'osca':                
                 self.template_name = 'cm_portal/maintenance.html'
-                residents = self.queryset
-                context['male_first_floor'] = residents.filter(building='1').filter(gender='M')
-                context['female_first_floor'] = residents.filter(building='1').filter(gender='F')
-                context['male_second_floor'] = residents.filter(building='2').filter(gender='M')
-                context['female_second_floor'] = residents.filter(building='2').filter(gender='F')
-                context['female_bldg_three'] = residents.filter(building='3').filter(gender='F')
-                context['male_luigi_tezza'] = residents.filter(building='L').filter(gender='M')
-                context['female_luigi_tezza'] = residents.filter(building='L').filter(gender='F')
-                context['male_rebuschini'] = residents.filter(building='R').filter(gender='M')
-                context['female_rebuschini'] = residents.filter(building='R').filter(gender='F')
+                context['building_list'] = Building.objects.all()
                 return context
             elif reports == 'osca':
                 self.template_name = 'cm_portal/osca.html'                
-                context = {'rebuschini': 'R', 'tezza': 'L', 'first_floor': '1', 'second_floor': '2'}
-                for k, v in context.items():
-                    context[k] = self.filter_bldg(v, self.queryset)
+                context['building_list'] = Building.objects.all()                
                 return context
         #elif 'page' in self.request.GET:            
         #    self.template_name = 'cm_portal/resident_list.html'                    

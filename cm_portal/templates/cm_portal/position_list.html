@@ -17,16 +17,14 @@
 {% block content %}
   <div class="jumbotron">
   {% if position_list %}    
-    <ul class="list-group">
+    <div class="list-group">
       {% for position in position_list %}
-        <li class="list-group-item">
-          <a href="{{ position.get_absolute_url }}">{{ position.name }}</a>               
-        </li>
+        {% include 'includes/position_list_item.html' %}
       {% endfor %}
-    </ul>
+    </div>    
     {% else %}
       <p>There are no positions in the portal.</p>  
-  {% endif %}
+  {% endif %} 
   <br>
   {% if is_paginated %}
     {% include 'includes/pagination.html' %}

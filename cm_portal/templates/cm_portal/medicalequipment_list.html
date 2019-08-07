@@ -25,33 +25,10 @@
 
 {% block content %}
   <div class="jumbotron">
-  {% if medicalequipment_list %}    
-    <ul class="list-group">
-      {% for medicalequipment in medicalequipment_list %}
-        <!-- <li class="list-group-item">
-        {% if medicalequipment.item.brand_name %}
-        <h4 class="list-group-item-heading">{{ medicalequipment.item.brand_name }}</h4>
-        {% endif %}
-        <a href="{{ medicalequipment.get_absolute_url }}">
-        {{ medicalequipment.item.item_name }}        
-        </a>   
-        </li> -->
-        <a href="{{ medicalequipment.get_absolute_url }}" class="list-group-item list-group-item-action flex-column align-items-start">
-	        <h5 class="list-group-item-heading">{{ medicalequipment.item.item_name }}</h5>          
-           <div class="d-flex w-100 justify-content-between">
-	           {% if medicalequipment.item.brand_name %}
-	             <small class="text-muted">{{ medicalequipment.item.brand_name }}</small>
-	           {% else %}
-	             <small class="text-muted"></small>
-	           {% endif %}
-	           <span class="badge badge-primary badge-pill">{{ medicalequipment.stocks_available }}</span>
-           </div>                
-        </a>
-      {% endfor %}
-    </ul>
-    {% else %}
-      <p>There are no medical equipment in the portal.</p>  
-  {% endif %}
+  <div class="table-responsive">
+  {% load django_tables2 %}
+  {% render_table table %}
+  </div>    
   <br>  
   {% if is_paginated %}
     {% include 'includes/pagination.html' %}

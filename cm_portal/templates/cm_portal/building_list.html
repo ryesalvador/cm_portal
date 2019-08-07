@@ -37,20 +37,18 @@
 {% block content %}
   <div class="jumbotron">
   {% if building_list %}    
-    <ul class="list-group">
+    <div class="list-group">
       {% for building in building_list %}
-        <li class="list-group-item">
-          <a href="{{ building.get_absolute_url }}">{{ building.name }}</a>               
-        </li>
+        {% include 'includes/building_list_item.html' %}
       {% endfor %}
-    </ul>
+    </div>    
     {% else %}
       <p>There are no buildings in the portal.</p>  
-  {% endif %}  
+  {% endif %} 
   <br>
   {% if is_paginated %}
     {% include 'includes/pagination.html' %}
-  {% endif %} 
+  {% endif %}
   {% if perms.cm_portal.add_building %}
     <a class="btn btn-primary" href="{% url 'building-create' %}" role="button">Add building</a>
   {% else %} 

@@ -17,16 +17,14 @@
 {% block content %}
   <div class="jumbotron">
   {% if department_list %}    
-    <ul class="list-group">
+    <div class="list-group">
       {% for department in department_list %}
-        <li class="list-group-item">
-          <a href="{{ department.get_absolute_url }}">{{ department.name }}</a>               
-        </li>
+        {% include 'includes/department_list_item.html' %}
       {% endfor %}
-    </ul>
+    </div>    
     {% else %}
       <p>There are no departments in the portal.</p>  
-  {% endif %}  
+  {% endif %} 
   <br>
   {% if is_paginated %}
     {% include 'includes/pagination.html' %}

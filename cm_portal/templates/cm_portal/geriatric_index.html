@@ -81,30 +81,16 @@
           <span class="badge badge-primary badge-pill">{{ relative_list.count }}</span>
         </a>
       </ul>    
-      <br>  
+      <br>
+      {% if building_list %}  
       <p class="lead">Resident census by building:</p>
-      <ul class="list-group">
-        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">          
-            <strong>Blessed Enrico Rebuschini</strong>                           
-          <span class="badge badge-primary badge-pill">{{ census_rebuschini.count }}</span>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">          
-            <strong>Blessed Luigi Tezza</strong>          
-          <span class="badge badge-primary badge-pill">{{ census_luigi.count }}</span>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">          
-            <strong>Pastoral Care</strong>          
-          <span class="badge badge-primary badge-pill">{{ census_pastoral.count }}</span>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">          
-            <strong>St. Camillus Building-First floor</strong>          
-          <span class="badge badge-primary badge-pill">{{ census_first_floor.count }}</span>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">          
-            <strong>St. Camillus Building-Second floor</strong>          
-          <span class="badge badge-primary badge-pill">{{ census_second_floor.count }}</span>
-        </a>
-      </ul>
+        {% for building in building_list %}
+          <a href="{{ building.get_absolute_url }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">          
+            <strong>{{ building }}</strong>                           
+            <span class="badge badge-primary badge-pill">{{ building.resident_set.count }}</span>
+          </a>
+        {% endfor %}      
+      {% endif %}
     </div>
   {% else %}
     <p>Please <a href="{% url 'login'%}?next={{request.path}}">login</a></p>

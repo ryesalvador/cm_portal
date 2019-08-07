@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Resident, Physician, Relative, Employee, Position, Department, \
      MedicalAbstract, Drug, Medication, Item, MedicalSupply, MedicalEquipment, \
-     Charge, Building
+     Charge, Building, ResidentWeight
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
@@ -20,7 +20,13 @@ from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect
+import django_tables2 as tables
+from .tables import ResidentTable, RelativeTable, PhysicianTable, DrugTable, \
+     ResidentDeceasedTable, ResidentDischargedTable, ItemTable, MedicalSupplyTable, \
+     MedicalEquipmentTable, ChargeTable, EmployeeTable
+from django_tables2.export.views import ExportMixin
 
+#Function-based views
 @login_required
 def search(request):    
     obj_list = []
@@ -66,6 +72,7 @@ def change_password(request):
         'form': form
     })
 
+#Class-based views
 class Dashboard(LoginRequiredMixin, generic.base.TemplateView):
     template_name = 'cm_portal/index.html'
 
@@ -75,21 +82,18 @@ class Mission(generic.base.TemplateView):
 class Vision(generic.base.TemplateView):
     template_name = 'cm_portal/vision.html'
 
+##Main section views
 class GeriatricIndex(PermissionRequiredMixin, generic.base.TemplateView):
     permission_required = 'cm_portal.can_view_nursing_home'
     template_name = 'cm_portal/geriatric_index.html'
 
-    '''def get_context_data(self, **kwargs):        
+    def get_context_data(self, **kwargs):        
         context = super().get_context_data(**kwargs)
         context['resident_list'] = Resident.objects.filter(vital_status='LI')
         context['relative_list'] = Relative.objects.all()
         context['physician_list'] = Physician.objects.all()
-        context['census_rebuschini'] = context['resident_list'].filter(building='R')
-        context['census_luigi'] = context['resident_list'].filter(building='L')
-        context['census_pastoral'] = context['resident_list'].filter(building='3')
-        context['census_first_floor'] = context['resident_list'].filter(building='1')
-        context['census_second_floor'] = context['resident_list'].filter(building='2')
-        return context'''
+        context['building_list'] = Building.objects.all()        
+        return context
 
 class HRISIndex(PermissionRequiredMixin, generic.base.TemplateView):
     permission_required = 'cm_portal.can_view_hris'
@@ -113,65 +117,32 @@ class CSUIndex(PermissionRequiredMixin, generic.base.TemplateView):
         context['medicalsupply_list'] = MedicalSupply.objects.all()
         context['charge_list'] = Charge.objects.all()
         return context
-    
+
+############################## GERIATRIC ##############################
+##Resident views
 @method_decorator(cache_control(private=True), name='dispatch')
-class ResidentListView(PermissionRequiredMixin, generic.ListView):    
+class ResidentListView(PermissionRequiredMixin, ExportMixin, tables.SingleTableView):    
     permission_required = 'cm_portal.can_view_nursing_home'    
-    #model is overriden by the urls.py which sets the queryset
+    table_class = ResidentTable
 
-    def filter_bldg(self, name, lst):
-        return lst.filter(building=name)
-    
-    def filter_bday(self, month, lst):      
-        return lst.annotate(birth_date_month = Extract('birth_date', 'month'),
-                            birth_date_day = Extract('birth_date', 'day')
-                            ).order_by('birth_date_month', 'birth_date_day').filter(birth_date__month=month)
-
-    def filter_atoz(self, char, lst):
-        return lst.filter(last_name__startswith=char)
-    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if 'sort' in self.request.GET:
-            sort = self.request.GET['sort'].strip()
-            if sort == 'building':
-                self.template_name = 'cm_portal/resident_list_by_building.html'
-                context = {'rebuschini': 'R', 'tezza': 'L', 'first_floor': '1', 'second_floor': '2', 'bldg_three': '3'}
-                for k, v in context.items():
-                    context[k] = self.filter_bldg(v, self.queryset)                    
-                return context
-            elif sort == 'birthday':
-                self.template_name = 'cm_portal/resident_list_by_birthday.html'
-                context = {'jan':1, 'feb':2, 'mar':3, 'apr':4, 'may':5, 'jun':6,
-                           'jul':7, 'aug':8, 'sept':9, 'oct':10, 'nov':11, 'dec':12}
-                for k, v in context.items():
-                    context[k] = self.filter_bday(v, self.queryset)
-                return context
-            elif sort == 'atoz':
-                self.template_name = 'cm_portal/resident_list_by_a_to_z.html'
-                context = {}
-                for c in ascii_lowercase:
-                    context[c] = c
-                for k, v in context.items():
-                    context[k] = self.filter_atoz(v, self.queryset)
-                return context
-            elif sort == 'admission':                                
-                self.template_name = 'cm_portal/resident_list_by_admission.html'
-                context['resident_list'] = self.queryset.order_by('-admission_date')
-                return context
-        elif 'reports' in self.request.GET:
+        if 'reports' in self.request.GET:
+            context['building_list'] = Building.objects.all()
             reports = self.request.GET['reports'].strip()
-            if reports == 'maintenance' or reports == 'osca':                
-                self.template_name = 'cm_portal/maintenance.html'
-                context['building_list'] = Building.objects.all()
-                return context
+            if reports == 'maintenance':                
+                self.template_name = 'cm_portal/maintenance.html'                
             elif reports == 'osca':
-                self.template_name = 'cm_portal/osca.html'                
-                context['building_list'] = Building.objects.all()                
-                return context
-        #elif 'page' in self.request.GET:            
-        #    self.template_name = 'cm_portal/resident_list.html'                    
-        return context                
+                self.template_name = 'cm_portal/osca.html'
+        return context
+
+class ResidentDeceasedListView(PermissionRequiredMixin, tables.SingleTableView):    
+    permission_required = 'cm_portal.can_view_nursing_home'    
+    table_class = ResidentDeceasedTable
+
+class ResidentDischargedListView(PermissionRequiredMixin, tables.SingleTableView):    
+    permission_required = 'cm_portal.can_view_nursing_home'    
+    table_class = ResidentDischargedTable
     
 @method_decorator(cache_control(private=True), name='dispatch')
 class ResidentDetailView(PermissionRequiredMixin, generic.DetailView):
@@ -194,33 +165,11 @@ class ResidentDelete(PermissionRequiredMixin, generic.DeleteView):
     model = Resident
     success_url = reverse_lazy('residents')
 
-class PhysicianListView(LoginRequiredMixin, generic.ListView):
-    model = Physician
-    paginate_by = 10
-
-class PhysicianDetailView(LoginRequiredMixin, generic.DetailView):
-    model = Physician
-
-class PhysicianCreate(PermissionRequiredMixin, generic.CreateView):
-    permission_required = 'cm_portal.add_physician'
-    model = Physician
-    fields = '__all__'
-
-class PhysicianUpdate(PermissionRequiredMixin, generic.UpdateView):
-    permission_required = 'cm_portal.change_physician'
-    model = Physician
-    fields = '__all__'
-    template_name_suffix = '_update_form'
-
-class PhysicianDelete(PermissionRequiredMixin, generic.DeleteView):
-    permission_required = 'cm_portal.delete_physician'
-    model = Physician
-    success_url = reverse_lazy('physicians')
-
-class RelativeListView(PermissionRequiredMixin, generic.ListView):
+##Relative views
+class RelativeListView(PermissionRequiredMixin, tables.SingleTableView):
     permission_required = 'cm_portal.can_view_nursing_home'
-    model = Relative
-    paginate_by = 10
+    table_class = RelativeTable    
+    queryset = Relative.objects.all()
 
 class RelativeDetailView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'cm_portal.can_view_nursing_home'
@@ -242,86 +191,36 @@ class RelativeDelete(PermissionRequiredMixin, generic.DeleteView):
     model = Relative
     success_url = reverse_lazy('relatives')
 
-@method_decorator(cache_control(private=True), name='dispatch')
-class EmployeeListView(PermissionRequiredMixin, generic.ListView):
-    permission_required = 'cm_portal.can_view_hris'
-    model = Employee
-    paginate_by = 10
+##Physician views
+class PhysicianListView(LoginRequiredMixin, tables.SingleTableView):
+    permission_required = 'cm_portal.can_view_nursing_home'       
+    table_class = PhysicianTable    
+    queryset = Physician.objects.all()
 
-@method_decorator(cache_control(private=True), name='dispatch')
-class EmployeeDetailView(PermissionRequiredMixin, generic.DetailView):
-    permission_required = 'cm_portal.can_view_hris'
-    model = Employee
+class PhysicianDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Physician
 
-class EmployeeCreate(PermissionRequiredMixin, generic.CreateView):
-    permission_required = 'cm_portal.add_employee'
-    model = Employee
-    form_class = EmployeeCreateForm
+class PhysicianCreate(PermissionRequiredMixin, generic.CreateView):
+    permission_required = 'cm_portal.add_physician'
+    model = Physician
+    fields = '__all__'
 
-class EmployeeUpdate(PermissionRequiredMixin, generic.UpdateView):
-    permission_required = 'cm_portal.change_employee'
-    model = Employee
+class PhysicianUpdate(PermissionRequiredMixin, generic.UpdateView):
+    permission_required = 'cm_portal.change_physician'
+    model = Physician
     fields = '__all__'
     template_name_suffix = '_update_form'
 
-class EmployeeDelete(PermissionRequiredMixin, generic.DeleteView):
-    permission_required = 'cm_portal.delete_employee'
-    model = Employee
-    success_url = reverse_lazy('employees')
+class PhysicianDelete(PermissionRequiredMixin, generic.DeleteView):
+    permission_required = 'cm_portal.delete_physician'
+    model = Physician
+    success_url = reverse_lazy('physicians')
 
-class PositionListView(PermissionRequiredMixin, generic.ListView):
-    permission_required = 'cm_portal.can_view_hris'
-    model = Position
-    paginate_by = 10
-
-class PositionDetailView(PermissionRequiredMixin, generic.DetailView):
-    permission_required = 'cm_portal.can_view_hris'
-    model = Position
-
-class PositionCreate(PermissionRequiredMixin, generic.CreateView):
-    permission_required = 'cm_portal.add_position'
-    model = Position
-    fields = '__all__'
-
-class PositionUpdate(PermissionRequiredMixin, generic.UpdateView):
-    permission_required = 'cm_portal.change_position'
-    model = Position
-    fields = '__all__'
-    template_name_suffix = '_update_form'
-
-class PositionDelete(PermissionRequiredMixin, generic.DeleteView):
-    permission_required = 'cm_portal.delete_position'
-    model = Position
-    success_url = reverse_lazy('positions')
-
-class DepartmentListView(PermissionRequiredMixin, generic.ListView):
-    permission_required = 'cm_portal.can_view_hris'
-    model = Department
-    paginate_by = 10
-
-class DepartmentDetailView(PermissionRequiredMixin, generic.DetailView):
-    permission_required = 'cm_portal.can_view_hris'
-    model = Department
-
-class DepartmentCreate(PermissionRequiredMixin, generic.CreateView):
-    permission_required = 'cm_portal.add_department'
-    model = Department
-    fields = '__all__'
-
-class DepartmentUpdate(PermissionRequiredMixin, generic.UpdateView):
-    permission_required = 'cm_portal.change_department'
-    model = Department
-    fields = '__all__'
-    template_name_suffix = '_update_form'
-
-class DepartmentDelete(PermissionRequiredMixin, generic.DeleteView):
-    permission_required = 'cm_portal.delete_department'
-    model = Department
-    success_url = reverse_lazy('departments')
-
+##Medical abstract views
 class MedicalAbstractListView(PermissionRequiredMixin, generic.ListView):
     permission_required = 'cm_portal.can_view_nursing_home'
     model = MedicalAbstract
+    paginate_by = 10
 
 class MedicalAbstractDetailView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'cm_portal.can_view_nursing_home'
@@ -353,10 +252,11 @@ class MedicalAbstractDelete(PermissionRequiredMixin, generic.DeleteView):
     model = MedicalAbstract
     success_url = reverse_lazy('medical-abstracts')
 
-class DrugListView(PermissionRequiredMixin, generic.ListView):
+##Drug views
+class DrugListView(PermissionRequiredMixin, tables.SingleTableView):
     permission_required = 'cm_portal.can_view_nursing_home'
-    model = Drug
-    paginate_by = 10
+    table_class = DrugTable    
+    queryset = Drug.objects.all()
 
 class DrugDetailView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'cm_portal.can_view_nursing_home'
@@ -378,6 +278,7 @@ class DrugDelete(PermissionRequiredMixin, generic.DeleteView):
     model = Drug
     success_url = reverse_lazy('drugs')
 
+##Medication views
 class MedicationListView(PermissionRequiredMixin, generic.ListView):
     permission_required = 'cm_portal.can_view_nursing_home'
     model = Medication
@@ -413,10 +314,129 @@ class MedicationDelete(PermissionRequiredMixin, generic.DeleteView):
     model = Medication
     success_url = reverse_lazy('medications')
 
-class ItemListView(PermissionRequiredMixin, generic.ListView):
-    permission_required = 'cm_portal.can_view_csu'
-    model = Item
+##Resident weight views
+class ResidentWeightListView(PermissionRequiredMixin, generic.ListView):
+    permission_required = 'cm_portal.can_view_nursing_home'
+    model = ResidentWeight
     paginate_by = 10
+
+class ResidentWeightDetailView(PermissionRequiredMixin, generic.DetailView):
+    permission_required = 'cm_portal.can_view_nursing_home'
+    model = ResidentWeight
+
+##Building views
+class BuildingListView(PermissionRequiredMixin, generic.ListView):
+    permission_required = 'cm_portal.can_view_nursing_home'
+    model = Building
+    paginate_by = 10
+
+class BuildingDetailView(PermissionRequiredMixin, generic.DetailView):
+    permission_required = 'cm_portal.can_view_nursing_home'
+    model = Building
+
+class BuildingCreate(PermissionRequiredMixin, generic.CreateView):
+    permission_required = 'cm_portal.can_view_nursing_home'
+    model = Building
+    fields = '__all__'
+
+class BuildingUpdate(PermissionRequiredMixin, generic.UpdateView):
+    permission_required = 'cm_portal.can_view_nursing_home'
+    model = Building
+    fields = '__all__'
+    template_name_suffix = '_update_form'
+
+class BuildingDelete(PermissionRequiredMixin, generic.DeleteView):
+    permission_required = 'cm_portal.can_view_nursing_home'
+    model = Building
+    success_url = reverse_lazy('buildings')
+
+############################## HRIS ##############################    
+##Employee views
+@method_decorator(cache_control(private=True), name='dispatch')
+class EmployeeListView(PermissionRequiredMixin, tables.SingleTableView):
+    permission_required = 'cm_portal.can_view_hris'
+    table_class = EmployeeTable    
+    queryset = Employee.objects.all()
+
+@method_decorator(cache_control(private=True), name='dispatch')
+class EmployeeDetailView(PermissionRequiredMixin, generic.DetailView):
+    permission_required = 'cm_portal.can_view_hris'
+    model = Employee
+
+class EmployeeCreate(PermissionRequiredMixin, generic.CreateView):
+    permission_required = 'cm_portal.add_employee'
+    model = Employee
+    form_class = EmployeeCreateForm
+
+class EmployeeUpdate(PermissionRequiredMixin, generic.UpdateView):
+    permission_required = 'cm_portal.change_employee'
+    model = Employee
+    fields = '__all__'
+    template_name_suffix = '_update_form'
+
+class EmployeeDelete(PermissionRequiredMixin, generic.DeleteView):
+    permission_required = 'cm_portal.delete_employee'
+    model = Employee
+    success_url = reverse_lazy('employees')
+
+##Position views
+class PositionListView(PermissionRequiredMixin, generic.ListView):
+    permission_required = 'cm_portal.can_view_hris'
+    model = Position
+    paginate_by = 10
+
+class PositionDetailView(PermissionRequiredMixin, generic.DetailView):
+    permission_required = 'cm_portal.can_view_hris'
+    model = Position
+
+class PositionCreate(PermissionRequiredMixin, generic.CreateView):
+    permission_required = 'cm_portal.add_position'
+    model = Position
+    fields = '__all__'
+
+class PositionUpdate(PermissionRequiredMixin, generic.UpdateView):
+    permission_required = 'cm_portal.change_position'
+    model = Position
+    fields = '__all__'
+    template_name_suffix = '_update_form'
+
+class PositionDelete(PermissionRequiredMixin, generic.DeleteView):
+    permission_required = 'cm_portal.delete_position'
+    model = Position
+    success_url = reverse_lazy('positions')
+
+##Department views
+class DepartmentListView(PermissionRequiredMixin, generic.ListView):
+    permission_required = 'cm_portal.can_view_hris'
+    model = Department
+    paginate_by = 10
+
+class DepartmentDetailView(PermissionRequiredMixin, generic.DetailView):
+    permission_required = 'cm_portal.can_view_hris'
+    model = Department
+
+class DepartmentCreate(PermissionRequiredMixin, generic.CreateView):
+    permission_required = 'cm_portal.add_department'
+    model = Department
+    fields = '__all__'
+
+class DepartmentUpdate(PermissionRequiredMixin, generic.UpdateView):
+    permission_required = 'cm_portal.change_department'
+    model = Department
+    fields = '__all__'
+    template_name_suffix = '_update_form'
+
+class DepartmentDelete(PermissionRequiredMixin, generic.DeleteView):
+    permission_required = 'cm_portal.delete_department'
+    model = Department
+    success_url = reverse_lazy('departments')
+
+############################## CSU ##############################
+##Item views
+class ItemListView(PermissionRequiredMixin, tables.SingleTableView):
+    permission_required = 'cm_portal.can_view_csu'
+    table_class = ItemTable    
+    queryset = Item.objects.all()
 
 class ItemDetailView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'cm_portal.can_view_csu'
@@ -438,10 +458,11 @@ class ItemDelete(PermissionRequiredMixin, generic.DeleteView):
     model = Item
     success_url = reverse_lazy('items')
 
-class MedicalSupplyListView(PermissionRequiredMixin, generic.ListView):
+##Medical supply views
+class MedicalSupplyListView(PermissionRequiredMixin, tables.SingleTableView):
     permission_required = 'cm_portal.can_view_csu'
-    model = MedicalSupply
-    paginate_by = 10
+    table_class = MedicalSupplyTable    
+    queryset = MedicalSupply.objects.all()
 
 class MedicalSupplyDetailView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'cm_portal.can_view_csu'
@@ -463,10 +484,11 @@ class MedicalSupplyDelete(PermissionRequiredMixin, generic.DeleteView):
     model = MedicalSupply
     success_url = reverse_lazy('medical-supplies')
 
-class MedicalEquipmentListView(PermissionRequiredMixin, generic.ListView):
+##Medical equipment views
+class MedicalEquipmentListView(PermissionRequiredMixin, tables.SingleTableView):
     permission_required = 'cm_portal.can_view_csu'
-    model = MedicalEquipment
-    paginate_by = 10
+    table_class = MedicalEquipmentTable
+    queryset = MedicalEquipment.objects.all()
 
 class MedicalEquipmentDetailView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'cm_portal.can_view_csu'
@@ -488,23 +510,11 @@ class MedicalEquipmentDelete(PermissionRequiredMixin, generic.DeleteView):
     model = MedicalEquipment
     success_url = reverse_lazy('medical-equipments')
 
-class UserDetailView(LoginRequiredMixin, generic.DetailView):
-    model = User
-    template_name = 'cm_portal/user_detail.html'
-
-class UserUpdate(LoginRequiredMixin, generic.UpdateView):
-    model = User
-    form_class = UserUpdateForm
-    success_url = reverse_lazy('index')
-    template_name = 'cm_portal/user_update_form.html'
-
-    def get_object(self):
-        return self.request.user
-
-class ChargeListView(PermissionRequiredMixin, generic.ListView):
+##Charge view
+class ChargeListView(PermissionRequiredMixin, tables.SingleTableView):
     permission_required = 'cm_portal.can_view_csu'
-    model = Charge
-    paginate_by = 10
+    table_class = ChargeTable
+    queryset = Charge.objects.all()
 
 class ChargeDetailView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'cm_portal.can_view_csu'
@@ -533,27 +543,18 @@ class ChargeDelete(PermissionRequiredMixin, generic.DeleteView):
     model = Charge
     success_url = reverse_lazy('charges')
 
-class BuildingListView(PermissionRequiredMixin, generic.ListView):
-    permission_required = 'cm_portal.can_view_nursing_home'
-    model = Building
-    paginate_by = 10
+############################## USER ##############################    
+##User view
+class UserDetailView(LoginRequiredMixin, generic.DetailView):
+    model = User
+    template_name = 'cm_portal/user_detail.html'
 
-class BuildingDetailView(PermissionRequiredMixin, generic.DetailView):
-    permission_required = 'cm_portal.can_view_nursing_home'
-    model = Building
+class UserUpdate(LoginRequiredMixin, generic.UpdateView):
+    model = User
+    form_class = UserUpdateForm
+    success_url = reverse_lazy('index')
+    template_name = 'cm_portal/user_update_form.html'
 
-class BuildingCreate(PermissionRequiredMixin, generic.CreateView):
-    permission_required = 'cm_portal.can_view_nursing_home'
-    model = Building
-    fields = '__all__'
+    def get_object(self):
+        return self.request.user
 
-class BuildingUpdate(PermissionRequiredMixin, generic.UpdateView):
-    permission_required = 'cm_portal.can_view_nursing_home'
-    model = Building
-    fields = '__all__'
-    template_name_suffix = '_update_form'
-
-class BuildingDelete(PermissionRequiredMixin, generic.DeleteView):
-    permission_required = 'cm_portal.can_view_nursing_home'
-    model = Building
-    success_url = reverse_lazy('buildings')

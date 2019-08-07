@@ -39,28 +39,16 @@
 {% endblock %} 
 
 {% block content %}
-
-  <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-	 <button type="button" class="btn btn-info">Sort By:</button>
-	 <div class="btn-group" role="group">
-	   <button id="btnGroupDrop3" type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-	   <div class="dropdown-menu" aria-labelledby="btnGroupDrop3" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
-		  <a class="dropdown-item" onclick="load_list('#resident_list', 'sort', 'atoz')" href="javascript:void(0);">A to Z</a>
-		  <a class="dropdown-item" onclick="load_list('#resident_list', 'sort', 'building')" href="javascript:void(0);">Building</a>
-		  <a class="dropdown-item" onclick="load_list('#resident_list', 'sort', 'admission')" href="javascript:void(0);">Date of admission</a>
-		  <a class="dropdown-item" onclick="load_list('#resident_list', 'sort', 'birthday')" href="javascript:void(0);">Date of birth</a>		  
-	   </div>
-	 </div>
+  <div class="jumbotron">
+    <div class="table-responsive">
+    {% load django_tables2 %}
+    {% render_table table %}
+    </div>    
+    <br>
+    {% if perms.cm_portal.add_resident %}
+      <a class="btn btn-primary" href="{% url 'resident-create' %}" role="button">Add a resident</a>
+    {% else %}
+      <a class="btn btn-primary disabled" href="{% url 'resident-create' %}" role="button">Add a resident</a>
+    {% endif %}
   </div>
-  <p></p>
-  <div id="resident_list">
-          {% include 'includes/resident_list.html' %}
-  </div>
-  <br>
-  {% if perms.cm_portal.add_resident %}
-          <a class="btn btn-primary" href="{% url 'resident-create' %}" role="button">Add a resident</a>
-  {% else %}
-          <a class="btn btn-primary disabled" href="{% url 'resident-create' %}" role="button">Add a resident</a>
-  {% endif %}
-
 {% endblock %}

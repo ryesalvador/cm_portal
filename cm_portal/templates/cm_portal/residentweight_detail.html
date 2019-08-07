@@ -1,0 +1,20 @@
+{% extends "cm_portal/geriatric_index.html" %}
+
+{% block title %}| Resident Weight{% endblock %}
+
+{% block page_title %}| Resident Weight{% endblock %}
+
+{% block content %}
+  <div class="jumbotron"><h2>{{ residentweight.resident }}</h2>
+    
+  <div class="table-responsive"><table class="table table-hover">
+    <tr>
+      <td><strong>Date: </strong>{{ residentweight.date }}</td>          
+    </tr>
+    <tr>
+      <td><strong>Weight: </strong>{{ residentweight.weight }} kg</td>
+    </tr>
+  </table>
+  </div>
+  </div>
+{% endblock %}

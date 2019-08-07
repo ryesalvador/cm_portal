@@ -3,4 +3,5 @@ __pycache__
 *~
 manage.py
 mysite
+media
 db.sqlite3

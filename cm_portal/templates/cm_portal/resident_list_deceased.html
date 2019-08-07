@@ -1,4 +1,4 @@
-{% extends "cm_portal/residents.html" %}
+{% extends "cm_portal/geriatric_index.html" %}
 
 {% block title %}| List of Deceased Residents{% endblock %}
 
@@ -41,13 +41,11 @@
 {% endblock %}
 
 {% block content %}  
-  {% if resident_list %}    
-    <ul class="list-group">
-      {% for resident in resident_list %}
-        {% include 'includes/resident_list_item.html' with deceased=True %}
-      {% endfor %}
-    </ul>
-  {% else %}
-      <p>There are no deceased residents in the portal.</p>  
-  {% endif %}  
+  <div class="jumbotron">
+    <div class="table-responsive">
+    {% load django_tables2 %}
+    {% render_table table %}
+    </div>    
+    <br>
+  </div>  
 {% endblock %}

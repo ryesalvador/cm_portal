@@ -25,29 +25,11 @@
 
 {% block content %}
   <div class="jumbotron">
-  {% if medicalsupply_list %}    
-    <ul class="list-group">
-      {% for medicalsupply in medicalsupply_list %}
-        <a href="{{ medicalsupply.get_absolute_url }}" class="list-group-item list-group-item-action flex-column align-items-start">
-	        <h5 class="list-group-item-heading">{{ medicalsupply.item.item_name }}</h5>          
-           <div class="d-flex w-100 justify-content-between">
-	           {% if medicalsupply.item.brand_name %}
-	             <small class="text-muted">{{ medicalsupply.item.brand_name }}</small>
-	           {% else %}
-	             <small class="text-muted"></small>
-	           {% endif %}
-	           <span class="badge badge-primary badge-pill">{{ medicalsupply.stocks_available }}</span>
-           </div>                
-        </a>
-      {% endfor %}
-    </ul>
-    {% else %}
-      <p>There are no medical supplies in the portal.</p>  
-  {% endif %}
+  <div class="table-responsive">
+  {% load django_tables2 %}
+  {% render_table table %}
+  </div>    
   <br> 
-  {% if is_paginated %}
-    {% include 'includes/pagination.html' %}
-  {% endif %} 
   {% if perms.cm_portal.add_medicalsupply %}
     <a class="btn btn-primary" href="{% url 'medicalsupply-create' %}" role="button">Add a medical supply</a>
   {% else %} 

@@ -1,16 +1,8 @@
 {% extends "cm_portal/geriatric_index.html" %}
 
-{% block title %}| List of Drugs{% endblock %}
+{% block title %}| List of Resident Weights{% endblock %}
 
-{% block page_title %}| List of Drugs{% endblock %}
-
-{% load static %}
-
-{% block search_form %}
-  <form class="navbar-form navbar-right" id="search-form" action="{% url 'search-drugs' %}" method="get">
-    {{ form.as_p }}            
-  </form>        
-{% endblock %}
+{% block page_title %}| List of Resident Weights{% endblock %}
 
 {% block sidebar %}
     <p></p>
@@ -21,8 +13,8 @@
     <li class="nav-item"><a class="nav-link" href="{% url 'relatives' %}">All relatives</a></li>    
     <li class="nav-item"><a class="nav-link" href="{% url 'physicians' %}">All physicians</a></li>
     <li class="nav-item"><a class="nav-link" href="{% url 'medical-abstracts' %}" >All medical abstracts</a></li>    
-    <li class="nav-item"><a class="nav-link active" href="{% url 'drugs' %}">All drugs</a></li>    
-    <li class="nav-item"><a class="nav-link" href="{% url 'buildings' %}">All buildings</a></li>        
+    <li class="nav-item"><a class="nav-link" href="{% url 'drugs' %}">All drugs</a></li>            
+    <li class="nav-item"><a class="nav-link active" href="{% url 'buildings' %}">All buildings</a></li>
     <hr>    
     <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Archive</a>
@@ -42,15 +34,20 @@
     </li>
 {% endblock %}
 
-{% block content %}  
-  <div class="jumbotron"><div class="table-responsive">
-  {% load django_tables2 %}
-  {% render_table table %}
-  </div>    
+{% block content %}
+  <div class="jumbotron">
+  {% if residentweight_list %}    
+    <div class="list-group">
+      {% for residentweight in residentweight_list %}
+        {% include 'includes/residentweight_list_item.html' %}
+      {% endfor %}
+    </div>    
+    {% else %}
+      <p>There are no buildings in the portal.</p>  
+  {% endif %} 
   <br>
-  {% if perms.cm_portal.add_drug %}
-    <a class="btn btn-primary" href="{% url 'drug-create' %}" role="button">Add a drug</a>
-  {% else %} 
-    <a class="btn btn-primary disabled" href="{% url 'drug-create' %}" role="button">Add a drug</a>
-  {% endif %}</div>  
+  {% if is_paginated %}
+    {% include 'includes/pagination.html' %}
+  {% endif %}
+  </div>
 {% endblock %}

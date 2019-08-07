@@ -18,12 +18,12 @@ urlpatterns += [
         template_name='cm_portal/residents.html',
         queryset=Resident.objects.filter(vital_status='LI'),
         paginate_by=10), name='residents'),    
-    path('geriatric/residents/deceased/', views.ResidentListView.as_view(
+    path('geriatric/residents/deceased/', views.ResidentDeceasedListView.as_view(
         template_name='cm_portal/resident_list_deceased.html',
-        queryset=Resident.objects.filter(vital_status='DE').order_by('-died_on')), name='residents-deceased'),    
-    path('geriatric/residents/discharged/', views.ResidentListView.as_view(
+        queryset=Resident.objects.filter(vital_status='DE')), name='residents-deceased'),    
+    path('geriatric/residents/discharged/', views.ResidentDischargedListView.as_view(
         template_name='cm_portal/resident_list_discharged.html',
-        queryset=Resident.objects.filter(vital_status='DC').order_by('-discharged_on')), name='residents-discharged'),        
+        queryset=Resident.objects.filter(vital_status='DC')), name='residents-discharged'),        
     path('geriatric/resident/<int:pk>/', views.ResidentDetailView.as_view(), name='resident-detail'),
     path('geriatric/resident/create/', views.ResidentCreate.as_view(), name='resident-create'),
     path('geriatric/resident/<int:pk>/update/', views.ResidentUpdate.as_view(), name='resident-update'),
@@ -55,6 +55,8 @@ urlpatterns += [
     path('geriatric/medication/create/<int:pk>', views.MedicationCreate.as_view(), name='medication-create'),
     path('geriatric/medication/<int:pk>/update/', views.MedicationUpdate.as_view(), name='medication-update'),
     path('geriatric/medication/<int:pk>/delete/', views.MedicationDelete.as_view(), name='medication-delete'),
+    path('geriatric/resident-weights/', views.ResidentWeightListView.as_view(), name='resident-weights'),
+    path('geriatric/resident-weight/<int:pk>/', views.ResidentWeightDetailView.as_view(), name='residentweight-detail'),
     path('geriatric/buildings/', views.BuildingListView.as_view(), name='buildings'),
     path('geriatric/building/<int:pk>/', views.BuildingDetailView.as_view(), name='building-detail'),
     path('geriatric/building/create/', views.BuildingCreate.as_view(), name='building-create'),

@@ -25,24 +25,11 @@
 
 {% block content %}
   <div class="jumbotron">
-  {% if item_list %}    
-    <ul class="list-group">
-      {% for item in item_list %}
-        <a href="{{ item.get_absolute_url }}" class="list-group-item list-group-item-action flex-column align-items-start">
-        <h5 class="list-group-item-heading">{{ item.item_name }}</h5>
-        {% if item.brand_name %}
-        <small class="text-muted">{{ item.brand_name }}</small>
-        {% endif %}                  
-        </a>
-      {% endfor %}
-    </ul>
-    {% else %}
-      <p>There are no items in the portal.</p>  
-  {% endif %}  
+  <div class="table-responsive">
+  {% load django_tables2 %}
+  {% render_table table %}
+  </div>    
   <br>
-  {% if is_paginated %}
-    {% include 'includes/pagination.html' %}
-  {% endif %}
   {% if perms.cm_portal.add_item %}
     <a class="btn btn-primary" href="{% url 'item-create' %}" role="button">Add item</a>
   {% else %} 

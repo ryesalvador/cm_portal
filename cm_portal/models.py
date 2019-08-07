@@ -20,7 +20,7 @@ CIVIL_STATUS = (
     )
 
 VITAL_STATUS = (
-    ('LI', 'Living'),
+    ('LI', 'Assisted Living'),
     ('DE', 'Deceased'),
     ('DC', 'Discharged'),
     )
@@ -74,94 +74,8 @@ ITEM_TYPE = (
         ('S', 'Medical Supply'),
         ('E', 'Medical Equipment'),
     )
-
-class Building(models.Model):
-    name = models.CharField(max_length=70)
-    alias = models.CharField(max_length=70, default='', blank=True)
-
-    class Meta:
-        ordering = ["name"]        
-
-    def __str__(self):
-        return u'{0} ({1})'.format(self.name, self.alias)
-    
-    def get_absolute_url(self):
-        return reverse('building-detail', args=[str(self.id)])
-    
-class Drug(models.Model):
-    generic_name = models.CharField(max_length=70)
-    brand_name = models.CharField(max_length=70, default='', blank=True)
-    dosage = models.CharField(max_length=35, default='', blank=True)
-    indication = models.TextField(blank=True)
-    price = models.FloatField(null=True, blank=True)
-
-    class Meta:
-        ordering = ["generic_name"]
-
-    def __str__(self):
-        if self.brand_name != '' and self.dosage != '':
-            return u'{} ({}) - {}'.format(self.generic_name, self.brand_name, self.dosage)
-        elif self.brand_name != '':
-            return u'{} ({})'.format(self.generic_name, self.brand_name)
-        elif self.dosage != '':
-            return u'{} - {}'.format(self.generic_name, self.dosage)
-        else:
-            return self.generic_name
-
-    def get_absolute_url(self):
-        return reverse('drug-detail', args=[str(self.id)])
-
-class Medication(models.Model):
-    created = models.DateField(auto_now_add=True, editable=False, null=False, blank=False)
-    last_modified = models.DateField(auto_now=True, editable=False, null=False, blank=False)    
-    resident = models.ForeignKey('Resident', on_delete=models.CASCADE, limit_choices_to={'vital_status': 'LI'}, null=True)
-    medicine = models.ForeignKey('Drug', on_delete=models.CASCADE, null=True)
-    frequency = models.CharField(max_length=70, blank=True)
-    quantity = models.PositiveIntegerField(null=True, blank=True)
-    discontinued = models.BooleanField(default=False)
-    date_started = models.DateField(auto_now=False, null=True, blank=True)
-    due = models.DateField(auto_now=False, null=True, blank=True)
-
-    def __str__(self):
-        return u'{} | {}'.format(self.resident, self.medicine)
-
-    def get_absolute_url(self):
-        return reverse('medication-detail', args=[str(self.id)])
-    
-class MedicalAbstract(models.Model):
-    resident = models.OneToOneField('Resident', on_delete=models.CASCADE, null=True)
-    reason_for_confinement = models.TextField(blank=True)
-    history_of_present_illness = models.TextField(blank=True)
-    course_in_the_ward = models.TextField(blank=True)
-
-    class Meta:
-        ordering = ["resident"]
-
-    def __str__(self):
-        return u'{}'.format(self.resident)
-
-    def get_absolute_url(self):
-        return reverse('medical-abstract-detail', args=[str(self.id)])
-    
-#Nursing Home Database Models
-class Relative(models.Model):
-    related_to = models.ForeignKey('Resident', on_delete=models.CASCADE, null=True)
-    relation_to_resident = models.CharField(max_length=35, blank=True)
-    first_name = models.CharField(max_length=35)
-    middle_name = models.CharField(max_length=35, blank=True)
-    last_name = models.CharField(max_length=35)
-    address = models.TextField(max_length=175, blank=True)    
-    telephone = models.CharField(max_length=75, blank=True)
-
-    class Meta:
-        ordering = ["last_name","first_name"]        
-
-    def __str__(self):
-        return u'{1}, {0}'.format(self.first_name, self.last_name)
-
-    def get_absolute_url(self):
-        return reverse('relative-detail', args=[str(self.id)])
-
+   
+#Geriatric Models   
 class Physician(models.Model):
     first_name = models.CharField(max_length=35)
     middle_name = models.CharField(max_length=35, blank=True)
@@ -178,11 +92,6 @@ class Physician(models.Model):
 
     def get_absolute_url(self):
         return reverse('physician-detail', args=[str(self.id)])
-
-class ResidentWeight(models.Model):
-    resident = models.ForeignKey('Resident', on_delete=models.CASCADE, limit_choices_to={'vital_status': 'LI'}, null=True)
-    date = models.DateField(auto_now=False, null=True, blank=True)
-    weight = models.FloatField(null=True, blank=True)
     
 class Resident(models.Model):
     first_name = models.CharField(max_length=35)
@@ -235,35 +144,107 @@ class Resident(models.Model):
     def get_absolute_url(self):
         return reverse('resident-detail', args=[str(self.id)])
 
+class Relative(models.Model):
+    related_to = models.ForeignKey('Resident', on_delete=models.CASCADE, null=True)
+    relation_to_resident = models.CharField(max_length=35, blank=True)
+    first_name = models.CharField(max_length=35)
+    middle_name = models.CharField(max_length=35, blank=True)
+    last_name = models.CharField(max_length=35)
+    address = models.TextField(max_length=175, blank=True)    
+    telephone = models.CharField(max_length=75, blank=True)
 
+    class Meta:
+        ordering = ["last_name","first_name"]        
+
+    def __str__(self):
+        return u'{1}, {0}'.format(self.first_name, self.last_name)
+
+    def get_absolute_url(self):
+        return reverse('relative-detail', args=[str(self.id)])
+   
+class MedicalAbstract(models.Model):
+    resident = models.OneToOneField('Resident', on_delete=models.CASCADE, null=True)
+    reason_for_confinement = models.TextField(blank=True)
+    history_of_present_illness = models.TextField(blank=True)
+    course_in_the_ward = models.TextField(blank=True)
+
+    class Meta:
+        ordering = ["resident"]
+
+    def __str__(self):
+        return u'{}'.format(self.resident)
+
+    def get_absolute_url(self):
+        return reverse('medical-abstract-detail', args=[str(self.id)])  
+   
+class Drug(models.Model):
+    generic_name = models.CharField(max_length=70)
+    brand_name = models.CharField(max_length=70, default='', blank=True)
+    dosage = models.CharField(max_length=35, default='', blank=True)
+    indication = models.TextField(blank=True)
+    price = models.FloatField(null=True, blank=True)
+
+    class Meta:
+        ordering = ["generic_name"]
+
+    def __str__(self):
+        if self.brand_name != '' and self.dosage != '':
+            return u'{} ({}) - {}'.format(self.generic_name, self.brand_name, self.dosage)
+        elif self.brand_name != '':
+            return u'{} ({})'.format(self.generic_name, self.brand_name)
+        elif self.dosage != '':
+            return u'{} - {}'.format(self.generic_name, self.dosage)
+        else:
+            return self.generic_name
+
+    def get_absolute_url(self):
+        return reverse('drug-detail', args=[str(self.id)])
+
+class Medication(models.Model):
+    created = models.DateField(auto_now_add=True, editable=False, null=False, blank=False)
+    last_modified = models.DateField(auto_now=True, editable=False, null=False, blank=False)    
+    resident = models.ForeignKey('Resident', on_delete=models.CASCADE, limit_choices_to={'vital_status': 'LI'}, null=True)
+    medicine = models.ForeignKey('Drug', on_delete=models.CASCADE, null=True)
+    frequency = models.CharField(max_length=70, blank=True)
+    quantity = models.PositiveIntegerField(null=True, blank=True)
+    discontinued = models.BooleanField(default=False)
+    date_started = models.DateField(auto_now=False, null=True, blank=True)
+    due = models.DateField(auto_now=False, null=True, blank=True)
+
+    def __str__(self):
+        return u'{} | {}'.format(self.resident, self.medicine)
+
+    def get_absolute_url(self):
+        return reverse('medication-detail', args=[str(self.id)])
+
+class ResidentWeight(models.Model):
+    resident = models.ForeignKey('Resident', on_delete=models.CASCADE, limit_choices_to={'vital_status': 'LI'}, null=True)
+    date = models.DateField(auto_now=False, null=True, blank=True)
+    weight = models.FloatField(null=True, blank=True)
+
+    class Meta:
+        ordering = ["date"]        
+
+    def __str__(self):
+        return u'{0}: {1} - {2} Kg'.format(self.date, self.resident, self.weight)
+    
+    def get_absolute_url(self):
+        return reverse('residentweight-detail', args=[str(self.id)])
+    
+class Building(models.Model):
+    name = models.CharField(max_length=70)
+    alias = models.CharField(max_length=70, default='', blank=True)
+
+    class Meta:
+        ordering = ["name"]        
+
+    def __str__(self):
+        return u'{0} ({1})'.format(self.name, self.alias)
+    
+    def get_absolute_url(self):
+        return reverse('building-detail', args=[str(self.id)])
+    
 #Human Resource Information System Models
-class PerformanceAppraisal(models.Model):
-    employee = models.ForeignKey('Employee', on_delete=models.PROTECT, null=True)
-    evaluator = models.CharField(max_length=70)
-    evaluation_type = models.CharField(max_length=70, blank=True)
-    date = models.DateField(auto_now=False, default=timezone.now)
-    result = models.CharField(max_length=1, choices=GRADE, blank=True)
-    remarks = models.TextField(blank=True)
-
-    def __str__(self):
-        return str(self.date)
-
-    class Meta:
-        ordering = ["employee"]
-
-class EmploymentStatus(models.Model):
-    employee = models.ForeignKey('Employee', on_delete=models.CASCADE)
-    employment_status = models.CharField(max_length=1, choices=EMPLOYMENT_STATUS, default='C')
-    date_started = models.DateField(auto_now=False)
-    date_due = models.DateField(auto_now=False, null=True, blank=True)
-
-    def __str__(self):
-        return str(self.date_started)
-
-    class Meta:
-        verbose_name_plural = "Employment statuses"
-        ordering = ["date_started"]
-
 class Employee(models.Model):
     #Name
     first_name = models.CharField(max_length=35)
@@ -338,6 +319,33 @@ class Department(models.Model):
     def get_absolute_url(self):
         return reverse('department-detail', args=[str(self.id)])
 
+class PerformanceAppraisal(models.Model):
+    employee = models.ForeignKey('Employee', on_delete=models.PROTECT, null=True)
+    evaluator = models.CharField(max_length=70)
+    evaluation_type = models.CharField(max_length=70, blank=True)
+    date = models.DateField(auto_now=False, default=timezone.now)
+    result = models.CharField(max_length=1, choices=GRADE, blank=True)
+    remarks = models.TextField(blank=True)
+
+    def __str__(self):
+        return str(self.date)
+
+    class Meta:
+        ordering = ["employee"]
+
+class EmploymentStatus(models.Model):
+    employee = models.ForeignKey('Employee', on_delete=models.CASCADE)
+    employment_status = models.CharField(max_length=1, choices=EMPLOYMENT_STATUS, default='C')
+    date_started = models.DateField(auto_now=False)
+    date_due = models.DateField(auto_now=False, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.date_started)
+
+    class Meta:
+        verbose_name_plural = "Employment statuses"
+        ordering = ["date_started"]
+        
 #Central Supplies Unit Models       
 class Item(models.Model):
     item_type = models.CharField(max_length=1, choices=ITEM_TYPE, default='S')
@@ -353,7 +361,7 @@ class Item(models.Model):
 
     def __str__(self):
         if self.brand_name != '':
-            return f'{self.item_name} <{self.brand_name}>'
+            return f'{self.item_name} ({self.brand_name})'
         else:
             return f'{self.item_name}'
 

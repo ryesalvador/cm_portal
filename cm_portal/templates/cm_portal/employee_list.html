@@ -24,31 +24,10 @@
 
 {% block content %}
   <div class="jumbotron">
-  {% if employee_list %}    
-    <ul class="list-group">
-      {% for employee in employee_list %}
-        <li class="list-group-item">
-          {% if employee.photo %}
-          <img src="{{ employee.photo.url }}" alt="" width="50px" height="50px">
-          {% else %}
-          <img src="{% static 'images/avatar.png' %}" alt="" width="50px" height="50px">
-          {% endif %}
-          <a href="{{ employee.get_absolute_url }}">
-            {{ employee.last_name }}, {{ employee.first_name }}
-            {% if employee.middle_name %}
-              {{ employee.middle_name|first }}.            
-            {% endif %}        
-          </a>               
-        </li>
-      {% endfor %}
-    </ul>
-    {% else %}
-      <p>There are no employees in the portal.</p>  
-  {% endif %}  
+  {% load django_tables2 %}  
+  {% render_table table %}  
+  </div>    
   <br>
-  {% if is_paginated %}
-    {% include 'includes/pagination.html' %}
-  {% endif %}
   {% if perms.cm_portal.add_employee %}  
     <a class="btn btn-primary" href="{% url 'employee-create' %}" role="button">Add an employee</a>
   {% else %}

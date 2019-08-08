@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.core.validators import RegexValidator
 #from django_dropbox_storage.storage import DropboxStorage
 from datetime import date
 import uuid
@@ -81,7 +82,8 @@ class Physician(models.Model):
     middle_name = models.CharField(max_length=35, blank=True)
     last_name = models.CharField(max_length=35)
     specialty = models.CharField(max_length=35, blank=True)
-    telephone = models.CharField(max_length=75)
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)
     hospital_of_choice = models.TextField()
 
     class Meta:
@@ -151,7 +153,14 @@ class Relative(models.Model):
     middle_name = models.CharField(max_length=35, blank=True)
     last_name = models.CharField(max_length=35)
     address = models.TextField(max_length=175, blank=True)    
-    telephone = models.CharField(max_length=75, blank=True)
+    email = models.EmailField(null=True, blank=True)
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+    phone_number_1 = models.CharField(validators=[phone_regex], max_length=17, blank=True) # validators should be a list
+    phone_number_2 = models.CharField(validators=[phone_regex], max_length=17, blank=True)
+    phone_number_3 = models.CharField(validators=[phone_regex], max_length=17, blank=True)
+    mobile_number_1 = models.CharField(validators=[phone_regex], max_length=17, blank=True)
+    mobile_number_2 = models.CharField(validators=[phone_regex], max_length=17, blank=True)
+    mobile_number_3 = models.CharField(validators=[phone_regex], max_length=17, blank=True)
 
     class Meta:
         ordering = ["last_name","first_name"]        

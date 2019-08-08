@@ -131,7 +131,6 @@ class RelativeTable(tables.Table):
         sequence = ('last_name',
                     'first_name',
                     'middle_name',
-                    'telephone',
                     'related_to',
                     'relation_to_resident',)
         exclude = ('id', 'address',)

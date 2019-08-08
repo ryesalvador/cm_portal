@@ -137,7 +137,7 @@ class ResidentListView(PermissionRequiredMixin, ExportMixin, tables.SingleTableV
                 self.template_name = 'cm_portal/osca.html'
                 context['osca'] = True
         else:
-            context['resident_list_only'] = True
+            context['resident'] = True
         return context
 
 class DeceasedResidentListView(PermissionRequiredMixin, tables.SingleTableView):    
@@ -147,7 +147,7 @@ class DeceasedResidentListView(PermissionRequiredMixin, tables.SingleTableView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['deceasedresident_list'] = True
+        context['deceased'] = True
         return context
 
 class DischargedResidentListView(PermissionRequiredMixin, tables.SingleTableView):    
@@ -156,7 +156,7 @@ class DischargedResidentListView(PermissionRequiredMixin, tables.SingleTableView
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['dischargedresident_list'] = True
+        context['discharged'] = True
         return context
     
 @method_decorator(cache_control(private=True), name='dispatch')
@@ -186,6 +186,11 @@ class RelativeListView(PermissionRequiredMixin, tables.SingleTableView):
     table_class = RelativeTable    
     queryset = Relative.objects.all()
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['relative'] = True
+        return context
+
 class RelativeDetailView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'cm_portal.can_view_nursing_home'
     model = Relative
@@ -212,6 +217,11 @@ class PhysicianListView(LoginRequiredMixin, tables.SingleTableView):
     table_class = PhysicianTable    
     queryset = Physician.objects.all()
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['physician'] = True
+        return context
+
 class PhysicianDetailView(LoginRequiredMixin, generic.DetailView):
     model = Physician
 
@@ -236,6 +246,11 @@ class MedicalAbstractListView(PermissionRequiredMixin, generic.ListView):
     permission_required = 'cm_portal.can_view_nursing_home'
     model = MedicalAbstract
     paginate_by = 10
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['medicalabstract'] = True
+        return context
 
 class MedicalAbstractDetailView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'cm_portal.can_view_nursing_home'
@@ -272,6 +287,11 @@ class DrugListView(PermissionRequiredMixin, tables.SingleTableView):
     permission_required = 'cm_portal.can_view_nursing_home'
     table_class = DrugTable    
     queryset = Drug.objects.all()
+  
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['drug'] = True
+        return context
 
 class DrugDetailView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'cm_portal.can_view_nursing_home'
@@ -335,6 +355,11 @@ class ResidentWeightListView(PermissionRequiredMixin, generic.ListView):
     model = ResidentWeight
     paginate_by = 10
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['residentweight'] = True
+        return context
+
 class ResidentWeightDetailView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'cm_portal.can_view_nursing_home'
     model = ResidentWeight
@@ -360,6 +385,11 @@ class BuildingListView(PermissionRequiredMixin, generic.ListView):
     permission_required = 'cm_portal.can_view_nursing_home'
     model = Building
     paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['building'] = True
+        return context
 
 class BuildingDetailView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'cm_portal.can_view_nursing_home'

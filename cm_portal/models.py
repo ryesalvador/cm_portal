@@ -147,7 +147,7 @@ class Resident(models.Model):
         return reverse('resident-detail', args=[str(self.id)])
 
 class Relative(models.Model):
-    related_to = models.ForeignKey('Resident', on_delete=models.CASCADE, null=True)
+    related_to = models.ForeignKey('Resident', on_delete=models.CASCADE, limit_choices_to={'vital_status': 'LI'}, null=True)
     relation_to_resident = models.CharField(max_length=35, blank=True)
     first_name = models.CharField(max_length=35)
     middle_name = models.CharField(max_length=35, blank=True)

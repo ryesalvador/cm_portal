@@ -8,7 +8,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from .forms import ResidentCreateForm, EmployeeCreateForm, \
      MedicationCreateForm, MedicalSupplyCreateForm, MedicalEquipmentCreateForm, \
-     UserUpdateForm, ChargeCreateForm
+     UserUpdateForm, ChargeCreateForm, ResidentWeightCreateForm
 from itertools import chain
 from django.apps import apps
 from django.utils.decorators import method_decorator
@@ -323,6 +323,22 @@ class ResidentWeightListView(PermissionRequiredMixin, generic.ListView):
 class ResidentWeightDetailView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'cm_portal.can_view_nursing_home'
     model = ResidentWeight
+
+class ResidentWeightCreate(PermissionRequiredMixin, generic.CreateView):
+    permission_required = 'cm_portal.can_view_nursing_home'
+    model = ResidentWeight
+    form_class = ResidentWeightCreateForm
+
+class ResidentWeightUpdate(PermissionRequiredMixin, generic.UpdateView):
+    permission_required = 'cm_portal.can_view_nursing_home'
+    model = ResidentWeight
+    form_class = ResidentWeightCreateForm
+    template_name_suffix = '_update_form'
+
+class ResidentWeightDelete(PermissionRequiredMixin, generic.DeleteView):
+    permission_required = 'cm_portal.can_view_nursing_home'
+    model = ResidentWeight
+    success_url = reverse_lazy('resident-weights')
 
 ##Building views
 class BuildingListView(PermissionRequiredMixin, generic.ListView):

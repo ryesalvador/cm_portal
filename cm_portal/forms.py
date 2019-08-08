@@ -2,7 +2,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django import forms
 from django.forms import ModelForm
 from .models import Resident, Medication, Employee, EmploymentStatus, \
-     MedicalSupply, MedicalEquipment, Charge
+     MedicalSupply, MedicalEquipment, Charge, ResidentWeight
 from django.contrib.auth.models import User
 
 class DateInput(forms.DateInput):
@@ -89,6 +89,12 @@ class UserUpdateForm(ModelForm):
                 'is_superuser', 'groups',
                 'user_permissions', 'is_staff',
                 'is_active', 'date_joined',)
+
+class ResidentWeightCreateForm(ModelForm):
+    class Meta:
+        model = ResidentWeight
+        fields = '__all__'
+        widgets = {'date': DateInput(),}
 
 
 

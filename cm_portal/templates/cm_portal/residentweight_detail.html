@@ -16,5 +16,15 @@
     </tr>
   </table>
   </div>
+  {% if perms.cm_portal.change_residentweight and perms.cm_portal.delete_residentweight %} 
+    <a class="btn btn-primary" href="{% url 'residentweight-update' residentweight.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger" href="{% url 'residentweight-delete' residentweight.id %}" role="button">Delete</a>
+  {% elif perms.cm_portal.change_residentweight %}
+    <a class="btn btn-primary" href="{% url 'residentweight-update' residentweight.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger disabled" href="{% url 'residentweight-delete' residentweight.id %}" role="button">Delete</a>
+  {% else %}
+    <a class="btn btn-primary disabled" href="{% url 'residentweight-update' residentweight.id %}" role="button">Edit</a>  
+    <a class="btn btn-danger disabled" href="{% url 'residentweight-delete' residentweight.id %}" role="button">Delete</a>
+  {% endif %}
   </div>
 {% endblock %}

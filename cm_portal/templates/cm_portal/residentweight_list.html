@@ -14,7 +14,8 @@
     <li class="nav-item"><a class="nav-link" href="{% url 'physicians' %}">All physicians</a></li>
     <li class="nav-item"><a class="nav-link" href="{% url 'medical-abstracts' %}" >All medical abstracts</a></li>    
     <li class="nav-item"><a class="nav-link" href="{% url 'drugs' %}">All drugs</a></li>            
-    <li class="nav-item"><a class="nav-link active" href="{% url 'buildings' %}">All buildings</a></li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'buildings' %}">All buildings</a></li>
+    <li class="nav-item"><a class="nav-link active" href="{% url 'resident-weights' %}">All resident weights</a></li>
     <hr>    
     <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Archive</a>
@@ -43,11 +44,16 @@
       {% endfor %}
     </div>    
     {% else %}
-      <p>There are no buildings in the portal.</p>  
+      <p>There are no resident weights in the portal.</p>  
   {% endif %} 
   <br>
   {% if is_paginated %}
     {% include 'includes/pagination.html' %}
+  {% endif %}
+  {% if perms.cm_portal.add_residentweight %}
+    <a class="btn btn-primary" href="{% url 'residentweight-create' %}" role="button">Add resident weight</a>
+  {% else %} 
+    <a class="btn btn-primary disabled" href="{% url 'residentweight-create' %}" role="button">Add resident weight</a>
   {% endif %}
   </div>
 {% endblock %}

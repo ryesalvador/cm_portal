@@ -18,11 +18,11 @@ urlpatterns += [
         template_name='cm_portal/residents.html',
         queryset=Resident.objects.filter(vital_status='LI'),
         paginate_by=10), name='residents'),    
-    path('geriatric/residents/deceased/', views.ResidentDeceasedListView.as_view(
-        template_name='cm_portal/resident_list_deceased.html',
+    path('geriatric/residents/deceased/', views.DeceasedResidentListView.as_view(
+        template_name='cm_portal/deceasedresident_list.html',
         queryset=Resident.objects.filter(vital_status='DE')), name='residents-deceased'),    
-    path('geriatric/residents/discharged/', views.ResidentDischargedListView.as_view(
-        template_name='cm_portal/resident_list_discharged.html',
+    path('geriatric/residents/discharged/', views.DischargedResidentListView.as_view(
+        template_name='cm_portal/dischargedresident_list.html',
         queryset=Resident.objects.filter(vital_status='DC')), name='residents-discharged'),        
     path('geriatric/resident/<int:pk>/', views.ResidentDetailView.as_view(), name='resident-detail'),
     path('geriatric/resident/create/', views.ResidentCreate.as_view(), name='resident-create'),

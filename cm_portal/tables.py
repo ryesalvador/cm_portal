@@ -17,10 +17,9 @@ class ResidentTable(tables.Table):
     class Meta:
         model = Resident
         template_name = 'django_tables2/bootstrap4.html'
-        sequence = ('id',
-                    'last_name',
+        sequence = ('last_name',
                     'first_name',)
-        exclude = (#'id',
+        exclude = ('id',
                    'photo',
                    'gender',
                    'osca_id',
@@ -54,10 +53,10 @@ class ResidentDeceasedTable(tables.Table):
     class Meta:
         model = Resident
         template_name = 'django_tables2/bootstrap4.html'
-        sequence = ('photo',
-                    'last_name',
+        sequence = ('last_name',
                     'first_name',)
-        exclude = ('id',                   
+        exclude = ('id',  
+                   'photo',                 
                    'gender',
                    'osca_id',
                    'philhealth',
@@ -92,10 +91,10 @@ class ResidentDischargedTable(tables.Table):
     class Meta:
         model = Resident
         template_name = 'django_tables2/bootstrap4.html'
-        sequence = ('photo',
-                    'last_name',
+        sequence = ('last_name',
                     'first_name',)
         exclude = ('id',                   
+                   'photo',
                    'gender',
                    'osca_id',
                    'philhealth',

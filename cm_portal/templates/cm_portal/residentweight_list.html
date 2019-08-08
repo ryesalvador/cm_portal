@@ -9,30 +9,7 @@
     {% if user.is_authenticated %}
       {% include 'includes/user.html' %}
     {% endif %}    
-    <li class="nav-item"><a class="nav-link" href="{% url 'residents' %}">All residents</a></li>
-    <li class="nav-item"><a class="nav-link" href="{% url 'relatives' %}">All relatives</a></li>    
-    <li class="nav-item"><a class="nav-link" href="{% url 'physicians' %}">All physicians</a></li>
-    <li class="nav-item"><a class="nav-link" href="{% url 'medical-abstracts' %}" >All medical abstracts</a></li>    
-    <li class="nav-item"><a class="nav-link" href="{% url 'drugs' %}">All drugs</a></li>            
-    <li class="nav-item"><a class="nav-link" href="{% url 'buildings' %}">All buildings</a></li>
-    <li class="nav-item"><a class="nav-link active" href="{% url 'resident-weights' %}">All resident weights</a></li>
-    <hr>    
-    <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Archive</a>
-      <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 39px, 0px);">
-	      <a class="dropdown-item" href="{% url 'residents-deceased' %}">Deceased residents</a>
-	      <a class="dropdown-item" href="{% url 'residents-discharged' %}">Discharged residents</a>
-	    </div>
-    </li>
-    <hr>        
-    <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Reports</a>
-      <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 39px, 0px);">
-		    <a class="dropdown-item" href="{% url 'residents' %}?reports=maintenance">Inventory of Medicines</a>
-		    <a class="dropdown-item" href="{% url 'residents' %}?reports=osca">OSCA Numbers</a>
-		    <a class="dropdown-item" href="#">Spiritual Profile</a>
-	    </div>
-    </li>
+    {% include 'includes/geria_sidebar.html' %}
 {% endblock %}
 
 {% block content %}

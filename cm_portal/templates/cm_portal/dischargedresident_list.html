@@ -1,0 +1,29 @@
+{% extends "cm_portal/geriatric_index.html" %}
+
+{% block title %}| List of Discharged Residents{% endblock %}
+
+{% block page_title %}| List of Discharged Residents{% endblock %}
+
+{% block search_form %}
+  <form class="navbar-form navbar-right" id="search-form" action="{% url 'search-residents' %}" method="get">
+    {{ form.as_p }}            
+  </form>        
+{% endblock %}
+
+{% block sidebar %}
+    <p></p>
+    {% if user.is_authenticated %}
+      {% include 'includes/user.html' %}
+    {% endif %}    
+    {% include 'includes/geria_sidebar.html' %}
+{% endblock %}
+
+{% block content %}  
+  <div class="jumbotron">
+    <div class="table-responsive">
+    {% load django_tables2 %}
+    {% render_table table %}
+    </div>    
+    <br>
+  </div>  
+{% endblock %}

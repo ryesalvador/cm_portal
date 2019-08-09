@@ -7,9 +7,7 @@ from django.views.static import serve
 from cm_portal.models import Resident, Relative
 
 urlpatterns = [
-    path('', views.Dashboard.as_view(), name='index'),    
-    path('mission/', views.Mission.as_view(), name='mission'),
-    path('vision/', views.Vision.as_view(), name='vision'),
+    path('', views.Dashboard.as_view(), name='index'),        
 ]
 
 urlpatterns += [

@@ -69,7 +69,7 @@ def change_password(request):
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'cm_portal/change_password.html', {
-        'form': form
+        'form': form, 'change_password': True
     })
 
 #Class-based views
@@ -95,12 +95,6 @@ class Dashboard(LoginRequiredMixin, generic.base.TemplateView):
         context['medicalsupply_list'] = MedicalSupply.objects.all()
         context['charge_list'] = Charge.objects.all()
         return context
-
-class Mission(generic.base.TemplateView):
-    template_name = 'cm_portal/mission.html'
-
-class Vision(generic.base.TemplateView):
-    template_name = 'cm_portal/vision.html'
 
 ##Main section views
 class GeriatricIndex(PermissionRequiredMixin, generic.base.TemplateView):
@@ -629,6 +623,11 @@ class ChargeDelete(PermissionRequiredMixin, generic.DeleteView):
 class UserDetailView(LoginRequiredMixin, generic.DetailView):
     model = User
     template_name = 'cm_portal/user_detail.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_detail'] = True
+        return context
 
 class UserUpdate(LoginRequiredMixin, generic.UpdateView):
     model = User
@@ -638,4 +637,3 @@ class UserUpdate(LoginRequiredMixin, generic.UpdateView):
 
     def get_object(self):
         return self.request.user
-

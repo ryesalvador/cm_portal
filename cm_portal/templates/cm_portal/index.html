@@ -8,14 +8,9 @@
   {% include 'includes/nav_base.html' %}
 {% endblock %}
 
-{% block sidebar %} 
-  <p></p>    
-  {% include 'includes/user.html' %}
-  <li class="nav-item"><a class="nav-link" href="{% url 'logout'%}">Logout</a></li>
-  <hr>
-  <li class="nav-item"><a class="nav-link" href="{% url 'user-detail' user.id %}">View profile</a></li>  
-  <li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
-  <li class="nav-item"><a class="nav-link" href="{% url 'change-password' %}">Change password</a></li> 
+{% block sidebar %}      
+  {% include 'includes/user.html' %} 
+  {% include 'includes/index_sidebar.html' %} 
 {% endblock %}
      
 {% block page_title %}| Home{% endblock %}

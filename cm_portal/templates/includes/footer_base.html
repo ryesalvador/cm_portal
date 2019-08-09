@@ -1,4 +1,56 @@
+<!-- Modal -->
+<div class="modal fade" id="mission" tabindex="-1" role="dialog" aria-labelledby="mission" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="mission">Our Mission</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+	      <p class="lead">We commit ourselves to care for our stakeholders with Heart in our Hands by:</p>
+	      <p class="lead">Accompanying and serving with compassion and competence</p>
+	      <p class="lead">Respecting human dignity and individuality</p>
+	      <p class="lead">And upholding excellence in all services</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="vision" tabindex="-1" role="dialog" aria-labelledby="visionTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="visionTitle">Our Vision</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+	      <p class="lead text-center">Camillus Medhaven,</p>
+	      <p class="lead text-center">a Camillian Healthcare institution,</p>
+	      <p class="lead text-center">envisions to provide</p>
+	      <p class="lead text-center">a home,</p>
+		   <p class="lead text-center">a nurturing community</p>
+		   <p class="lead text-center">and</p>
+		   <p class="lead text-center">a center of excellence</p>
+		   <p class="lead text-center">for holistic care</p>
+		   <p class="lead text-center">of the elderly</p>
+		   <p class="lead text-center">and persons in need</p>
+		   <p class="lead text-center">of convalescent</p>
+		   <p class="lead text-center">and palliative care.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>        
+      </div>
+    </div>
+  </div>
+</div>
 <hr>
-<a href="{% url 'mission' %}">Our Mission</a> | 
-<a href="{% url 'vision' %}">Our Vision</a>
+<a data-toggle="modal" data-target="#mission" href="#">Our Mission</a> | 
+<a data-toggle="modal" data-target="#vision" href="#">Our Vision</a>
 <h4>Your Home With A Heart</h4>

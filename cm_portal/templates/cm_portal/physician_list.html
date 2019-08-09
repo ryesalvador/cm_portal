@@ -4,14 +4,6 @@
 
 {% block page_title %}| List of Physicians{% endblock %}
 
-{% block sidebar %}
-    <p></p>
-    {% if user.is_authenticated %}
-      {% include 'includes/user.html' %}
-    {% endif %}    
-    {% include 'includes/geria_sidebar.html' %}
-{% endblock %}
-
 {% block content %}  
   <div class="jumbotron"><div class="table-responsive">
   {% load django_tables2 %}

@@ -76,6 +76,26 @@ def change_password(request):
 class Dashboard(LoginRequiredMixin, generic.base.TemplateView):
     template_name = 'cm_portal/index.html'
 
+    def get_context_data(self, **kwargs):        
+        context = super().get_context_data(**kwargs)
+        # Geriatric
+        context['building_list'] = Building.objects.all() 
+        context['resident_list'] = Resident.objects.filter(vital_status='LI')
+        context['relative_list'] = Relative.objects.all()
+        context['physician_list'] = Physician.objects.all()
+        context['drug_list'] = Drug.objects.all()
+        context['medicalabstract_list'] = MedicalAbstract.objects.all() 
+        # HRIS
+        context['employee_list'] = Employee.objects.all()
+        context['position_list'] = Position.objects.all()
+        context['department_list'] = Department.objects.all()      
+        # CSU
+        context['item_list'] = Item.objects.all()
+        context['medicalequipment_list'] = MedicalEquipment.objects.all()
+        context['medicalsupply_list'] = MedicalSupply.objects.all()
+        context['charge_list'] = Charge.objects.all()
+        return context
+
 class Mission(generic.base.TemplateView):
     template_name = 'cm_portal/mission.html'
 

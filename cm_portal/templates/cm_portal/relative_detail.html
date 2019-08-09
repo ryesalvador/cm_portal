@@ -5,32 +5,42 @@
 {% block page_title %}| Relative Profile{% endblock %}
 
 {% block content %}  
-  <div class="jumbotron"><h2>Name: {{ relative.first_name }}
+  <div class="jumbotron"><h2>{{ relative.first_name }}
     {% if relative.middle_name %}
       {{ relative.middle_name|first }}.            
     {% endif %}
     {{ relative.last_name }}</h2>
-  <div class="table-responsive"><table class="table table-hover">    
-    <tr><td><strong>Surname: </strong>{{ relative.last_name }}</td></tr>
-    <tr><td><strong>First Name: </strong>{{ relative.first_name }}</td></tr>
-    <tr><td><strong>Middle Name: </strong>{{ relative.middle_name }}</td></tr>
-  </table></div>  
-  <div style="margin-left:20px;margin-top:20px">
-    <div class="table-responsive"><table class="table table-hover">
-        <thead>
-          <tr>
-            <th><strong>Contact #</strong></th>
-            <th><strong>Address</strong></th>          
-          </tr>          
-        </thead>    
-        <tbody>          
-          <tr>
-            <td>{{ relative.telephone }}</td>
-            <td>{{ relative.address }}</td>      
-          </tr>
-        </tbody>    
-    </table></div>
-  </div>
+  <div class="table-responsive">
+    <table class="table table-hover">        
+      <tr>
+        <td><strong>Surname: </strong>{{ relative.last_name }}</td>
+        <td><strong>First name: </strong>{{ relative.first_name }}</td>
+        <td><strong>Middle name: </strong>{{ relative.middle_name }}</td>
+      </tr>      
+      <tr>
+        <td><strong>Related to: </strong><a href="{{ relative.related_to.get_absolute_url }}">{{ relative.related_to }}</a></td>
+        <td><strong>Relation to resident: </strong>{{ relative.relation_to_resident }}</td>
+      </tr>
+      <tr>
+        <td><strong>Address: </strong>{{ relative.address }}</td>        
+      </tr>
+      <tr>
+        <td><strong>Email: </strong><a href="mailto:{{ relative.email }}">{{ relative.email }}</a></td>        
+      </tr>
+      <tr>
+        <td><strong>Phone number 1: </strong><a href="tel:{{ relative.phone_number_1 }}">{{ relative.phone_number_1 }}</a></td>
+        <td><strong>Mobile number 1: </strong><a href="tel:{{ relative.mobile_number_1 }}">{{ relative.mobile_number_1 }}</a></td>
+      </tr>
+      <tr>
+        <td><strong>Phone number 2: </strong><a href="tel:{{ relative.phone_number_2 }}">{{ relative.phone_number_2 }}</a></td>
+        <td><strong>Mobile number 2: </strong><a href="tel:{{ relative.mobile_number_2 }}">{{ relative.mobile_number_2 }}</a></td>
+      </tr>
+      <tr>
+        <td><strong>Phone number 3: </strong><a href="tel:{{ relative.phone_number_3 }}">{{ relative.phone_number_3 }}</a></td>
+        <td><strong>Mobile number 3: </strong><a href="tel:{{ relative.mobile_number_3 }}">{{ relative.mobile_number_3 }}</a></td>
+      </tr>      
+    </table>
+  </div> 
   {% if perms.cm_portal.change_relative and perms.cm_portal.delete_relative %}
     <a class="btn btn-primary" href="{% url 'relative-update' relative.id %}" role="button">Edit</a>  
     <a class="btn btn-danger" href="{% url 'relative-delete' relative.id %}" role="button">Delete</a>

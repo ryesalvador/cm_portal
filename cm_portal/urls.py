@@ -4,7 +4,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from .forms import LoginForm
 from django.conf import settings
 from django.views.static import serve
-from cm_portal.models import Resident
+from cm_portal.models import Resident, Relative
 
 urlpatterns = [
     path('', views.Dashboard.as_view(), name='index'),    
@@ -15,9 +15,7 @@ urlpatterns = [
 urlpatterns += [
     path('geriatric/', views.GeriatricIndex.as_view(), name='geriatric-index'),    
     path('geriatric/residents/', views.ResidentListView.as_view(
-        template_name='cm_portal/residents.html',
-        queryset=Resident.objects.filter(vital_status='LI'),
-        paginate_by=10), name='residents'),    
+        queryset=Resident.objects.filter(vital_status='LI')), name='residents'),    
     path('geriatric/residents/deceased/', views.DeceasedResidentListView.as_view(
         template_name='cm_portal/deceasedresident_list.html',
         queryset=Resident.objects.filter(vital_status='DE')), name='residents-deceased'),    
@@ -33,7 +31,8 @@ urlpatterns += [
     path('geriatric/physician/create/', views.PhysicianCreate.as_view(), name='physician-create'),
     path('geriatric/physician/<int:pk>/update/', views.PhysicianUpdate.as_view(), name='physician-update'),
     path('geriatric/physician/<int:pk>/delete/', views.PhysicianDelete.as_view(), name='physician-delete'),
-    path('geriatric/relatives/', views.RelativeListView.as_view(), name='relatives'),
+    path('geriatric/relatives/', views.RelativeListView.as_view(
+        queryset=Relative.objects.filter(related_to__vital_status='LI')), name='relatives'),
     path('geriatric/relative/<int:pk>/', views.RelativeDetailView.as_view(), name='relative-detail'),
     path('geriatric/relative/create/', views.RelativeCreate.as_view(), name='relative-create'),
     path('geriatric/relative/<int:pk>/update/', views.RelativeUpdate.as_view(), name='relative-update'),

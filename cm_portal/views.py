@@ -25,6 +25,7 @@ from .tables import ResidentTable, RelativeTable, PhysicianTable, DrugTable, \
      ResidentDeceasedTable, ResidentDischargedTable, ItemTable, MedicalSupplyTable, \
      MedicalEquipmentTable, ChargeTable, EmployeeTable
 from django_tables2.export.views import ExportMixin
+from .forms import SearchForm, DrugSearchForm
 
 #Function-based views
 @login_required
@@ -134,26 +135,6 @@ class CSUIndex(PermissionRequiredMixin, generic.base.TemplateView):
 
 ############################## GERIATRIC ##############################
 ##Resident views
-@method_decorator(cache_control(private=True), name='dispatch')
-class ResidentListView(PermissionRequiredMixin, ExportMixin, tables.SingleTableView):    
-    permission_required = 'cm_portal.can_view_nursing_home'    
-    table_class = ResidentTable
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        if 'reports' in self.request.GET:
-            context['building_list'] = Building.objects.all()
-            reports = self.request.GET['reports'].strip()
-            if reports == 'maintenance':                
-                self.template_name = 'cm_portal/maintenance.html'  
-                context['maintenance'] = True              
-            elif reports == 'osca':
-                self.template_name = 'cm_portal/osca.html'
-                context['osca'] = True
-        else:
-            context['resident'] = True
-        return context
-
 class DeceasedResidentListView(PermissionRequiredMixin, tables.SingleTableView):    
     permission_required = 'cm_portal.can_view_nursing_home'    
     table_class = ResidentDeceasedTable
@@ -171,6 +152,37 @@ class DischargedResidentListView(PermissionRequiredMixin, tables.SingleTableView
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['discharged'] = True
+        return context
+        
+@method_decorator(cache_control(private=True), name='dispatch')
+class ResidentListView(PermissionRequiredMixin, ExportMixin, tables.SingleTableView):    
+    permission_required = 'cm_portal.can_view_nursing_home'    
+    table_class = ResidentTable
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'List of Residents'
+        form = SearchForm(self.request.GET or {})        
+        if 'q' in self.request.GET:
+            query = self.request.GET['q'].strip()
+            context['search'] = True
+            context['title'] = 'Search Results for {}'.format(query)            
+        if form.is_valid():          
+            context['results'] = ResidentTable(form.get_queryset())          
+        else:
+            context['results'] = MyModel.objects.none()
+        context['form'] = form        
+        if 'reports' in self.request.GET:
+            context['building_list'] = Building.objects.all()
+            reports = self.request.GET['reports'].strip()
+            if reports == 'maintenance':                
+                self.template_name = 'cm_portal/maintenance.html'  
+                context['maintenance'] = True              
+            elif reports == 'osca':
+                self.template_name = 'cm_portal/osca.html'
+                context['osca'] = True
+        else:
+            context['resident'] = True
         return context
     
 @method_decorator(cache_control(private=True), name='dispatch')
@@ -304,6 +316,17 @@ class DrugListView(PermissionRequiredMixin, tables.SingleTableView):
   
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['title'] = 'List of Drugs'
+        form = DrugSearchForm(self.request.GET or {})        
+        if 'q' in self.request.GET:
+            query = self.request.GET['q'].strip()
+            context['search'] = True
+            context['title'] = 'Search Results for {}'.format(query)            
+        if form.is_valid():          
+            context['results'] = DrugTable(form.get_queryset())          
+        else:
+            context['results'] = MyModel.objects.none()
+        context['form'] = form 
         context['drug'] = True
         return context
 

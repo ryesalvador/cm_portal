@@ -5,8 +5,9 @@
 ~~~~
     INSTALLED_APPS = [    
         ...
-        'widget_tweaks',
         'cm_portal.apps.CmPortalConfig',
+        'widget_tweaks',
+        'django_tables2',
         ...
     ] 
 ~~~~

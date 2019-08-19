@@ -16,34 +16,89 @@
 {% endblock %}
 
 {% block page_title %}| Geriatric Section{% endblock %}
-
-<!-- {% block searchbar %}
-	<div class="input-group mb-3">
-		<form class="form-inline my-2 my-lg-0" id="search-form" action="{% url 'search' %}">
-			<div class="input-group-prepend">
-				<button type="submit" class="btn btn-secondary my-2 my-sm-0">
-					<i class="fa fa-search" aria-hidden="true"></i>
-				</button>
-			</div>
-			<input class="form-control" name="query" placeholder="Search" type="text" size="32" required id="id_query">
-			<div class="input-group-append">
-				<select class="custom-select" name="model" id="model">
-					<option value="resident" selected>Residents</option>
-					<option value="relative">Relatives</option>
-					<option value="physician">Physicians</option>
-					<option value="drug">Drugs</option>
-				</select>			
-			</div>
-		</form>
-	</div>
-{% endblock %} -->
-   
+  
 {% block content %}   	
   {% if user.is_authenticated %}
     <div class="jumbotron">
       <h2>Welcome to the 
         <em>Geriatrics Database</em>, where you can store resident profiles and other related information.
-      </h2>               
+      </h2>
+      <div class="row">
+	      <div class="col-sm-4">
+		      <div class="card">
+			      <a href="{% url 'resident-create' %}" style="text-decoration: none;">
+				      <div class="card-body">
+					      <h4 class="card-title"><i class="fas fa-id-card"></i> New Resident</h4>
+					      <h6 class="card-subtitle mb-2 text-muted">Add New Resident</h6>        
+				      </div>
+			      </a>
+		      </div>	      	      
+	      </div>
+			<div class="col-sm-4">
+				<div class="card">
+					<a href="{% url 'physician-create' %}" style="text-decoration: none;">
+						<div class="card-body">
+							<h4 class="card-title"><i class="fas fa-user-md"></i> New Physician</h4>
+							<h6 class="card-subtitle mb-2 text-muted">Add New Physician</h6>
+						</div>
+					</a>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="card">
+					<a href="{% url 'relative-create' %}" style="text-decoration: none;">
+						<div class="card-body">
+							<h4 class="card-title"><i class="fas fa-user-friends"></i> New Relative</h4>
+							<h6 class="card-subtitle mb-2 text-muted">Add New Relative</h6>  
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="card">
+					<a href="{% url 'medicalabstract-create' %}" style="text-decoration: none;">
+						<div class="card-body">
+							<h4 class="card-title"><i class="fas fa-file-medical"></i> New Medical Abstract</h4>
+							<h6 class="card-subtitle mb-2 text-muted">Add New Medical Abstract</h6>  
+						</div>
+					</a>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="card">
+					<a href="{% url 'drug-create' %}" style="text-decoration: none;">
+						<div class="card-body">
+							<h4 class="card-title"><i class="fas fa-capsules"></i> New Drug</h4>
+							<h6 class="card-subtitle mb-2 text-muted">Add New Drug</h6>
+						</div>
+					</a>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="card">
+					<a href="{% url 'building-create' %}" style="text-decoration: none;">
+						<div class="card-body">
+							<h4 class="card-title"><i class="fas fa-building"></i> New Building</h4>
+							<h6 class="card-subtitle mb-2 text-muted">Add New Building</h6>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>  
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="card">
+					<a href="{% url 'residentweight-create' %}" style="text-decoration: none;">
+						<div class="card-body">
+							<h4 class="card-title"><i class="fas fa-weight"></i> New Resident Weight</h4>
+							<h6 class="card-subtitle mb-2 text-muted">Add New Resident Weight</h6> 
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>    
       <br>
       {% if building_list %}      
       <p class="lead">Resident census by building:</p>

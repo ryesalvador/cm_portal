@@ -85,6 +85,11 @@ urlpatterns += [
     path('hris/department/create/', views.DepartmentCreate.as_view(), name='department-create'),
     path('hris/department/<int:pk>/update/', views.DepartmentUpdate.as_view(), name='department-update'),
     path('hris/department/<int:pk>/delete/', views.DepartmentDelete.as_view(), name='department-delete'),
+    path('hris/employment-statuses/', views.EmploymentStatusListView.as_view(), name='employment-statuses'),
+    path('hris/employment-status/<int:pk>/', views.EmploymentStatusDetailView.as_view(), name='employmentstatus-detail'),
+    path('hris/employment-status/create/', views.EmploymentStatusCreate.as_view(), name='employmentstatus-create'),
+    path('hris/employment-status/<int:pk>/update/', views.EmploymentStatusUpdate.as_view(), name='employmentstatus-update'),
+    path('hris/employment-status/<int:pk>/delete/', views.EmploymentStatusDelete.as_view(), name='employmentstatus-delete'),
 ]
 
 urlpatterns += [

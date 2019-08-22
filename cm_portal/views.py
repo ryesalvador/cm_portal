@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Resident, Physician, Relative, Employee, Position, Department, \
      MedicalAbstract, Drug, Medication, Item, MedicalSupply, MedicalEquipment, \
-     Charge, Building, ResidentWeight
+     Charge, Building, ResidentWeight, EmploymentStatus
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
@@ -25,7 +25,7 @@ from .tables import ResidentTable, RelativeTable, PhysicianTable, DrugTable, \
      ResidentDeceasedTable, ResidentDischargedTable, ItemTable, MedicalSupplyTable, \
      MedicalEquipmentTable, ChargeTable, EmployeeTable
 from django_tables2.export.views import ExportMixin
-from .forms import SearchForm, DrugSearchForm
+from .forms import SearchForm, DrugSearchForm, EmploymentStatusCreateForm
 
 #Function-based views
 @login_required
@@ -118,7 +118,8 @@ class HRISIndex(PermissionRequiredMixin, generic.base.TemplateView):
         context = super().get_context_data(**kwargs)
         context['employee_list'] = Employee.objects.all()
         context['position_list'] = Position.objects.all()
-        context['department_list'] = Department.objects.all()        
+        context['department_list'] = Department.objects.all()  
+        context['employmentstatus_list'] = EmploymentStatus.objects.all()      
         return context
 
 class CSUIndex(PermissionRequiredMixin, generic.base.TemplateView):
@@ -455,6 +456,11 @@ class EmployeeListView(PermissionRequiredMixin, tables.SingleTableView):
     permission_required = 'cm_portal.can_view_hris'
     table_class = EmployeeTable    
     queryset = Employee.objects.all()
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['employee'] = True
+        return context
 
 @method_decorator(cache_control(private=True), name='dispatch')
 class EmployeeDetailView(PermissionRequiredMixin, generic.DetailView):
@@ -482,6 +488,11 @@ class PositionListView(PermissionRequiredMixin, generic.ListView):
     permission_required = 'cm_portal.can_view_hris'
     model = Position
     paginate_by = 10
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['position'] = True
+        return context
 
 class PositionDetailView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'cm_portal.can_view_hris'
@@ -508,6 +519,11 @@ class DepartmentListView(PermissionRequiredMixin, generic.ListView):
     permission_required = 'cm_portal.can_view_hris'
     model = Department
     paginate_by = 10
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['department'] = True
+        return context
 
 class DepartmentDetailView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'cm_portal.can_view_hris'
@@ -528,6 +544,36 @@ class DepartmentDelete(PermissionRequiredMixin, generic.DeleteView):
     permission_required = 'cm_portal.delete_department'
     model = Department
     success_url = reverse_lazy('departments')
+    
+class EmploymentStatusListView(PermissionRequiredMixin, generic.ListView):
+	permission_required = 'cm_portal.can_view_hris'
+	model = EmploymentStatus
+	paginate_by = 10
+	
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['employmentstatus'] = True
+		return context
+	
+class EmploymentStatusDetailView(PermissionRequiredMixin, generic.DetailView):
+	permission_required = 'cm_portal.can_view_hris'
+	model = EmploymentStatus
+	
+class EmploymentStatusCreate(PermissionRequiredMixin, generic.CreateView):
+	permission_required = 'cm_portal.add_employmentstatus'
+	model = EmploymentStatus
+	form_class = EmploymentStatusCreateForm
+	
+class EmploymentStatusUpdate(PermissionRequiredMixin, generic.UpdateView):
+	permission_required = 'cm_portal.change_employmentstatus'
+	model = EmploymentStatus
+	form_class = EmploymentStatusCreateForm
+	template_name_suffix = '_update_form'
+	
+class EmploymentStatusDelete(PermissionRequiredMixin, generic.DeleteView):
+	permission_required = 'cm_portal.delete_employmentstatus'
+	model = EmploymentStatus
+	success_url = reverse_lazy('employment-statuses')
 
 ############################## CSU ##############################
 ##Item views

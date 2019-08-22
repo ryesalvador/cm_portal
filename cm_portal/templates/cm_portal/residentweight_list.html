@@ -20,9 +20,9 @@
     {% include 'includes/pagination.html' %}
   {% endif %}
   {% if perms.cm_portal.add_residentweight %}
-    <a class="btn btn-primary" href="{% url 'residentweight-create' %}" role="button">Add resident weight</a>
+    <a class="btn btn-primary" href="{% url 'residentweight-create' %}" role="button">Add a resident weight</a>
   {% else %} 
-    <a class="btn btn-primary disabled" href="{% url 'residentweight-create' %}" role="button">Add resident weight</a>
+    <a class="btn btn-primary disabled" href="{% url 'residentweight-create' %}" role="button">Add a resident weight</a>
   {% endif %}
   </div>
 {% endblock %}

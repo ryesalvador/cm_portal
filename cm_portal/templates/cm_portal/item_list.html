@@ -31,9 +31,9 @@
   </div>    
   <br>
   {% if perms.cm_portal.add_item %}
-    <a class="btn btn-primary" href="{% url 'item-create' %}" role="button">Add item</a>
+    <a class="btn btn-primary" href="{% url 'item-create' %}" role="button">Add an item</a>
   {% else %} 
-    <a class="btn btn-primary disabled" href="{% url 'item-create' %}" role="button">Add item</a>
+    <a class="btn btn-primary disabled" href="{% url 'item-create' %}" role="button">Add an item</a>
   {% endif %}
   </div>
 {% endblock %}

@@ -31,9 +31,9 @@
   </div>    
   <br> 
   {% if perms.cm_portal.add_charge %}
-    <a class="btn btn-primary" href="{% url 'charge-create' %}" role="button">Add charge</a>
+    <a class="btn btn-primary" href="{% url 'charge-create' %}" role="button">Add a charge</a>
   {% else %} 
-    <a class="btn btn-primary disabled" href="{% url 'charge-create' %}" role="button">Add charge</a>
+    <a class="btn btn-primary disabled" href="{% url 'charge-create' %}" role="button">Add a charge</a>
   {% endif %}
   </div>
 {% endblock %}

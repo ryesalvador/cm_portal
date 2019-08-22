@@ -12,21 +12,14 @@
   </form>        
 {% endblock %}
 
-{% block sidebar %}
-  <p></p>
-  {% if user.is_authenticated %}
-    {% include 'includes/user.html' %}
-  {% endif %}  
-  <li class="nav-item"><a class="nav-link active" href="{% url 'employees' %}">All employees</a></li>
-  <li class="nav-item"><a class="nav-link" href="{% url 'positions' %}">All positions</a></li>
-  <li class="nav-item"><a class="nav-link" href="{% url 'departments' %}">All departments</a></li>  
-{% endblock %}
-
 {% block content %}
-  <div class="jumbotron">
+  <div class="jumbotron">  
+  {% if table.data|length > 0 %}
   {% load django_tables2 %}  
-  {% render_table table %}  
-  </div>    
+  {% render_table table %}
+  {% else %}
+  <p>The are no employees in the portal.</p>
+  {% endif %}  
   <br>
   {% if perms.cm_portal.add_employee %}  
     <a class="btn btn-primary" href="{% url 'employee-create' %}" role="button">Add an employee</a>

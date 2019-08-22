@@ -1,0 +1,28 @@
+{% extends "cm_portal/hris_index.html" %}
+
+{% block title %}| List of Employment Statuses{% endblock %}
+
+{% block page_title %}| List of Employment Statuses{% endblock %}
+
+{% block content %}
+  <div class="jumbotron">
+  {% if employmentstatus_list %}    
+    <div class="list-group">
+      {% for employmentstatus in employmentstatus_list %}
+        {% include 'includes/employmentstatus_list_item.html' %}
+      {% endfor %}
+    </div>    
+    {% else %}
+      <p>There are no employment statuses in the portal.</p>  
+  {% endif %} 
+  <br>
+  {% if is_paginated %}
+    {% include 'includes/pagination.html' %}
+  {% endif %}   
+  {% if perms.cm_portal.add_employmentstatus %}
+    <a class="btn btn-primary" href="{% url 'employmentstatus-create' %}" role="button">Add an employmentstatus</a>
+  {% else %}
+    <a class="btn btn-primary disabled" href="{% url 'employmentstatus-create' %}" role="button">Add an employmentstatus</a>
+  {% endif %} 
+  </div>
+{% endblock %}

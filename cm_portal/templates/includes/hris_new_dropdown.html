@@ -19,6 +19,12 @@
       {% else %}
         <a class="dropdown-item disabled" href="#"><i class="fas fa-plus"></i> New department</a>
       {% endif %}
+      
+      {% if perms.cm_portal.add_employmentstatus %}
+        <a class="dropdown-item" href="{% url 'employmentstatus-create' %}"><i class="fas fa-plus"></i> New employment status</a>
+      {% else %}
+        <a class="dropdown-item disabled" href="#"><i class="fas fa-plus"></i> New employment status</a>
+      {% endif %}
     </div>
   </li>  
 </ul>

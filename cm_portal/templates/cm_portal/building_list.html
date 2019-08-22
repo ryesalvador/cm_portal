@@ -20,9 +20,9 @@
     {% include 'includes/pagination.html' %}
   {% endif %}
   {% if perms.cm_portal.add_building %}
-    <a class="btn btn-primary" href="{% url 'building-create' %}" role="button">Add building</a>
+    <a class="btn btn-primary" href="{% url 'building-create' %}" role="button">Add a building</a>
   {% else %} 
-    <a class="btn btn-primary disabled" href="{% url 'building-create' %}" role="button">Add building</a>
+    <a class="btn btn-primary disabled" href="{% url 'building-create' %}" role="button">Add a building</a>
   {% endif %} 
   </div>
 {% endblock %}

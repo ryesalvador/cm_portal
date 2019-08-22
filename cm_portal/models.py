@@ -348,12 +348,15 @@ class EmploymentStatus(models.Model):
     date_started = models.DateField(auto_now=False)
     date_due = models.DateField(auto_now=False, null=True, blank=True)
 
-    def __str__(self):
-        return str(self.date_started)
-
     class Meta:
         verbose_name_plural = "Employment statuses"
         ordering = ["date_started"]
+    
+    def __str__(self):
+        return u'{} - {}'.format(self.employee, self.get_employment_status_display())
+                
+    def get_absolute_url(self):
+        return reverse('employmentstatus-detail', args=[str(self.id)])
         
 #Central Supplies Unit Models       
 class Item(models.Model):

@@ -24,6 +24,52 @@
         <em>Human Resource Information System</em>,
         where you can store employees profiles and other recruitment-related information.
       </h2>
+      <div class="row">
+	      <div class="col-sm-4">
+		      <div class="card">
+			      <a href="{% url 'employee-create' %}" style="text-decoration: none;">
+				      <div class="card-body">
+					      <h4 class="card-title"><i class="fas fa-fingerprint"></i> New Employee</h4>
+					      <h6 class="card-subtitle mb-2 text-muted">Add New Employee</h6>        
+				      </div>
+			      </a>
+		      </div>	      	      
+	      </div>
+	      <div class="col-sm-4">
+		      <div class="card">
+			      <a href="{% url 'employmentstatus-create' %}" style="text-decoration: none;">
+				      <div class="card-body">
+					      <h4 class="card-title"><i class="fas fa-file-contract"></i> New Employment Status</h4>
+					      <h6 class="card-subtitle mb-2 text-muted">Add New Employment Status</h6>        
+				      </div>
+			      </a>
+		      </div>	      	      
+	      </div>
+      </div>
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="card">
+					<a href="{% url 'position-create' %}" style="text-decoration: none;">
+						<div class="card-body">
+							<h4 class="card-title"><i class="fab fa-black-tie"></i> New Position</h4>
+							<h6 class="card-subtitle mb-2 text-muted">Add New Position</h6>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="card">
+					<a href="{% url 'department-create' %}" style="text-decoration: none;">
+						<div class="card-body">
+							<h4 class="card-title"><i class="fas fa-puzzle-piece"></i> New Department</h4>
+							<h6 class="card-subtitle mb-2 text-muted">Add New Department</h6>  
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
       <h3>Dynamic content</h3>
       <p class="lead">The library has the following record counts:</p>
     <ul class="list-group">

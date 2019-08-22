@@ -5,15 +5,17 @@
 	  <a class="dropdown-item" href="{% url 'relatives' %}">All relatives</a>
 	  <a class="dropdown-item" href="{% url 'physicians' %}">All physicians</a>
 	  <a class="dropdown-item" href="{% url 'medical-abstracts' %}">All medical abstracts</a>
-	  <a class="dropdown-item" href="{% url 'drugs' %}">All drugs</a>
-	  <div class="dropdown-divider"></div>
-	  <a class="dropdown-item disabled" href="#"><strong>Archive</strong></a>
-	  <a class="dropdown-item" href="{% url 'residents-deceased' %}">Deceased residents</a>
-	  <a class="dropdown-item" href="{% url 'residents-discharged' %}">Discharged residents</a>
-	  <div class="dropdown-divider"></div>
-	  <a class="dropdown-item disabled" href="#"><strong>Reports</strong></a>
-	  <a class="dropdown-item" href="{% url 'residents' %}?reports=maintenance">Inventory of medicines</a>
-	  <a class="dropdown-item" href="{% url 'residents' %}?reports=osca">OSCA numbers</a>
-	  <a class="dropdown-item" href="#">Spiritual profile</a>
+	  <a class="dropdown-item" href="{% url 'drugs' %}">All drugs</a>	  
+	  <a class="dropdown-item dropdown-toggle" href="#">Archive</a>
+	  <ul class="dropdown-menu">
+	    <li><a class="dropdown-item" href="{% url 'residents-deceased' %}">Deceased residents</a></li>
+       <li><a class="dropdown-item" href="{% url 'residents-discharged' %}">Discharged residents</a></li>
+	  </ul>	  	  
+	  <a class="dropdown-item dropdown-toggle" href="#">Quick tables</a>
+	  <ul class="dropdown-menu">
+	    <li><a class="dropdown-item" href="{% url 'residents' %}?reports=maintenance">Inventory of medicines</a></li>
+	    <li><a class="dropdown-item" href="{% url 'residents' %}?reports=osca">OSCA numbers</a></li>
+	    <li><a class="dropdown-item" href="#">Spiritual profile</a></li>
+	  </ul> 
   </div>
 </li>

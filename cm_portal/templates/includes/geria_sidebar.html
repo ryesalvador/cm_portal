@@ -1,11 +1,12 @@
 <li class="nav-item"><a class="nav-link{% if resident %} active{% endif %}" href="{% url 'residents' %}">All residents</a></li>
 <li class="nav-item"><a class="nav-link{% if relative %} active{% endif %}" href="{% url 'relatives' %}">All relatives</a></li>    
 <li class="nav-item"><a class="nav-link{% if physician %} active{% endif %}" href="{% url 'physicians' %}">All physicians</a></li>
+<li class="nav-item"><a class="nav-link{% if clinic %} active{% endif %}" href="{% url 'clinics' %}">All clinics</a></li>
 <li class="nav-item"><a class="nav-link{% if medicalabstract %} active{% endif %}" href="{% url 'medical-abstracts' %}" >All medical abstracts</a></li>    
 <li class="nav-item"><a class="nav-link{% if drug %} active{% endif %}" href="{% url 'drugs' %}">All drugs</a></li>            
-<li class="nav-item"><a class="nav-link{% if building%} active{% endif %}" href="{% url 'buildings' %}">All buildings</a></li>
+<li class="nav-item"><a class="nav-link{% if building%} active{% endif %}" href="{% url 'buildings' %}">All residences</a></li>
 <li class="nav-item"><a class="nav-link{% if residentweight %} active{% endif %}" href="{% url 'resident-weights' %}">All resident weights</a></li>
-<hr>    
+   
 <li class="nav-item dropdown">
   <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Archive</a>
     <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 39px, 0px);">
@@ -13,7 +14,7 @@
 	   <a class="dropdown-item{% if discharged %} active{% endif %}" href="{% url 'residents-discharged' %}">Discharged residents</a>
 	 </div>
 </li>
-<hr>        
+    
 <li class="nav-item dropdown">
   <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Quick tables</a>
     <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 39px, 0px);">

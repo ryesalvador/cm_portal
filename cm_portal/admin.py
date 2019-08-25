@@ -44,7 +44,7 @@ class RelativeAdmin(admin.ModelAdmin):
     
 @admin.register(Physician)
 class PhysicianAdmin(admin.ModelAdmin):
-    list_display = ('last_name', 'first_name', 'phone_number')
+    list_display = ('last_name', 'first_name', 'phone_number_1', 'mobile_number_2')
     search_fields = ('first_name', 'last_name')
 
 @admin.register(Resident)

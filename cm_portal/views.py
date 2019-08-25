@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Resident, Physician, Relative, Employee, Position, Department, \
      MedicalAbstract, Drug, Medication, Item, MedicalSupply, MedicalEquipment, \
-     Charge, Building, ResidentWeight, EmploymentStatus
+     Charge, Building, ResidentWeight, EmploymentStatus, Clinic
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
@@ -25,7 +25,7 @@ from .tables import ResidentTable, RelativeTable, PhysicianTable, DrugTable, \
      ResidentDeceasedTable, ResidentDischargedTable, ItemTable, MedicalSupplyTable, \
      MedicalEquipmentTable, ChargeTable, EmployeeTable
 from django_tables2.export.views import ExportMixin
-from .forms import SearchForm, DrugSearchForm, EmploymentStatusCreateForm
+from .forms import SearchForm, DrugSearchForm, EmploymentStatusCreateForm, PhysicianSearchForm
 
 #Function-based views
 @login_required
@@ -246,6 +246,17 @@ class PhysicianListView(LoginRequiredMixin, tables.SingleTableView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['title'] = 'List of Physicians'
+        form = PhysicianSearchForm(self.request.GET or {})
+        if 'q' in self.request.GET:
+            query = self.request.GET['q'].strip()
+            context['search'] = True
+            context['title'] = 'Search Results for {}'.format(query)
+        if form.is_valid():
+            context['results'] = PhysicianTable(form.get_queryset())
+        else:
+            context['results'] = MyModel.objects.none()
+        context['form'] = form
         context['physician'] = True
         return context
 
@@ -448,6 +459,37 @@ class BuildingDelete(PermissionRequiredMixin, generic.DeleteView):
     permission_required = 'cm_portal.can_view_nursing_home'
     model = Building
     success_url = reverse_lazy('buildings')
+    
+##Clinic views
+class ClinicListView(PermissionRequiredMixin, generic.ListView):
+	permission_required = 'cm_portal.can_view_nursing_home'
+	model = Clinic
+	paginate_by = 10
+	
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['clinic'] = True
+		return context
+	
+class ClinicDetailView(PermissionRequiredMixin, generic.DetailView):
+	permission_required = 'cm_portal.can_view_nursing_home'
+	model = Clinic
+
+class ClinicCreate(PermissionRequiredMixin, generic.CreateView):
+	permission_required = 'cm_portal.can_view_nursing_home'
+	model = Clinic
+	fields = '__all__'
+
+class ClinicUpdate(PermissionRequiredMixin, generic.UpdateView):
+	permission_required = 'cm_portal.can_view_nursing_home'
+	model = Clinic
+	fields = '__all__'
+	template_name_suffix = '_update_form'
+
+class ClinicDelete(PermissionRequiredMixin, generic.DeleteView):
+	permission_required = 'cm_portal.can_view_nursing_home'
+	model = Clinic
+	success_url = reverse_lazy('clinics')	
 
 ############################## HRIS ##############################    
 ##Employee views

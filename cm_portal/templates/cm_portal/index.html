@@ -9,7 +9,9 @@
 {% endblock %}
 
 {% block sidebar %}      
-  {% include 'includes/user.html' %} 
+  {% if user.is_authenticated %}
+      {% include 'includes/user.html' %}
+    {% endif %} 
   {% include 'includes/index_sidebar.html' %} 
 {% endblock %}
      

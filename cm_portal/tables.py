@@ -145,7 +145,7 @@ class PhysicianTable(tables.Table):
         template_name = 'django_tables2/bootstrap4.html'
         sequence = ('last_name',
                     'first_name',)                   
-        exclude = ('id',)
+        exclude = ('id', 'middle_name', 'phone_number_2', 'mobile_number_2',)
         attrs = {'class': 'table table-hover'}
 
 class DrugTable(tables.Table):

@@ -2,13 +2,15 @@ from django.contrib.auth.forms import AuthenticationForm
 from django import forms
 from django.forms import ModelForm
 from .models import Resident, Medication, Employee, EmploymentStatus, \
-     MedicalSupply, MedicalEquipment, Charge, ResidentWeight, Drug
+     MedicalSupply, MedicalEquipment, Charge, ResidentWeight, Drug, Physician
 from django.contrib.auth.models import User
 from simple_search import search_form_factory
 
 SearchForm = search_form_factory(Resident.objects.all(), ['first_name', 'last_name'])
 
 DrugSearchForm = search_form_factory(Drug.objects.all(), ['generic_name', 'brand_name'])
+
+PhysicianSearchForm = search_form_factory(Physician.objects.all(), ['first_name', 'last_name'])
 
 class DateInput(forms.DateInput):
     input_type = 'date'

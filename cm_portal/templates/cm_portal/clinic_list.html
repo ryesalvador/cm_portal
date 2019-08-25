@@ -1,0 +1,28 @@
+{% extends "cm_portal/geriatric_index.html" %}
+
+{% block title %}| List of Clinics{% endblock %}
+
+{% block page_title %}| List of Clinics{% endblock %}
+
+{% block content %}
+  <div class="jumbotron">
+  {% if clinic_list %}    
+    <div class="list-group">
+      {% for clinic in clinic_list %}
+        {% include 'includes/clinic_list_item.html' %}
+      {% endfor %}
+    </div>    
+    {% else %}
+      <p>There are no clinics in the portal.</p>  
+  {% endif %} 
+  <br>
+  {% if is_paginated %}
+    {% include 'includes/pagination.html' %}
+  {% endif %}
+  {% if perms.cm_portal.add_clinic %}
+    <a class="btn btn-primary" href="{% url 'clinic-create'%}" role="button">Add a clinic</a>
+  {% else %} 
+    <a class="btn btn-primary disabled" href="#" role="button">Add a clinic</a>
+  {% endif %}
+  </div>
+{% endblock %}

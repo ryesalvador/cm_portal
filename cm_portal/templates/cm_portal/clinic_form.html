@@ -1,0 +1,15 @@
+{% extends "cm_portal/geriatric_index.html" %}
+
+{% block title %}| Add Clinic{% endblock %}
+
+{% block page_title %}| Add Clinic{% endblock %}
+
+{% block content %}  
+  <div class="jumbotron">
+	  <form method="post" novalidate>
+		  {% csrf_token %}
+		  {% include 'includes/bs4_form.html' with form=form %}
+		  <input class="btn btn-success" type="submit" value="Submit" />
+	  </form>
+  </div>    
+{% endblock %}

@@ -4,32 +4,45 @@
 
 {% block page_title %}| Physician Profile{% endblock %}
 {% block content %}  
-  <div class="jumbotron"><h2>Name: {{ physician.first_name }}
+  <div class="jumbotron"><h2>Dr. {{ physician.first_name }}
     {% if physician.middle_name %}
       {{ physician.middle_name|first }}.            
     {% endif %}  
-    {{ physician.last_name }}, MD</h2>
-  <div class="table-responsive"><table class="table table-hover">    
-    <tr><td><strong>Surname: </strong>{{ physician.last_name }}</td></tr>
+    {{ physician.last_name }}</h2>
+  <div class="table-responsive"><table class="table table-hover">
     <tr><td><strong>First Name: </strong>{{ physician.first_name }}</td></tr>
-    <tr><td><strong>Middle Name: </strong>{{ physician.middle_name }}</td></tr>
+    {% if physician.middle_name %}<tr><td><strong>Middle Name: </strong>{{ physician.middle_name }}</td></tr>{% endif %}
+    <tr><td><strong>Last Name: </strong>{{ physician.last_name }}</td></tr>
+    <tr><td><strong>Specialties: </strong>{{ physician.specialties }}</td></tr>
+    {% if physician.phone_number_1 %}<tr><td><strong>Phone number 1: </strong><a href="tel:{{ physician.phone_number_1 }}">{{ physician.phone_number_1 }}</a></td></tr>{% endif %}
+    {% if physician.phone_number_2 %}<tr><td><strong>Phone number 2: </strong><a href="tel:{{ physician.phone_number_2 }}">{{ physician.phone_number_2 }}</a></td></tr>{% endif %}
+    {% if physician.mobile_number_1 %}<tr><td><strong>Mobile number 1: </strong><a href="tel:{{ physician.mobile_number_1 }}">{{ physician.mobile_number_1 }}</a></td></tr>{% endif %}
+    {% if physician.mobile_number_2 %}<tr><td><strong>Mobile number 2: </strong><a href="tel:{{ physician.mobile_number_2 }}">{{ physician.mobile_number_2 }}</a></td></tr>{% endif %}
   </table></div>  
+  {% if physician.clinic_set.all %}
   <div style="margin-left:20px;margin-top:20px">
     <div class="table-responsive"><table class="table table-hover">
-        <thead>
+        <thead>          
           <tr>
-            <th><strong>Contact #</strong></th>
-            <th><strong>Hospital of Choice</strong></th>          
+            <th><strong>Clinic</strong></th>
+            <th><strong>Address</strong></th>
+            <th><strong>Room</strong></th>
+            <th><strong>Clinic Hours</strong></th>          
           </tr>          
         </thead>    
         <tbody>          
-          <tr>
-            <td>{{ physician.telephone }}</td>
-            <td>{{ physician.hospital_of_choice }}</td>      
-          </tr>
+          {% for clinic in physician.clinic_set.all %}
+            <tr>
+              <td><a href="{{ clinic.get_absolute_url }}">{{ clinic.name_of_clinic }}</a></td>
+              <td>{{ clinic.address }}</td>
+              <td>{{ clinic.room }}</td>
+              <td>{{ clinic.clinic_hours }}</td>            
+            </tr>
+          {% endfor %}          
         </tbody>    
     </table></div>
   </div>
+  {% endif %}
   {% if perms.cm_portal.change_physician and perms.cm_portal.delete_physician %}
     <a class="btn btn-primary" href="{% url 'physician-update' physician.id %}" role="button">Edit</a>  
     <a class="btn btn-danger" href="{% url 'physician-delete' physician.id %}" role="button">Delete</a>  

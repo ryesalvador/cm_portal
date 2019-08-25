@@ -6,8 +6,15 @@
 
 {% block content %}  
   <div class="jumbotron"><div class="table-responsive">
+  <form id="search-form" action="{% url 'physicians' %}" method="get">
+      {{ form.as_p }}            
+  </form>
   {% load django_tables2 %}
-  {% render_table table %}
+    {% if search %}
+      {% render_table results %}
+    {% else %}
+      {% render_table table %}
+    {% endif %}
   </div>   
   <br>
   {% if perms.cm_portal.add_physician %} 

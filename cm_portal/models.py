@@ -77,14 +77,35 @@ ITEM_TYPE = (
     )
    
 #Geriatric Models   
+class Clinic(models.Model):
+	physician = models.ForeignKey('Physician', on_delete=models.CASCADE, blank=False)
+	name_of_clinic = models.CharField(max_length=70)
+	address = models.TextField(max_length=175)
+	room = models.PositiveIntegerField(null=True, blank=True)
+	phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+	phone_number_1 = models.CharField(validators=[phone_regex], max_length=17, blank=True) # validators should be a list
+	phone_number_2 = models.CharField(validators=[phone_regex], max_length=17, blank=True)
+	clinic_hours = models.TextField(max_length=140)
+	
+	def __str__(self):
+		if self.room != None:
+		    return u'{} - {} room {} | {}'.format(self.physician, self.name_of_clinic, self.room, self.clinic_hours)
+		else:
+			return u'{} - {} | {}'.format(self.physician, self.name_of_clinic, self.clinic_hours)
+		
+	def get_absolute_url(self):
+		return reverse('clinic-detail', args=[str(self.id)])
+			
 class Physician(models.Model):
     first_name = models.CharField(max_length=35)
     middle_name = models.CharField(max_length=35, blank=True)
     last_name = models.CharField(max_length=35)
-    specialty = models.CharField(max_length=35, blank=True)
+    specialties = models.CharField(max_length=175, blank=True)
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
-    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)
-    hospital_of_choice = models.TextField()
+    phone_number_1 = models.CharField(validators=[phone_regex], max_length=17, blank=True) # validators should be a list
+    phone_number_2 = models.CharField(validators=[phone_regex], max_length=17, blank=True)    
+    mobile_number_1 = models.CharField(validators=[phone_regex], max_length=17, blank=True)
+    mobile_number_2 = models.CharField(validators=[phone_regex], max_length=17, blank=True)      
 
     class Meta:
         ordering = ["last_name","first_name"]
@@ -127,7 +148,7 @@ class Resident(models.Model):
     diet = models.TextField(blank=True)
     weight = models.FloatField(null=True, blank=True)
     height = models.FloatField(null=True, blank=True)   
-    physicians = models.ManyToManyField(Physician, blank=True)
+    physicians = models.ManyToManyField('Physician', blank=True)
     vital_status = models.CharField(
         max_length=2,
         choices=VITAL_STATUS,

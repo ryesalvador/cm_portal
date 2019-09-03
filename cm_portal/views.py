@@ -261,6 +261,7 @@ class PhysicianListView(LoginRequiredMixin, tables.SingleTableView):
         return context
 
 class PhysicianDetailView(LoginRequiredMixin, generic.DetailView):
+    permission_required = 'cm_portal.can_view_nursing_home'
     model = Physician
 
 class PhysicianCreate(PermissionRequiredMixin, generic.CreateView):
@@ -414,18 +415,18 @@ class ResidentWeightDetailView(PermissionRequiredMixin, generic.DetailView):
     model = ResidentWeight
 
 class ResidentWeightCreate(PermissionRequiredMixin, generic.CreateView):
-    permission_required = 'cm_portal.can_view_nursing_home'
+    permission_required = 'cm_portal.add_residentweight'
     model = ResidentWeight
     form_class = ResidentWeightCreateForm
 
 class ResidentWeightUpdate(PermissionRequiredMixin, generic.UpdateView):
-    permission_required = 'cm_portal.can_view_nursing_home'
+    permission_required = 'cm_portal.change_residentweight'
     model = ResidentWeight
     form_class = ResidentWeightCreateForm
     template_name_suffix = '_update_form'
 
 class ResidentWeightDelete(PermissionRequiredMixin, generic.DeleteView):
-    permission_required = 'cm_portal.can_view_nursing_home'
+    permission_required = 'cm_portal.delete_residentweight'
     model = ResidentWeight
     success_url = reverse_lazy('resident-weights')
 
@@ -445,18 +446,18 @@ class BuildingDetailView(PermissionRequiredMixin, generic.DetailView):
     model = Building
 
 class BuildingCreate(PermissionRequiredMixin, generic.CreateView):
-    permission_required = 'cm_portal.can_view_nursing_home'
+    permission_required = 'cm_portal.add_building'
     model = Building
     fields = '__all__'
 
 class BuildingUpdate(PermissionRequiredMixin, generic.UpdateView):
-    permission_required = 'cm_portal.can_view_nursing_home'
+    permission_required = 'cm_portal.change_building'
     model = Building
     fields = '__all__'
     template_name_suffix = '_update_form'
 
 class BuildingDelete(PermissionRequiredMixin, generic.DeleteView):
-    permission_required = 'cm_portal.can_view_nursing_home'
+    permission_required = 'cm_portal.delete_building'
     model = Building
     success_url = reverse_lazy('buildings')
     
@@ -476,18 +477,18 @@ class ClinicDetailView(PermissionRequiredMixin, generic.DetailView):
 	model = Clinic
 
 class ClinicCreate(PermissionRequiredMixin, generic.CreateView):
-	permission_required = 'cm_portal.can_view_nursing_home'
+	permission_required = 'cm_portal.add_clinic'
 	model = Clinic
 	fields = '__all__'
 
 class ClinicUpdate(PermissionRequiredMixin, generic.UpdateView):
-	permission_required = 'cm_portal.can_view_nursing_home'
+	permission_required = 'cm_portal.change_clinic'
 	model = Clinic
 	fields = '__all__'
 	template_name_suffix = '_update_form'
 
 class ClinicDelete(PermissionRequiredMixin, generic.DeleteView):
-	permission_required = 'cm_portal.can_view_nursing_home'
+	permission_required = 'cm_portal.delete_clinic'
 	model = Clinic
 	success_url = reverse_lazy('clinics')	
 
@@ -629,18 +630,18 @@ class ItemDetailView(PermissionRequiredMixin, generic.DetailView):
     model = Item
 
 class ItemCreate(PermissionRequiredMixin, generic.CreateView):
-    permission_required = 'cm_portal.can_view_csu'
+    permission_required = 'cm_portal.add_item'
     model = Item
     fields = '__all__'
 
 class ItemUpdate(PermissionRequiredMixin, generic.UpdateView):
-    permission_required = 'cm_portal.can_view_csu'
+    permission_required = 'cm_portal.change_item'
     model = Item
     fields = '__all__'
     template_name_suffix = '_update_form'
 
 class ItemDelete(PermissionRequiredMixin, generic.DeleteView):
-    permission_required = 'cm_portal.can_view_csu'
+    permission_required = 'cm_portal.delete_item'
     model = Item
     success_url = reverse_lazy('items')
 
@@ -655,18 +656,18 @@ class MedicalSupplyDetailView(PermissionRequiredMixin, generic.DetailView):
     model = MedicalSupply
 
 class MedicalSupplyCreate(PermissionRequiredMixin, generic.CreateView):
-    permission_required = 'cm_portal.can_view_csu'
+    permission_required = 'cm_portal.add_medicalsupply'
     model = MedicalSupply
     form_class = MedicalSupplyCreateForm
 
 class MedicalSupplyUpdate(PermissionRequiredMixin, generic.UpdateView):
-    permission_required = 'cm_portal.can_view_csu'
+    permission_required = 'cm_portal.change_medicalsupply'
     model = MedicalSupply
     form_class = MedicalSupplyCreateForm
     template_name_suffix = '_update_form'
 
 class MedicalSupplyDelete(PermissionRequiredMixin, generic.DeleteView):
-    permission_required = 'cm_portal.can_view_csu'
+    permission_required = 'cm_portal.delete_medicalsupply'
     model = MedicalSupply
     success_url = reverse_lazy('medical-supplies')
 
@@ -681,18 +682,18 @@ class MedicalEquipmentDetailView(PermissionRequiredMixin, generic.DetailView):
     model = MedicalEquipment
 
 class MedicalEquipmentCreate(PermissionRequiredMixin, generic.CreateView):
-    permission_required = 'cm_portal.can_view_csu'
+    permission_required = 'cm_portal.add_medicalequipment'
     model = MedicalEquipment
     form_class = MedicalEquipmentCreateForm
 
 class MedicalEquipmentUpdate(PermissionRequiredMixin, generic.UpdateView):
-    permission_required = 'cm_portal.can_view_csu'
+    permission_required = 'cm_portal.change_medicalequipment'
     model = MedicalEquipment
     form_class = MedicalEquipmentCreateForm
     template_name_suffix = '_update_form'
 
 class MedicalEquipmentDelete(PermissionRequiredMixin, generic.DeleteView):
-    permission_required = 'cm_portal.can_view_csu'
+    permission_required = 'cm_portal.delete_medicalequipment'
     model = MedicalEquipment
     success_url = reverse_lazy('medical-equipments')
 
@@ -707,7 +708,7 @@ class ChargeDetailView(PermissionRequiredMixin, generic.DetailView):
     model = Charge
 
 class ChargeCreate(PermissionRequiredMixin, generic.CreateView):
-    permission_required = 'cm_portal.can_view_csu'
+    permission_required = 'cm_portal.add_charge'
     form_class = ChargeCreateForm
     model = Charge
 
@@ -725,7 +726,7 @@ class ChargeCreate(PermissionRequiredMixin, generic.CreateView):
         return form
 
 class ChargeDelete(PermissionRequiredMixin, generic.DeleteView):
-    permission_required = 'cm_portal.can_view_csu'
+    permission_required = 'cm_portal.delete_charge'
     model = Charge
     success_url = reverse_lazy('charges')
 

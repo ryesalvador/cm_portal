@@ -26,6 +26,10 @@ from .tables import ResidentTable, RelativeTable, PhysicianTable, DrugTable, \
      MedicalEquipmentTable, ChargeTable, EmployeeTable
 from django_tables2.export.views import ExportMixin
 from .forms import SearchForm, DrugSearchForm, EmploymentStatusCreateForm, PhysicianSearchForm
+from bootstrap_modal_forms.generic import (BSModalCreateView,
+                                           BSModalUpdateView,
+                                           BSModalReadView,
+                                           BSModalDeleteView)
 
 #Function-based views
 @login_required
@@ -369,14 +373,18 @@ class MedicationListView(PermissionRequiredMixin, generic.ListView):
     model = Medication
     paginate_by = 10
 
-class MedicationDetailView(PermissionRequiredMixin, generic.DetailView):
+class MedicationDetailView(PermissionRequiredMixin, BSModalReadView):
     permission_required = 'cm_portal.can_view_nursing_home'
     model = Medication
+    template_name = 'cm_portal/medication_modal_detail.html'
 
-class MedicationCreate(PermissionRequiredMixin, generic.CreateView):
+class MedicationCreate(PermissionRequiredMixin, BSModalCreateView):
     permission_required = 'cm_portal.add_medication'
-    model = Medication
-    form_class = MedicationCreateForm    
+    #model = Medication
+    template_name = 'cm_portal/medication_modal_form.html'
+    form_class = MedicationCreateForm 
+    success_message = 'Success: Medication was created.'
+    #success_url = reverse_lazy('residents')   
     
     def get_form(self, *args, **kwargs):
         form = super(MedicationCreate, self).get_form(*args, **kwargs)
@@ -384,20 +392,47 @@ class MedicationCreate(PermissionRequiredMixin, generic.CreateView):
             try:
               resident = Resident.objects.get(id=self.kwargs['pk'])
               form.fields['resident'].initial = resident
+              self.success_url = reverse_lazy('resident-detail', kwargs={'pk': resident.id,})
             except Resident.DoesNotExist:
               pass        
         return form
 
-class MedicationUpdate(PermissionRequiredMixin, generic.UpdateView):
+class MedicationUpdate(PermissionRequiredMixin, BSModalUpdateView):
     permission_required = 'cm_portal.change_medication'
     model = Medication
+    template_name = 'cm_portal/medication_modal_update_form.html'
     form_class = MedicationCreateForm
-    template_name_suffix = '_update_form'
+    success_message = 'Success: Medication was updated.'
+    
+    def get_form(self, *args, **kwargs):
+        form = super(MedicationUpdate, self).get_form(*args, **kwargs)
+        if 'pk' in self.kwargs:
+            try:
+              medication = Medication.objects.get(id=self.kwargs['pk'])             
+              resident = medication.resident
+              self.success_url = reverse_lazy('resident-detail', kwargs={'pk': resident.id,})
+            except Medication.DoesNotExist:
+              pass        
+        return form
 
-class MedicationDelete(PermissionRequiredMixin, generic.DeleteView):
+class MedicationDelete(PermissionRequiredMixin, BSModalDeleteView):
     permission_required = 'cm_portal.delete_medication'
     model = Medication
-    success_url = reverse_lazy('medications')
+    template_name = 'cm_portal/medication_modal_confirm_delete.html'
+    success_message = 'Success: Medication was deleted.'
+
+    def get_object(self, *args, **kwargs):
+        medication = super(MedicationDelete, self).get_object(*args, **kwargs)
+        resident = medication.resident
+        self.success_url = reverse_lazy('resident-detail', kwargs={'pk': resident.id,})
+        """if 'pk' in self.kwargs:
+            try:
+              medication = Medication.objects.get(id=self.kwargs['pk'])             
+              resident = medication.resident
+              self.success_url = reverse_lazy('resident-detail', kwargs={'pk': resident.id,})
+            except Medication.DoesNotExist:
+              pass"""        
+        return medication
 
 ##Resident weight views
 class ResidentWeightListView(PermissionRequiredMixin, generic.ListView):

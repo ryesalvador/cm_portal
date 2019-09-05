@@ -57,16 +57,21 @@
 		{% endif %}
 		  
 		<li class="nav-item dropdown">
+		   <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+           <div class="modal-dialog" role="document">
+             <div class="modal-content"></div>
+           </div>
+         </div>
 			<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Actions</a>
-			<div class="dropdown-menu">
-			  <a class="dropdown-item" href="{% url 'medication-create' resident.id %}">Add new medication</a>			  	
+			<div class="dropdown-menu">			    			  
+			    <a class="create-medication dropdown-item" type="button" name="button">Add new medication</a>			  	
 			  {% if resident.medicalabstract %}
 			    <a class="dropdown-item disabled" href="#">Create a medical abstract</a>			    
 			  {% else %}
 			    <a class="dropdown-item" href="{% url 'medicalabstract-create' resident.id %}">Create a medical abstract</a> 
 			  {% endif %}		
 			</div>
-		</li>
+		</li>		 
 	</ul>  
 	  
 	<div id="myTabContent" class="tab-content">
@@ -80,5 +85,28 @@
 			{% include 'includes/resident_medical_abstract.html' %}
 		</div>
 	</div>
+	
+  <script type="text/javascript">
+  $(function () {
+    // Create medication button
+    $(".create-medication").modalForm({formURL: "{% url 'medication-create' %}"});
+
+    // Update medication buttons
+    $(".update-medication").each(function () {
+      $(this).modalForm({formURL: $(this).data('id')});
+    });
+
+    // Read medication buttons
+    $(".read-medication").each(function () {
+      $(this).modalForm({formURL: $(this).data('id')});
+    });
+
+    // Delete medication buttons
+    $(".delete-medication").each(function () {
+      $(this).modalForm({formURL: $(this).data('id')});
+    });
+
+  });
+</script>
 </div>
 {% endblock %}

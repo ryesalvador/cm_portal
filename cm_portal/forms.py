@@ -5,6 +5,7 @@ from .models import Resident, Medication, Employee, EmploymentStatus, \
      MedicalSupply, MedicalEquipment, Charge, ResidentWeight, Drug, Physician
 from django.contrib.auth.models import User
 from simple_search import search_form_factory
+from bootstrap_modal_forms.forms import BSModalForm
 
 SearchForm = search_form_factory(Resident.objects.all(), ['first_name', 'last_name'])
 
@@ -32,10 +33,10 @@ class ChargeCreateForm(ModelForm):
             'date_acquired': DateInput(),            
             }
 
-class MedicationCreateForm(ModelForm):
+class MedicationCreateForm(BSModalForm):
     class Meta:
         model = Medication
-        fields = '__all__'
+        exclude = ('discontinued',)
         widgets = {
             'date_started': DateInput(),
             'due': DateInput(),            

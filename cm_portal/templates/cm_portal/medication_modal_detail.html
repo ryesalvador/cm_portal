@@ -1,0 +1,39 @@
+<div class="modal-header">
+  <h3 class="modal-title">Medication Details</h3>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+
+  <div class="">
+    Last updated:
+    {{ medication.last_modified }}
+  </div>
+  <div class="">
+    Resident:
+    {{ medication.resident	}}
+  </div>
+  <div class="">
+    Medicine:
+    <a target="_blank" rel="noopener noreferrer" href="{{ medication.medicine.get_absolute_url }}">{{ medication.medicine }}</a>
+  </div>
+  <div class="">
+    Frequency:
+    {{ medication.frequency }}
+  </div>
+  <div class="">
+    Date started:
+    {{ medication.date_started }}
+  </div>
+  <div class="">
+    Due:
+    {{ medication.due }}
+  </div>
+
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>

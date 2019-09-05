@@ -30,6 +30,7 @@
 </head>
 
 <body>
+  <script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>
   <div id="container"><nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
     <a class="navbar-brand abs" href="{% url 'index' %}">Camillus MedHaven Portal</a>
     {% if user.is_authenticated %}<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">

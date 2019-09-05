@@ -1,23 +1,41 @@
-<div class="table-responsive"><table class="table table-hover">
+<div class="table table-responsive"><table class="table table-hover">
 	<tr>          
 	    <th scope="col">Medicine</th>
 	    <th scope="col">Dosage</th>
 	    <th scope="col">Frequency</th>
 	    <th scope="col">Quantity</th>
-	    <th scope="col">Due</th>
-	    <th scope="col">Last Modified</th>    
+	    <th scope="col">Date started</th>
+	    <th scope="col">Due</th>	    
+	    <th scope="col"></th>    
+	    <th scope="col"></th>
+	    <th scope="col"></th>
 	</tr>
 	{% for meds in resident.medication_set.all %}            
 	   {% if not meds.discontinued %}
 	   <tr>
-			<td><a target="_blank" rel="noopener noreferrer" href="{{ meds.get_absolute_url }}">{{ meds.medicine.generic_name }}
-			{% if meds.medicine.brand_name %}({{ meds.medicine.brand_name }}){% endif %}</a>
+			<td>{{ meds.medicine.generic_name }}
+			{% if meds.medicine.brand_name %}({{ meds.medicine.brand_name }}){% endif %}
 			</td>
 			<td>{{ meds.medicine.dosage }}</td>
 			<td>{{ meds.frequency }}</td>
-			<td>{% if meds.quantity %}<span class="badge badge-primary badge-pill">{{ meds.quantity }}</span>{% endif %}</td>    
-			<td>{% if meds.due %}{{ meds.due }}{% endif %}</td>
-			<td>{{ meds.last_modified }}</td>
+			<td>{% if meds.quantity %}{{ meds.quantity }}{% endif %}</td>
+			<td>{% if meds.date_started %}{{ meds.date_started }}{% endif %}</td>    
+			<td>{% if meds.due %}{{ meds.due }}{% endif %}</td>			
+			<td>
+			  <button type="button" class="read-medication btn btn-sm btn-primary" data-id="{% url 'medication-detail' meds.pk %}">
+             <span class="fa fa-eye"></span>
+           </button>
+         </td>
+         <td>
+           <button type="button" class="update-medication btn btn-sm btn-primary" data-id="{% url 'medication-update' meds.pk %}">
+             <span class="fa fa-pencil"></span>
+           </button>
+         </td>     
+         <td>
+           <button type="button" class="delete-medication btn btn-sm btn-danger" data-id="{% url 'medication-delete' meds.pk %}">
+             <span class="fa fa-trash"></span>
+           </button>
+         </td>    
 	   </tr>
 	   {% endif %}              
 	{% endfor %}

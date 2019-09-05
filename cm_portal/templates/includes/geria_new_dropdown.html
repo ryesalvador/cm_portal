@@ -13,13 +13,7 @@
   {% else %}
     <a class="dropdown-item disabled" href="#"><i class="fas fa-plus"></i> New medical abstract</a>
   {% endif %}
-  
-  {% if perms.cm_portal.add_medication %}
-    <a class="dropdown-item" href="{% url 'medication-create' %}" ><i class="fas fa-plus"></i> New medication</a>            
-  {% else %}
-    <a class="dropdown-item disabled" href="#" ><i class="fas fa-plus"></i> New medication</a>
-  {% endif %}
-  
+    
   {% if perms.cm_portal.add_residentweight %}
     <a class="dropdown-item" href="{% url 'residentweight-create' %}" ><i class="fas fa-plus"></i> New resident weight</a>            
   {% else %}

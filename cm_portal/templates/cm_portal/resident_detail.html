@@ -64,11 +64,11 @@
          </div>
 			<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Actions</a>
 			<div class="dropdown-menu">			    			  
-			    <a class="create-medication dropdown-item" type="button" name="button">Add new medication</a>			  	
+			    <a class="create-medication dropdown-item" type="button" name="button"><i class="fas fa-plus"></i> Add new medication</a>			  	
 			  {% if resident.medicalabstract %}
 			    <a class="dropdown-item disabled" href="#">Create a medical abstract</a>			    
 			  {% else %}
-			    <a class="dropdown-item" href="{% url 'medicalabstract-create' resident.id %}">Create a medical abstract</a> 
+			    <a class="dropdown-item" href="{% url 'medicalabstract-create' resident.id %}"><i class="fas fa-plus"></i> Create a medical abstract</a> 
 			  {% endif %}		
 			</div>
 		</li>		 
@@ -89,7 +89,7 @@
   <script type="text/javascript">
   $(function () {
     // Create medication button
-    $(".create-medication").modalForm({formURL: "{% url 'medication-create' %}"});
+    $(".create-medication").modalForm({formURL: "{% url 'medication-modal-create' resident.id %}"});
 
     // Update medication buttons
     $(".update-medication").each(function () {

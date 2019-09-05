@@ -376,12 +376,12 @@ class MedicationListView(PermissionRequiredMixin, generic.ListView):
 class MedicationDetailView(PermissionRequiredMixin, BSModalReadView):
     permission_required = 'cm_portal.can_view_nursing_home'
     model = Medication
-    template_name = 'cm_portal/medication_modal_detail.html'
+    template_name = 'cm_portal/medication_detail.html'
 
 class MedicationCreate(PermissionRequiredMixin, BSModalCreateView):
     permission_required = 'cm_portal.add_medication'
     #model = Medication
-    template_name = 'cm_portal/medication_modal_form.html'
+    template_name = 'cm_portal/medication_form.html'
     form_class = MedicationCreateForm 
     success_message = 'Success: Medication was created.'
     #success_url = reverse_lazy('residents')   
@@ -400,11 +400,17 @@ class MedicationCreate(PermissionRequiredMixin, BSModalCreateView):
 class MedicationUpdate(PermissionRequiredMixin, BSModalUpdateView):
     permission_required = 'cm_portal.change_medication'
     model = Medication
-    template_name = 'cm_portal/medication_modal_update_form.html'
+    template_name = 'cm_portal/medication_update_form.html'
     form_class = MedicationCreateForm
     success_message = 'Success: Medication was updated.'
+
+    def get_object(self, *args, **kwargs):
+        medication = super(MedicationUpdate, self).get_object(*args, **kwargs)
+        resident = medication.resident
+        self.success_url = reverse_lazy('resident-detail', kwargs={'pk': resident.id,})                
+        return medication
     
-    def get_form(self, *args, **kwargs):
+    """def get_form(self, *args, **kwargs):
         form = super(MedicationUpdate, self).get_form(*args, **kwargs)
         if 'pk' in self.kwargs:
             try:
@@ -413,25 +419,18 @@ class MedicationUpdate(PermissionRequiredMixin, BSModalUpdateView):
               self.success_url = reverse_lazy('resident-detail', kwargs={'pk': resident.id,})
             except Medication.DoesNotExist:
               pass        
-        return form
+        return form"""
 
 class MedicationDelete(PermissionRequiredMixin, BSModalDeleteView):
     permission_required = 'cm_portal.delete_medication'
     model = Medication
-    template_name = 'cm_portal/medication_modal_confirm_delete.html'
+    template_name = 'cm_portal/medication_confirm_delete.html'
     success_message = 'Success: Medication was deleted.'
 
     def get_object(self, *args, **kwargs):
         medication = super(MedicationDelete, self).get_object(*args, **kwargs)
         resident = medication.resident
-        self.success_url = reverse_lazy('resident-detail', kwargs={'pk': resident.id,})
-        """if 'pk' in self.kwargs:
-            try:
-              medication = Medication.objects.get(id=self.kwargs['pk'])             
-              resident = medication.resident
-              self.success_url = reverse_lazy('resident-detail', kwargs={'pk': resident.id,})
-            except Medication.DoesNotExist:
-              pass"""        
+        self.success_url = reverse_lazy('resident-detail', kwargs={'pk': resident.id,})                
         return medication
 
 ##Resident weight views

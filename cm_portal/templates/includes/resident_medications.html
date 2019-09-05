@@ -2,37 +2,37 @@
 	<tr>          
 	    <th scope="col">Medicine</th>
 	    <th scope="col">Dosage</th>
-	    <th scope="col">Frequency</th>
-	    <th scope="col">Quantity</th>
+	    <th scope="col">Frequency</th>	    
 	    <th scope="col">Date started</th>
-	    <th scope="col">Due</th>	    
+	    <th scope="col">Date due</th>	    
+	    <th scope="col">Quantity</th>
 	    <th scope="col"></th>    
 	    <th scope="col"></th>
 	    <th scope="col"></th>
 	</tr>
-	{% for meds in resident.medication_set.all %}            
-	   {% if not meds.discontinued %}
+	{% for medication in resident.medication_set.all %}            
+	   {% if not medication.discontinued %}
 	   <tr>
-			<td>{{ meds.medicine.generic_name }}
-			{% if meds.medicine.brand_name %}({{ meds.medicine.brand_name }}){% endif %}
+			<td>{{ medication.medicine.generic_name }}
+			{% if medication.medicine.brand_name %}({{ medication.medicine.brand_name }}){% endif %}
 			</td>
-			<td>{{ meds.medicine.dosage }}</td>
-			<td>{{ meds.frequency }}</td>
-			<td>{% if meds.quantity %}{{ meds.quantity }}{% endif %}</td>
-			<td>{% if meds.date_started %}{{ meds.date_started }}{% endif %}</td>    
-			<td>{% if meds.due %}{{ meds.due }}{% endif %}</td>			
+			<td>{{ medication.medicine.dosage }}</td>
+			<td>{{ medication.frequency }}</td>			
+			<td>{% if medication.date_started %}{{ medication.date_started }}{% endif %}</td>    
+			<td>{% if medication.due %}{{ medication.due }}{% endif %}</td>
+			<td>{% if medication.quantity %}{{ medication.quantity }}{% endif %}</td>			
 			<td>
-			  <button type="button" class="read-medication btn btn-sm btn-primary" data-id="{% url 'medication-detail' meds.pk %}">
+			  <button type="button" class="read-medication btn btn-sm btn-primary" data-id="{% url 'medication-modal-detail' medication.pk %}">
              <span class="fa fa-eye"></span>
            </button>
          </td>
          <td>
-           <button type="button" class="update-medication btn btn-sm btn-primary" data-id="{% url 'medication-update' meds.pk %}">
+           <button type="button" class="update-medication btn btn-sm btn-primary" data-id="{% url 'medication-modal-update' medication.pk %}">
              <span class="fa fa-pencil"></span>
            </button>
          </td>     
          <td>
-           <button type="button" class="delete-medication btn btn-sm btn-danger" data-id="{% url 'medication-delete' meds.pk %}">
+           <button type="button" class="delete-medication btn btn-sm btn-danger" data-id="{% url 'medication-modal-delete' medication.pk %}">
              <span class="fa fa-trash"></span>
            </button>
          </td>    

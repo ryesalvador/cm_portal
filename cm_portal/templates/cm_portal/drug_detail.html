@@ -12,6 +12,28 @@
     <tr><td><strong>Indication: </strong>{{ drug.indication }}</td></tr>
     <tr><td><strong>Price: </strong>{{ drug.price }}</td></tr>
   </table></div> 
+  {% if drug.medication_set.all %}
+  <div style="margin-left:20px;margin-top:20px">
+    <div class="table-responsive"><table class="table table-hover">
+        <thead>          
+          <tr>
+            <th><strong>Resident</strong></th>
+            <th><strong>Medicine</strong></th>
+            <th><strong>Frequency</strong></th>                      
+          </tr>          
+        </thead>    
+        <tbody>          
+          {% for medication in drug.medication_set.all %}
+            <tr>
+              <td><a href="{{ medication.resident.get_absolute_url }}">{{ medication.resident }}</a></td>
+              <td>{{ drug }}</td>
+              <td>{{ medication.frequency }}</td>                          
+            </tr>
+          {% endfor %}          
+        </tbody>    
+    </table></div>
+  </div>
+  {% endif %}
   {% if perms.cm_portal.change_drug and perms.cm_portal.delete_drug %} 
     <a class="btn btn-primary" href="{% url 'drug-update' drug.id %}" role="button">Edit</a>  
     <a class="btn btn-danger" href="{% url 'drug-delete' drug.id %}" role="button">Delete</a>

@@ -6,6 +6,7 @@ from .models import Resident, Medication, Employee, EmploymentStatus, \
 from django.contrib.auth.models import User
 from simple_search import search_form_factory
 from bootstrap_modal_forms.forms import BSModalForm
+from dal import autocomplete
 
 SearchForm = search_form_factory(Resident.objects.all(), ['first_name', 'last_name'])
 
@@ -38,6 +39,7 @@ class MedicationCreateForm(BSModalForm):
         model = Medication
         exclude = ('discontinued',)
         widgets = {
+            'medicine': autocomplete.ModelSelect2(url='drug-autocomplete'),
             'date_started': DateInput(),
             'due': DateInput(),            
             }

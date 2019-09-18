@@ -46,6 +46,7 @@ urlpatterns += [
     path('geriatric/drug/create/', views.DrugCreate.as_view(), name='drug-create'),
     path('geriatric/drug/<int:pk>/update/', views.DrugUpdate.as_view(), name='drug-update'),
     path('geriatric/drug/<int:pk>/delete/', views.DrugDelete.as_view(), name='drug-delete'),
+    path('geriatric/drug-autocomplete/', views.DrugAutocomplete.as_view(), name='drug-autocomplete'),
     path('geriatric/medications/', views.MedicationListView.as_view(), name='medications'),    
     path('geriatric/medication/<int:pk>/', views.MedicationDetailView.as_view(), name='medication-detail'),
     path('geriatric/medication-modal/<int:pk>/', views.MedicationDetailView.as_view(

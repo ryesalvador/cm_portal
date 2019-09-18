@@ -30,6 +30,8 @@ from bootstrap_modal_forms.generic import (BSModalCreateView,
                                            BSModalUpdateView,
                                            BSModalReadView,
                                            BSModalDeleteView)
+from dal import autocomplete
+from django.db.models import Q
 
 #Function-based views
 @login_required
@@ -326,6 +328,20 @@ class MedicalAbstractDelete(PermissionRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy('medical-abstracts')
 
 ##Drug views
+class DrugAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        if not self.request.user.is_authenticated:
+            return Drug.objects.none()
+
+        qs = Drug.objects.all()
+
+        if self.q:
+            qs = qs.filter(
+                   Q(generic_name__istartswith=self.q) |
+                   Q(brand_name__istartswith=self.q)
+                  )
+        return qs
+ 
 class DrugListView(PermissionRequiredMixin, tables.SingleTableView):
     permission_required = 'cm_portal.can_view_nursing_home'
     table_class = DrugTable    
@@ -400,7 +416,7 @@ class MedicationCreate(PermissionRequiredMixin, BSModalCreateView):
 class MedicationUpdate(PermissionRequiredMixin, BSModalUpdateView):
     permission_required = 'cm_portal.change_medication'
     model = Medication
-    template_name = 'cm_portal/medication_update_form.html'
+    template_name = 'cm_portal/bs4sdf_form.html'
     form_class = MedicationCreateForm
     success_message = 'Success: Medication was updated.'
 

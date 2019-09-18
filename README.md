@@ -4,11 +4,14 @@
 1. Add cm_portal and its dependency to your `INSTALLED_APPS` like this:
 ~~~~
     INSTALLED_APPS = [    
+        'dal',
+        'dal_select2',
+        'django.contrib.admin',
         ...
         'cm_portal.apps.CmPortalConfig',
         'widget_tweaks',
         'django_tables2',
-        ...
+        'bootstrap_modal_forms',
     ] 
 ~~~~
 

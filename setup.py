@@ -13,11 +13,13 @@ requires = [
     "django-widget-tweaks",
     "django-tables2",
     "django-simple-search",
+    "django-bootstrap-modal-forms",
+    "django-autocomplete-light",
 ]
 
 setup(
     name='cm_portal',
-    version='0.2.3',
+    version='0.2.4',
     packages=find_packages(),
     include_package_data=True,
     license='GPLv3',  

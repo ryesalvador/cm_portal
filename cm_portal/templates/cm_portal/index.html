@@ -75,11 +75,7 @@
       <div class="card-body">
         <p class="card-text">The library has the following record counts:</p>
       </div>
-      <ul class="list-group list-group-flush">
-        <a href="{% url 'buildings' %}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-          <strong>Buildings</strong>
-          <span class="badge badge-primary badge-pill">{{ building_list.count }}</span> 
-        </a>
+      <ul class="list-group list-group-flush">        
         <a href="{% url 'residents' %}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
           <strong>Residents</strong>
           <span class="badge badge-primary badge-pill">{{ resident_list.count }}</span> 
@@ -95,11 +91,11 @@
         <a href="{% url 'drugs' %}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
           <strong>Drugs</strong>
           <span class="badge badge-primary badge-pill">{{ drug_list.count }}</span> 
-        </a>    
-        <a href="{% url 'medical-abstracts' %}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-          <strong>Medical Abstracts</strong>
-          <span class="badge badge-primary badge-pill">{{ medicalabstract_list.count }}</span>
-        </a>    
+        </a>             
+        <a href="{% url 'buildings' %}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+          <strong>Buildings</strong>
+          <span class="badge badge-primary badge-pill">{{ building_list.count }}</span> 
+        </a>
       </ul>  
     </div>
 

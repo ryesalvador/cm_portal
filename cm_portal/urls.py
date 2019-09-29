@@ -33,6 +33,7 @@ urlpatterns += [
         queryset=Relative.objects.filter(related_to__vital_status='LI')), name='relatives'),
     path('geriatric/relative/<int:pk>/', views.RelativeDetailView.as_view(), name='relative-detail'),
     path('geriatric/relative/create/', views.RelativeCreate.as_view(), name='relative-create'),
+    path('geriatric/relative/create/<int:pk>', views.RelativeCreate.as_view(), name='relative-create'),
     path('geriatric/relative/<int:pk>/update/', views.RelativeUpdate.as_view(), name='relative-update'),
     path('geriatric/relative/<int:pk>/delete/', views.RelativeDelete.as_view(), name='relative-delete'),    
     path('geriatric/medical-abstracts/', views.MedicalAbstractListView.as_view(), name='medical-abstracts'),

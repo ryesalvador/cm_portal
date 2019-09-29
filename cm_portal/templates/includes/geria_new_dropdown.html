@@ -8,52 +8,25 @@
     <a class="dropdown-item disabled" href="#"><i class="fas fa-plus"></i> New resident</a>
   {% endif %}
   
-  {% if perms.cm_portal.add_medicalabstract %}
-    <a class="dropdown-item" href="{% url 'medicalabstract-create' %}"><i class="fas fa-plus"></i> New medical abstract</a>
-  {% else %}
-    <a class="dropdown-item disabled" href="#"><i class="fas fa-plus"></i> New medical abstract</a>
-  {% endif %}
-    
-  {% if perms.cm_portal.add_residentweight %}
-    <a class="dropdown-item" href="{% url 'residentweight-create' %}" ><i class="fas fa-plus"></i> New resident weight</a>            
-  {% else %}
-    <a class="dropdown-item disabled" href="#" ><i class="fas fa-plus"></i> New resident weight</a>
-  {% endif %}
-
-  <div class="dropdown-divider"></div>   
-  
   {% if perms.cm_portal.add_physician %}
     <a class="dropdown-item" href="{% url 'physician-create' %}"><i class="fas fa-plus"></i> New physician</a>
   {% else %}
     <a class="dropdown-item disabled" href="#"><i class="fas fa-plus"></i> New physician</a>       
   {% endif %}
   
-  {% if perms.cm_portal.add_clinic %}
-    <a class="dropdown-item" href="{% url 'clinic-create' %}"><i class="fas fa-plus"></i> New clinic</a>
-  {% else %}
-    <a class="dropdown-item disabled" href="#"><i class="fas fa-plus"></i> New clinic</a>       
-  {% endif %}
-  
-  {% if perms.cm_portal.add_drug %}        
-    <a class="dropdown-item" href="{% url 'drug-create' %}" ><i class="fas fa-plus"></i> New drug</a>        
-  {% else %}
-    <a class="dropdown-item disabled" href="#" ><i class="fas fa-plus"></i> New drug</a>
-  {% endif %}
-          
-  <div class="dropdown-divider"></div>
-  
-  {% if perms.cm_portal.add_relative %}   
-    <a class="dropdown-item" href="{% url 'relative-create' %}"><i class="fas fa-plus"></i> New relative</a>
-  {% else %}
-    <a class="dropdown-item disabled" href="#"><i class="fas fa-plus"></i> New relative</a>
-  {% endif %}
-    
+  <div class="dropdown-divider"></div>   
   
   {% if perms.cm_portal.add_building %}
     <a class="dropdown-item" href="{% url 'building-create' %}" ><i class="fas fa-plus"></i> New building</a>            
   {% else %}
     <a class="dropdown-item disabled" href="#" ><i class="fas fa-plus"></i> New building</a>
   {% endif %}
-  
+   
+  {% if perms.cm_portal.add_drug %}        
+    <a class="dropdown-item" href="{% url 'drug-create' %}" ><i class="fas fa-plus"></i> New drug</a>        
+  {% else %}
+    <a class="dropdown-item disabled" href="#" ><i class="fas fa-plus"></i> New drug</a>
+  {% endif %}
+    
   </div>
 </li>

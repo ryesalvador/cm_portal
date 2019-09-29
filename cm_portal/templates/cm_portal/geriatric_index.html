@@ -36,6 +36,18 @@
 	      </div>
 			<div class="col-sm-4">
 				<div class="card">
+					<a href="{% url 'drug-create' %}" style="text-decoration: none;">
+						<div class="card-body">
+							<h4 class="card-title"><i class="fas fa-capsules"></i> New Drug</h4>
+							<h6 class="card-subtitle mb-2 text-muted">Add New Drug</h6>
+						</div>
+					</a>
+				</div>
+			</div>			
+		</div>
+		<div class="row">
+		   <div class="col-sm-4">
+				<div class="card">
 					<a href="{% url 'physician-create' %}" style="text-decoration: none;">
 						<div class="card-body">
 							<h4 class="card-title"><i class="fas fa-user-md"></i> New Physician</h4>
@@ -43,39 +55,7 @@
 						</div>
 					</a>
 				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="card">
-					<a href="{% url 'relative-create' %}" style="text-decoration: none;">
-						<div class="card-body">
-							<h4 class="card-title"><i class="fas fa-user-friends"></i> New Relative</h4>
-							<h6 class="card-subtitle mb-2 text-muted">Add New Relative</h6>  
-						</div>
-					</a>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-4">
-				<div class="card">
-					<a href="{% url 'medicalabstract-create' %}" style="text-decoration: none;">
-						<div class="card-body">
-							<h4 class="card-title"><i class="fas fa-file-medical"></i> New Medical Abstract</h4>
-							<h6 class="card-subtitle mb-2 text-muted">Add New Medical Abstract</h6>  
-						</div>
-					</a>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="card">
-					<a href="{% url 'clinic-create' %}" style="text-decoration: none;">
-						<div class="card-body">
-							<h4 class="card-title"><i class="fas fa-clinic-medical"></i> New Clinic</h4>
-							<h6 class="card-subtitle mb-2 text-muted">Add New Clinic</h6> 
-						</div>
-					</a>
-				</div>
-			</div>			
+			</div>						
 			<div class="col-sm-4">
 				<div class="card">
 					<a href="{% url 'building-create' %}" style="text-decoration: none;">
@@ -86,29 +66,7 @@
 					</a>
 				</div>
 			</div>
-		</div>  
-		<div class="row">
-			<div class="col-sm-4">
-				<div class="card">
-					<a href="{% url 'residentweight-create' %}" style="text-decoration: none;">
-						<div class="card-body">
-							<h4 class="card-title"><i class="fas fa-weight"></i> New Resident Weight</h4>
-							<h6 class="card-subtitle mb-2 text-muted">Add New Resident Weight</h6> 
-						</div>
-					</a>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<div class="card">
-					<a href="{% url 'drug-create' %}" style="text-decoration: none;">
-						<div class="card-body">
-							<h4 class="card-title"><i class="fas fa-capsules"></i> New Drug</h4>
-							<h6 class="card-subtitle mb-2 text-muted">Add New Drug</h6>
-						</div>
-					</a>
-				</div>
-			</div>
-		</div>    
+		</div>
       <br>
       {% if building_list %}      
       <p class="lead">Resident census by building:</p>

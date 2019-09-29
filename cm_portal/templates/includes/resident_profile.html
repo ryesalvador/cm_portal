@@ -59,14 +59,39 @@
 			<tr><td><strong>Name: </strong>
 			<a href="{% url 'relative-detail' relative.pk %}" >{{relative.first_name}} {{relative.middle_name }} {{ relative.last_name }}</a></td>
 			<td><strong>Relation: </strong>{{ relative.relation_to_resident }}</td>
-			<td><strong>Telephone #: </strong>{{ relative.telephone }}</td></tr>      
+			{% if relative.email %}
+			<td><strong>Email: </strong><a href="mailto:{{ relative.email }}">{{ relative.email }}</a></td>
+			{% endif %}
+			{% if relative.phone_number_1 %}
+			<td><strong>Phone #1: </strong><a href="tel:{{ relative.phone_number_1 }}">{{ relative.phone_number_1 }}</a></td>
+			{% endif %}
+			{% if relative.phone_number_2 %}
+			<td><strong>Phone #2: </strong><a href="tel:{{ relative.phone_number_2 }}">{{ relative.phone_number_2 }}</a></td>
+			{% endif %}
+			{% if relative.phone_number_3 %}
+			<td><strong>Phone #3: </strong><a href="tel:{{ relative.phone_number_3 }}">{{ relative.phone_number_3 }}</a></td>
+			{% endif %}
+			{% if relative.mobile_number_1 %}
+			<td><strong>Mobile #1: </strong><a href="tel:{{ relative.mobile_number_1 }}">{{ relative.mobile_number_1 }}</a></td>
+			{% endif %}      
+			{% if relative.mobile_number_2 %}
+			<td><strong>Mobile #2: </strong><a href="tel:{{ relative.mobile_number_2 }}">{{ relative.mobile_number_2 }}</a></td>
+			{% endif %}
+			{% if relative.mobile_number_3 %}
+			<td><strong>Mobile #3: </strong><a href="tel:{{ relative.mobile_number_3 }}">{{ relative.mobile_number_3 }}</a></td>
+			{% endif %}
+			</tr>
     {% endfor %}  
     {% for physician in resident.physicians.all %}
       <tr>
-        <td><strong>Physician: </strong><a href="{% url 'physician-detail' physician.pk %}" > 
-        Dr. {{ physician.first_name }} {{ physician.middle_name }} {{ physician.last_name}}</a></td>
-        <td><strong>Contact #: </strong>{{ physician.telephone }}</td>    
-        <td><strong>HOC: </strong>{{ physician.hospital_of_choice }}</td>  
+        <td><strong>Physician: </strong><a href="{% url 'physician-detail' physician.pk %}"> 
+        {{ physician }}</a></td>
+        {% if physician.phone_number_1 %}
+        <td><strong>Phone #: </strong><a href="tel:{{ physician.phone_number_1 }}">{{ physician.phone_number_1 }}</a></td>
+        {% endif %}
+        {% if physician.mobile_number_1 %}
+        <td><strong>Mobile #: </strong><a href="tel:{{ physician.mobile_number_1 }}">{{ physician.mobile_number_1 }}</a></td>
+        {% endif %}
       </tr>
     {% endfor%}
   </table>

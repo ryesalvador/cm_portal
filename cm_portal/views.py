@@ -91,7 +91,6 @@ class Dashboard(LoginRequiredMixin, generic.base.TemplateView):
         context['relative_list'] = Relative.objects.all()
         context['physician_list'] = Physician.objects.all()
         context['drug_list'] = Drug.objects.all()
-        context['medicalabstract_list'] = MedicalAbstract.objects.all() 
         # HRIS
         context['employee_list'] = Employee.objects.all()
         context['position_list'] = Position.objects.all()
@@ -232,6 +231,17 @@ class RelativeCreate(PermissionRequiredMixin, generic.CreateView):
     permission_required = 'cm_portal.add_relative'
     model = Relative
     fields = '__all__'
+
+    def get_form(self, *args, **kwargs):
+        form = super(RelativeCreate, self).get_form(*args, **kwargs)
+        if 'pk' in self.kwargs:
+            try:
+              resident = Resident.objects.get(id=self.kwargs['pk'])
+              form.fields['related_to'].initial = resident
+              self.success_url = reverse_lazy('resident-detail', kwargs={'pk': resident.id,})
+            except Resident.DoesNotExist:
+              pass        
+        return form
 
 class RelativeUpdate(PermissionRequiredMixin, generic.UpdateView):
     permission_required = 'cm_portal.change_relative'

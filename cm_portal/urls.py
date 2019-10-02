@@ -23,6 +23,7 @@ urlpatterns += [
     path('geriatric/resident/<int:pk>/', views.ResidentDetailView.as_view(), name='resident-detail'),
     path('geriatric/resident/create/', views.ResidentCreate.as_view(), name='resident-create'),
     path('geriatric/resident/<int:pk>/update/', views.ResidentUpdate.as_view(), name='resident-update'),
+    path('geriatric/resident-diet/<int:pk>/update/', views.ResidentDietUpdate.as_view(), name='resident-diet-update'),
     path('geriatric/resident/<int:pk>/delete/', views.ResidentDelete.as_view(), name='resident-delete'),
     path('geriatric/physicians/', views.PhysicianListView.as_view(), name='physicians'),
     path('geriatric/physician/<int:pk>/', views.PhysicianDetailView.as_view(), name='physician-detail'),    

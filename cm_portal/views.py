@@ -25,7 +25,8 @@ from .tables import ResidentTable, RelativeTable, PhysicianTable, DrugTable, \
      ResidentDeceasedTable, ResidentDischargedTable, ItemTable, MedicalSupplyTable, \
      MedicalEquipmentTable, ChargeTable, EmployeeTable
 from django_tables2.export.views import ExportMixin
-from .forms import SearchForm, DrugSearchForm, EmploymentStatusCreateForm, PhysicianSearchForm
+from .forms import SearchForm, DrugSearchForm, EmploymentStatusCreateForm, PhysicianSearchForm, ResidentUpdateDietForm
+
 from bootstrap_modal_forms.generic import (BSModalCreateView,
                                            BSModalUpdateView,
                                            BSModalReadView,
@@ -206,6 +207,17 @@ class ResidentUpdate(PermissionRequiredMixin, generic.UpdateView):
     model = Resident
     form_class = ResidentCreateForm
     template_name_suffix = '_update_form'
+
+class ResidentDietUpdate(PermissionRequiredMixin, generic.UpdateView):
+    permission_required = 'cm_portal.change_resident_diet'
+    model = Resident
+    form_class = ResidentUpdateDietForm
+    template_name_suffix = '_update_form'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['diet'] = True
+        return context
 
 class ResidentDelete(PermissionRequiredMixin, generic.DeleteView):
     permission_required = 'cm_portal.delete_resident'

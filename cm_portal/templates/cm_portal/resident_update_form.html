@@ -6,6 +6,9 @@
 
 {% block content %}  
   <div class="jumbotron">
+     {% if diet %}
+     <h2>{{ resident.first_name }} {{ resident.last_name }}'s</h2>
+     {% endif %}
 	  <form method="post" novalidate>
 		  {% csrf_token %}
 		  {% include 'includes/bs4_form.html' with form=form %}

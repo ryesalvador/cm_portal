@@ -57,6 +57,11 @@ class ResidentCreateForm(ModelForm):
                     'discharged_on': DateInput(),
                 }
 
+class ResidentUpdateDietForm(ModelForm):
+    class Meta:
+        model = Resident
+        fields = ['diet']
+
 class EmployeeCreateForm(ModelForm):
     class Meta:
         model = Employee

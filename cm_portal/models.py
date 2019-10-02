@@ -97,7 +97,7 @@ class Clinic(models.Model):
 		return reverse('clinic-detail', args=[str(self.id)])
 			
 class Physician(models.Model):
-    first_name = models.CharField(max_length=35)
+    first_name = models.CharField(max_length=35, verbose_name="name")
     middle_name = models.CharField(max_length=35, blank=True)
     last_name = models.CharField(max_length=35)
     specialties = models.CharField(max_length=175, blank=True)
@@ -117,7 +117,7 @@ class Physician(models.Model):
         return reverse('physician-detail', args=[str(self.id)])
     
 class Resident(models.Model):
-    first_name = models.CharField(max_length=35)
+    first_name = models.CharField(max_length=35, verbose_name="name")
     middle_name = models.CharField(max_length=35, blank=True)
     last_name = models.CharField(max_length=35)
     photo = models.ImageField(
@@ -159,7 +159,8 @@ class Resident(models.Model):
 
     class Meta:
         ordering = ["last_name","first_name"]
-        permissions = (("can_view_nursing_home", "View nursing home database"),)
+        permissions = (("can_view_nursing_home", "View nursing home database"),
+                       ("change_resident_diet", "Change resident's DIET ONLY"),)
 
     def __str__(self):
         return u'{1}, {0}'.format(self.first_name, self.last_name)
@@ -170,7 +171,7 @@ class Resident(models.Model):
 class Relative(models.Model):
     related_to = models.ForeignKey('Resident', on_delete=models.CASCADE, limit_choices_to={'vital_status': 'LI'}, null=True)
     relation_to_resident = models.CharField(max_length=35, blank=True)
-    first_name = models.CharField(max_length=35)
+    first_name = models.CharField(max_length=35, verbose_name="name")
     middle_name = models.CharField(max_length=35, blank=True)
     last_name = models.CharField(max_length=35)
     address = models.TextField(max_length=175, blank=True)    

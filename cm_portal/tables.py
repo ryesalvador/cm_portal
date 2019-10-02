@@ -10,16 +10,20 @@ class PhotoColumn(tables.Column):
     
 class ResidentTable(tables.Table):
     photo = PhotoColumn(accessor='photo', linkify=True)
-    last_name = tables.Column(linkify=True)
-    first_name = tables.Column(linkify=True)
-    #middle_name = tables.Column(linkify=True)
+    first_name = tables.Column(order_by=("last_name", "first_name"), linkify=True)
+    
+    def render_first_name(self, value, record):
+        middle_initial = ''
+        if not record.middle_name=='':
+            middle_initial = record.middle_name[0] + '.'
+        return format_html("<b>{}, {} {}</b>", record.last_name, value, middle_initial)
     
     class Meta:
         model = Resident
-        template_name = 'django_tables2/bootstrap4.html'
-        sequence = ('last_name',
-                    'first_name',)
+        template_name = 'django_tables2/bootstrap4.html'        
         exclude = ('id',
+                   'last_name',
+                   'middle_name',
                    'photo',
                    'gender',
                    'osca_id',
@@ -46,16 +50,20 @@ class ResidentTable(tables.Table):
 
 class ResidentDeceasedTable(tables.Table):
     photo = PhotoColumn(accessor='photo', linkify=True)
-    last_name = tables.Column(linkify=True)
-    first_name = tables.Column(linkify=True)
-    #middle_name = tables.Column(linkify=True)
+    first_name = tables.Column(order_by=("last_name", "first_name"), linkify=True)
     
+    def render_first_name(self, value, record):
+        middle_initial = ''
+        if not record.middle_name=='':
+            middle_initial = record.middle_name[0] + '.'
+        return format_html("<b>{}, {} {}</b>", record.last_name, value, middle_initial)
+
     class Meta:
         model = Resident
-        template_name = 'django_tables2/bootstrap4.html'
-        sequence = ('last_name',
-                    'first_name',)
-        exclude = ('id',  
+        template_name = 'django_tables2/bootstrap4.html'        
+        exclude = ('id', 
+                   'last_name',
+                   'middle_name', 
                    'photo',                 
                    'gender',
                    'osca_id',
@@ -84,16 +92,20 @@ class ResidentDeceasedTable(tables.Table):
 
 class ResidentDischargedTable(tables.Table):
     photo = PhotoColumn(accessor='photo', linkify=True)
-    last_name = tables.Column(linkify=True)
-    first_name = tables.Column(linkify=True)
-    #middle_name = tables.Column(linkify=True)
+    first_name = tables.Column(order_by=("last_name", "first_name"), linkify=True)
     
+    def render_first_name(self, value, record):
+        middle_initial = ''
+        if not record.middle_name=='':
+            middle_initial = record.middle_name[0] + '.'
+        return format_html("<b>{}, {} {}</b>", record.last_name, value, middle_initial)
+
     class Meta:
         model = Resident
-        template_name = 'django_tables2/bootstrap4.html'
-        sequence = ('last_name',
-                    'first_name',)
-        exclude = ('id',                   
+        template_name = 'django_tables2/bootstrap4.html'        
+        exclude = ('id', 
+                   'last_name',
+                   'middle_name',                 
                    'photo',
                    'gender',
                    'osca_id',
@@ -122,30 +134,45 @@ class ResidentDischargedTable(tables.Table):
         attrs = {'class': 'table table-hover'}
         
 class RelativeTable(tables.Table):
-    last_name = tables.Column(linkify=True)
-    first_name = tables.Column(linkify=True)
+    first_name = tables.Column(order_by=("last_name", "first_name"), linkify=True)
+
+    def render_first_name(self, value, record):
+        middle_initial = ''
+        if not record.middle_name=='':
+            middle_initial = record.middle_name[0] + '.'
+        return format_html("<b>{}, {} {}</b>", record.last_name, value, middle_initial)
     
     class Meta:
         model = Relative
         template_name = 'django_tables2/bootstrap4.html'
-        sequence = ('last_name',
-                    'first_name',
-                    'middle_name',
+        sequence = ('first_name',                    
                     'related_to',
                     'relation_to_resident',)
-        exclude = ('id', 'address',)
+        exclude = ('id',
+                   'last_name',
+                   'middle_name',
+                   'address',
+                   'phone_number_2',
+                   'phone_number_3',
+                   'mobile_number_2',
+                   'mobile_number_3',)
         attrs = {'class': 'table table-hover'}
         
-class PhysicianTable(tables.Table):
-    last_name = tables.Column(linkify=True)
-    first_name = tables.Column(linkify=True)
+class PhysicianTable(tables.Table):    
+    first_name = tables.Column(order_by=("last_name", "first_name"), linkify=True)
+    
+    def render_first_name(self, value, record):
+        middle_initial = ','
+        if not record.middle_name=='':
+            middle_initial = record.middle_name[0] + '.,'
+        return format_html("<b>{}, {}{} M.D.</b>", record.last_name, value, middle_initial)
     
     class Meta:
         model = Physician
         template_name = 'django_tables2/bootstrap4.html'
         sequence = ('last_name',
                     'first_name',)                   
-        exclude = ('id', 'middle_name', 'phone_number_2', 'mobile_number_2',)
+        exclude = ('id', 'last_name', 'middle_name', 'phone_number_2', 'mobile_number_2',)
         attrs = {'class': 'table table-hover'}
 
 class DrugTable(tables.Table):

@@ -113,6 +113,7 @@ class GeriatricIndex(PermissionRequiredMixin, generic.base.TemplateView):
         context['resident_list'] = Resident.objects.filter(vital_status='LI')
         context['relative_list'] = Relative.objects.all()
         context['physician_list'] = Physician.objects.all()
+        context['drug_list'] = Drug.objects.all()
         context['building_list'] = Building.objects.all()        
         return context
 

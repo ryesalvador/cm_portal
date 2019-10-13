@@ -60,7 +60,8 @@ class ResidentDeceasedTable(tables.Table):
 
     class Meta:
         model = Resident
-        template_name = 'django_tables2/bootstrap4.html'        
+        template_name = 'django_tables2/bootstrap4.html' 
+        sequence = ('first_name', 'birth_date', 'died_on')       
         exclude = ('id', 
                    'last_name',
                    'middle_name', 
@@ -85,7 +86,7 @@ class ResidentDeceasedTable(tables.Table):
                    'level_of_care',
                    'residence',
                    'physicians',
-                   #'vital_status',
+                   'vital_status',
                    #'died_on',
                    'discharged_on',)
         attrs = {'class': 'table table-hover'}
@@ -204,19 +205,27 @@ class ItemTable(tables.Table):
         attrs = {'class': 'table table-hover'}
 
 class MedicalSupplyTable(tables.Table):
-    id = tables.Column(accessor='id', linkify=True)
-    
+    item = tables.Column(accessor='id', verbose_name='Name', linkify=True)
+
+    def render_item(self, value, record):
+        return format_html("{}", record.item)
+   
     class Meta:
         model = MedicalSupply
-        template_name = 'django_tables2/bootstrap4.html'        
+        template_name = 'django_tables2/bootstrap4.html' 
+        exclude = {'id',}       
         attrs = {'class': 'table table-hover'}
 
 class MedicalEquipmentTable(tables.Table):
-    id = tables.Column(accessor='id', linkify=True)
+    item = tables.Column(accessor='id', verbose_name='Name', linkify=True)
+
+    def render_item(self, value, record):
+        return format_html("{}", record.item)
     
     class Meta:
         model = MedicalEquipment
-        template_name = 'django_tables2/bootstrap4.html'        
+        template_name = 'django_tables2/bootstrap4.html'
+        exclude = {'id',}               
         attrs = {'class': 'table table-hover'}
 
 class ChargeTable(tables.Table):

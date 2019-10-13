@@ -4,7 +4,7 @@
 
 {% block page_title %}| Medical Equipment{% endblock %}
 {% block content %}  
-  <div class="jumbotron"><h2>Name: {{ medicalequipment.item.item_name }}</h2>
+  <div class="jumbotron"><h2>Name: <a href="{{ medicalequipment.item.get_absolute_url }}">{{ medicalequipment.item.item_name }}</a></h2>
   <div class="table-responsive"><table class="table table-hover">        
     <tr><td><strong>Brand name: </strong>{{ medicalequipment.item.brand_name }}</td></tr>
     <tr><td><strong>Universally Unique ID: </strong>{{ medicalequipment.id }}</td></tr>

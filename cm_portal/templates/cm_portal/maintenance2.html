@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>CM Portal | Inventory of Medicines</title>
+  </head>
+{% load static %}
+
+<body>
+  <script type="text/javascript">
+  function hideDiv(bldg, id) {
+  var x = document.getElementById(id);
+  var y = document.getElementById(id + "-link");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+    //y.innerHTML = "[HIDE] " + bldg  
+  } else {
+    x.style.display = "none";
+    //y.innerHTML = "[UNHIDE] " + bldg
+  }
+}
+  </script>
+  <h1><a href="{% url 'index' %}">CM Portal</a> | Inventory of Medicines</h1>
+	
+		
+	{% for building in building_list %}		   
+			<div id="{{ building.id}}-male"><table border="1">
+			  <thead align="center"><h4>{{ building }} - Male | Date: {{ date|date:"M d, Y" }} <a id="{{ building.id }}-male-link" href="javascript:hideDiv('{{ building }} male', '{{ building.id }}-male')">[Hide]</a></h4></thead>  
+			  {% include 'includes/maintenance_th.html' %}
+			  {% for resident in building.resident_set.all  %}
+			    {% if resident.gender == 'M' and resident.vital_status == 'LI' %}
+			      {% include 'includes/maintenance_data.html' %}
+			    {% endif %}
+			  {% endfor %}
+			</table></div>
+					   
+			<div id="{{ building.id}}-female"><table border="1">
+			<table border="1">
+			  <thead align="center"><h4>{{ building }} - Female | Date: {{ date|date:"M d, Y" }} <a id="{{ building.id }}-female-link" href="javascript:hideDiv('{{ building }} female', '{{ building.id }}-female')">[Hide]</a></h4></thead>  
+			  {% include 'includes/maintenance_th.html' %}
+			  {% for resident in building.resident_set.all  %}
+			    {% if resident.gender == 'F' and resident.vital_status == 'LI' %}
+			      {% include 'includes/maintenance_data.html' %}
+			    {% endif %}
+			  {% endfor %}
+			</table></div>
+		
+	{% endfor %}
+
+</body>
+</html>

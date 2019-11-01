@@ -8,7 +8,7 @@
 
 {% block content %}
 <div class="jumbotron">
-	<button type="button" class="btn btn-outline-info btn-sm">Get printable version</button>
+	<a href="{% url 'residents' %}?reports=maintenance2" type="button" class="btn btn-outline-info btn-sm">Get printable version</a>
 	<p></p>	
 	{% for building in building_list %}
 		<div class="table-responsive">

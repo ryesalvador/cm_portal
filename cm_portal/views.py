@@ -33,6 +33,7 @@ from bootstrap_modal_forms.generic import (BSModalCreateView,
                                            BSModalDeleteView)
 from dal import autocomplete
 from django.db.models import Q
+from datetime import datetime
 
 #Function-based views
 @login_required
@@ -186,6 +187,9 @@ class ResidentListView(PermissionRequiredMixin, ExportMixin, tables.SingleTableV
             if reports == 'maintenance':                
                 self.template_name = 'cm_portal/maintenance.html'  
                 context['maintenance'] = True              
+            elif reports == 'maintenance2':
+                self.template_name = 'cm_portal/maintenance2.html'  
+                context['date'] = datetime.today()              
             elif reports == 'osca':
                 self.template_name = 'cm_portal/osca.html'
                 context['osca'] = True

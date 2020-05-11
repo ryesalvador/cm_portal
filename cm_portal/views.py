@@ -186,13 +186,13 @@ class ResidentListView(PermissionRequiredMixin, ExportMixin, tables.SingleTableV
             reports = self.request.GET['reports'].strip()
             if reports == 'maintenance':                
                 self.template_name = 'cm_portal/maintenance.html'  
-                context['maintenance'] = True              
+                #context['maintenance'] = True              
             elif reports == 'maintenance2':
                 self.template_name = 'cm_portal/maintenance2.html'  
                 context['date'] = datetime.today()              
             elif reports == 'osca':
                 self.template_name = 'cm_portal/osca.html'
-                context['osca'] = True
+                #context['osca'] = True
         else:
             context['resident'] = True
         return context
@@ -201,6 +201,14 @@ class ResidentListView(PermissionRequiredMixin, ExportMixin, tables.SingleTableV
 class ResidentDetailView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'cm_portal.can_view_nursing_home'
     model = Resident
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if 'view' in self.request.GET:
+            view = self.request.GET['view'].strip()
+            if view == 'printable':
+                self.template_name = 'cm_portal/resident_detail_printable.html'
+        return context
 
 class ResidentCreate(PermissionRequiredMixin, generic.CreateView):
     permission_required = 'cm_portal.add_resident'

@@ -25,11 +25,13 @@
         </thead>    
         <tbody>          
           {% for medication in drug.medication_set.all %}
+            {% if medication.resident.vital_status == 'LI' %}
             <tr>
               <td><a href="{{ medication.resident.get_absolute_url }}">{{ medication.resident }}</a></td>
               <td>{{ drug }}</td>
               <td>{{ medication.frequency }}</td>                          
             </tr>
+            {% endif %}
           {% endfor %}          
         </tbody>    
     </table></div>

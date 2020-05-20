@@ -14,7 +14,7 @@ class ResidentWeight(admin.ModelAdmin):
 
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ('item_name', 'brand_name')
 
 @admin.register(MedicalSupply)
 class MedicalSupplyAdmin(admin.ModelAdmin):

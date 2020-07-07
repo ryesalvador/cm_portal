@@ -1,4 +1,4 @@
-<li class="nav-item"><a class="nav-link{% if employee %} active{% endif %}" href="{% url 'employees' %}">All employees</a></li>
-<li class="nav-item"><a class="nav-link{% if position %} active{% endif %}" href="{% url 'positions' %}">All positions</a></li>
-<li class="nav-item"><a class="nav-link{% if department %} active{% endif %}" href="{% url 'departments' %}">All departments</a></li>
-<li class="nav-item"><a class="nav-link{% if employmentstatus %} active{% endif %}" href="{% url 'employment-statuses' %}" >All employment status</a></li>
+<li class="nav-item"><a class="nav-link{% if highlight == 'employees' %} active{% endif %}" href="{% url 'employees' %}">All employees</a></li>
+<li class="nav-item"><a class="nav-link{% if highlight == 'positions' %} active{% endif %}" href="{% url 'positions' %}">All positions</a></li>
+<li class="nav-item"><a class="nav-link{% if highlight == 'departments' %} active{% endif %}" href="{% url 'departments' %}">All departments</a></li>
+<li class="nav-item"><a class="nav-link{% if highlight == 'employmentstatuses' %} active{% endif %}" href="{% url 'employment-statuses' %}" >All employment status</a></li>

@@ -8,10 +8,8 @@
   {% include 'includes/nav_geria.html' %}
 {% endblock %}
 
-{% block sidebar %}    
-    {% if user.is_authenticated %}
-      {% include 'includes/user.html' %}
-    {% endif %}    
+{% block sidebar %}  
+    {% include 'includes/user.html' %}        
     {% include 'includes/geria_sidebar.html' %}
 {% endblock %}
 
@@ -90,19 +88,7 @@
           <strong>Buildings</strong>
           <span class="badge badge-primary badge-pill">{{ building_list.count }}</span> 
         </a>
-      </ul>
-      <br>
-      {% if building_list %}      
-      <h4>Census By Building</h4>
-        <ul class="list-group list-group-flush">
-          {% for building in building_list %}
-          <a href="{{ building.get_absolute_url }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">          
-            <strong>{{ building }}</strong>                           
-            <span class="badge badge-primary badge-pill">{{ building.resident_set.count }}</span>
-          </a>
-          {% endfor %}
-        </ul>      
-      {% endif %}
+      </ul>      
     </div>
   {% else %}
     <p>Please <a href="{% url 'login'%}?next={{request.path}}">login</a></p>

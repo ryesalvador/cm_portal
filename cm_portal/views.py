@@ -78,7 +78,7 @@ def change_password(request):
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'cm_portal/change_password.html', {
-        'form': form, 'change_password': True
+        'form': form, 'highlight': 'change-password'
     })
 
 #Class-based views
@@ -151,7 +151,7 @@ class DeceasedResidentListView(PermissionRequiredMixin, tables.SingleTableView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['deceased'] = True
+        context['highlight'] = 'deceased'
         return context
 
 class DischargedResidentListView(PermissionRequiredMixin, tables.SingleTableView):    
@@ -160,7 +160,7 @@ class DischargedResidentListView(PermissionRequiredMixin, tables.SingleTableView
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['discharged'] = True
+        context['highlight'] = 'discharged'
         return context
         
 @method_decorator(cache_control(private=True), name='dispatch')
@@ -171,6 +171,7 @@ class ResidentListView(PermissionRequiredMixin, ExportMixin, tables.SingleTableV
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'List of Residents'
+        context['highlight'] = 'residents'
         form = SearchForm(self.request.GET or {})        
         if 'q' in self.request.GET:
             query = self.request.GET['q'].strip()
@@ -186,13 +187,13 @@ class ResidentListView(PermissionRequiredMixin, ExportMixin, tables.SingleTableV
             reports = self.request.GET['reports'].strip()
             if reports == 'maintenance':                
                 self.template_name = 'cm_portal/maintenance.html'  
-                #context['maintenance'] = True              
+                context['highlight'] = 'maintenance'              
             elif reports == 'maintenance2':
                 self.template_name = 'cm_portal/maintenance2.html'  
                 context['date'] = datetime.today()              
             elif reports == 'osca':
                 self.template_name = 'cm_portal/osca.html'
-                #context['osca'] = True
+                context['highlight'] = 'osca'
         else:
             context['resident'] = True
         return context
@@ -245,7 +246,7 @@ class RelativeListView(PermissionRequiredMixin, tables.SingleTableView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['relative'] = True
+        context['highlight'] = 'relatives'
         return context
 
 class RelativeDetailView(PermissionRequiredMixin, generic.DetailView):
@@ -298,7 +299,7 @@ class PhysicianListView(LoginRequiredMixin, tables.SingleTableView):
         else:
             context['results'] = MyModel.objects.none()
         context['form'] = form
-        context['physician'] = True
+        context['highlight'] = 'physicians'
         return context
 
 class PhysicianDetailView(LoginRequiredMixin, generic.DetailView):
@@ -395,7 +396,7 @@ class DrugListView(PermissionRequiredMixin, tables.SingleTableView):
         else:
             context['results'] = MyModel.objects.none()
         context['form'] = form 
-        context['drug'] = True
+        context['highlight'] = 'drugs'
         return context
 
 class DrugDetailView(PermissionRequiredMixin, generic.DetailView):
@@ -523,7 +524,7 @@ class BuildingListView(PermissionRequiredMixin, generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['building'] = True
+        context['highlight'] = 'buildings'
         return context
 
 class BuildingDetailView(PermissionRequiredMixin, generic.DetailView):
@@ -587,7 +588,7 @@ class EmployeeListView(PermissionRequiredMixin, tables.SingleTableView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['employee'] = True
+        context['highlight'] = 'employees'
         return context
 
 @method_decorator(cache_control(private=True), name='dispatch')
@@ -619,7 +620,7 @@ class PositionListView(PermissionRequiredMixin, generic.ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['position'] = True
+        context['highlight'] = 'positions'
         return context
 
 class PositionDetailView(PermissionRequiredMixin, generic.DetailView):
@@ -650,7 +651,7 @@ class DepartmentListView(PermissionRequiredMixin, generic.ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['department'] = True
+        context['highlight'] = 'departments'
         return context
 
 class DepartmentDetailView(PermissionRequiredMixin, generic.DetailView):
@@ -680,7 +681,7 @@ class EmploymentStatusListView(PermissionRequiredMixin, generic.ListView):
 	
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
-		context['employmentstatus'] = True
+		context['highlight'] = 'employmentstatuses'
 		return context
 	
 class EmploymentStatusDetailView(PermissionRequiredMixin, generic.DetailView):
@@ -710,6 +711,11 @@ class ItemListView(PermissionRequiredMixin, tables.SingleTableView):
     table_class = ItemTable    
     queryset = Item.objects.all()
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['highlight'] = 'items'
+        return context
+
 class ItemDetailView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'cm_portal.can_view_csu'
     model = Item
@@ -735,6 +741,11 @@ class MedicalSupplyListView(PermissionRequiredMixin, tables.SingleTableView):
     permission_required = 'cm_portal.can_view_csu'
     table_class = MedicalSupplyTable    
     queryset = MedicalSupply.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['highlight'] = 'medical-supplies'
+        return context
 
 class MedicalSupplyDetailView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'cm_portal.can_view_csu'
@@ -762,6 +773,11 @@ class MedicalEquipmentListView(PermissionRequiredMixin, tables.SingleTableView):
     table_class = MedicalEquipmentTable
     queryset = MedicalEquipment.objects.all()
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['highlight'] = 'medical-equipment'
+        return context
+
 class MedicalEquipmentDetailView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'cm_portal.can_view_csu'
     model = MedicalEquipment
@@ -787,6 +803,11 @@ class ChargeListView(PermissionRequiredMixin, tables.SingleTableView):
     permission_required = 'cm_portal.can_view_csu'
     table_class = ChargeTable
     queryset = Charge.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['highlight'] = 'charges'
+        return context
 
 class ChargeDetailView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'cm_portal.can_view_csu'
@@ -823,7 +844,7 @@ class UserDetailView(LoginRequiredMixin, generic.DetailView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['user_detail'] = True
+        context['highlight'] = 'user-detail'
         return context
 
 class UserUpdate(LoginRequiredMixin, generic.UpdateView):

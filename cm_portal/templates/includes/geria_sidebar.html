@@ -1,22 +1,22 @@
-<li class="nav-item"><a class="nav-link{% if resident %} active{% endif %}" href="{% url 'residents' %}">All residents</a></li>
-<li class="nav-item"><a class="nav-link{% if relative %} active{% endif %}" href="{% url 'relatives' %}">All relatives</a></li>    
-<li class="nav-item"><a class="nav-link{% if physician %} active{% endif %}" href="{% url 'physicians' %}">All physicians</a></li>    
-<li class="nav-item"><a class="nav-link{% if drug %} active{% endif %}" href="{% url 'drugs' %}">All drugs</a></li>            
-<li class="nav-item"><a class="nav-link{% if building%} active{% endif %}" href="{% url 'buildings' %}">All buildings</a></li>
+<li class="nav-item"><a class="nav-link{% if highlight == 'residents' %} active{% endif %}" href="{% url 'residents' %}">All residents</a></li>
+<li class="nav-item"><a class="nav-link{% if highlight == 'relatives' %} active{% endif %}" href="{% url 'relatives' %}">All relatives</a></li>    
+<li class="nav-item"><a class="nav-link{% if highlight == 'physicians' %} active{% endif %}" href="{% url 'physicians' %}">All physicians</a></li>    
+<li class="nav-item"><a class="nav-link{% if highlight == 'drugs' %} active{% endif %}" href="{% url 'drugs' %}">All drugs</a></li>            
+<li class="nav-item"><a class="nav-link{% if highlight == 'buildings' %} active{% endif %}" href="{% url 'buildings' %}">All buildings</a></li>
    
 <li class="nav-item dropdown">
   <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Archive</a>
     <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 39px, 0px);">
-	   <a class="dropdown-item{% if deceased %} active{% endif %}" href="{% url 'residents-deceased' %}">Deceased residents</a>
-	   <a class="dropdown-item{% if discharged %} active{% endif %}" href="{% url 'residents-discharged' %}">Discharged residents</a>
+	   <a class="dropdown-item{% if highlight == 'deceased' %} active{% endif %}" href="{% url 'residents-deceased' %}">Deceased residents</a>
+	   <a class="dropdown-item{% if highlight == 'discharged' %} active{% endif %}" href="{% url 'residents-discharged' %}">Discharged residents</a>
 	 </div>
 </li>
     
 <li class="nav-item dropdown">
   <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Quick tables</a>
     <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 39px, 0px);">
-	   <a class="dropdown-item{% if maintenance %} active{% endif %}" href="{% url 'residents' %}?reports=maintenance">Inventory of Medicines</a>
-		<a class="dropdown-item{% if osca %} active{% endif %}" href="{% url 'residents' %}?reports=osca">OSCA Numbers</a>
+	   <a class="dropdown-item{% if highlight == 'maintenance' %} active{% endif %}" href="{% url 'residents' %}?reports=maintenance">Inventory of Medicines</a>
+		<a class="dropdown-item{% if highlight == 'osca' %} active{% endif %}" href="{% url 'residents' %}?reports=osca">OSCA Numbers</a>
 		<a class="dropdown-item" href="#">Spiritual Profile</a>
 	 </div>
 </li>

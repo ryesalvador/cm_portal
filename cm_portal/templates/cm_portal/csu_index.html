@@ -8,13 +8,9 @@
   {% include 'includes/nav_csu.html' %}
 {% endblock %}
 
-{% block sidebar %}
-  <p></p>  
+{% block sidebar %}   
   {% include 'includes/user.html' %}    
-  <li class="nav-item"><a class="nav-link" href="{% url 'items' %}">All items</a></li>  
-  <li class="nav-item"><a class="nav-link" href="{% url 'medical-supplies' %}">All medical supplies</a></li>  
-  <li class="nav-item"><a class="nav-link" href="{% url 'medical-equipment' %}">All medical equipment</a></li> 
-  <li class="nav-item"><a class="nav-link" href="{% url 'charges' %}">All charges</a></li>   
+  {% include 'includes/csu_sidebar.html' %}   
 {% endblock %}
 
 {% block page_title %}| Central Supplies{% endblock %}
@@ -63,7 +59,7 @@
 			</div>
 		</div>		
       <h3>Dynamic content</h3>
-      <p class="lead">The library has the following record counts:</p>
+      <p class="lead">The database has the following record counts:</p>
       
     <ul class="list-group">
       <a href="{% url 'items' %}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">

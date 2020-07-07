@@ -447,7 +447,7 @@ class MedicalEquipment(models.Model):
 
 class Charge(models.Model):
     date_acquired = models.DateField(null=True, blank=True, default=date.today)
-    borrower = models.ForeignKey('Resident', on_delete=models.CASCADE, limit_choices_to={'vital_status': 'LI'}, null=True)
+    borrower = models.ForeignKey('Resident', on_delete=models.CASCADE, limit_choices_to={'vital_status': 'LI'}, null=True, blank=True)
     item = models.ForeignKey('MedicalSupply', on_delete=models.CASCADE, null=True)
     quantity = models.FloatField()
     unit_of_measure = models.CharField(max_length=35)

@@ -18,7 +18,7 @@ class ItemAdmin(admin.ModelAdmin):
 
 @admin.register(MedicalSupply)
 class MedicalSupplyAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('item', 'date_acquired', 'expiration_date', 'stocks_available', 'unit_of_measure')
 
 @admin.register(MedicalEquipment)
 class MedicalEquipmentAdmin(admin.ModelAdmin):

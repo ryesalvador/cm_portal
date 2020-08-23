@@ -1,6 +1,6 @@
 import django_tables2 as tables
 from .models import Resident, Relative, Physician, Drug, \
-     Item, MedicalSupply, MedicalEquipment, Charge, Employee
+     Employee
 from django.utils.html import format_html
 
 class PhotoColumn(tables.Column):    
@@ -187,54 +187,6 @@ class DrugTable(tables.Table):
                    'indication',)
         attrs = {'class': 'table table-hover'}
 
-class ItemTable(tables.Table):
-    item_name = tables.Column(linkify=True)
-    #brand_name = tables.Column(linkify=True)
-    
-    class Meta:
-        model = Item
-        template_name = 'django_tables2/bootstrap4.html'
-        sequence = ('item_name',
-                    'brand_name',                    
-                    'model',
-                    'manufacturer',
-                    'item_type',
-                    )
-        exclude = ('id',
-                   'description',)
-        attrs = {'class': 'table table-hover'}
-
-class MedicalSupplyTable(tables.Table):
-    item = tables.Column(accessor='id', verbose_name='Name', linkify=True)
-
-    def render_item(self, value, record):
-        return format_html("{}", record.item)
-   
-    class Meta:
-        model = MedicalSupply
-        template_name = 'django_tables2/bootstrap4.html' 
-        exclude = {'id',}       
-        attrs = {'class': 'table table-hover'}
-
-class MedicalEquipmentTable(tables.Table):
-    item = tables.Column(accessor='id', verbose_name='Name', linkify=True)
-
-    def render_item(self, value, record):
-        return format_html("{}", record.item)
-    
-    class Meta:
-        model = MedicalEquipment
-        template_name = 'django_tables2/bootstrap4.html'
-        exclude = {'id',}               
-        attrs = {'class': 'table table-hover'}
-
-class ChargeTable(tables.Table):
-    id = tables.Column(accessor='id', linkify=True)
-    
-    class Meta:
-        model = Charge
-        template_name = 'django_tables2/bootstrap4.html'        
-        attrs = {'class': 'table table-hover'}
 
 class EmployeeTable(tables.Table):
     last_name = tables.Column(linkify=True)

@@ -113,30 +113,6 @@ urlpatterns += [
 ]
 
 urlpatterns += [
-    path('csu/', views.CSUIndex.as_view(), name='csu-index'),
-    path('csu/items/', views.ItemListView.as_view(), name='items'),
-    path('csu/item/<int:pk>/', views.ItemDetailView.as_view(), name='item-detail'),
-    path('csu/item/create/', views.ItemCreate.as_view(), name='item-create'),
-    path('csu/item/<int:pk>/update/', views.ItemUpdate.as_view(), name='item-update'),
-    path('csu/item/<int:pk>/delete/', views.ItemDelete.as_view(), name='item-delete'),
-    path('csu/medical-supplies/', views.MedicalSupplyListView.as_view(), name='medical-supplies'),
-    path('csu/medical-supply/<uuid:pk>/', views.MedicalSupplyDetailView.as_view(), name='medicalsupply-detail'),
-    path('csu/medical-supply/create/', views.MedicalSupplyCreate.as_view(), name='medicalsupply-create'),
-    path('csu/medical-supply/<uuid:pk>/update/', views.MedicalSupplyUpdate.as_view(), name='medicalsupply-update'),
-    path('csu/medical-supply/<uuid:pk>/delete/', views.MedicalSupplyDelete.as_view(), name='medicalsupply-delete'),
-    path('csu/medical-equipment/', views.MedicalEquipmentListView.as_view(), name='medical-equipment'),
-    path('csu/medical-equipment/<uuid:pk>/', views.MedicalEquipmentDetailView.as_view(), name='medicalequipment-detail'),
-    path('csu/medical-equipment/create/', views.MedicalEquipmentCreate.as_view(), name='medicalequipment-create'),
-    path('csu/medical-equipment/<uuid:pk>/update/', views.MedicalEquipmentUpdate.as_view(), name='medicalequipment-update'),
-    path('csu/medical-equipment/<uuid:pk>/delete/', views.MedicalEquipmentDelete.as_view(), name='medicalequipment-delete'),
-    path('csu/charge/<int:pk>', views.ChargeDetailView.as_view(), name='charge-detail'),
-    path('csu/charges/', views.ChargeListView.as_view(), name='charges'),
-    path('csu/charge/create/', views.ChargeCreate.as_view(), name='charge-create'),
-    path('csu/charge/create/<uuid:pk>', views.ChargeCreate.as_view(), name='charge-create'),    
-    path('csu/charge/<int:pk>/delete/', views.ChargeDelete.as_view(), name='charge-delete'),
-]
-
-urlpatterns += [
     #path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/login/', LoginView.as_view(), {'template_name': 'registration/login.html', 'authentication_form': LoginForm}, name='login'),
     path('accounts/logout/', LogoutView.as_view(), name='logout'),
@@ -150,3 +126,9 @@ if settings.DEBUG:
         re_path(r'media/(?P<path>.*)$',
             serve, {'document_root': settings.MEDIA_ROOT, }),
 ] 
+
+urlpatterns += [
+    path('csu/', views.product_list, name='product_list'),
+    path('csu/<slug:category_slug>/', views.product_list, name='product_list_by_category'),
+    path('csu/<int:id>/<slug:slug>/', views.product_detail, name='product_detail'),
+]

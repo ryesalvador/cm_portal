@@ -1,14 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, reverse
 from .models import Resident, Physician, Relative, Employee, Position, Department, \
-     MedicalAbstract, Drug, Medication, Item, MedicalSupply, MedicalEquipment, \
-     Charge, Building, ResidentWeight, EmploymentStatus, Clinic
+     MedicalAbstract, Drug, Medication, Building, ResidentWeight, EmploymentStatus, Clinic
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from .forms import ResidentCreateForm, EmployeeCreateForm, \
-     MedicationCreateForm, MedicalSupplyCreateForm, MedicalEquipmentCreateForm, \
-     UserUpdateForm, ChargeCreateForm, ResidentWeightCreateForm
+     MedicationCreateForm, \
+     UserUpdateForm, ResidentWeightCreateForm
 from itertools import chain
 from django.apps import apps
 from django.utils.decorators import method_decorator
@@ -22,8 +21,8 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect
 import django_tables2 as tables
 from .tables import ResidentTable, RelativeTable, PhysicianTable, DrugTable, \
-     ResidentDeceasedTable, ResidentDischargedTable, ItemTable, MedicalSupplyTable, \
-     MedicalEquipmentTable, ChargeTable, EmployeeTable
+     ResidentDeceasedTable, ResidentDischargedTable, \
+     EmployeeTable
 from django_tables2.export.views import ExportMixin
 from .forms import SearchForm, DrugSearchForm, EmploymentStatusCreateForm, PhysicianSearchForm, ResidentUpdateDietForm
 
@@ -98,10 +97,6 @@ class Dashboard(LoginRequiredMixin, generic.base.TemplateView):
         context['position_list'] = Position.objects.all()
         context['department_list'] = Department.objects.all()      
         # CSU
-        context['item_list'] = Item.objects.all()
-        context['medicalequipment_list'] = MedicalEquipment.objects.all()
-        context['medicalsupply_list'] = MedicalSupply.objects.all()
-        context['charge_list'] = Charge.objects.all()
         return context
 
 ##Main section views
@@ -133,14 +128,6 @@ class HRISIndex(PermissionRequiredMixin, generic.base.TemplateView):
 class CSUIndex(PermissionRequiredMixin, generic.base.TemplateView):
     permission_required = 'cm_portal.can_view_csu'
     template_name = 'cm_portal/csu_index.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['item_list'] = Item.objects.all()
-        context['medicalequipment_list'] = MedicalEquipment.objects.all()
-        context['medicalsupply_list'] = MedicalSupply.objects.all()
-        context['charge_list'] = Charge.objects.all()
-        return context
 
 ############################## GERIATRIC ##############################
 ##Resident views
@@ -704,138 +691,6 @@ class EmploymentStatusDelete(PermissionRequiredMixin, generic.DeleteView):
 	model = EmploymentStatus
 	success_url = reverse_lazy('employment-statuses')
 
-############################## CSU ##############################
-##Item views
-class ItemListView(PermissionRequiredMixin, tables.SingleTableView):
-    permission_required = 'cm_portal.can_view_csu'
-    table_class = ItemTable    
-    queryset = Item.objects.all()
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['highlight'] = 'items'
-        return context
-
-class ItemDetailView(PermissionRequiredMixin, generic.DetailView):
-    permission_required = 'cm_portal.can_view_csu'
-    model = Item
-
-class ItemCreate(PermissionRequiredMixin, generic.CreateView):
-    permission_required = 'cm_portal.add_item'
-    model = Item
-    fields = '__all__'
-
-class ItemUpdate(PermissionRequiredMixin, generic.UpdateView):
-    permission_required = 'cm_portal.change_item'
-    model = Item
-    fields = '__all__'
-    template_name_suffix = '_update_form'
-
-class ItemDelete(PermissionRequiredMixin, generic.DeleteView):
-    permission_required = 'cm_portal.delete_item'
-    model = Item
-    success_url = reverse_lazy('items')
-
-##Medical supply views
-class MedicalSupplyListView(PermissionRequiredMixin, tables.SingleTableView):
-    permission_required = 'cm_portal.can_view_csu'
-    table_class = MedicalSupplyTable    
-    queryset = MedicalSupply.objects.all()
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['highlight'] = 'medical-supplies'
-        return context
-
-class MedicalSupplyDetailView(PermissionRequiredMixin, generic.DetailView):
-    permission_required = 'cm_portal.can_view_csu'
-    model = MedicalSupply
-
-class MedicalSupplyCreate(PermissionRequiredMixin, generic.CreateView):
-    permission_required = 'cm_portal.add_medicalsupply'
-    model = MedicalSupply
-    form_class = MedicalSupplyCreateForm
-
-class MedicalSupplyUpdate(PermissionRequiredMixin, generic.UpdateView):
-    permission_required = 'cm_portal.change_medicalsupply'
-    model = MedicalSupply
-    form_class = MedicalSupplyCreateForm
-    template_name_suffix = '_update_form'
-
-class MedicalSupplyDelete(PermissionRequiredMixin, generic.DeleteView):
-    permission_required = 'cm_portal.delete_medicalsupply'
-    model = MedicalSupply
-    success_url = reverse_lazy('medical-supplies')
-
-##Medical equipment views
-class MedicalEquipmentListView(PermissionRequiredMixin, tables.SingleTableView):
-    permission_required = 'cm_portal.can_view_csu'
-    table_class = MedicalEquipmentTable
-    queryset = MedicalEquipment.objects.all()
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['highlight'] = 'medical-equipment'
-        return context
-
-class MedicalEquipmentDetailView(PermissionRequiredMixin, generic.DetailView):
-    permission_required = 'cm_portal.can_view_csu'
-    model = MedicalEquipment
-
-class MedicalEquipmentCreate(PermissionRequiredMixin, generic.CreateView):
-    permission_required = 'cm_portal.add_medicalequipment'
-    model = MedicalEquipment
-    form_class = MedicalEquipmentCreateForm
-
-class MedicalEquipmentUpdate(PermissionRequiredMixin, generic.UpdateView):
-    permission_required = 'cm_portal.change_medicalequipment'
-    model = MedicalEquipment
-    form_class = MedicalEquipmentCreateForm
-    template_name_suffix = '_update_form'
-
-class MedicalEquipmentDelete(PermissionRequiredMixin, generic.DeleteView):
-    permission_required = 'cm_portal.delete_medicalequipment'
-    model = MedicalEquipment
-    success_url = reverse_lazy('medical-equipments')
-
-##Charge view
-class ChargeListView(PermissionRequiredMixin, tables.SingleTableView):
-    permission_required = 'cm_portal.can_view_csu'
-    table_class = ChargeTable
-    queryset = Charge.objects.all()
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['highlight'] = 'charges'
-        return context
-
-class ChargeDetailView(PermissionRequiredMixin, generic.DetailView):
-    permission_required = 'cm_portal.can_view_csu'
-    model = Charge
-
-class ChargeCreate(PermissionRequiredMixin, generic.CreateView):
-    permission_required = 'cm_portal.add_charge'
-    form_class = ChargeCreateForm
-    model = Charge
-
-    def get_form(self, *args, **kwargs):
-        form = super(ChargeCreate, self).get_form(*args, **kwargs)
-        if 'pk' in self.kwargs:
-            try:
-              item = MedicalSupply.objects.get(id=self.kwargs['pk'])
-              user = self.request.user              
-              form.fields['item'].initial = item
-              form.fields['unit_of_measure'].initial = item.unit_of_measure
-              form.fields['cashier'].initial = user
-            except MedicalSupply.DoesNotExist:
-              pass        
-        return form
-
-class ChargeDelete(PermissionRequiredMixin, generic.DeleteView):
-    permission_required = 'cm_portal.delete_charge'
-    model = Charge
-    success_url = reverse_lazy('charges')
-
 ############################## USER ##############################    
 ##User view
 class UserDetailView(LoginRequiredMixin, generic.DetailView):
@@ -855,3 +710,19 @@ class UserUpdate(LoginRequiredMixin, generic.UpdateView):
 
     def get_object(self):
         return self.request.user
+
+from django.shortcuts import get_object_or_404
+from .models import Category, Product
+
+def product_list(request, category_slug=None):
+    category = None
+    categories = Category.objects.all()
+    products = Product.objects.filter(available=True)
+    if category_slug:
+        category = get_object_or_404(Category, slug=category_slug)
+        products = products.filter(category=category)
+    return render(request, 'cm_portal/product/list.html', {'category': category, 'categories': categories, 'products': products})
+
+def product_detail(request, id, slug):
+    product = get_object_or_404(Product, id=id, slug=slug, available=True)
+    return render(request, 'cm_portal/product/detail.html', {'product': product})

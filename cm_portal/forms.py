@@ -2,7 +2,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django import forms
 from django.forms import ModelForm
 from .models import Resident, Medication, Employee, EmploymentStatus, \
-     MedicalSupply, MedicalEquipment, Charge, ResidentWeight, Drug, Physician
+     ResidentWeight, Drug, Physician
 from django.contrib.auth.models import User
 from simple_search import search_form_factory
 from bootstrap_modal_forms.forms import BSModalForm
@@ -25,14 +25,6 @@ class LoginForm(AuthenticationForm):
                                widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'username'}))
     password = forms.CharField(label="Password", max_length=30, 
                                widget=forms.PasswordInput(attrs={'class': 'form-control', 'name': 'password'}))
-
-class ChargeCreateForm(ModelForm):
-    class Meta:
-        model = Charge
-        fields = '__all__'
-        widgets = {
-            'date_acquired': DateInput(),            
-            }
 
 class MedicationCreateForm(BSModalForm):
     class Meta:
@@ -78,24 +70,6 @@ class EmploymentStatusCreateForm(ModelForm):
                     'date_started': DateInput(),
                     'date_due': DateInput(),
                 }
-
-class MedicalSupplyCreateForm(ModelForm):
-    class Meta:
-        model = MedicalSupply
-        exclude = ('id',)
-        widgets = {
-                'date_acquired': DateInput(),
-                'expiration_date': DateInput(),
-            }
-
-class MedicalEquipmentCreateForm(ModelForm):
-    class Meta:
-        model = MedicalEquipment
-        exclude = ('id',)
-        widgets = {
-                'date_acquired': DateInput(),
-                'due_back': DateInput(),
-            }
 
 class UserUpdateForm(ModelForm):
     class Meta:

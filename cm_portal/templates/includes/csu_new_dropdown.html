@@ -3,25 +3,25 @@
     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">New...</a>
     <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 39px, 0px);">
       {% if perms.cm_portal.add_item %}
-        <a class="dropdown-item" href="{% url 'item-create' %}"><i class="fas fa-plus"></i> New item</a>
+        <a class="dropdown-item" href="#"><i class="fas fa-plus"></i> New item</a>
       {% else %}
         <a class="dropdown-item disabled" href="#"><i class="fas fa-plus"></i> New item</a>
       {% endif %}
       
       {% if perms.cm_portal.add_medicalsupply %}
-        <a class="dropdown-item" href="{% url 'medicalsupply-create' %}"><i class="fas fa-plus"></i> New medical supply</a>
+        <a class="dropdown-item" href="#"><i class="fas fa-plus"></i> New medical supply</a>
       {% else %}
         <a class="dropdown-item disabled" href="#"><i class="fas fa-plus"></i> New medical supply</a>
       {% endif %}
       
       {% if perms.cm_portal.add_medicalequipment %}
-        <a class="dropdown-item" href="{% url 'medicalequipment-create' %}"><i class="fas fa-plus"></i> New medical equipment</a>
+        <a class="dropdown-item" href="#"><i class="fas fa-plus"></i> New medical equipment</a>
       {% else %}
         <a class="dropdown-item disabled" href="#"><i class="fas fa-plus"></i> New medical equipment</a>
       {% endif %}
       
       {% if perms.cm_portal.add_charge %}
-        <a class="dropdown-item" href="{% url 'charge-create' %}"><i class="fas fa-plus"></i> New charge</a>
+        <a class="dropdown-item" href="#"><i class="fas fa-plus"></i> New charge</a>
       {% else %}
         <a class="dropdown-item disabled" href="#"><i class="fas fa-plus"></i> New charge</a>
       {% endif %}

@@ -24,7 +24,7 @@ from .tables import ResidentTable, RelativeTable, PhysicianTable, DrugTable, \
      ResidentDeceasedTable, ResidentDischargedTable, \
      EmployeeTable
 from django_tables2.export.views import ExportMixin
-from .forms import SearchForm, DrugSearchForm, EmploymentStatusCreateForm, PhysicianSearchForm, ResidentUpdateDietForm
+from .forms import SearchForm, DrugSearchForm, EmploymentStatusCreateForm, PhysicianSearchForm, ResidentUpdateDietForm, CartAddProductForm
 
 from bootstrap_modal_forms.generic import (BSModalCreateView,
                                            BSModalUpdateView,
@@ -33,6 +33,8 @@ from bootstrap_modal_forms.generic import (BSModalCreateView,
 from dal import autocomplete
 from django.db.models import Q
 from datetime import datetime
+from django.views.decorators.http import require_POST
+from .cart import Cart
 
 #Function-based views
 @login_required
@@ -79,6 +81,28 @@ def change_password(request):
     return render(request, 'cm_portal/change_password.html', {
         'form': form, 'highlight': 'change-password'
     })
+
+@require_POST
+def cart_add(request, product_id):
+    cart = Cart(request)
+    product = get_object_or_404(Product, id=product_id)
+    form = CartAddProductForm(request.POST)
+    if form.is_valid():
+        cd = form.cleaned_data
+        cart.add(product=product,
+                quantity=cd['quantity'],
+                update_quantity=cd['update'])
+    return redirect('cart-detail')
+
+def cart_remove(request, product_id):
+    cart = Cart(request)
+    product = get_object_or_404(Product, id=product_id)
+    cart.remove(product)
+    return redirect('cart-detail')
+
+def cart_detail(request):
+    cart = Cart(request)
+    return render(request, 'cm_portal/cart/detail.html', {'cart': cart})
 
 #Class-based views
 class Dashboard(LoginRequiredMixin, generic.base.TemplateView):
@@ -713,6 +737,7 @@ class UserUpdate(LoginRequiredMixin, generic.UpdateView):
 
 from django.shortcuts import get_object_or_404
 from .models import Category, Product
+from .forms import CartAddProductForm
 
 def product_list(request, category_slug=None):
     category = None
@@ -725,4 +750,5 @@ def product_list(request, category_slug=None):
 
 def product_detail(request, id, slug):
     product = get_object_or_404(Product, id=id, slug=slug, available=True)
-    return render(request, 'cm_portal/product/detail.html', {'product': product})
+    cart_product_form = CartAddProductForm()
+    return render(request, 'cm_portal/product/detail.html', {'product': product, 'cart_product_form': cart_product_form})

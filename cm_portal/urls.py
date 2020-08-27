@@ -128,7 +128,17 @@ if settings.DEBUG:
 ] 
 
 urlpatterns += [
-    path('csu/', views.product_list, name='product_list'),
-    path('csu/<slug:category_slug>/', views.product_list, name='product_list_by_category'),
-    path('csu/<int:id>/<slug:slug>/', views.product_detail, name='product_detail'),
+    path('csu/products/', views.product_list, name='product-list'),
+    path('csu/products/<slug:category_slug>/', views.product_list, name='product-list-by-category'),
+    path('csu/products/<int:id>/<slug:slug>/', views.product_detail, name='product-detail'),
+]
+
+urlpatterns += [
+        path('csu/cart/', views.cart_detail, name='cart-detail'),
+        path('csu/cart/add/<int:product_id>/',
+            views.cart_add,
+            name='cart-add'),
+        path('csu/cart/remove/<int:product_id>/',
+            views.cart_remove,
+            name='cart-remove'),
 ]

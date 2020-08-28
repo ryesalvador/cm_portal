@@ -142,3 +142,8 @@ urlpatterns += [
             views.cart_remove,
             name='cart-remove'),
 ]
+
+urlpatterns += [
+    path('csu/order/<int:id>/', views.order, name='order-detail'),
+    path('csu/orders/create', views.order_create, name='order-create'),        
+]

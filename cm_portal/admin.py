@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import Relative, Physician, Resident, PerformanceAppraisal, \
      EmploymentStatus, Employee, Position, Department, MedicalAbstract, \
-     Drug, Medication, ResidentWeight
+     Drug, Medication, ResidentWeight, Order, OrderItem
 
 @admin.register(ResidentWeight)
 class ResidentWeight(admin.ModelAdmin):
@@ -103,3 +103,13 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ['available', 'created', 'updated', 'category']
     list_editable = ['price', 'stock', 'available']
     prepopulated_fields = {'slug': ('name',)}
+
+class OrderItemInline(admin.TabularInline):
+    model = OrderItem
+    raw_id_fields = ['product']
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name', 'paid', 'created', 'updated']
+    list_filter = ['paid', 'created', 'updated']
+    inlines = [OrderItemInline]

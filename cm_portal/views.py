@@ -1,6 +1,7 @@
 from django.shortcuts import render, reverse
 from .models import Resident, Physician, Relative, Employee, Position, Department, \
-     MedicalAbstract, Drug, Medication, Building, ResidentWeight, EmploymentStatus, Clinic
+     MedicalAbstract, Drug, Medication, Building, ResidentWeight, EmploymentStatus, \
+     Clinic, OrderItem, Order
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
@@ -24,7 +25,7 @@ from .tables import ResidentTable, RelativeTable, PhysicianTable, DrugTable, \
      ResidentDeceasedTable, ResidentDischargedTable, \
      EmployeeTable
 from django_tables2.export.views import ExportMixin
-from .forms import SearchForm, DrugSearchForm, EmploymentStatusCreateForm, PhysicianSearchForm, ResidentUpdateDietForm, CartAddProductForm
+from .forms import SearchForm, DrugSearchForm, EmploymentStatusCreateForm, PhysicianSearchForm, ResidentUpdateDietForm, CartAddProductForm, OrderCreateForm
 
 from bootstrap_modal_forms.generic import (BSModalCreateView,
                                            BSModalUpdateView,
@@ -102,6 +103,10 @@ def cart_remove(request, product_id):
 
 def cart_detail(request):
     cart = Cart(request)
+    for item in cart:
+        item['update_quantity_form'] = CartAddProductForm(
+                initial={'quantity': item['quantity'],
+                    'update': True})
     return render(request, 'cm_portal/cart/detail.html', {'cart': cart})
 
 #Class-based views
@@ -752,3 +757,29 @@ def product_detail(request, id, slug):
     product = get_object_or_404(Product, id=id, slug=slug, available=True)
     cart_product_form = CartAddProductForm()
     return render(request, 'cm_portal/product/detail.html', {'product': product, 'cart_product_form': cart_product_form})
+
+def order_create(request):
+    cart = Cart(request)
+    if request.method == 'POST':
+        form = OrderCreateForm(request.POST)
+        if form.is_valid():
+            order = form.save()
+            for item in cart:
+                OrderItem.objects.create(order=order,
+                        product=item['product'],
+                        price=item['price'],
+                        quantity=item['quantity'])
+            cart.clear()
+            return render(request,
+                    'cm_portal/order/created.html',
+                    {'order': order})
+    else:
+        form = OrderCreateForm()
+    return render(request,
+            'cm_portal/order/create.html',
+            {'cart': cart, 'form': form})
+
+def order(request, id):
+    order = get_object_or_404(Order, id=id)
+    return render(request, 'cm_portal/order/created.html', {'order': order})
+

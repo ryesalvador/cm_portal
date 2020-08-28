@@ -2,7 +2,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django import forms
 from django.forms import ModelForm
 from .models import Resident, Medication, Employee, EmploymentStatus, \
-     ResidentWeight, Drug, Physician
+     ResidentWeight, Drug, Physician, Order
 from django.contrib.auth.models import User
 from simple_search import search_form_factory
 from bootstrap_modal_forms.forms import BSModalForm
@@ -95,4 +95,7 @@ class CartAddProductForm(forms.Form):
             initial=False,
             widget=forms.HiddenInput)
 
-
+class OrderCreateForm(ModelForm):
+    class Meta:
+        model = Order
+        fields = ['name']

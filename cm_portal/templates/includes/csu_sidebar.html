@@ -1,3 +1,16 @@
+<div class="cart">
+  {% with total_items=cart|length %}
+    {% if cart|length > 0%}
+      Your cart:
+      <a href="{% url "cart-detail" %}">
+        {{ total_items }} item{{ total_items|pluralize }},
+	${{ cart.get_total_price }}
+      </a>
+    {% else %}
+      Your cart is empty.
+    {% endif %}
+  {% endwith %}
+</div>
 <li class="nav-item"><a class="nav-link{% if highlight == 'items' %} active{% endif %}" href="#">All items</a></li>
 <li class="nav-item"><a class="nav-link{% if highlight == 'medical-supplies' %} active{% endif %}" href="#">All medical supplies</a></li>
 <li class="nav-item"><a class="nav-link{% if highlight == 'medical-equipment' %} active{% endif %}" href="#">All medical equipments</a></li>

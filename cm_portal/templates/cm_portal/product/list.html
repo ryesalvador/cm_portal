@@ -23,7 +23,7 @@
   <h1>{% if category %}{{ category.name }}{% else %}Products{% endif %}</h1>
   {% for product in products %}
     <div class="item">
-      <a href="{{ product.get_absolute_url }}"><img src="https://image.shutterstock.com/image-vector/picture-vector-icon-no-image-260nw-1350441335.jpg"></a>
+      <a href="{{ product.get_absolute_url }}"><img src="https://image.shutterstock.com/image-vector/picture-vector-icon-no-image-260nw-1350441335.jpg" width="50" height="50"></a>
       <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
       <br>
       ${{ product.price }}

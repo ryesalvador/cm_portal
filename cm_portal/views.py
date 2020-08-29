@@ -84,6 +84,7 @@ def change_password(request):
     })
 
 @require_POST
+@login_required
 def cart_add(request, product_id):
     cart = Cart(request)
     product = get_object_or_404(Product, id=product_id)
@@ -95,12 +96,14 @@ def cart_add(request, product_id):
                 update_quantity=cd['update'])
     return redirect('cart-detail')
 
+@login_required
 def cart_remove(request, product_id):
     cart = Cart(request)
     product = get_object_or_404(Product, id=product_id)
     cart.remove(product)
     return redirect('cart-detail')
 
+@login_required
 def cart_detail(request):
     cart = Cart(request)
     for item in cart:
@@ -744,6 +747,7 @@ from django.shortcuts import get_object_or_404
 from .models import Category, Product
 from .forms import CartAddProductForm
 
+@login_required
 def product_list(request, category_slug=None):
     category = None
     categories = Category.objects.all()
@@ -753,11 +757,13 @@ def product_list(request, category_slug=None):
         products = products.filter(category=category)
     return render(request, 'cm_portal/product/list.html', {'category': category, 'categories': categories, 'products': products})
 
+@login_required
 def product_detail(request, id, slug):
     product = get_object_or_404(Product, id=id, slug=slug, available=True)
     cart_product_form = CartAddProductForm()
     return render(request, 'cm_portal/product/detail.html', {'product': product, 'cart_product_form': cart_product_form})
 
+@login_required
 def order_create(request):
     cart = Cart(request)
     if request.method == 'POST':
@@ -779,7 +785,8 @@ def order_create(request):
             'cm_portal/order/create.html',
             {'cart': cart, 'form': form})
 
+@login_required
 def order(request, id):
     order = get_object_or_404(Order, id=id)
-    return render(request, 'cm_portal/order/created.html', {'order': order})
+    return render(request, 'cm_portal/order/order_detail.html', {'order': order})
 

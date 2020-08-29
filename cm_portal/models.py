@@ -433,8 +433,11 @@ class Order(models.Model):
     def __str__(self):
         return 'Order {}'.format(self.id)
 
+    def get_absolute_url(self):
+        return reverse('order-detail', args=[self.id])
+
     def get_total_cost(self):
-        return sum(item.get_cost() for item in self.items.all())
+        return sum(item.get_cost() for item in self.Items.all())
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order,
